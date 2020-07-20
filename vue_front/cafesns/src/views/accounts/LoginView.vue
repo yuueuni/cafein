@@ -1,18 +1,32 @@
 <template>
   <div>
-    <h3>Login</h3>
-      <form>
-        <div class="form-group">
-          <label for="username">아이디</label>
-          <input type="text" v-model="loginData.username" id="username" class="form-control" placeholder="아이디를 입력하세요">
-        </div>
-
-        <div class="form-group">
-          <label for="password1">비밀번호</label>
-          <input type="password" v-model="loginData.password" id="password" class="form-control" placeholder="비밀번호를 입력하세요">
-        </div>
-      </form>  
-    <button @click="login(loginData)" class="btn btn-primary">로그인</button>
+    <v-row justify="center">
+      <v-col cols="12" sm="10" md="8" lg="6">
+        <v-card ref="form" class="px-3">
+          <v-card-text>
+            <h1 class="text-center mb-3">Login</h1>
+            <v-text-field 
+              label="Username"
+              v-model="loginData.username" 
+              id="username"
+            >
+            </v-text-field>
+            <v-text-field 
+              label="Password" 
+              type="password" 
+              v-model="loginData.password" 
+              id="password" 
+            >
+            </v-text-field>
+          </v-card-text>
+          <v-divider></v-divider>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="primary" @click="login(loginData)" text>Login</v-btn>
+          </v-card-actions>
+        </v-card>  
+      </v-col>
+    </v-row>
   </div>
 </template>
 

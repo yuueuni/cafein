@@ -1,14 +1,15 @@
 <template>
-  <div>
+  <v-app>
     <div>
       <router-link to="/accounts/signup">Signup</router-link> |
       <router-link to="/accounts/login">Login</router-link> |
       <!-- <router-link to="/accounts/logout">Logout</router-link> -->
       <router-link to="/accounts/mypage">Mypage</router-link> 
     </div>
-    <router-view/>
-  </div>
-  
+    <v-container>
+      <router-view/>
+    </v-container>
+  </v-app>
 </template>
 
 <script>
