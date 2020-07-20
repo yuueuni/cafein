@@ -1,10 +1,35 @@
 <template>
   <v-app>
+    <v-app-bar
+      fixed
+      color="#BCAAA4"
+      dark
+      inverted-scroll
+    >
+      <v-app-bar-nav-icon></v-app-bar-nav-icon>
+
+      <v-toolbar-title>Cafe SNS</v-toolbar-title>
+
+      <v-spacer></v-spacer>
+
+      <v-btn text><router-link to="/accounts/signup" class="link-text">Signup</router-link></v-btn>
+      <v-btn text><router-link to="/accounts/login" class="link-text">Login</router-link></v-btn>
+      <!-- <v-btn text><router-link to="/accounts/logout" class="link-text">Logout</router-link></v-btn> -->
+      <v-btn text><router-link to="/accounts/mypage" class="link-text">Mypage</router-link></v-btn>
+
+      <v-btn icon>
+        <v-icon>mdi-magnify</v-icon>
+      </v-btn>
+
+      <v-btn icon>
+        <v-icon>mdi-heart</v-icon>
+      </v-btn>
+
+      <v-btn icon>
+        <v-icon>mdi-dots-vertical</v-icon>
+      </v-btn>
+    </v-app-bar>
     <div>
-      <router-link to="/accounts/signup">Signup</router-link> |
-      <router-link to="/accounts/login">Login</router-link> |
-      <!-- <router-link to="/accounts/logout">Logout</router-link> -->
-      <router-link to="/accounts/mypage">Mypage</router-link> 
     </div>
     <v-container>
       <router-view/>
@@ -30,3 +55,10 @@ export default {
 
 };
 </script>
+
+<style scoped>
+.link-text {
+  text-decoration: none;
+  color: white;
+}
+</style>
