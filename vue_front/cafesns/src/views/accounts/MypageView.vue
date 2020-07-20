@@ -1,6 +1,6 @@
 <template>
     <div>
-      <h1>유저페이지</h1>
+      <h3>Mypage</h3>
   </div>
 </template>
 
