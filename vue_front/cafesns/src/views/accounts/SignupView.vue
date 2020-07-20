@@ -1,23 +1,41 @@
 <template>
   <div>
-    <h3>Signup</h3>
-      <form>
-        <div class="form-group">
-          <label for="username">아이디</label>
-          <input type="text" v-model="signupData.username" id="username" class="form-control" placeholder="아이디를 입력하세요">
-        </div>
-
-        <div class="form-group">
-          <label for="password1">비밀번호</label>
-          <input type="password" v-model="signupData.password1" id="password1" class="form-control" placeholder="비밀번호를 입력하세요">
-        </div>
-
-        <div class="form-group">
-          <label for="password2">비밀번호확인</label>
-          <input type="password" v-model="signupData.password2" id="password2" class="form-control" placeholder="확인용 비밀번호를 입력하세요">
-        </div>
-      </form>  
-    <button @click="signup(signupData)" class="btn btn-primary">회원가입</button>
+    <v-row justify="center">
+      <v-col cols="12" sm="10" md="8" lg="6">
+        <v-card ref="form" class="px-3">
+          <v-card-text>
+            <h1 class="text-center mb-3">Signup</h1>
+            <v-text-field 
+              label="Username"
+              v-model="signupData.username" 
+              id="username"
+            >
+            </v-text-field>
+            <v-text-field 
+              label="Password" 
+              type="password" 
+              v-model="signupData.password1" 
+              id="password1" 
+            >
+            </v-text-field>
+            <v-text-field 
+              label="Confirm Password"
+              type="password" 
+              v-model="signupData.password2" 
+              id="password2"
+              hint="* 비밀번호를 다시 입력해주세요."
+              persistent-hint
+            >
+            </v-text-field>
+          </v-card-text>
+          <v-divider></v-divider>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="primary" @click="signup(signupData)" text>Sumbit</v-btn>
+          </v-card-actions>
+        </v-card>  
+      </v-col>
+    </v-row>
   </div>
 </template>
 

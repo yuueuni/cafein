@@ -21,6 +21,7 @@
           </v-card-text>
           <v-divider></v-divider>
           <v-card-actions>
+            <span>아직 회원이 아니신가요? <router-link to="/accounts/signup">회원가입</router-link></span>
             <v-spacer></v-spacer>
             <v-btn color="primary" @click="login(loginData)" text>Login</v-btn>
           </v-card-actions>
