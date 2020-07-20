@@ -1,15 +1,23 @@
 <template>
-    <div>
-      <h1>회원가입페이지</h1>
-      <label for="username">아이디</label>
-      <input type="text" id="username" placeholder="아이디를 입력하세요">
+  <div>
+    <h3>Signup</h3>
+      <form>
+        <div class="form-group">
+          <label for="username">아이디</label>
+          <input type="text" v-model="signupData.username" id="username" class="form-control" placeholder="아이디를 입력하세요">
+        </div>
 
-      <label for="password1">비밀번호</label>
-      <input type="password" id="password1" placeholder="비밀번호를 입력하세요">
+        <div class="form-group">
+          <label for="password1">비밀번호</label>
+          <input type="password" v-model="signupData.password1" id="password1" class="form-control" placeholder="비밀번호를 입력하세요">
+        </div>
 
-      <label for="password2">비밀번호확인</label>
-      <input type="password" id="password2" placeholder="동일한 비밀번호를 입력하세요">
-      <button @click="signup">가입</button>
+        <div class="form-group">
+          <label for="password2">비밀번호확인</label>
+          <input type="password" v-model="signupData.password2" id="password2" class="form-control" placeholder="확인용 비밀번호를 입력하세요">
+        </div>
+      </form>  
+    <button @click="signup(signupData)" class="btn btn-primary">회원가입</button>
   </div>
 </template>
 
@@ -30,7 +38,7 @@ export default {
   },
 
   methods: {
-  ...mapActions(["signup"]),
+  ...mapActions(['signup'])
   },
 }
 
