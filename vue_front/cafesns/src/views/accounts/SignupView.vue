@@ -9,6 +9,7 @@
               label="Username"
               v-model="signupData.username" 
               id="username"
+              autofocus
             >
             </v-text-field>
             <v-text-field 
