@@ -9,6 +9,7 @@
               label="Username"
               v-model="loginData.username" 
               id="username"
+              autofocus
             >
             </v-text-field>
             <v-text-field 

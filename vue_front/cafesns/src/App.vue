@@ -6,9 +6,7 @@
       dark
       inverted-scroll
     >
-      <v-app-bar-nav-icon></v-app-bar-nav-icon>
-
-      <v-toolbar-title>Cafe SNS</v-toolbar-title>
+      <v-toolbar-title><router-link to="/" class="link-text">Cafe SNS</router-link></v-toolbar-title>
 
       <v-spacer></v-spacer>
 
@@ -17,7 +15,7 @@
       <!-- <v-btn text><router-link to="/accounts/logout" class="link-text">Logout</router-link></v-btn> -->
       <v-btn text><router-link to="/accounts/mypage" class="link-text">Mypage</router-link></v-btn>
 
-      <v-btn icon>
+      <!-- <v-btn icon>
         <v-icon>mdi-magnify</v-icon>
       </v-btn>
 
@@ -27,11 +25,10 @@
 
       <v-btn icon>
         <v-icon>mdi-dots-vertical</v-icon>
-      </v-btn>
+      </v-btn> -->
+
     </v-app-bar>
-    <div>
-    </div>
-    <v-container>
+    <v-container class="mt-14" style="min-height:1200px;">
       <router-view/>
     </v-container>
   </v-app>
@@ -50,9 +47,8 @@ export default {
   },
 
   mounted() {
-    this.isLoggedIn = this.$cookies.isKey('auth-token')
-  },
-
+    // this.isLoggedIn = this.$cookies.isKey('auth-token')
+  }
 };
 </script>
 
