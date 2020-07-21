@@ -1,6 +1,5 @@
 import os
 from time import sleep
-from random import *
 
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
@@ -8,9 +7,8 @@ from selenium.common.exceptions import ElementNotInteractableException
 from bs4 import BeautifulSoup
 
 from openpyxl import load_workbook
-from openpyxl import Workbook
 
-##########################################################################
+##############################################################  ############
 ##################### variable related selenium ##########################
 ##########################################################################
 options = webdriver.ChromeOptions()
@@ -100,10 +98,11 @@ def search(place_info):
 
                 # 일치하는거 찾았으면 종료 아니면 다음 페이지 찾기기
                 if crawling(place, address, cafe_id, cafe_lists):
-                    search_area.clear()
                     return
         except ElementNotInteractableException:
-            return
+            print('not found')
+        finally:
+            search_area.clear()
 
 def crawling(place, address, cafe_id, cafe_lists):
     global row_num, review_wb, review_ws
@@ -142,11 +141,12 @@ def crawling(place, address, cafe_id, cafe_lists):
 
                 for i, review in enumerate(review_lists):
                     comment = review.select('.txt_comment > span')
-
+                    print(comment[0].text)
                     # 저장 (cell, row, data)
                     review_ws.cell(row_num, i+3, comment[0].text)
                 row_num += 1
-
+            else:
+                print('no review')
             driver.close()
             driver.switch_to.window(driver.window_handles[0])  # 검색 탭으로 전환
 
