@@ -5,7 +5,6 @@ import Home from '@/views/Home.vue'
 // accounts
 import SignupView from '@/views/accounts/SignupView.vue'
 import LoginView from '@/views/accounts/LoginView.vue'
-// import Logout from '@/views/Home.vue'
 import MypageView from '@/views/accounts/MypageView.vue'
 
 Vue.use(VueRouter)

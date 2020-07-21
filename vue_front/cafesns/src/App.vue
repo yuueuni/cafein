@@ -12,9 +12,9 @@
 
       <v-spacer></v-spacer>
 
-      <v-btn text><router-link to="/accounts/signup" class="link-text">Signup</router-link></v-btn>
-      <v-btn text><router-link to="/accounts/login" class="link-text">Login</router-link></v-btn>
-      <!-- <v-btn text><router-link to="/accounts/logout" class="link-text">Logout</router-link></v-btn> -->
+      <v-btn text><router-link v-if="!isLoggedIn" to="/accounts/signup" class="link-text">Signup</router-link></v-btn>
+      <v-btn text><router-link v-if="!isLoggedIn" to="/accounts/login" class="link-text">Login</router-link></v-btn>
+      <!-- <v-btn text><router-link v-if="isLoggedIn" to="/accounts/logout" @click.natice="logout" class="link-text">Logout</router-link></v-btn> -->
       <v-btn text><router-link to="/accounts/mypage" class="link-text">Mypage</router-link></v-btn>
 
       <v-btn icon>
@@ -38,15 +38,17 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
   name: 'App',
+
   computed: {
     ...mapGetters(['isLoggedIn'])
   },
 
   methods: {
+    ...mapActions(['logout'])
   },
 
   mounted() {

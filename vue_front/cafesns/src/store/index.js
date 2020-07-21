@@ -12,6 +12,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     authToken: cookies.get('auth-token'),
+    userData: {},
   },
   
   getters: {
@@ -30,7 +31,10 @@ export default new Vuex.Store({
     SET_TOKEN(state, token) {
       state.authToken = token
       cookies.set('auth-token', token)
-    }   
+    },
+    SET_USERDATA(state, userData) {
+      state.userData = userData
+    },
   },
 
   actions: {
@@ -62,12 +66,21 @@ export default new Vuex.Store({
     logout({ getters, commit }) {
       axios.post(SERVER.URL + SERVER.ROUTES.logout, null, getters.config)
         .then(() => {
-          cookies.remove('auth-token')
           commit('SET_TOKEN', null)
+          cookies.remove('auth-token')
           router.push({ name: 'Home' })
         })
         .catch(err => console.log(err.respsone.data))
-    }
+    },
+
+    fetchUserData({ commit }) {
+      axios.get(SERVER.URL + SERVER.ROUTES.mypage, )
+        .then(res => {
+          commit('SET_USERDATA', res.data)
+        })
+        .catch(err => console.log(err.response.data))
+    },
+
   },
   modules: {
   }
