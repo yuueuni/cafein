@@ -5,5 +5,6 @@ export default{
         login: '',
         logout: '',
         mypage: '',
+        createPost: '',
     }
 }

@@ -14,6 +14,7 @@
       <v-btn text><router-link v-if="!isLoggedIn" to="/accounts/login" class="link-text">Login</router-link></v-btn>
       <!-- <v-btn text><router-link v-if="isLoggedIn" to="/accounts/logout" @click.natice="logout" class="link-text">Logout</router-link></v-btn> -->
       <v-btn text><router-link to="/accounts/mypage" class="link-text">Mypage</router-link></v-btn>
+      <v-btn text><router-link to="/post/create" class="link-text">New Post</router-link></v-btn>
 
       <!-- <v-btn icon>
         <v-icon>mdi-magnify</v-icon>
