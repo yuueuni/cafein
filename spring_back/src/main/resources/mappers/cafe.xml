@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="cafe">
+	
+ 	<select id="select" resultType="CafeDto">
+ 		select *
+ 		from cafe
+ 		where cafeno = #{cafeno}
+	</select>
+	
+	<select id="selectAll" resultType="CafeDto">
+		select *
+		from cafe
+		order by cafeno desc
+	</select>
+	
+	<insert id="insert">
+		insert into cafe (cafeno, name, status, address, tel, business,lat,lng,scale,opendate,business_hours)
+		values (#{cafeno}, #{name}, #{status}, #{address}, #{tel}, #{business}, #{lat}, #{lng}, #{scale}, #{opendate}, #{business_hours})
+	</insert>
+	
+	
+	<update id="update">
+		update cafe
+		set status = #{status}, tel = #{tel}, 
+		business_hours = #{business_hours}
+		where cafeno = #{cafeno}
+	</update>
+	
+	<delete id="delete">
+		delete from cafe
+		where cafeno = #{cafeno}
+	</delete>
+	
+</mapper>
+
