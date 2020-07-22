@@ -50,7 +50,7 @@ export default {
   },
 
   mounted() {
-    // this.isLoggedIn = this.$cookies.isKey('auth-token')
+    this.isLoggedIn = this.$cookies.isKey('auth-token')
   }
 };
 </script>
