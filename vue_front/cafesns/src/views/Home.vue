@@ -27,8 +27,8 @@ export default {
   },
   methods: {
     checkLogin() {
-      alert('로그인이 필요합니다 !')
-      this.$router.push({ name: 'Login'})
+      // alert('로그인이 필요합니다 !')
+      this.$router.push({ name: 'mypage'})
     }
   }
 }

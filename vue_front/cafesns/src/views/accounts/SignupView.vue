@@ -8,15 +8,15 @@
             <v-text-field 
               label="Username"
               v-model="signupData.username" 
-              id="username"
+              id="Username"
               autofocus
             >
             </v-text-field>
             <v-text-field 
               label="Password" 
               type="password" 
-              v-model="signupData.password1" 
-              id="password1" 
+              v-model="signupData.password" 
+              id="password" 
             >
             </v-text-field>
             <v-text-field 
@@ -50,7 +50,7 @@ export default {
     return {
       signupData: {
         username: null,
-        passworod1: null,
+        password: null,
         password2: null,
       }
     }
@@ -58,6 +58,7 @@ export default {
 
   methods: {
   ...mapActions(['signup'])
+  // password != password2
   },
 }
 

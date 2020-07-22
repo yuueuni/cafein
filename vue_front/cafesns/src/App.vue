@@ -13,7 +13,7 @@
       <v-btn text><router-link v-if="!isLoggedIn" to="/accounts/signup" class="link-text">Signup</router-link></v-btn>
       <v-btn text><router-link v-if="!isLoggedIn" to="/accounts/login" class="link-text">Login</router-link></v-btn>
       <!-- <v-btn text><router-link v-if="isLoggedIn" to="/accounts/logout" @click.natice="logout" class="link-text">Logout</router-link></v-btn> -->
-      <v-btn text><router-link to="/accounts/mypage" class="link-text">Mypage</router-link></v-btn>
+      <v-btn text><router-link v-if="isLoggedIn" to="/accounts/mypage" class="link-text">Mypage</router-link></v-btn>
       <v-btn text><router-link to="/post/create" class="link-text">New Post</router-link></v-btn>
 
       <!-- <v-btn icon>
@@ -50,7 +50,7 @@ export default {
   },
 
   mounted() {
-    // this.isLoggedIn = this.$cookies.isKey('auth-token')
+    this.isLoggedIn = this.$cookies.isKey('auth-token')
   }
 };
 </script>
