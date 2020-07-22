@@ -13,6 +13,7 @@ export default new Vuex.Store({
   state: {
     authToken: cookies.get('auth-token'),
     userData: {},
+    postData: {},
   },
   
   getters: {
@@ -35,9 +36,13 @@ export default new Vuex.Store({
     SET_USERDATA(state, userData) {
       state.userData = userData
     },
+    SET_POSTDATA(state, postData) {
+      state.postData = postData
+    }
   },
 
   actions: {
+    // accounts
     authData({ commit }, info) {
       axios.post(SERVER.URL + info.location, info.data)
         .then(res => {
@@ -73,6 +78,7 @@ export default new Vuex.Store({
         .catch(err => console.log(err.respsone.data))
     },
 
+    // user
     fetchUserData({ commit }) {
       axios.get(SERVER.URL + SERVER.ROUTES.mypage, )
         .then(res => {
@@ -81,6 +87,14 @@ export default new Vuex.Store({
         .catch(err => console.log(err.response.data))
     },
 
+    // post
+    createPost({ commit }) {
+      axios.get(SERVER.URL + SERVER.ROUTES.createPost)
+        .then(res => {
+          commit('SET_POSTDATA', res.data)
+        })
+        .catch(err => console.log(err.response.data))
+    }
   },
   modules: {
   }

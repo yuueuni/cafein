@@ -7,6 +7,9 @@ import SignupView from '@/views/accounts/SignupView.vue'
 import LoginView from '@/views/accounts/LoginView.vue'
 import MypageView from '@/views/accounts/MypageView.vue'
 
+// post
+import postCreateView from '@/views/post/postCreateView.vue'
+
 Vue.use(VueRouter)
 
   const routes = [
@@ -34,6 +37,11 @@ Vue.use(VueRouter)
     path: '/accounts/mypage',
     name: 'Mypage',
     component: MypageView
+  },
+  {
+    path: '/post/create',
+    name: 'postCreate',
+    component: postCreateView
   },
 ]
 
