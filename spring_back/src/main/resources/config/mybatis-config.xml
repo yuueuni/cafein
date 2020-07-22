@@ -7,8 +7,12 @@
 	</typeAliases>
 	<mappers>
 		<mapper resource="mappers/userMapper.xml"/>
-		<mapper resource="mappers/cafe.xml"/>
-		<mapper resource="mappers/post.xml"/>
+		<mapper resource="mappers/cafe.xml" />
+		<mapper resource="mappers/post.xml" />
+		<mapper resource="mappers/comment.xml" />
+		<mapper resource="mappers/like.xml" />
+		<mapper resource="mappers/stamp.xml" />
+		<mapper resource="mappers/follow.xml" />
 		
 	</mappers>
 </configuration>
