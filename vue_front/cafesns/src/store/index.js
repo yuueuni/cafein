@@ -46,7 +46,8 @@ export default new Vuex.Store({
     authData({ commit }, info) {
       axios.post(SERVER.URL + info.location, info.data)
         .then(res => {
-          commit('SET_TOKEN', res.data.key)
+          console.log(res)
+          commit('SET_TOKEN', res.data)
           router.push({ name: 'Home' })
         })
         .catch(err => console.log(err.respsone.data))

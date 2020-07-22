@@ -1,10 +1,10 @@
 export default{
-    URL: 'http://localhost:8000',
+    URL: 'http://localhost:9999',
     ROUTES: {
-        signup: '',
-        login: '',
+        signup: '/api/user/signup',
+        login: '/api/user/login',
         logout: '',
-        mypage: '',
+        mypage: '/api/user',
         createPost: '',
     }
 }
