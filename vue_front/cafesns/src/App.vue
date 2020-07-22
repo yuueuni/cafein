@@ -4,7 +4,7 @@
       fixed
       color="#BCAAA4"
       dark
-      inverted-scroll
+      hide-on-scroll
     >
       <v-toolbar-title><router-link to="/" class="link-text">Cafe SNS</router-link></v-toolbar-title>
 
@@ -29,7 +29,7 @@
       </v-btn> -->
 
     </v-app-bar>
-    <v-container class="mt-14" style="min-height:1200px;">
+    <v-container class="mt-16" style="min-height:1200px;">
       <router-view/>
     </v-container>
   </v-app>
