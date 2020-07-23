@@ -1,18 +1,37 @@
 <template>
   <div class="home text-center">
+    <!-- cafe -->
     <v-hover v-slot:default="{ hover }">
-      <div>
-        <h1>Cafe</h1>
-        <SlideList v-if="hover"/>
-      </div>
+        <v-card outlined class="card-list">
+            <h1>Cafe</h1>
+            <SlideList/>
+          <v-expand-transition>
+            <div
+              v-if="!hover"
+              class="d-flex white v-card--reveal display-3"
+              style="height: 100%;"
+            >
+              Cafe
+            </div>
+          </v-expand-transition>
+        </v-card>
     </v-hover>
+    <!-- post -->
     <v-hover v-slot:default="{ hover }">
-      <div>
-        <h1>Post</h1>
-        <SlideList v-if="hover"/>
-      </div>
+        <v-card outlined class="card-list">
+            <h1>Post</h1>
+            <SlideList/>
+          <v-expand-transition>
+            <div
+              v-if="!hover"
+              class="d-flex white v-card--reveal display-3"
+              style="height: 100%;"
+            >
+              Post
+            </div>
+          </v-expand-transition>
+        </v-card>
     </v-hover>
-    <v-btn text @click="checkLogin"><h1>My page</h1></v-btn>
   </div>
 </template>
 
@@ -27,8 +46,8 @@ export default {
   },
   methods: {
     checkLogin() {
-      // alert('로그인이 필요합니다 !')
-      this.$router.push({ name: 'mypage'})
+      alert('로그인이 필요합니다 !')
+      this.$router.push({ name: 'Login'})
     }
   }
 }
@@ -39,6 +58,19 @@ export default {
   color: black;
   text-decoration: none;
   text-transform: capitalize;
+}
+
+.v-card--reveal {
+  align-items: center;
+  bottom: 0;
+  justify-content: center;
+  position: absolute;
+  opacity: 0.9;
+  width: 100%;
+}
+
+.card-list {
+  border: none;
 }
 
 </style>
