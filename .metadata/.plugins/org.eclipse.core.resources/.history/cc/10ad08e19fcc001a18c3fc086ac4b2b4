@@ -1,0 +1,17 @@
+package com.web.cafe.dao;
+
+import java.util.List;
+
+import com.web.cafe.dto.MenuDto;
+
+public interface MenuDao {
+	public List<MenuDto> select(int cafeno);
+	
+	public int insert(MenuDto menu);
+	
+	public int updateItem(MenuDto menu);
+	public int updatePrice(MenuDto menu);
+	
+	public int deleteItem(MenuDto menu);
+	public int deleteAll(int cafeno);
+}

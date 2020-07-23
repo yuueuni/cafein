@@ -1,0 +1,5 @@
+package com.web.cafe.dao;
+
+public interface MenuDao {
+
+}
