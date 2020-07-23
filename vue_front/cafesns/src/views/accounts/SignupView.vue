@@ -1,42 +1,49 @@
 <template>
   <div>
-    <v-row justify="center">
-      <v-col cols="12" sm="10" md="8" lg="6">
-        <v-card ref="form" class="px-3">
-          <v-card-text>
-            <h1 class="text-center mb-3">Signup</h1>
-            <v-text-field 
-              label="Username"
-              v-model="signupData.username" 
-              id="username"
-              autofocus
-            >
-            </v-text-field>
-            <v-text-field 
-              label="Password" 
-              type="password" 
-              v-model="signupData.password1" 
-              id="password1" 
-            >
-            </v-text-field>
-            <v-text-field 
-              label="Confirm Password"
-              type="password" 
-              v-model="signupData.password2" 
-              id="password2"
-              hint="* 비밀번호를 다시 입력해주세요."
-              persistent-hint
-            >
-            </v-text-field>
-          </v-card-text>
-          <v-divider></v-divider>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="primary" @click="signup(signupData)" text>Sumbit</v-btn>
-          </v-card-actions>
-        </v-card>  
-      </v-col>
-    </v-row>
+    <v-dialog v-model="dialog" transition="dialog-bottom-transition" persistent max-width="600px">
+      <v-card ref="form">
+        <v-toolbar dark>
+          <v-toolbar-title>Sign up</v-toolbar-title>
+          <v-spacer></v-spacer>
+          <v-toolbar-items>
+            <v-btn icon dark @click="$router.go(-1)">
+              <v-icon>mdi-close</v-icon>
+            </v-btn>
+          </v-toolbar-items>
+        </v-toolbar>
+        <v-card-text class="px-3 pt-3">
+          <v-text-field 
+            label="Username"
+            v-model="signupData.username" 
+            id="Username"
+            autofocus
+          >
+          </v-text-field>
+          <v-text-field 
+            label="Password" 
+            type="password" 
+            v-model="signupData.password" 
+            id="password" 
+          >
+          </v-text-field>
+          <v-text-field 
+            label="Confirm Password"
+            type="password" 
+            v-model="signupData.password2" 
+            id="password2"
+            hint="* 비밀번호를 다시 입력해주세요."
+            persistent-hint
+          >
+          </v-text-field>
+        </v-card-text>
+        <v-divider></v-divider>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="secondary" @click="signup(signupData)">Sumbit</v-btn>
+          <v-spacer></v-spacer>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -48,9 +55,10 @@ export default {
 
   data() {
     return {
+      dialog: true,
       signupData: {
         username: null,
-        passworod1: null,
+        password: null,
         password2: null,
       }
     }

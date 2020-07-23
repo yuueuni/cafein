@@ -4,32 +4,17 @@
       fixed
       color="#BCAAA4"
       dark
-      inverted-scroll
+      hide-on-scroll
     >
       <v-toolbar-title><router-link to="/" class="link-text">Cafe SNS</router-link></v-toolbar-title>
-
       <v-spacer></v-spacer>
-
-      <v-btn text><router-link v-if="!isLoggedIn" to="/accounts/signup" class="link-text">Signup</router-link></v-btn>
-      <v-btn text><router-link v-if="!isLoggedIn" to="/accounts/login" class="link-text">Login</router-link></v-btn>
-      <!-- <v-btn text><router-link v-if="isLoggedIn" to="/accounts/logout" @click.natice="logout" class="link-text">Logout</router-link></v-btn> -->
-      <v-btn text><router-link to="/accounts/mypage" class="link-text">Mypage</router-link></v-btn>
-      <v-btn text><router-link to="/post/create" class="link-text">New Post</router-link></v-btn>
-
-      <!-- <v-btn icon>
-        <v-icon>mdi-magnify</v-icon>
-      </v-btn>
-
-      <v-btn icon>
-        <v-icon>mdi-heart</v-icon>
-      </v-btn>
-
-      <v-btn icon>
-        <v-icon>mdi-dots-vertical</v-icon>
-      </v-btn> -->
-
+      <router-link v-if="!isLoggedIn" to="/accounts/signup" class="link-text"><v-btn text>Signup</v-btn></router-link>
+      <router-link v-if="!isLoggedIn" to="/accounts/login" class="link-text"><v-btn text>Login</v-btn></router-link>
+      <!-- <router-link v-if="isLoggedIn" to="/accounts/logout" @click.natice="logout" class="link-text"><v-btn text>Logout</v-btn></router-link> -->
+      <router-link to="/accounts/mypage" class="link-text"><v-btn text>Mypage</v-btn></router-link>
+      <router-link to="/post/create" class="link-text"><v-btn text>New Post</v-btn></router-link>
     </v-app-bar>
-    <v-container class="mt-14" style="min-height:1200px;">
+    <v-container class="mt-16" style="min-height:1200px;">
       <router-view/>
     </v-container>
   </v-app>
@@ -50,7 +35,7 @@ export default {
   },
 
   mounted() {
-    // this.isLoggedIn = this.$cookies.isKey('auth-token')
+    this.isLoggedIn = this.$cookies.isKey('auth-token')
   }
 };
 </script>
