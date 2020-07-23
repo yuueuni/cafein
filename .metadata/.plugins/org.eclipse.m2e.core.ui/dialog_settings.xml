@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="MavenProjectImportWizardPage">
+		<list key="rootDirectory">
+			<item value="C:\Users\multicampus\Desktop\cafesns\s03p12a203\spring_backend"/>
+			<item value="C:\Users\multicampus\Desktop\cafesns\s03p12a203\spring_back"/>
+			<item value="C:\SSAFY\cafesns"/>
+			<item value="C:\Users\multicampus\Desktop\cafesns\cafesns"/>
+			<item value="C:\SSAFY\cafeSNS_spring"/>
+			<item value="C:\SSAFY\springboot-security-jwt-master"/>
+			<item value="C:\SSAFY\jwtappdemo-master"/>
+			<item value="C:\SSAFY\spring-security-jwt-example-master"/>
+			<item value="C:\SSAFY\happyhouse_web_final_2-master"/>
+			<item value="C:\SSAFY\skeleton-project-master\skeleton-project-master\backend"/>
+		</list>
+		<list key="projectNameTemplate">
+			<item value="[groupId].[artifactId]-[version]"/>
+			<item value="[artifactId]"/>
+			<item value="[artifactId]-TRUNK"/>
+			<item value="[artifactId]-[version]"/>
+			<item value="[groupId].[artifactId]"/>
+			<item value="[name]"/>
+		</list>
+	</section>
+	<section name="org.eclipse.m2e.core.pom.overview">
+	</section>
+	<section name="org.eclipse.m2e.core.pom.dependencies">
+	</section>
+</section>

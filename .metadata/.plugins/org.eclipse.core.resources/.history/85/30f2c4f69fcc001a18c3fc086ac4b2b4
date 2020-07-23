@@ -1,0 +1,47 @@
+package com.web.cafe.dao;
+
+import java.util.List;
+
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import com.web.cafe.dto.MenuDto;
+
+@Repository
+public class MenuDaoImpl implements MenuDao {
+
+	@Autowired
+	private SqlSession session;
+	
+	@Override
+	public List<MenuDto> select(int cafeno) {
+		return session.selectList("menu.select", cafeno);
+	}
+
+	@Override
+	public int insert(MenuDto menu) {
+		return session.insert("menu.insert", menu);
+	}
+
+	@Override
+	public int updateItem(MenuDto menu) {
+		return session.update("menu.updateItem", menu);
+	}
+
+	@Override
+	public int updatePrice(MenuDto menu) {
+		return session.update("menu.updatePrice", menu);
+	}
+
+	@Override
+	public int deleteItem(MenuDto menu) {
+		return session.delete("menu.deleteItem", menu);
+	}
+
+	@Override
+	public int deleteAll(int cafeno) {
+		return session.delete("menu.deleteAll", cafeno);
+	}
+
+}
