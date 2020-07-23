@@ -4,6 +4,7 @@ from time import sleep
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import ElementNotInteractableException
+from selenium.common.exceptions import NoSuchElementException
 from bs4 import BeautifulSoup
 
 from openpyxl import load_workbook
@@ -24,13 +25,13 @@ driver = webdriver.Chrome(os.path.join(os.getcwd(), chromedriver_path), options=
 load_file_name = "cafeInfoLists.xlsx"
 load_wb = load_workbook(os.path.join(os.getcwd(), load_file_name))
 load_ws = load_wb['Sheet']
-get_cells = load_ws['A2':'C1501']
+get_cells = load_ws['A6807':'C10000']
 
 review_file_name = "reviewLists.xlsx"
 review_wb = load_workbook(os.path.join(os.getcwd(), review_file_name))
 review_ws = review_wb['Sheet1']
 
-row_num = 2 # reviewLists.xslx에 쓸 행 번호
+row_num = 4165 # reviewLists.xslx에 쓸 행 번호
 
 def main():
     global driver, load_wb
@@ -50,9 +51,9 @@ def main():
     for i, place in enumerate(place_infos):
         if i % 4 == 0 and i != 0:
             sleep(5)
+            review_wb.save(os.path.join(os.getcwd(), review_file_name))
         print("#####", i)
         search(place)
-        review_wb.save(os.path.join(os.getcwd(), review_file_name))
 
     driver.quit()
     print("finish")
@@ -116,41 +117,42 @@ def crawling(place, address, cafe_id, cafe_lists):
 
     flag = False
     for i, cafe in enumerate(cafe_lists):
-        if i >= 3:
-            i+=1
-
         cafe_name = cafe.select('.head_item > .tit_name > .link_name')[0].text  # cafeName
         cafe_address = cafe.select('.info_item > .addr > p')[0].text  # cafe address
 
         # 카페 정보가 일치하는 경우에만 상세정보 페이지에서 리뷰 읽기
         if cafe_name == place and cafe_address == address:
             detail_page_xpath = '//*[@id="info.search.place.list"]/li[' + str(i + 1) + ']/div[5]/div[4]/a[1]'
-            driver.find_element_by_xpath(detail_page_xpath).send_keys(Keys.ENTER)
-            driver.switch_to.window(driver.window_handles[-1])  # 상세정보 탭으로 변환
-            sleep(1)
+            try:
+                driver.find_element_by_xpath(detail_page_xpath).send_keys(Keys.ENTER)
+                driver.switch_to.window(driver.window_handles[-1])  # 상세정보 탭으로 변환
+                sleep(1)
 
-            html = driver.page_source
-            soup = BeautifulSoup(html, 'html.parser')
+                html = driver.page_source
+                soup = BeautifulSoup(html, 'html.parser')
 
-            # 리뷰 목록 찾기
-            review_lists = soup.select('.list_evaluation > li')
+                # 리뷰 목록 찾기
+                review_lists = soup.select('.list_evaluation > li')
 
-            if len(review_lists) != 0:
-                review_ws.cell(row_num, 1, cafe_id)    # 카페 아이디
-                review_ws.cell(row_num, 2, cafe_name)  # 카페 이름
+                if len(review_lists) != 0:
+                    review_ws.cell(row_num, 1, cafe_id)    # 카페 아이디
+                    review_ws.cell(row_num, 2, cafe_name)  # 카페 이름
 
-                for i, review in enumerate(review_lists):
-                    comment = review.select('.txt_comment > span')
-                    print(comment[0].text)
-                    # 저장 (cell, row, data)
-                    review_ws.cell(row_num, i+3, comment[0].text)
-                row_num += 1
-            else:
-                print('no review')
-            driver.close()
-            driver.switch_to.window(driver.window_handles[0])  # 검색 탭으로 전환
+                    for i, review in enumerate(review_lists):
+                        comment = review.select('.txt_comment > span')
 
-            return True
+                        if len(comment) != 0:
+                            # 저장 (cell, row, data)
+                            review_ws.cell(row_num, i+3, comment[0].text)
+                    row_num += 1
+                else:
+                    print('no review')
+                driver.close()
+                driver.switch_to.window(driver.window_handles[0])  # 검색 탭으로 전환
+                return True
+            except NoSuchElementException:
+                print("not cafe info list")
+
 
     return flag
 if __name__ == "__main__":
