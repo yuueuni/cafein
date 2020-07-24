@@ -6,3 +6,7 @@
 ### FrontEnd
 - Branch (FrontEnd)
     - 기능별 branch 사용할 것(ex. feature/Navbar)
+
+### BackEnd
+- table 생성
+    - source tables.sql
