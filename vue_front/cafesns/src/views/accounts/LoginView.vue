@@ -13,7 +13,7 @@
       <v-card-text class="px-3 pt-5">
         <v-text-field 
           label="Username"
-          v-model="loginData.username"
+          v-model="loginData.id"
           id="username"
           autofocus
         >
@@ -46,7 +46,7 @@ export default {
       return {
         dialog: true,
         loginData: {
-          username:null,
+          id:null,
           password:null,
         },
       }

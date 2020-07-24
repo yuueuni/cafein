@@ -13,7 +13,14 @@ export default new Vuex.Store({
   state: {
     authToken: cookies.get('auth-token'),
     userData: {},
+
     postData: {},
+
+    likeList: {},
+    stampList: {},
+
+    followingList: {},
+    followerList: {},
   },
   
   getters: {
@@ -36,9 +43,25 @@ export default new Vuex.Store({
     SET_USERDATA(state, userData) {
       state.userData = userData
     },
+
     SET_POSTDATA(state, postData) {
       state.postData = postData
-    }
+    },
+
+    SET_LIKELIST(state, likeList) {
+      state.likeList = likeList
+    },
+    SET_STAMPLIST(state, stampList) {
+      state.stampList = stampList
+    },
+
+    SET_FOLLWINGLIST(state, followingList) {
+      state.followingList = followingList
+    },
+    SET_FOLLOWERLIST(state, followerList) {
+      state.followerList = followerList
+    },
+
   },
 
   actions: {
@@ -46,7 +69,6 @@ export default new Vuex.Store({
     authData({ commit }, info) {
       axios.post(SERVER.URL + info.location, info.data)
         .then(res => {
-          console.log(res)
           commit('SET_TOKEN', res.data)
           router.push({ name: 'Home' })
         })
@@ -80,8 +102,8 @@ export default new Vuex.Store({
     },
 
     // user
-    fetchUserData({ commit }) {
-      axios.get(SERVER.URL + SERVER.ROUTES.mypage, )
+    fetchUserData({ getters, commit }, ) {
+      axios.get(SERVER.URL + SERVER.ROUTES.mypage, getters.config)
         .then(res => {
           commit('SET_USERDATA', res.data)
         })
@@ -95,7 +117,39 @@ export default new Vuex.Store({
           commit('SET_POSTDATA', res.data)
         })
         .catch(err => console.log(err.response.data))
-    }
+    },
+
+    // like, stamp
+    fetchLikeList({ state, getters, commit }) {
+      axios.get(SERVER.URL + SERVER.ROUTES.like + `${state.userData.id}/`, getters.config)
+        .then(res => {
+          commit('SET_LIKELIST', res)
+        })
+        .catch(err => console.log(err.response.data))
+    },
+    fetchStampList({ state, getters, commit }) {
+      axios.get(SERVER.URL + SERVER.ROUTES.stamp + `${state,userData.id}/`, getters.config)
+      .then(res => {
+        commit('SET_STAMPLIST', res)
+      })
+      .catch(err => console.log(err.response.data))
+    },
+
+    // follow
+    fetchFollowingList({ getters, commit }) {
+      axios.get(SERVER.URL + SERVER.ROUTES.following, getters.config)
+        .then(res => {
+          commit('SET_FOLLWINGLIST', res)
+        })
+        .catch(err => console.log(err.response.data))
+    },
+    fetchFollowerList({ getters, commit }) {
+      axios.get(SERVER.URL + SERVER.ROUTES.follower, getters.config)
+      .then(res => {
+        commit('SET_FOLLOWERLIST', res)
+      })
+      .catch(err => console.log(err.response.data))
+    },
   },
   modules: {
   }
