@@ -5,9 +5,9 @@
 	<insert id="insert">
 		insert into user
 		(`id`,`password`)
-		values(	#{id}, 
-				#{password})
-				
+		values( #{id},
+		#{password})
+
 	</insert>
 
 	<delete id="delete">
@@ -15,14 +15,14 @@
 	</delete>
 
 	<update id="update">update user
-		set password=#{password}, 
-				name=#{name}, 
-				gender=#{gender}, 
-				phone=#{phone}, 
-				birth=#{birth}, 
-				survey=#{survey}, 
-				auth=#{auth} 
-				where
+		set password=#{password},
+		name=#{name},
+		gender=#{gender},
+		phone=#{phone},
+		birth=#{birth},
+		survey=#{survey},
+		auth=#{auth}
+		where
 		id=#{id}
 	</update>
 
@@ -34,9 +34,10 @@
 	<select id="selectAll" resultType="UserDto">
 		select * from user
 	</select>
-	
+
 	<select id="findpassword" resultType="UserDto">
-		select id,password from user where id=#{id} limit 1;
+		select id,password from
+		user where id=#{id} limit 1;
 	</select>
 
 </mapper>
