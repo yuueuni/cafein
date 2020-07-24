@@ -91,14 +91,14 @@ export default new Vuex.Store({
       dispatch('authData', info)
     },
 
-    logout({ getters, commit }) {
-      axios.post(SERVER.URL + SERVER.ROUTES.logout, null, getters.config)
-        .then(() => {
-          commit('SET_TOKEN', null)
-          cookies.remove('auth-token')
-          router.push({ name: 'Home' })
-        })
-        .catch(err => console.log(err.respsone.data))
+    logout({ commit }) {
+      // axios.post(SERVER.URL + SERVER.ROUTES.logout, null, getters.config)
+      //   .then(() => {
+      commit('SET_TOKEN', null)
+      cookies.remove('auth-token')
+      router.push({ name: 'Home' })
+        // })
+        // .catch(err => console.log(err.respsone.data))
     },
 
     // user

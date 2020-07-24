@@ -37,7 +37,7 @@
 
 <script>
 // @ is an alias to /src
-import SlideList from '../components/SlideList.vue'
+import SlideList from '@/components/SlideList.vue'
 
 export default {
   name: 'Home',

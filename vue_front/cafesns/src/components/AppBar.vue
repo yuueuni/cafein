@@ -9,7 +9,7 @@
       <v-spacer></v-spacer>
       <router-link v-if="!isLoggedIn" to="/accounts/signup" class="link-text"><v-btn text>Signup</v-btn></router-link>
       <router-link v-if="!isLoggedIn" to="/accounts/login" class="link-text"><v-btn text>Login</v-btn></router-link>
-      <!-- <router-link v-if="isLoggedIn" to="/accounts/logout" @click.natice="logout" class="link-text"><v-btn text>Logout</v-btn></router-link> -->
+      <router-link v-if="isLoggedIn" to="/accounts/logout" @click.native="logout" class="link-text"><v-btn text>Logout</v-btn></router-link>
       <router-link to="/accounts/mypage" class="link-text"><v-btn text>Mypage</v-btn></router-link>
       <router-link to="/post/create" class="link-text"><v-btn text>New Post</v-btn></router-link>
     </v-app-bar>
