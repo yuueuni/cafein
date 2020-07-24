@@ -14,7 +14,7 @@ export default new Vuex.Store({
     authToken: cookies.get('auth-token'),
     userData: {},
 
-    postData: {},
+    postList: {},
 
     likeList: {},
     stampList: {},
@@ -44,8 +44,8 @@ export default new Vuex.Store({
       state.userData = userData
     },
 
-    SET_POSTDATA(state, postData) {
-      state.postData = postData
+    SET_POSTDATA(state, postList) {
+      state.postList = postList
     },
 
     SET_LIKELIST(state, likeList) {
@@ -112,7 +112,7 @@ export default new Vuex.Store({
 
     // post
     createPost({ commit }) {
-      axios.get(SERVER.URL + SERVER.ROUTES.createPost)
+      axios.post(SERVER.URL + SERVER.ROUTES.createPost, getters.config)
         .then(res => {
           commit('SET_POSTDATA', res.data)
         })

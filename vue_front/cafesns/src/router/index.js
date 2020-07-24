@@ -8,7 +8,8 @@ import LoginView from '@/views/accounts/LoginView.vue'
 import MypageView from '@/views/accounts/MypageView.vue'
 
 // post
-import postCreateView from '@/views/post/postCreateView.vue'
+import PostCreateView from '@/views/post/PostCreateView.vue'
+import PostDetailView from '@/views/post/PostDetailView.vue'
 
 Vue.use(VueRouter)
 
@@ -40,8 +41,14 @@ Vue.use(VueRouter)
   },
   {
     path: '/post/create',
-    name: 'postCreate',
-    component: postCreateView
+    name: 'PostCreate',
+    component: PostCreateView
+  },
+  {
+    path: '/post/detail',
+    // path: '/post/:id'
+    name: 'PostDetail',
+    component: PostDetailView,
   },
 ]
 
