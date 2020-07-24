@@ -23,6 +23,11 @@ public class PostDaoImpl implements PostDao {
 	}
 	
 	@Override
+	public int countByUser(String uid) {
+		return session.selectOne("post.countByUser", uid);
+	}
+	
+	@Override
 	public List<PostDto> selectAllByUser(int page, String uid) {
 		int n = 10;
 		RowBounds bound = new RowBounds((page - 1) * n, n);
@@ -49,5 +54,7 @@ public class PostDaoImpl implements PostDao {
 	public int delete(int pno) {
 		return session.delete("post.delete", pno);
 	}
+
+	
 
 }

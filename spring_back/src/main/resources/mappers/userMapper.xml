@@ -4,13 +4,10 @@
 
 	<insert id="insert">
 		insert into user
+		(`id`,`password`)
 		values(	#{id}, 
-				#{pw}, 
-				#{name}, 
-				#{phone}, 
-				#{email}, 
-				#{birth}, 
-				#{auth})
+				#{password})
+				
 	</insert>
 
 	<delete id="delete">
@@ -18,11 +15,12 @@
 	</delete>
 
 	<update id="update">update user
-		set pw=#{pw}, 
+		set password=#{password}, 
 				name=#{name}, 
+				gender=#{gender}, 
 				phone=#{phone}, 
-				email=#{email}, 
 				birth=#{birth}, 
+				survey=#{survey}, 
 				auth=#{auth} 
 				where
 		id=#{id}
@@ -38,7 +36,7 @@
 	</select>
 	
 	<select id="findpassword" resultType="UserDto">
-		select id,pw from customer where email=#{email} limit 1;
+		select id,password from user where id=#{id} limit 1;
 	</select>
 
 </mapper>

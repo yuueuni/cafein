@@ -9,6 +9,12 @@
  		where pno = #{pno}
 	</select>
 	
+	<select id="countByUser" resultType="int">
+		select count(*)
+		from post
+		where uid = #{uid}
+	</select>
+	
 	<select id="selectAllByUser" resultType="PostDto">
 		select *
 		from post
