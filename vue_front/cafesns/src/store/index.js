@@ -5,7 +5,7 @@ import cookies from 'vue-cookies'
 import router from '@/router/index'
 import axios from 'axios'
 
-import SERVER from '@/API/drf'
+import SERVER from '@/API/url'
 
 Vue.use(Vuex)
 
@@ -112,7 +112,7 @@ export default new Vuex.Store({
 
     // post
     createPost({ commit }) {
-      axios.post(SERVER.URL + SERVER.ROUTES.createPost, getters.config)
+      axios.post(SERVER.URL + SERVER.ROUTES.createPost)
         .then(res => {
           commit('SET_POSTDATA', res.data)
         })
@@ -128,7 +128,7 @@ export default new Vuex.Store({
         .catch(err => console.log(err.response.data))
     },
     fetchStampList({ state, getters, commit }) {
-      axios.get(SERVER.URL + SERVER.ROUTES.stamp + `${state,userData.id}/`, getters.config)
+      axios.get(SERVER.URL + SERVER.ROUTES.stamp + `${state.userData.id}/`, getters.config)
       .then(res => {
         commit('SET_STAMPLIST', res)
       })
