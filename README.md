@@ -10,3 +10,6 @@
 ### BackEnd
 - table 생성
     - source tables.sql
+
+### project 관리
+- jenkins 연동 Test
