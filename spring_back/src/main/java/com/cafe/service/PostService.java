@@ -9,6 +9,8 @@ public interface PostService {
 
 	public PostDto select(int pno);
 
+	public int countByUser(String uid);
+	
 	public List<PostDto> selectAllByUser(int page, String uid);
 
 	public List<PostDto> selectAllByCafe(int page, int cafeno);

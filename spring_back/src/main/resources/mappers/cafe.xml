@@ -16,14 +16,14 @@
 	</select>
 	
 	<insert id="insert">
-		insert into cafe (cafeno, name, status, address, tel, business,lat,lng,scale,opendate,business_hours)
-		values (#{cafeno}, #{name}, #{status}, #{address}, #{tel}, #{business}, #{lat}, #{lng}, #{scale}, #{opendate}, #{business_hours})
+		insert into cafe (cafeno, name, status, address, tel,business_hours)
+		values (#{cafeno}, #{name}, #{status}, #{address}, #{tel}, #{business_hours})
 	</insert>
 	
 	
 	<update id="update">
 		update cafe
-		set status = #{status}, tel = #{tel}, 
+		set name = #{name},status = #{status}, address = #{address}, tel = #{tel}, 
 		business_hours = #{business_hours}
 		where cafeno = #{cafeno}
 	</update>

@@ -49,6 +49,11 @@ public class PostController {
 		return post;
 	}
 	
+	@GetMapping("/count/{uid}")
+	public int count(@PathVariable String uid) {
+		System.out.println("count post");
+		return service.countByUser(uid);
+	}
 	
 	@ApiOperation(value = "유저에 따른 게시글?", authorizations = { @Authorization(value="jwt_token") })
 	@GetMapping("/list/user/{page}/{uid}")

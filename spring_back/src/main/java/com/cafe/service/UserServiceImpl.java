@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public UserDto login(String id, String pw) {
 		UserDto user = userDao.select(id);
-		if(user != null && user.getPw().equals(pw)) {
+		if(user != null && user.getPassword().equals(pw)) {
 			return user;
 		}else {
 			return null;
@@ -65,7 +65,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public UserDto findpassword(UserDto user) {
 		UserDto result = userDao.findpassword(user);
-		if(result != null && result.getPw() != null) {
+		if(result != null && result.getPassword() != null) {
 			return result;
 		}else {
 			return null;

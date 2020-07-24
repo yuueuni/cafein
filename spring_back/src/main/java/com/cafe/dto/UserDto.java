@@ -2,45 +2,25 @@ package com.cafe.dto;
 
 public class UserDto {
 	  private String id;     
-	  private String pw;    
-	  private String name;   
+	  private String password;    
+	  private String name;
+	  private String gender;
 	  private String phone;  
-	  private String email;  
 	  private String birth;  
 	  private String survey; 
 	  private String auth;
-	@Override
-	public String toString() {
-		return "UserDto [id=" + id + ", pw=" + pw + ", name=" + name + ", phone=" + phone + ", email=" + email
-				+ ", birth=" + birth + ", survey=" + survey + ", auth=" + auth + "]";
-	}
-	public UserDto(String id, String pw, String name, String phone, String email, String birth, String survey,
-			String auth) {
-		super();
-		this.id = id;
-		this.pw = pw;
-		this.name = name;
-		this.phone = phone;
-		this.email = email;
-		this.birth = birth;
-		this.survey = survey;
-		this.auth = auth;
-	}
-	public UserDto() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+	  
 	public String getId() {
 		return id;
 	}
 	public void setId(String id) {
 		this.id = id;
 	}
-	public String getPw() {
-		return pw;
+	public String getPassword() {
+		return password;
 	}
-	public void setPw(String pw) {
-		this.pw = pw;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 	public String getName() {
 		return name;
@@ -48,17 +28,17 @@ public class UserDto {
 	public void setName(String name) {
 		this.name = name;
 	}
+	public String getGender() {
+		return gender;
+	}
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
 	public String getPhone() {
 		return phone;
 	}
 	public void setPhone(String phone) {
 		this.phone = phone;
-	}
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
 	}
 	public String getBirth() {
 		return birth;
@@ -78,7 +58,15 @@ public class UserDto {
 	public void setAuth(String auth) {
 		this.auth = auth;
 	}
-	  
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("UserDto [id=").append(id).append(", password=").append(password).append(", name=").append(name)
+				.append(", gender=").append(gender).append(", phone=").append(phone).append(", birth=").append(birth)
+				.append(", survey=").append(survey).append(", auth=").append(auth).append("]");
+		return builder.toString();
+	}
+	
 	  
 	  
 }
