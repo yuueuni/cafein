@@ -8,7 +8,7 @@ export default{
         mypage: '/api/user/',
 
         //post
-        createPost: '',
+        createPost: '/api/post',
 
         //like, stamp
         like: '/like/',

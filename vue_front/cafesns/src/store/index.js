@@ -111,8 +111,8 @@ export default new Vuex.Store({
     },
 
     // post
-    createPost({ getters, commit }) {
-      axios.post(SERVER.URL + SERVER.ROUTES.createPost, getters.config)
+    createPost({ commit }) {
+      axios.post(SERVER.URL + SERVER.ROUTES.createPost)
         .then(res => {
           commit('SET_POSTDATA', res.data)
         })
