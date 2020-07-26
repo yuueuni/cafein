@@ -138,6 +138,25 @@ export default new Vuex.Store({
       axios.delete(SERVER.URL + SERVER.ROUTES.deletePost, getters.config)
     },
 
+    // comment
+    createComment({ getters }, commentData) {
+      axios.post(SERVER.URL + SERVER.ROUTES.createComment, commentData, getters.config)
+        .then(() => {
+          console.log(commentData)
+        })
+        .catch(err => console.log(err.response.data))
+    },
+
+    fetchComments({ commit }) {
+      axios.get(SERVER.URL + SERVER.ROUTES.commentList)
+        .then(res => commit('SET_COMMENTS', res.data))
+        .catch(err => console.error(err))
+    },
+
+    deleteComment({ getters }) {
+      axios.delete(SERVER.URL + SERVER.ROUTES.deletePost, getters.config)
+    },
+
     // like, stamp
     fetchLikeList({ state, getters, commit }) {
       axios.get(SERVER.URL + SERVER.ROUTES.like + `${state.userData.id}/`, getters.config)

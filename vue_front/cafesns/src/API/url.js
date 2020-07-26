@@ -12,6 +12,11 @@ export default{
         postList: '',
         deletePost: '',
 
+        //comment
+        createComment: '',
+        commentList: '',
+        deleteComment: '',
+
         //like, stamp
         like: '/like/',
         stamp: '',
