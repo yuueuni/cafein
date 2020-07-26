@@ -95,12 +95,21 @@
         </v-card>
       </v-col>
     </v-row>
+    <CommentCreate/>
+    <CommentList/>
   </div>
 </template>
 
 <script>
+import CommentCreate from '@/components/CommentCreate.vue'
+import CommentList from '@/components/CommentList.vue'
+
 export default {
   name: 'PostDatilView',
+  components: {
+    CommentCreate,
+    CommentList,
+  }
 }
 </script>
 

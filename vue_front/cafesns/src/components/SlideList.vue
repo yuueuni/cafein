@@ -30,20 +30,29 @@
 </template>
 
 <script>
-  export default {
-    name: 'SlideList',
-    data () {
-      return {
-        cards: ['Good', 'Best', 'Finest', 'Good1', 'Best1', 'Finest1', 'Good2', 'Best2', 'Finest2', 'Good3', 'Best3', 'Finest3'],
+import { mapState, mapActions } from 'vuex'
 
-      }
+export default {
+  name: 'SlideList',
+  data () {
+    return {
+      cards: ['Good', 'Best', 'Finest', 'Good1', 'Best1', 'Finest1', 'Good2', 'Best2', 'Finest2', 'Good3', 'Best3', 'Finest3'],
+      selectTarget: null,
+    }
+  },
+  computed: {
+    ...mapState(['posts'])
+  },
+  methods: {
+    getImage () {
+      const min = 550
+      const max = 560
+      return Math.floor(Math.random() * (max - min + 1)) + min
     },
-    methods: {
-      getImage () {
-        const min = 550
-        const max = 560
-        return Math.floor(Math.random() * (max - min + 1)) + min
-      },
-    },
+    ...mapActions(['fetchPosts'])
+  },
+  created() {
+    this.fetchPosts()
   }
+}
 </script>

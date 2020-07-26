@@ -15,6 +15,10 @@ export default new Vuex.Store({
     userData: {},
 
     postList: {},
+    posts: [],
+
+    commentData: {},
+    comments: [],
 
     likeList: {},
     stampList: {},
@@ -44,8 +48,12 @@ export default new Vuex.Store({
       state.userData = userData
     },
 
-    SET_POSTDATA(state, postList) {
-      state.postList = postList
+    SET_POSTS(state, posts) {
+      state.posts = posts
+    },
+
+    SET_COMMENTS(state, comments) {
+      state.comments = comments
     },
 
     SET_LIKELIST(state, likeList) {
@@ -111,12 +119,23 @@ export default new Vuex.Store({
     },
 
     // post
-    createPost({ commit }) {
-      axios.post(SERVER.URL + SERVER.ROUTES.createPost)
-        .then(res => {
-          commit('SET_POSTDATA', res.data)
+    createPost({ getters }, postList) {
+      axios.post(SERVER.URL + SERVER.ROUTES.createPost, postList, getters.config)
+        .then(() => {
+          console.log(postList)
+          this.$router.push({ name: 'Home'})
         })
         .catch(err => console.log(err.response.data))
+    },
+
+    fetchPosts({ commit }) {
+      axios.get(SERVER.URL + SERVER.ROUTES.postList)
+        .then(res => commit('SET_POSTS', res.data))
+        .catch(err => console.error(err))
+    },
+
+    deletePost({ getters }) {
+      axios.delete(SERVER.URL + SERVER.ROUTES.deletePost, getters.config)
     },
 
     // like, stamp
