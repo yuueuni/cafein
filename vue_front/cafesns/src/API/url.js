@@ -8,9 +8,7 @@ export default{
         mypage: '/api/user/',
 
         //post
-        createPost: '/api/post',
-        postList: '',
-        deletePost: '',
+        postList: '/api/post',
 
         //comment
         createComment: '',
