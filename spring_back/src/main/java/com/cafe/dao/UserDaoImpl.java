@@ -18,7 +18,7 @@ public class UserDaoImpl implements UserDao {
 	SqlSession ssesion;
 	
 	@Override
-	public List<UserDto> search(String keyword) {
+	public List<String> search(String keyword) {
 		return ssesion.selectList("user.search", keyword);
 	}
 	

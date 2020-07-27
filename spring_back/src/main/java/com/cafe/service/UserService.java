@@ -7,7 +7,7 @@ import com.cafe.dto.UserDto;
 
 
 public interface UserService {
-	public List<UserDto> search(String keyword);
+	public List<String> search(String keyword);
 	public UserDao getUserDao();
 	public UserDto select(String id);
 	public UserDto login(String id, String pw); // 로그인

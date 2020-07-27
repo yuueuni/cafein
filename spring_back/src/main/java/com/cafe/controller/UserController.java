@@ -73,9 +73,9 @@ public class UserController {
    
    //유저검색
    @GetMapping("/search/{keyword}")
-   public List<UserDto> search(@PathVariable String keyword) {
+   public List<String> search(@PathVariable String keyword) {
 		System.out.println("search user list");
-		List<UserDto> userList = userservice.search(keyword);
+		List<String> userList = userservice.search(keyword);
 		return userList;
 	}
    //로그인 구현

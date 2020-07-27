@@ -11,8 +11,8 @@
 	</insert>
 
 	<!--유저 검색-->
-	<select id="search" resultType="UserDto">
-	select * from user
+	<select id="search" resultType="string">
+	select id from user
 	where id like CONCAT('%',#{keyword},'%')
 
 	</select>
