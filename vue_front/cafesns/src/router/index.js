@@ -11,6 +11,9 @@ import MypageView from '@/views/accounts/MypageView.vue'
 import PostCreateView from '@/views/post/PostCreateView.vue'
 import PostDetailView from '@/views/post/PostDetailView.vue'
 
+// cafe
+import CafeDetailView from '@/views/CafeDetailView.vue'
+
 Vue.use(VueRouter)
 
   const routes = [
@@ -49,6 +52,12 @@ Vue.use(VueRouter)
     // path: '/post/:id'
     name: 'PostDetail',
     component: PostDetailView,
+  },
+  {
+    path: '/cafe/detail',
+    // path: '/cafe/:id'
+    name: 'CafeDetail',
+    component: CafeDetailView,
   },
 ]
 
