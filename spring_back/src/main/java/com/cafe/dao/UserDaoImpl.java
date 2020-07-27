@@ -9,12 +9,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.cafe.dto.UserDto;
+import com.mysql.cj.Session;
 
 @Repository
 public class UserDaoImpl implements UserDao {
 
 	@Autowired
 	SqlSession ssesion;
+	
+	@Override
+	public List<UserDto> search(String keyword) {
+		return ssesion.selectList("user.search", keyword);
+	}
+	
 	@Override
 	public int insert(UserDto user) {
 		return ssesion.insert("user.insert", user);
@@ -44,5 +51,7 @@ public class UserDaoImpl implements UserDao {
 	public UserDto findpassword(UserDto user) {
 		return ssesion.selectOne("user.findpassword", user);
 	}
+
+	
 
 }

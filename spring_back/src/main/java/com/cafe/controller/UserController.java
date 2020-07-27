@@ -33,6 +33,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.cafe.dto.CafeDto;
 import com.cafe.dto.LoginUserDto;
 import com.cafe.dto.UserDto;
 import com.cafe.service.UserService;
@@ -70,6 +71,13 @@ public class UserController {
    }// 해당 user조회 : http://localhost:8080/api/user/select/{id} + GET
    
    
+   //유저검색
+   @GetMapping("/search/{keyword}")
+   public List<UserDto> search(@PathVariable String keyword) {
+		System.out.println("search user list");
+		List<UserDto> userList = userservice.search(keyword);
+		return userList;
+	}
    //로그인 구현
    @PostMapping("/login")
    @ApiOperation(value="로그인을 하기 위해 id와 pw를 보낸다.", response = Integer.class)
