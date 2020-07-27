@@ -12,4 +12,4 @@
     - source tables.sql
 
 ### Automatic build tool
-- jenkins 연동 Testtt
+- jenkins 연동 Test 2번째
