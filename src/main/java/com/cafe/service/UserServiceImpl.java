@@ -25,12 +25,12 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<UserDto> search(String id) {
-		return userDao.search(id);
+	public List<String> search(String keyword) {
+		return userDao.search(keyword);
 	}
 	@Override
-	public UserDto select(String keyword) {
-		return userDao.select(keyword);
+	public UserDto select(String id) {
+		return userDao.select(id);
 	}
 
 	@Override
