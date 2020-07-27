@@ -10,19 +10,20 @@
       v-slot:default="{ active, toggle }"
     >
       <v-card
+        :color="active ? 'primary' : 'grey' "
         class="ma-4"
         @click="toggle"
       >
         <v-img
           :src="`https://picsum.photos/200/300?image=${getImage()}`"
           height="200px"
+          @click="onSelect(card)"
         >
           <v-row align="end" class="lightbox white--text fill-height">
             <v-col style="background:#00000080">
               <div class="subheading">{{ card }}</div>
             </v-col>
           </v-row>
-
         </v-img>
       </v-card>
     </v-slide-item>
@@ -44,12 +45,15 @@ export default {
     ...mapState(['posts'])
   },
   methods: {
+    ...mapActions(['fetchPosts']),
     getImage () {
       const min = 550
       const max = 560
       return Math.floor(Math.random() * (max - min + 1)) + min
     },
-    ...mapActions(['fetchPosts'])
+    onSelect(target) {
+      this.$router.push(`post/${target.id}`)
+    }
   },
   created() {
     this.fetchPosts()

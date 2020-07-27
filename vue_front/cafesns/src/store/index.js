@@ -14,11 +14,16 @@ export default new Vuex.Store({
     authToken: cookies.get('auth-token'),
     userData: {},
 
+    selectedCafe: null,
+
     postList: {},
     posts: [],
+    selectedPost: null,
+    updatePostData: {},
 
     commentData: {},
     comments: [],
+    selectedComment: null,
 
     likeList: {},
     stampList: {},
@@ -120,10 +125,10 @@ export default new Vuex.Store({
 
     // post
     createPost({ getters }, postList) {
-      axios.post(SERVER.URL + SERVER.ROUTES.createPost, postList, getters.config)
+      axios.post(SERVER.URL + SERVER.ROUTES.postList, postList, getters.config)
         .then(() => {
           console.log(postList)
-          this.$router.push({ name: 'Home'})
+          this.$router.push(`post/${postList.id}`)
         })
         .catch(err => console.log(err.response.data))
     },
@@ -134,8 +139,16 @@ export default new Vuex.Store({
         .catch(err => console.error(err))
     },
 
-    deletePost({ getters }) {
-      axios.delete(SERVER.URL + SERVER.ROUTES.deletePost, getters.config)
+    // updatePosts({ state, dispatch, getters }, updatePostDate) {
+    //   axios.put(SERVER.URL + SERVER.ROUTES.postList + `/${state.selectedPost.id}`,updatePostDate, getters.config)
+        // .then(() => {
+        //   dispatch('fetchPosts', state.selectedPost.id)
+        // }
+    //     .catch(err => console.error(err))
+    // },
+
+    deletePost({ getters }, postId) {
+      axios.delete(SERVER.URL + SERVER.ROUTES.postList + `/${postId}`, getters.config)
     },
 
     // comment
@@ -153,8 +166,12 @@ export default new Vuex.Store({
         .catch(err => console.error(err))
     },
 
-    deleteComment({ getters }) {
-      axios.delete(SERVER.URL + SERVER.ROUTES.deletePost, getters.config)
+    deleteComment({ state, getters, dispatch }, commentId) {
+      axios.delete(SERVER.URL + SERVER.ROUTES.deletePost + `/${state.selectedPost.id}/comment/${commentId}`, getters.config)
+        .then(() => {
+          dispatch('fetchComments', state.selectedPost.id)
+        })
+        .catch(err => console.log(err))
     },
 
     // like, stamp
