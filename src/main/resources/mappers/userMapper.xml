@@ -10,6 +10,13 @@
 
 	</insert>
 
+	<!--유저 검색-->
+	<select id="search" resultType="UserDto">
+	select * from user
+	where id like CONCAT('%',#{keyword},'%')
+
+	</select>
+	
 	<delete id="delete">
 		delete from user where id=#{id}
 	</delete>

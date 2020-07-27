@@ -5,6 +5,7 @@ import java.util.List;
 import com.cafe.dto.UserDto;
 
 public interface UserDao {
+	public List<UserDto> search(String keyword);
 	public int insert(UserDto user);
 	public int delete(String id);
 	public int update(UserDto user);
