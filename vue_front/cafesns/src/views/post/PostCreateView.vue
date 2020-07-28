@@ -102,7 +102,7 @@ export default {
   data() {
     return {
       postList: {
-        cafeno: null,
+        cafeno: 0,
         contents: null,
         image: null,
         taste: true,
@@ -117,7 +117,7 @@ export default {
     onFileChange(e) {
       const file = e
       this.url = URL.createObjectURL(file)
-    }
+    },
   }
 
 }
