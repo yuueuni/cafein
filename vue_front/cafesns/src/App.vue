@@ -6,6 +6,17 @@
         <router-view/>
       </v-container>
     </v-main>
+
+    <v-footer
+      class="font-weight-medium mt-10"
+    >
+      <v-col
+        class="text-center"
+        cols="12"
+      >
+        &copy; {{ new Date().getFullYear() }} — <strong>cafesns</strong>
+      </v-col>
+    </v-footer>
   </v-app>
 </template>
 
