@@ -33,13 +33,14 @@
             id="password2"
             hint="* 비밀번호를 다시 입력해주세요."
             persistent-hint
+            @keypress.enter="signup(signupData)"
           >
           </v-text-field>
         </v-card-text>
         <v-divider></v-divider>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="secondary" @click="signup(signupData)">Sumbit</v-btn>
+          <v-btn color="secondary" :disabled="valid" @click="signup(signupData)">Sumbit</v-btn>
           <v-spacer></v-spacer>
         </v-card-actions>
       </v-card>
@@ -60,12 +61,12 @@ export default {
         id: null,
         password: null,
         password2: null,
-      }
+      },
+      valid: true,
     }
   },
-
   methods: {
-  ...mapActions(['signup'])
+    ...mapActions(['signup'])
   },
 }
 
