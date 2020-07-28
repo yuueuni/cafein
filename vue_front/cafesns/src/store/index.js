@@ -13,23 +13,25 @@ export default new Vuex.Store({
   state: {
     authToken: cookies.get('auth-token'),
     userData: {},
-
-    selectedCafe: null,
-
+    
     postList: {},
     posts: [],
     selectedPost: null,
     updatePostData: {},
-
+    
     commentData: {},
     comments: [],
     selectedComment: null,
-
+    
     likeList: {},
     stampList: {},
-
+    
     followingList: {},
     followerList: {},
+    
+    cafeList: {},
+    selectedCafe: null,
+    
   },
   
   getters: {
@@ -75,6 +77,13 @@ export default new Vuex.Store({
       state.followerList = followerList
     },
 
+    SET_CAFELIST(state, cafeList) {
+      state.cafeList = cafeList
+    },
+    SET_SELECTCAFE(state, selectedCafe) {
+      state.selectedCafe = selectedCafe
+    },
+
   },
 
   actions: {
@@ -85,7 +94,7 @@ export default new Vuex.Store({
           commit('SET_TOKEN', res.data)
           router.push({ name: 'Home' })
         })
-        .catch(err => console.log(err.respsone.data))
+        .catch(err => console.log(err))
     },
 
     signup({ dispatch }, signupData) {
@@ -120,25 +129,26 @@ export default new Vuex.Store({
         .then(res => {
           commit('SET_USERDATA', res.data)
         })
-        .catch(err => console.log(err.response.data))
+        .catch(err => console.log(err))
     },
 
     // post
     createPost({ getters }, postList) {
+      postList.taste = postList.taste.toString()
+      postList.mood = postList.mood.toString()
+      postList.clean = postList.clean.toString()
+      console.log(getters.config)
       axios.post(SERVER.URL + SERVER.ROUTES.postList, postList, getters.config)
         .then(() => {
-          console.log(postList)
-          this.$router.push(`post/${postList.id}`)
+          this.$router.push({ name: 'Home' })
         })
-        .catch(err => console.log(err.response.data))
+        .catch(err => console.log(err))
     },
-
     fetchPosts({ commit }) {
       axios.get(SERVER.URL + SERVER.ROUTES.postList)
         .then(res => commit('SET_POSTS', res.data))
         .catch(err => console.error(err))
     },
-
     // updatePosts({ state, dispatch, getters }, updatePostDate) {
     //   axios.put(SERVER.URL + SERVER.ROUTES.postList + `/${state.selectedPost.id}`,updatePostDate, getters.config)
         // .then(() => {
@@ -146,7 +156,6 @@ export default new Vuex.Store({
         // }
     //     .catch(err => console.error(err))
     // },
-
     deletePost({ getters }, postId) {
       axios.delete(SERVER.URL + SERVER.ROUTES.postList + `/${postId}`, getters.config)
     },
@@ -157,15 +166,13 @@ export default new Vuex.Store({
         .then(() => {
           console.log(commentData)
         })
-        .catch(err => console.log(err.response.data))
+        .catch(err => console.log(err))
     },
-
     fetchComments({ commit }) {
       axios.get(SERVER.URL + SERVER.ROUTES.commentList)
         .then(res => commit('SET_COMMENTS', res.data))
         .catch(err => console.error(err))
     },
-
     deleteComment({ state, getters, dispatch }, commentId) {
       axios.delete(SERVER.URL + SERVER.ROUTES.deletePost + `/${state.selectedPost.id}/comment/${commentId}`, getters.config)
         .then(() => {
@@ -180,14 +187,14 @@ export default new Vuex.Store({
         .then(res => {
           commit('SET_LIKELIST', res)
         })
-        .catch(err => console.log(err.response.data))
+        .catch(err => console.log(err))
     },
     fetchStampList({ state, getters, commit }) {
       axios.get(SERVER.URL + SERVER.ROUTES.stamp + `${state.userData.id}/`, getters.config)
       .then(res => {
         commit('SET_STAMPLIST', res)
       })
-      .catch(err => console.log(err.response.data))
+      .catch(err => console.log(err))
     },
 
     // follow
@@ -196,14 +203,26 @@ export default new Vuex.Store({
         .then(res => {
           commit('SET_FOLLWINGLIST', res)
         })
-        .catch(err => console.log(err.response.data))
+        .catch(err => console.log(err))
     },
     fetchFollowerList({ getters, commit }) {
       axios.get(SERVER.URL + SERVER.ROUTES.follower, getters.config)
       .then(res => {
         commit('SET_FOLLOWERLIST', res)
       })
-      .catch(err => console.log(err.response.data))
+      .catch(err => console.log(err))
+    },
+
+    //cafe
+    fetchCafeList({ commit }) {
+      axios.get(SERVER.URL + SERVER.ROUTES.cafeList)
+        .then(res => commit('SET_CAFELIST', res.data))
+        .catch(err => console.error(err))
+    },
+    cafeDetail({ commit, getters }, id) {
+      axios.get(SERVER.URL + SERVER.ROUTES.cafeDetail + id, getters.config)
+        .then(res => commit('SET_SELECTCAFE', res.data))
+        .catch(err => console.error(err))
     },
   },
   modules: {
