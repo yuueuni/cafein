@@ -22,7 +22,10 @@ export default{
         //follow
         following: '',
         folower: '',
-
+        
+        // cafe
+        cafeDetail: '/api/cafe/', // + :id
+        cafeList: '/api/cafe/list/1'
 
 
     }

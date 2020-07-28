@@ -21,7 +21,7 @@
         <v-text-field 
           label="Password" 
           type="password"
-          v-model="loginData.password"
+          v-model="loginData.pw"
           id="password" 
         >
         </v-text-field>
@@ -47,7 +47,7 @@ export default {
         dialog: true,
         loginData: {
           id:null,
-          password:null,
+          pw:null,
         },
       }
     },

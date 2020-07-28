@@ -12,7 +12,8 @@ import PostCreateView from '@/views/post/PostCreateView.vue'
 import PostDetailView from '@/views/post/PostDetailView.vue'
 
 // cafe
-import CafeDetailView from '@/views/CafeDetailView.vue'
+import CafeListView from '@/views/cafe/CafeListView.vue'
+import CafeDetailView from '@/views/cafe/CafeDetailView.vue'
 
 Vue.use(VueRouter)
 
@@ -54,7 +55,12 @@ Vue.use(VueRouter)
     component: PostDetailView,
   },
   {
-    path: '/cafe/detail',
+    path: '/cafe/all',
+    name: 'CafeList',
+    component: CafeListView,
+  },
+  {
+    path: '/cafe/detail/:cafe_id',
     // path: '/cafe/:id'
     name: 'CafeDetail',
     component: CafeDetailView,

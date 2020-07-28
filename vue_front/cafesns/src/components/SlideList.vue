@@ -5,8 +5,8 @@
     show-arrows
   >
     <v-slide-item
-      v-for="card in cards"
-      :key="card"
+      v-for="cafe in cafeList"
+      :key="cafe.id"
       v-slot:default="{ active, toggle }"
     >
       <v-card
@@ -17,11 +17,11 @@
         <v-img
           :src="`https://picsum.photos/200/300?image=${getImage()}`"
           height="200px"
-          @click="onSelect(card)"
+          @click="onSelectCafe(cafe.cafeno)"
         >
           <v-row align="end" class="lightbox white--text fill-height">
             <v-col style="background:#00000080">
-              <div class="subheading">{{ card }}</div>
+              <div class="subheading">{{ cafe.name }}</div>
             </v-col>
           </v-row>
         </v-img>
@@ -35,28 +35,22 @@ import { mapState, mapActions } from 'vuex'
 
 export default {
   name: 'SlideList',
-  data () {
-    return {
-      cards: ['Good', 'Best', 'Finest', 'Good1', 'Best1', 'Finest1', 'Good2', 'Best2', 'Finest2', 'Good3', 'Best3', 'Finest3'],
-      selectTarget: null,
-    }
-  },
   computed: {
-    ...mapState(['posts'])
+    ...mapState(['cafeList'])
   },
   methods: {
-    ...mapActions(['fetchPosts']),
+    ...mapActions(['fetchCafeList']),
     getImage () {
       const min = 550
       const max = 560
       return Math.floor(Math.random() * (max - min + 1)) + min
     },
-    onSelect(target) {
-      this.$router.push(`post/${target.id}`)
+    onSelectCafe(target) {
+      this.$router.push(`/cafe/detail/${target}`)
     }
   },
   created() {
-    this.fetchPosts()
+    this.fetchCafeList()
   }
 }
 </script>
