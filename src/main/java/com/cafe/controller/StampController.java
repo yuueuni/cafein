@@ -20,7 +20,7 @@ import io.swagger.annotations.Authorization;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/stamp")
+@RequestMapping("/api/stamp")
 public class StampController {
 	@Autowired
 	private StampService service;

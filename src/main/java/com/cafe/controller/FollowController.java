@@ -22,7 +22,7 @@ import io.swagger.annotations.Authorization;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/follow")
+@RequestMapping("/api/follow")
 public class FollowController {
 	@Autowired
 	private FollowService service;

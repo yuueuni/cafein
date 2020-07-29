@@ -20,7 +20,7 @@ import io.swagger.annotations.Authorization;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/like")
+@RequestMapping("/api/like")
 public class LikeController {
 	@Autowired
 	private LikeService service;
