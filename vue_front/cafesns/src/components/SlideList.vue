@@ -15,8 +15,9 @@
         @click="toggle"
       >
         <v-img
-          :src="`https://picsum.photos/200/300?image=${getImage()}`"
+          :src="`https://cdn.vuetifyjs.com/images/cards/cooking.png`"
           height="200px"
+          width="200px"
           @click="onSelectCafe(cafe.cafeno)"
         >
           <v-row align="end" class="lightbox white--text fill-height">
@@ -40,11 +41,6 @@ export default {
   },
   methods: {
     ...mapActions(['fetchCafeList']),
-    getImage () {
-      const min = 550
-      const max = 560
-      return Math.floor(Math.random() * (max - min + 1)) + min
-    },
     onSelectCafe(target) {
       this.$router.push(`/cafe/detail/${target}`)
     }
