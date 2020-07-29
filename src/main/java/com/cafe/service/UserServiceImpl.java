@@ -69,7 +69,7 @@ public class UserServiceImpl implements UserService {
 	public int update(UserDto user) {
 		String origin = user.getPassword();
 		if(origin == null) { 
-			return -1;
+			return -1; 
 		}else {
 			String hashed = hashPassword(origin);
 			System.out.println(hashed);
