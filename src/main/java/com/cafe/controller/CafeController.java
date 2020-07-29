@@ -31,7 +31,7 @@ public class CafeController {
 	private CafeService service;
 
 	
-	@ApiOperation(value = "카페정보", authorizations = { @Authorization(value="jwt_token") })
+	@ApiOperation(value = "카페 정보 가져오기")
 	@GetMapping("/{cafeno}")
 	public CafeDto select(@PathVariable Integer cafeno) {
 		System.out.println("select");
@@ -40,7 +40,7 @@ public class CafeController {
 	}
 	
 	
-	@ApiOperation(value = "카페 전체 리스트", authorizations = { @Authorization(value="jwt_token") })
+	@ApiOperation(value = "카페 전체 리스트")
 	@GetMapping("/list/{page}")
 	public List<CafeDto> selectAll(@PathVariable Integer page) {
 		System.out.println("list");
