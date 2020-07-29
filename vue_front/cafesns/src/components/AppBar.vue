@@ -7,6 +7,7 @@
     >
       <v-toolbar-title><router-link to="/" class="link-text">Cafe SNS</router-link></v-toolbar-title>
       <v-spacer></v-spacer>
+      {{ currentUser }} 님 반갑습니다 !
       <router-link v-if="!isLoggedIn" to="/accounts/signup" class="link-text"><v-btn text>Signup</v-btn></router-link>
       <router-link v-if="!isLoggedIn" to="/accounts/login" class="link-text"><v-btn text>Login</v-btn></router-link>
       <router-link v-if="isLoggedIn" to="/accounts/logout" @click.native="logout" class="link-text"><v-btn text>Logout</v-btn></router-link>
@@ -17,13 +18,14 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters, mapActions, mapState } from 'vuex';
 
 export default {
   name: 'AppBar',
 
   computed: {
-    ...mapGetters(['isLoggedIn'])
+    ...mapGetters(['isLoggedIn']),
+    ...mapState(['currentUser'])
   },
 
   methods: {
