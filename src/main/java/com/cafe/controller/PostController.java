@@ -105,7 +105,7 @@ public class PostController {
 	}
 
 	@ApiOperation(value = "게시글 삭제", authorizations = { @Authorization(value = "jwt_token") })
-	@DeleteMapping("/{pno}")
+	@DeleteMapping("/delete/{pno}")
 	public String delete(@PathVariable Integer pno) {
 		System.out.println("delete");
 		int cnt = service.delete(pno);

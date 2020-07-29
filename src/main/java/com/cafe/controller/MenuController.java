@@ -59,7 +59,7 @@ public class MenuController {
 	}
 	
 	@ApiOperation(value = "메뉴 삭제", authorizations = { @Authorization(value="jwt_token") })
-	@DeleteMapping("/{mno}")
+	@DeleteMapping("/delete/{mno}")
 	public String delete(@PathVariable Integer mno) {
 		System.out.println("delete");
 		int cnt = service.delete(mno);
