@@ -68,7 +68,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public int update(UserDto user) {
 		String origin = user.getPassword();
-		if(origin == null) {
+		if(origin == null) { 
 			return -1;
 		}else {
 			String hashed = hashPassword(origin);
