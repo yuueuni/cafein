@@ -49,6 +49,36 @@ public class FileUploadService {
 		
 		return saveFileName;
 	}
+	public String restore(MultipartFile multipartFile, int pno) {
+		
+		String saveFileName = null;
+		
+		try {
+			String originFilename = multipartFile.getOriginalFilename();
+			System.out.println("file name: " + originFilename);
+			
+			String extName = originFilename.substring(originFilename.lastIndexOf("."), originFilename.length());
+			extName=extName.toLowerCase();
+			System.out.println("extension name: " + extName);
+			
+			Long size = multipartFile.getSize();
+			System.out.println("size: " + size);
+			
+			saveFileName = pno+"";
+			System.out.println("save name: " + saveFileName);
+			
+			System.out.println("RESULT: " + writeFile(multipartFile, saveFileName));
+		} 
+		catch(IOException e) 
+		{
+			throw new RuntimeException(e);
+		}
+		finally {
+			System.out.println("FIL");
+		}
+		
+		return saveFileName;
+	}
 	
 	private String genSaveFileName(String extName) {
 		
