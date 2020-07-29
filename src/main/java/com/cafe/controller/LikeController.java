@@ -38,6 +38,7 @@ public class LikeController {
 		LikeDto like = new LikeDto();
 		like.setCafeno(cafeno);
 		like.setUid(uid);
+		System.out.println(uid);
 		return service.selectByUser(like);
 	}
 	
