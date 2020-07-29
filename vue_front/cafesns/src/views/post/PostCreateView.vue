@@ -2,7 +2,12 @@
   <div>
     <router-link to="/post/detail"><v-btn text>go post</v-btn></router-link>
     <v-row justify="center">
-      <v-col cols="12" sm="10" md="8" lg="6">
+      <v-col
+        cols="12"
+        sm="10"
+        md="8"
+        lg="6"
+      >
         <v-card ref="form" class="d-inline-block px-3">
           <v-card-text class="text-center">
             <v-card-title>
@@ -95,7 +100,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
 export default {
   name: 'postCreateView',
@@ -108,18 +113,29 @@ export default {
         taste: true,
         mood: true,
         clean: true,
+        uid: this.currentUser,
       },
       url: null,
+      selectedFile: null,
     }
+  },
+  computed: {
+    ...mapState(['currentUser'])
   },
   methods: {
     ...mapActions(['createPost']),
+    ...mapActions(['uploadImage']),
     onFileChange(e) {
-      const file = e
-      this.url = URL.createObjectURL(file)
+      this.selectedFile = e
+
+      this.url = URL.createObjectURL(this.selectedFile)
+
+      const formData = new FormData()
+      formData.append("image", this.selectedFile, this.selectedFile.name)
+
+      this.uploadImage(formData)
     },
   }
-
 }
 </script>
 
