@@ -23,6 +23,7 @@
           type="password"
           v-model="loginData.pw"
           id="password" 
+          @keypress.enter="login(loginData)"
         >
         </v-text-field>
       <div class="text-center">
