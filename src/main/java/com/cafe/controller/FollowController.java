@@ -22,7 +22,7 @@ import io.swagger.annotations.Authorization;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/follow")
+@RequestMapping("/api/follow")
 public class FollowController {
 	@Autowired
 	private FollowService service;
@@ -76,7 +76,7 @@ public class FollowController {
 	}
 	
 	@ApiOperation(value = "팔로우 삭제", authorizations = { @Authorization(value="jwt_token") })
-	@DeleteMapping("/{uid}/{followingid}")
+	@DeleteMapping("/delete/{uid}/{followingid}")
 	public String delete(@PathVariable String uid, @PathVariable String followingid) {
 		System.out.println("delete follow");
 		FollowDto follow = new FollowDto();

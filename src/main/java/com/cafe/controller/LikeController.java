@@ -20,7 +20,7 @@ import io.swagger.annotations.Authorization;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/like")
+@RequestMapping("/api/like")
 public class LikeController {
 	@Autowired
 	private LikeService service;
@@ -33,7 +33,7 @@ public class LikeController {
 	}
 	
 	@ApiOperation(value = "이전에 좋아요 눌렀는지 체크(눌렀으면 1,안눌렀으면 0)", authorizations = { @Authorization(value="jwt_token") })
-	@GetMapping("/{cafeno}/{uid}")
+	@GetMapping("/check/{cafeno}/{uid}")
 	public int select(@PathVariable Integer cafeno, @PathVariable String uid) {
 		LikeDto like = new LikeDto();
 		like.setCafeno(cafeno);
@@ -53,7 +53,7 @@ public class LikeController {
 	}
 	
 	@ApiOperation(value = "좋아요 삭제", authorizations = { @Authorization(value="jwt_token") })
-	@DeleteMapping("/{cafeno}/{uid}")
+	@DeleteMapping("/delete/{cafeno}/{uid}")
 	public String delete(@PathVariable Integer cafeno, @PathVariable String uid) {
 		System.out.println("delete like");
 		LikeDto like = new LikeDto();

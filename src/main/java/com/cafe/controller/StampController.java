@@ -20,7 +20,7 @@ import io.swagger.annotations.Authorization;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/stamp")
+@RequestMapping("/api/stamp")
 public class StampController {
 	@Autowired
 	private StampService service;
@@ -33,7 +33,7 @@ public class StampController {
 	}
 	
 	@ApiOperation(value = "이전에 발도장 눌렀는지 체크(눌렀으면 1,안눌렀으면 0)", authorizations = { @Authorization(value="jwt_token") })
-	@GetMapping("/{cafeno}/{uid}")
+	@GetMapping("/check/{cafeno}/{uid}")
 	public int select(@PathVariable Integer cafeno, @PathVariable String uid) {
 		StampDto like = new StampDto();
 		like.setCafeno(cafeno);
@@ -52,7 +52,7 @@ public class StampController {
 	}
 	
 	@ApiOperation(value = "발도장 삭제", authorizations = { @Authorization(value="jwt_token") })
-	@DeleteMapping("/{cafeno}/{uid}")
+	@DeleteMapping("/delete/{cafeno}/{uid}")
 	public String delete(@PathVariable Integer cafeno, @PathVariable String uid) {
 		System.out.println("delete stamp");
 		StampDto stamp = new StampDto();

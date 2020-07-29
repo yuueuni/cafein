@@ -77,7 +77,7 @@ public class CafeController {
 	
 	
 	@ApiOperation(value = "카페 삭제", authorizations = { @Authorization(value="jwt_token") })
-	@DeleteMapping("/{cafeno}")
+	@DeleteMapping("/delete/{cafeno}")
 	public String delete(@PathVariable Integer cafeno) {
 		System.out.println("delete");
 		int cnt = service.delete(cafeno);

@@ -23,7 +23,7 @@ import io.swagger.annotations.Authorization;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/comment")
+@RequestMapping("/api/comment")
 public class CommentController {
 	
 	@Autowired
@@ -67,7 +67,7 @@ public class CommentController {
 	}
 	
 	@ApiOperation(value = "댓글 삭제", authorizations = { @Authorization(value="jwt_token") })
-	@DeleteMapping("/{cno}")
+	@DeleteMapping("/delete/{cno}")
 	public String delete(@PathVariable Integer cno) {
 		System.out.println("---delete comment---");
 		System.out.println(cno);
