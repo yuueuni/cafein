@@ -12,6 +12,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     authToken: cookies.get('auth-token'),
+    currentUser: cookies.get('current-user'),
     userData: {},
     
     postList: {},
@@ -50,6 +51,10 @@ export default new Vuex.Store({
     SET_TOKEN(state, token) {
       state.authToken = token
       cookies.set('auth-token', token)
+    },
+    SET_CURRENTUSER(state, username) {
+      state.currentUser = username
+      cookies.set('current-user', username)
     },
     SET_USERDATA(state, userData) {
       state.userData = userData
@@ -92,6 +97,7 @@ export default new Vuex.Store({
       axios.post(SERVER.URL + info.location, info.data)
         .then(res => {
           commit('SET_TOKEN', res.data)
+          commit('SET_CURRENTUSER', info.data.id)
           router.push({ name: 'Home' })
         })
         .catch(err => console.log(err))
@@ -219,9 +225,11 @@ export default new Vuex.Store({
         .then(res => commit('SET_CAFELIST', res.data))
         .catch(err => console.error(err))
     },
-    cafeDetail({ commit, getters }, id) {
-      axios.get(SERVER.URL + SERVER.ROUTES.cafeDetail + id, getters.config)
-        .then(res => commit('SET_SELECTCAFE', res.data))
+    cafeDetail({ commit }, id) {
+      axios.get(SERVER.URL + SERVER.ROUTES.cafeDetail + id)
+        .then(res => {
+          commit('SET_SELECTCAFE', res.data)
+        })
         .catch(err => console.error(err))
     },
   },

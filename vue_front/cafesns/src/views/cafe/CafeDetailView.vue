@@ -13,7 +13,7 @@
             <v-row align="end" class="fill-height text-end">
               <v-col>
                 <v-btn icon color="red lighten-3">
-                  <v-icon>mdi-heart-outline</v-icon>
+                  <v-icon>mdi-heart</v-icon>
                 </v-btn>
                 <v-btn icon color="blue lighten-3">
                   <v-icon>mdi-bookmark-outline</v-icon>
@@ -21,17 +21,17 @@
               </v-col>
             </v-row>
           </v-img>
-          <v-card-title>Cafe Name</v-card-title>
+          <v-card-title>{{ selectedCafe.name }}</v-card-title>
           <v-card-text>
-            <span class="my-4 subtitle-1">cafe keywords</span>
+            <span class="my-4 subtitle-1">tel {{ selectedCafe.tel }}</span>
           </v-card-text>
         </v-col>
 
         <v-col cols="6">
           <v-card-title>cafe open - close</v-card-title>
-          <v-card-text>time 00:00 - 00:00</v-card-text>
-          <v-card-title>cafe menu</v-card-title>
-          <v-card-text>lists..</v-card-text>
+          <v-card-text>{{ selectedCafe.business_hours }}</v-card-text>
+          <v-card-title>cafe address</v-card-title>
+          <v-card-text>{{ selectedCafe.address }}</v-card-text>
         </v-col>
       </v-row>
 
@@ -41,7 +41,6 @@
           <v-btn
             color="deep-purple lighten-2"
             text
-            @click="reserve"
           >
             new post
           </v-btn>
@@ -49,7 +48,7 @@
       </v-card-actions>
     </v-card>
     <div>
-      <h1>{{ cafe.name }}</h1>
+      <h1></h1>
     </div>
     <PostList/>
   </div>
@@ -76,7 +75,7 @@ export default {
     ...mapActions(['cafeDetail'])
   },
   created() {
-    this.selectedCafe(this.cafeId)
+    this.cafeDetail(this.cafeId)
   }
 }
 </script>
