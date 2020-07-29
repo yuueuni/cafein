@@ -16,7 +16,6 @@ public class WebConfig implements WebMvcConfigurer{
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(new JwtInterceptor())
-						.addPathPatterns("/api/post/*")
 						.excludePathPatterns(EXCLUDE_PATHS);
 	}
 
