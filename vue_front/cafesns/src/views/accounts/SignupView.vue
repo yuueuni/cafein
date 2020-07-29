@@ -40,7 +40,7 @@
         <v-divider></v-divider>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="secondary" :disabled="valid" @click="signup(signupData)">Sumbit</v-btn>
+          <v-btn color="secondary" @click="signup(signupData)">Sumbit</v-btn>
           <v-spacer></v-spacer>
         </v-card-actions>
       </v-card>
