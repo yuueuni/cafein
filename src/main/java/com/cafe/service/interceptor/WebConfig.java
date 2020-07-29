@@ -15,18 +15,17 @@ public class WebConfig implements WebMvcConfigurer{
 	private static final String[] INCLUDE_PATHS = { // 막을 url 패턴
 			"/api/cafe",
 			"/api/cafe/delete/*",
-			"/comment",
-			"/comment/delete/*",
-			"/follow",
-			"/follow/delete/*",
-			"/like/check/*",
-			"/like/delete/*",
-			"/menu/delete/*",
+			"/api/comment",
+			"/api/comment/delete/*",
+			"/api/follow",
+			"/api/follow/delete/*",
+			"/api/like/check/*",
+			"/api/like/delete/*",
+			"/api/menu/delete/*",
 			"/api/post",
 			"/api/post/delete/*",
-			"/stamp/check/*",
-			"/stamp/delete/*",
-			"/like/**"
+			"/api/stamp/check/*",
+			"/api/stamp/delete/*"
 	};
 
 	@Override
