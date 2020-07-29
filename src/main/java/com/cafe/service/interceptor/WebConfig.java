@@ -9,10 +9,23 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class WebConfig implements WebMvcConfigurer{
 	private static final String[] EXCLUDE_PATHS = { // 허용할 url 패턴
-			"/api/user/*"
+			"/api/user/*",
+			"/swagger-ui.html"
 			};
 	private static final String[] INCLUDE_PATHS = { // 막을 url 패턴
-			"/api/post/*",
+			"/api/cafe",
+			"/api/cafe/delete/*",
+			"/comment",
+			"/comment/delete/*",
+			"/follow",
+			"/follow/delete/*",
+			"/like/check/*",
+			"/like/delete/*",
+			"/menu/delete/*",
+			"/api/post",
+			"/api/post/delete/*",
+			"/stamp/check/*",
+			"/stamp/delete/*",
 			"/like/**"
 	};
 
