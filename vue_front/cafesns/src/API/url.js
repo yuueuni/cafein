@@ -1,5 +1,5 @@
 export default{
-    URL: 'http://i3a203.p.ssafy.io:5000',
+    URL: 'https://i3a203.p.ssafy.io:5000',
     ROUTES: {
         //accounts 
         signup: '/api/user/signup/',
@@ -9,6 +9,7 @@ export default{
 
         //post
         postList: '/api/post',
+        UploadImage: '/api/post/upload',
 
         //comment
         createComment: '',

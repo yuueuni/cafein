@@ -19,6 +19,7 @@ export default new Vuex.Store({
     posts: [],
     selectedPost: null,
     updatePostData: {},
+    uploadImageURL: null,
     
     commentData: {},
     comments: [],
@@ -88,6 +89,9 @@ export default new Vuex.Store({
     SET_SELECTCAFE(state, selectedCafe) {
       state.selectedCafe = selectedCafe
     },
+    SET_IMAGEURL(state, imageURL) {
+      state.uploadImageURL = imageURL
+    },
 
   },
 
@@ -143,7 +147,6 @@ export default new Vuex.Store({
       postList.taste = postList.taste.toString()
       postList.mood = postList.mood.toString()
       postList.clean = postList.clean.toString()
-      console.log(getters.config)
       axios.post(SERVER.URL + SERVER.ROUTES.postList, postList, getters.config)
         .then(() => {
           this.$router.push({ name: 'Home' })
@@ -164,6 +167,13 @@ export default new Vuex.Store({
     // },
     deletePost({ getters }, postId) {
       axios.delete(SERVER.URL + SERVER.ROUTES.postList + `/${postId}`, getters.config)
+    },
+    uploadImage({ commit }, formData) {
+      axios.post(SERVER.URL + SERVER.ROUTES.UploadImage, formData)
+        .then(res => {
+          commit('SET_IMAGEURL', res.data)
+        })
+        .catch(err => console.log(err))
     },
 
     // comment
