@@ -27,12 +27,14 @@ public class MenuController {
 	@Autowired
 	private MenuService service;
 	
+	@ApiOperation(value = "메뉴 리스트")
 	@GetMapping("/list/{cafeno}")
 	public List<MenuDto> selectAll(@PathVariable Integer cafeno){
 		System.out.println("selectAll");
 		return service.selectAll(cafeno);
 	}
 	
+	@ApiOperation(value = "메뉴 추가", authorizations = { @Authorization(value="jwt_token") })
 	@PostMapping
 	public String insert(@RequestBody MenuDto menu) {
 		System.out.println("insert");
@@ -44,6 +46,7 @@ public class MenuController {
 		return "Failure";
 	}
 	
+	@ApiOperation(value = "메뉴 수정", authorizations = { @Authorization(value="jwt_token") })
 	@PutMapping
 	public String update(@RequestBody MenuDto menu) {
 		System.out.println("update");
@@ -55,7 +58,7 @@ public class MenuController {
 		return "Failure";
 	}
 	
-	
+	@ApiOperation(value = "메뉴 삭제", authorizations = { @Authorization(value="jwt_token") })
 	@DeleteMapping("/{mno}")
 	public String delete(@PathVariable Integer mno) {
 		System.out.println("delete");

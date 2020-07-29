@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cafe.dto.FollowDto;
 import com.cafe.service.FollowService;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.Authorization;
+
 
 
 @CrossOrigin("*")
@@ -24,17 +27,21 @@ public class FollowController {
 	@Autowired
 	private FollowService service;
 	
+	@ApiOperation(value = "팔로워 수")
 	@GetMapping("/count/follower/{followingid}")
 	public int countFollower(@PathVariable String followingid) {
 		System.out.println("count follower");
 		return service.countFollower(followingid);
 	}
+	
+	@ApiOperation(value = "팔로잉 수")
 	@GetMapping("/count/following/{uid}")
 	public int countFollowing(@PathVariable String uid) {
 		System.out.println("count following");
 		return service.countFollowing(uid);
 	}
 	
+	@ApiOperation(value = "팔로워 리스트")
 	@GetMapping("/list/follower/{followingid}")
 	public List<String> selectFollower(@PathVariable String followingid) {
 		System.out.println("select follower");
@@ -46,6 +53,7 @@ public class FollowController {
 		return follwerList;
 	}
 	
+	@ApiOperation(value = "팔로잉 리스트")
 	@GetMapping("/list/following/{uid}")
 	public List<String> selectFollowing(@PathVariable String uid) {
 		System.out.println("select following");
@@ -56,6 +64,8 @@ public class FollowController {
 		}
 		return follwingList;
 	}
+	
+	@ApiOperation(value = "팔로우 추가", authorizations = { @Authorization(value="jwt_token") })
 	@PostMapping
 	public String insert(@RequestBody FollowDto follow) {
 		System.out.println("insert follow");
@@ -65,6 +75,7 @@ public class FollowController {
 		return "Failure";
 	}
 	
+	@ApiOperation(value = "팔로우 삭제", authorizations = { @Authorization(value="jwt_token") })
 	@DeleteMapping("/{uid}/{followingid}")
 	public String delete(@PathVariable String uid, @PathVariable String followingid) {
 		System.out.println("delete follow");
