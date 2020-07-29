@@ -35,6 +35,7 @@ public class PostController {
 	@Autowired
 	private FileUploadService fuService;
 
+	
 	@PostMapping("/upload")
 	public String upload(@RequestParam MultipartFile image) {
 		System.out.println("upload file");

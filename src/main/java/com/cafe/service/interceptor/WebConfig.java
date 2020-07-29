@@ -8,15 +8,19 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class WebConfig implements WebMvcConfigurer{
-	private static final String[] EXCLUDE_PATHS = { // 제외할 url 패턴
+	private static final String[] EXCLUDE_PATHS = { // 허용할 url 패턴
 			"/api/user/*"
 			};
-
+	private static final String[] INCLUDE_PATHS = { // 막을 url 패턴
+			"/api/post/*",
+			"/like/**"
+	};
 
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(new JwtInterceptor())
-						.excludePathPatterns(EXCLUDE_PATHS);
+			.addPathPatterns(INCLUDE_PATHS)
+			.excludePathPatterns(EXCLUDE_PATHS);
 	}
 
     @Override
