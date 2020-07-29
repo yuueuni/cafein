@@ -29,7 +29,7 @@ public class CommentController {
 	@Autowired
 	private CommentService service;
 	
-	
+	@ApiOperation(value = "댓글 리스트")
 	@GetMapping("/list/{pno}")
 	public List<CommentDto> selectAll(@PathVariable Integer pno) {
 		System.out.println("---select all comments---");
@@ -42,6 +42,7 @@ public class CommentController {
 		return comments;
 	}
 	
+	@ApiOperation(value = "댓글 작성", authorizations = { @Authorization(value="jwt_token") })
 	@PostMapping
 	public int insert(@RequestBody CommentDto comment) {
 		System.out.println("---insert comment---");
@@ -53,6 +54,7 @@ public class CommentController {
 		return -1;
 	}
 	
+	@ApiOperation(value = "댓글 수정", authorizations = { @Authorization(value="jwt_token") })
 	@PutMapping
 	public String update(@RequestBody CommentDto comment) {
 		System.out.println("---update comment---");
@@ -64,6 +66,7 @@ public class CommentController {
 		return "Failure";
 	}
 	
+	@ApiOperation(value = "댓글 삭제", authorizations = { @Authorization(value="jwt_token") })
 	@DeleteMapping("/{cno}")
 	public String delete(@PathVariable Integer cno) {
 		System.out.println("---delete comment---");
