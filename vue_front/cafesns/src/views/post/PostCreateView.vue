@@ -8,77 +8,44 @@
         md="8"
         lg="6"
       >
-        <v-card ref="form" class="d-inline-block px-3">
+        <v-card ref="form" class="px-3">
           <v-card-text class="text-center">
             <v-card-title>
               <h1>New Post</h1>
               <v-spacer></v-spacer>
               <span class="text-subtitle-2">cafe name</span>
             </v-card-title>
-            <v-divider></v-divider>
+            <v-divider class="mb-3"></v-divider>
 
-            <!-- taste -->
-            <v-btn-toggle
-              tile
-              color="deep-purple accent-3"
-              group
-              mandatory
-              class="post-checklist"
-            >
-              <v-btn depressed @click="postList.taste = true">
-                <v-icon left>mdi-thumb-up</v-icon>
-                <span>like</span>
-              </v-btn>
-              <v-btn depressed class="disabled-button">
-                <span>맛</span>
-              </v-btn>
-              <v-btn depressed @click="postList.taste = false">
-                <v-icon left>mdi-thumb-down</v-icon>
-                <span>unlike</span>
-              </v-btn>
-            </v-btn-toggle>
+            <span>맛 {{ postList.taste }}</span>
+            <v-rating
+              v-model="postList.taste"
+              color="yellow darken-3"
+              background-color="grey darken-1"
+              empty-icon="$ratingFull"
+              half-increments
+              hover
+            ></v-rating>
 
-            <!-- mood -->
-            <v-btn-toggle
-              tile
-              color="deep-purple accent-3"
-              group
-              mandatory
-              class="post-checklist"
-            >
-              <v-btn depressed @click="postList.mood = true">
-                <v-icon left>mdi-thumb-up</v-icon>
-                <span>like</span>
-              </v-btn>
-              <v-btn depressed class="disabled-button">
-                <span>분위기</span>
-              </v-btn>
-              <v-btn depressed @click="postList.mood = false">
-                <v-icon left>mdi-thumb-down</v-icon>
-                <span>unlike</span>
-              </v-btn>
-            </v-btn-toggle>
+            <span>분위기 {{ postList.mood }}</span>
+            <v-rating
+              v-model="postList.mood"
+              color="yellow darken-3"
+              background-color="grey darken-1"
+              empty-icon="$ratingFull"
+              half-increments
+              hover
+            ></v-rating>
 
-            <!-- clean -->
-            <v-btn-toggle
-              tile
-              color="deep-purple accent-3"
-              group
-              mandatory
-              class="post-checklist"
-            >
-              <v-btn depressed @click="postList.clean = true">
-                <v-icon left>mdi-thumb-up</v-icon>
-                <span>like</span>
-              </v-btn>
-              <v-btn depressed class="disabled-button">
-                <span>위생</span>
-              </v-btn>
-              <v-btn depressed @click="postList.clean = false">
-                <v-icon left>mdi-thumb-down</v-icon>
-                <span>unlike</span>
-              </v-btn>
-            </v-btn-toggle>
+            <span>위생 {{ postList.clean }}</span>
+            <v-rating
+              v-model="postList.clean"
+              color="yellow darken-3"
+              background-color="grey darken-1"
+              empty-icon="$ratingFull"
+              half-increments
+              hover
+            ></v-rating>
 
             <v-textarea 
               label="Content" 
@@ -90,8 +57,8 @@
             <v-file-input accept="image/*" label="File input" @change="onFileChange"></v-file-input>
             <v-img v-if="url" :src="url" contain max-width="100%" max-height="300px"></v-img>
           </v-card-text>
-          <div class="text-center mb-3">
-            <v-btn color="secondary" @click="createPost(postList)">Save</v-btn>
+          <div class="text-center mb-3 pb-3">
+            <v-btn color="secondary" @click="uploadImage({postList, formData})">Save</v-btn>
           </div>
         </v-card>  
       </v-col>
@@ -107,14 +74,15 @@ export default {
   data() {
     return {
       postList: {
-        cafeno: 0,
+        cafeno: 7,
         contents: null,
+        taste: 3,
+        mood: 3,
+        clean: 3,
+        uid: null,
         image: null,
-        taste: true,
-        mood: true,
-        clean: true,
-        uid: this.currentUser,
       },
+      formData: new FormData(),
       url: null,
       selectedFile: null,
     }
@@ -123,17 +91,13 @@ export default {
     ...mapState(['currentUser'])
   },
   methods: {
-    ...mapActions(['createPost']),
     ...mapActions(['uploadImage']),
     onFileChange(e) {
       this.selectedFile = e
 
       this.url = URL.createObjectURL(this.selectedFile)
 
-      const formData = new FormData()
-      formData.append("image", this.selectedFile, this.selectedFile.name)
-
-      this.uploadImage(formData)
+      this.formData.append("image", this.selectedFile, this.selectedFile.name)
     },
   }
 }

@@ -49,8 +49,8 @@ Vue.use(VueRouter)
     component: PostCreateView
   },
   {
-    path: '/post/detail',
-    // path: '/post/:id'
+    // path: '/post/detail',
+    path: '/post/detail/:post_id',
     name: 'PostDetail',
     component: PostDetailView,
   },
