@@ -15,6 +15,12 @@
 		order by cafeno desc
 	</select>
 	
+	<!--카페 검색-->
+	<select id="search" resultType="CafeDto">
+	select * from cafe
+	where name like CONCAT('%',#{keyword},'%')
+	</select>
+	
 	<insert id="insert">
 		insert into cafe (cafeno, name, status, address, tel,business_hours)
 		values (#{cafeno}, #{name}, #{status}, #{address}, #{tel}, #{business_hours})

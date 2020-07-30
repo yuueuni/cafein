@@ -19,18 +19,24 @@ import com.cafe.service.CafeService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.Authorization;
 
-
 @CrossOrigin("*")
 @RestController
 @RequestMapping("/api/cafe")
 //http://localhost:8080/swagger-ui.html
 public class CafeController {
 
-	
 	@Autowired
 	private CafeService service;
 
-	
+	// 카페검색
+	@ApiOperation(value = "카페 검색해서 리스트 가져오기")
+	@GetMapping("/search/{keyword}")
+	public List<CafeDto> search(@PathVariable String keyword) {
+		System.out.println("search cafe list");
+		List<CafeDto> cafeList = service.search(keyword);
+		return cafeList;
+	}
+
 	@ApiOperation(value = "카페 정보 가져오기")
 	@GetMapping("/{cafeno}")
 	public CafeDto select(@PathVariable Integer cafeno) {
@@ -38,8 +44,7 @@ public class CafeController {
 		CafeDto cafe = service.select(cafeno);
 		return cafe;
 	}
-	
-	
+
 	@ApiOperation(value = "카페 전체 리스트")
 	@GetMapping("/list/{page}")
 	public List<CafeDto> selectAll(@PathVariable Integer page) {
@@ -49,42 +54,39 @@ public class CafeController {
 		return cafeList;
 	}
 
-	
-	@ApiOperation(value = "카페 추가", authorizations = { @Authorization(value="jwt_token") })
+	@ApiOperation(value = "카페 추가", authorizations = { @Authorization(value = "jwt_token") })
 	@PostMapping
 	public String insert(@RequestBody CafeDto cafe) {
 		System.out.println("insert");
 		int cnt = service.insert(cafe);
 		System.out.println(cafe);
-		if(cnt > 0) {
+		if (cnt > 0) {
 			return "Success";
 		}
 		return "Failure";
 	}
 
-	
-	@ApiOperation(value = "카페 수정", authorizations = { @Authorization(value="jwt_token") })
+	@ApiOperation(value = "카페 수정", authorizations = { @Authorization(value = "jwt_token") })
 	@PutMapping
 	public String update(@RequestBody CafeDto cafe) {
 		System.out.println("update");
 		System.out.println(cafe);
 		int cnt = service.update(cafe);
-		if(cnt > 0) {
+		if (cnt > 0) {
 			return "Success";
 		}
 		return "Failure";
 	}
-	
-	
-	@ApiOperation(value = "카페 삭제", authorizations = { @Authorization(value="jwt_token") })
+
+	@ApiOperation(value = "카페 삭제", authorizations = { @Authorization(value = "jwt_token") })
 	@DeleteMapping("/delete/{cafeno}")
 	public String delete(@PathVariable Integer cafeno) {
 		System.out.println("delete");
 		int cnt = service.delete(cafeno);
-		if(cnt > 0) {
+		if (cnt > 0) {
 			return "Success";
 		}
 		return "Failure";
 	}
-	
+
 }
