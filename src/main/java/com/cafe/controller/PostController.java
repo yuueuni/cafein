@@ -39,7 +39,7 @@ public class PostController {
 	@PostMapping("/upload")
 	public String upload(@RequestParam MultipartFile image) {
 		System.out.println("upload file");
-		System.out.println(image);
+		System.out.println(image); 
 
 		String url = fuService.restore(image);
 		System.out.println("URL :" + url);
