@@ -7,7 +7,8 @@ export default{
         mypage: '/user',
 
         //post
-        postList: '/post',
+        postList: '/post/list/cafe/1/',
+        postDetail: '/post/',
         UploadImage: '/post/upload',
 
         //comment
