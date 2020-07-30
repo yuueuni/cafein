@@ -1,9 +1,12 @@
 package com.cafe.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cafe.dao.LikeDao;
+import com.cafe.dto.CafeDto;
 import com.cafe.dto.LikeDto;
 
 
@@ -34,4 +37,8 @@ public class LikeServiceImpl implements LikeService {
 		return dao.selectByUser(user);
 	}
 	
+	@Override
+	public List<CafeDto> selectCafe(String uid) {
+		return dao.selectCafe(uid);
+	}
 }

@@ -15,6 +15,14 @@
 		where cafeno = #{cafeno} and uid = #{uid}
 	</select>
 	
+	<!-- 발도장 누른 카페 리스트 -->
+	<select id="selectCafe" resultType="CafeDto">
+		select *
+		from cafe c, stamp s
+		where c.cafeno = s.cafeno
+		and s.uid = #{uid};
+	</select>
+	
 	<insert id="insert" >
 		insert into stamp (cafeno, uid)
 		values (#{cafeno}, #{uid})

@@ -15,6 +15,14 @@
 		where cafeno = #{cafeno} and uid = #{uid}
 	</select>
 	
+	<!-- 좋아요 누른 카페 리스트 -->
+	<select id="selectCafe" resultType="CafeDto">
+		select *
+		from cafe c, `like` l
+		where c.cafeno = l.cafeno
+		and l.uid = #{uid};
+	</select>
+	
 	<insert id="insert">
 		insert into `like` (cafeno, uid)
 		values (#{cafeno}, #{uid})

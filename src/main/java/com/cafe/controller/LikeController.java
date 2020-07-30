@@ -1,5 +1,7 @@
 package com.cafe.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cafe.dto.CafeDto;
 import com.cafe.dto.LikeDto;
 import com.cafe.service.LikeService;
 
@@ -63,6 +66,15 @@ public class LikeController {
 			return "Success";
 		}
 		return "Failure";
+	}
+	
+	@ApiOperation(value = "유저가 좋아요 누른 카페리스트")
+	@GetMapping("/list/{uid}")
+	public List<CafeDto> selectCafe(@PathVariable String uid) {
+		System.out.println("cafe list liked by user");
+		System.out.println(uid);
+		List<CafeDto> cafeList = service.selectCafe(uid);
+		return cafeList;
 	}
 	
 }

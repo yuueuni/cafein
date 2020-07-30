@@ -1,9 +1,12 @@
 package com.cafe.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.cafe.dto.CafeDto;
 import com.cafe.dto.LikeDto;
 
 
@@ -34,4 +37,8 @@ public class LikeDaoImpl implements LikeDao{
 		return session.selectOne("like.selectByUser", user);
 	}
 
+	@Override
+	public List<CafeDto> selectCafe(String uid) {
+		return session.selectList("like.selectCafe", uid);
+	}
 }

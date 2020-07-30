@@ -1,9 +1,12 @@
 package com.cafe.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.cafe.dto.CafeDto;
 import com.cafe.dto.StampDto;
 
 
@@ -32,6 +35,11 @@ public class StampDaoImpl implements StampDao{
 	@Override
 	public int selectByUser(StampDto user) {
 		return session.selectOne("stamp.selectByUser", user);
+	}
+	
+	@Override
+	public List<CafeDto> selectCafe(String uid) {
+		return session.selectList("like.selectCafe", uid);
 	}
 
 }
