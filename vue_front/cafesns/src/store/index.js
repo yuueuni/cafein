@@ -6,13 +6,14 @@ import router from '@/router/index'
 import axios from 'axios'
 
 import SERVER from '@/API/url'
+import createPersistedState from 'vuex-persistedstate'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
     authToken: cookies.get('auth-token'),
-    currentUser: cookies.get('current-user'),
+    currentUser: null,
     userData: {},
     
     postList: {},
@@ -52,10 +53,6 @@ export default new Vuex.Store({
     SET_TOKEN(state, token) {
       state.authToken = token
       cookies.set('auth-token', token)
-    },
-    SET_CURRENTUSER(state, username) {
-      state.currentUser = username
-      cookies.set('current-user', username)
     },
     SET_USERDATA(state, userData) {
       state.userData = userData
@@ -97,14 +94,18 @@ export default new Vuex.Store({
 
   actions: {
     // accounts
-    authData({ commit }, info) {
+    authData({ state, commit }, info) {
       axios.post(SERVER.URL + info.location, info.data)
         .then(res => {
           commit('SET_TOKEN', res.data)
-          commit('SET_CURRENTUSER', info.data.id)
+          state.currentUser = info.data.id
+          this.dispatch("fetchUserData")
           router.push({ name: 'Home' })
         })
-        .catch(err => console.log(err))
+        .catch(err => {
+          console.log(err)
+          alert("이메일과 비밀번호를 확인하세요.")
+        })
     },
 
     signup({ dispatch }, signupData) {
@@ -123,20 +124,18 @@ export default new Vuex.Store({
       dispatch('authData', info)
     },
 
-    logout({ commit }) {
-      // axios.post(SERVER.URL + SERVER.ROUTES.logout, null, getters.config)
-      //   .then(() => {
+    logout({ state, commit }) {
       commit('SET_TOKEN', null)
+      state.currentUser = null
       cookies.remove('auth-token')
       router.push({ name: 'Home' })
-        // })
-        // .catch(err => console.log(err.respsone.data))
     },
 
     // user
-    fetchUserData({ getters, commit }, ) {
-      axios.get(SERVER.URL + SERVER.ROUTES.mypage, getters.config)
+    fetchUserData({ state, commit, getters }) {
+      axios.get(SERVER.URL + SERVER.ROUTES.mypage + `/${state.currentUser}`, getters.config)
         .then(res => {
+          console.log(res)
           commit('SET_USERDATA', res.data)
         })
         .catch(err => console.log(err))
@@ -198,13 +197,48 @@ export default new Vuex.Store({
     },
 
     // like, stamp
-    fetchLikeList({ state, getters, commit }) {
-      axios.get(SERVER.URL + SERVER.ROUTES.like + `${state.userData.id}/`, getters.config)
-        .then(res => {
-          commit('SET_LIKELIST', res)
-        })
-        .catch(err => console.log(err))
-    },
+    // fetchLikeList({ state, getters, commit }, cafeno, i) {
+    //   const userid = state.userData.id
+    //   axios.get(SERVER.URL + SERVER.ROUTES.like + `/${cafeno}/${userid}/`, getters.config)
+    //     .then(res => {
+    //       commit('SET_LIKELIST', res)
+    //     })
+    //     .catch(err => console.log(err))
+    // },
+
+    // likeCafe({ state }, cafeno, i) {
+    //   console.log("like")
+    //   const userid = state.userData.id
+    //   axios.get(SERVER.URL + SERVER.ROUTES.like + `/check/${cafeno}/${userid}`)
+    //     .then(res => {
+    //       console.log("COUNT: " + res.data);
+    //       if (res.data === 0) {
+    //         const likeData = {
+    //           cafeno: cafeno,
+    //           uid: userid
+    //         }
+    //         axios.post(SERVER.URL + SERVER.ROUTES.like, likeData)
+    //           .then(() => {
+    //             this.$set(this.cafeList[i], "like", this.cafeList[i].like + 1);
+    //             console.log("success");
+    //           })
+    //           .catch(err => console.log(err))
+    //       } 
+    //       else {
+    //         axios.delete(SERVER.URL + SERVER.ROUTES.like + `/delete/${cafeno}/${userid}`)
+    //           .then(() => {
+    //             this.$set(this.cafeList[i], "like", this.cafeList[i].like - 1);
+    //             console.log("success");
+    //           })
+    //           .catch(err => console.log(err))
+    //         console.log("else");
+    //       }
+    //     })
+    //     .catch(err => console.log(err))
+    // },
+
+
+
     fetchStampList({ state, getters, commit }) {
       axios.get(SERVER.URL + SERVER.ROUTES.stamp + `${state.userData.id}/`, getters.config)
       .then(res => {
@@ -244,5 +278,8 @@ export default new Vuex.Store({
     },
   },
   modules: {
-  }
+  },
+  plugins: [
+    createPersistedState()
+  ]
 })

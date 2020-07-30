@@ -1,15 +1,14 @@
 export default{
-    URL: 'https://i3a203.p.ssafy.io:5000',
+    URL: 'http://i3a203.p.ssafy.io:5000/api',
     ROUTES: {
         //accounts 
-        signup: '/api/user/signup/',
-        login: '/api/user/login',
-        logout: '',
-        mypage: '/api/user/',
+        signup: '/user/signup',
+        login: '/user/login',
+        mypage: '/user',
 
         //post
-        postList: '/api/post',
-        UploadImage: '/api/post/upload',
+        postList: '/post',
+        UploadImage: '/post/upload',
 
         //comment
         createComment: '',
@@ -17,16 +16,15 @@ export default{
         deleteComment: '',
 
         //like, stamp
-        like: '/like/',
-        stamp: '',
+        like: '/like',
+        stamp: '/stamp',
 
         //follow
-        following: '',
-        folower: '',
+        follow: '/follow',
         
         // cafe
-        cafeDetail: '/api/cafe/', // + :id
-        cafeList: '/api/cafe/list/1'
+        cafeDetail: '/cafe/', // + :id
+        cafeList: '/cafe/list/1'
 
 
     }
