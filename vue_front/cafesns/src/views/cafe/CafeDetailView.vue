@@ -21,17 +21,20 @@
               </v-col>
             </v-row>
           </v-img>
-          <v-card-title>{{ selectedCafe.name }}</v-card-title>
-          <v-card-text>
-            <span class="my-4 subtitle-1">tel {{ selectedCafe.tel }}</span>
-          </v-card-text>
+          <v-card-title>cafe keywords</v-card-title>
+          <v-card-text></v-card-text>
         </v-col>
 
         <v-col cols="6">
+          <v-card-title class="display-2">{{ selectedCafe.name }}</v-card-title>
+          <v-card-text>
+            <span class="my-4 subtitle-1">tel) {{ selectedCafe.tel }}</span>
+          </v-card-text>
           <v-card-title>cafe open - close</v-card-title>
           <v-card-text>{{ selectedCafe.business_hours }}</v-card-text>
           <v-card-title>cafe address</v-card-title>
           <v-card-text>{{ selectedCafe.address }}</v-card-text>
+
         </v-col>
       </v-row>
 
@@ -41,15 +44,14 @@
           <v-btn
             color="deep-purple lighten-2"
             text
+            @click="cafePost(selectedCafe.cafeno)"
           >
             new post
           </v-btn>
         </router-link>
       </v-card-actions>
     </v-card>
-    <div>
-      <h1></h1>
-    </div>
+
     <PostList/>
   </div>
 </template>
@@ -72,7 +74,10 @@ export default {
     ...mapState(['selectedCafe'])
   },
   methods: {
-    ...mapActions(['cafeDetail'])
+    ...mapActions(['cafeDetail']),
+    cafePost(cafeno) {
+      this.$router.push(`/cafe/detail/${cafeno}`)
+    }
   },
   created() {
     this.cafeDetail(this.cafeId)
