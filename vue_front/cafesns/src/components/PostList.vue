@@ -1,24 +1,45 @@
 <template>
-  <v-list-item>
-    <v-list-item-content>
-      <v-list-item-title>Cafe keywords</v-list-item-title>
-      <v-list-item-subtitle>
-        <v-chip-group
-          active-class="deep-purple--text text--accent-4"
-          mandatory
+  <div>
+    <h3>Posts</h3>
+    <v-list flat>
+      <v-list-item-group>
+        <v-list-item
+          v-for="post in posts"
+          :key="post.pno"
         >
-          <v-chip disabled>키워드1</v-chip>
-          <v-chip disabled>키워드2</v-chip>
-          <v-chip disabled>키워드3</v-chip>
-        </v-chip-group>
-      </v-list-item-subtitle>
-    </v-list-item-content>
-  </v-list-item>
+          <v-list-item-avatar>
+            <v-icon class="grey lighten-1 white--text" v-text="folder"></v-icon>
+          </v-list-item-avatar>
+
+          <v-list-item-content @click="onSelectPost(post.pno)">
+            <v-list-item-title>{{ post.contents }}</v-list-item-title>
+            
+            <v-list-item-subtitle>{{ post.uid }}</v-list-item-subtitle>
+          </v-list-item-content>
+          <v-list-item-action>{{ post.date }}</v-list-item-action>
+        </v-list-item>
+      </v-list-item-group>
+    </v-list>
+  </div>
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex'
+
 export default {
   name: 'PostList',
+  computed: {
+    ...mapState(['posts'])
+  },
+  methods: {
+    ...mapActions(['fetchPosts']),
+    onSelectPost(postno) {
+      this.$router.push(`/post/detail/${postno}`)
+    }
+  },
+  created() {
+    this.fetchPosts(this.$route.params.cafe_id)
+  },
 
 }
 </script>
