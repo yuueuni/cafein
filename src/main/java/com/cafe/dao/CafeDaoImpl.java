@@ -18,6 +18,11 @@ public class CafeDaoImpl implements CafeDao {
 	private SqlSession session;
 	
 	@Override
+	public List<CafeDto> search(String keyword) {
+		return session.selectList("cafe.search",keyword);
+	}
+	
+	@Override
 	public CafeDto select(int cafeno) {
 		return session.selectOne("cafe.select", cafeno);
 	}
@@ -43,5 +48,7 @@ public class CafeDaoImpl implements CafeDao {
 	public int delete(int cafeno) {
 		return session.delete("cafe.delete", cafeno);
 	}
+
+	
 
 }

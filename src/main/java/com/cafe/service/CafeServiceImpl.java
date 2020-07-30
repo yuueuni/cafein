@@ -16,6 +16,11 @@ public class CafeServiceImpl implements CafeService {
 	private CafeDao dao;
 	
 	@Override
+	public List<CafeDto> search(String keyword) {
+		return dao.search(keyword);
+	}
+	
+	@Override
 	public CafeDto select(int cafeno) {
 		return dao.select(cafeno);
 	}
@@ -39,5 +44,7 @@ public class CafeServiceImpl implements CafeService {
 	public int delete(int cafeno) {
 		return dao.delete(cafeno);
 	}
+
+	
 
 }
