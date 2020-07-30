@@ -36,15 +36,15 @@ public class PostController {
 	private FileUploadService fuService;
 
 	
-//	@PostMapping("/upload")
-//	public String upload(@RequestParam MultipartFile image) {
-//		System.out.println("upload file");
-//		System.out.println(image);
-//
-//		String url = fuService.restore(image);
-//		System.out.println("URL :" + url);
-//		return url;
-//	}
+	@PostMapping("/upload")
+	public String upload(@RequestParam MultipartFile image) {
+		System.out.println("upload file");
+		System.out.println(image);
+
+		String url = fuService.restore(image);
+		System.out.println("URL :" + url);
+		return url;
+	}
 
 	@GetMapping("/{pno}")
 //	@ApiImplicitParams({ @ApiImplicitParam(name = "Authorization", value = "jwt_token", required = true, dataType = "String", paramType = "header") })
@@ -82,15 +82,8 @@ public class PostController {
 
 	@ApiOperation(value = "게시글 작성", authorizations = { @Authorization(value = "jwt_token") })
 	@PostMapping
-	public String insert(@RequestBody PostDto post, @RequestParam MultipartFile image) {
-		System.out.println("image uploading");
-		String url = fuService.restore(image);
-		if(url == null) {
-			return "FAIL";
-		}else {
-			post.setImage(url);
-		}
-		System.out.println("insert");
+	public String insert(@RequestBody PostDto post) {
+		System.out.println("게시글 작성");
 		int cnt = service.insert(post);
 		System.out.println(post);
 		if (cnt > 0) {
