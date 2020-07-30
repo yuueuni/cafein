@@ -2,10 +2,9 @@ export default{
     URL: 'http://i3a203.p.ssafy.io:5000/api',
     ROUTES: {
         //accounts 
-        signup: '/user/signup/',
+        signup: '/user/signup',
         login: '/user/login',
-        logout: '',
-        mypage: '/user/',
+        mypage: '/user',
 
         //post
         postList: '/post/list/cafe/1/',
@@ -18,12 +17,11 @@ export default{
         deleteComment: '',
 
         //like, stamp
-        like: '/like/',
-        stamp: '',
+        like: '/like',
+        stamp: '/stamp',
 
         //follow
-        following: '',
-        folower: '',
+        follow: '/follow',
         
         // cafe
         cafeDetail: '/cafe/', // + :id
