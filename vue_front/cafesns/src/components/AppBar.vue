@@ -5,7 +5,7 @@
       dark
       hide-on-scroll
     >
-      <v-toolbar-title><router-link to="/" class="link-text">Cafe SNS</router-link></v-toolbar-title>
+      <v-toolbar-title><router-link to="/" class="link-text">Cafe人</router-link></v-toolbar-title>
       <v-spacer></v-spacer>
       <!-- {{ currentUser }} 님 반갑습니다 ! -->
       <router-link v-if="!isLoggedIn" to="/accounts/signup" class="link-text"><v-btn text>Signup</v-btn></router-link>
