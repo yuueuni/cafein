@@ -1,0 +1,43 @@
+package com.web.cafe.service;
+
+import com.web.cafe.dto.MenuDto;
+
+public class MenuServiceImpl implements MenuService {
+
+	@Override
+	public MenuDto select(int cafeno) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int insert(MenuDto menu) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int updateItem(MenuDto menu) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int updatePrice(MenuDto menu) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int deleteItem(MenuDto menu) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int deleteAll(int cafeno) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+}
