@@ -14,7 +14,7 @@
         class="text-center"
         cols="12"
       >
-        &copy; {{ new Date().getFullYear() }} — <strong>cafesns</strong>
+        &copy; {{ new Date().getFullYear() }} — <strong>Cafe人</strong>
       </v-col>
     </v-footer>
   </v-app>
