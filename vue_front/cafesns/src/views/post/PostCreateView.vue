@@ -1,6 +1,5 @@
 <template>
   <div>
-    <router-link to="/post/detail"><v-btn text>go post</v-btn></router-link>
     <v-row justify="center">
       <v-col
         cols="12"

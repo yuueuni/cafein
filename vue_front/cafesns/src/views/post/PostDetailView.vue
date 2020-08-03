@@ -22,9 +22,7 @@
               color="yellow darken-3"
               background-color="grey darken-1"
               empty-icon="$ratingFull"
-              half-increments
-              hover
-              disabled
+              readonly
             ></v-rating>
 
             <span>분위기 {{ selectedPost.mood }}</span>
@@ -33,9 +31,7 @@
               color="yellow darken-3"
               background-color="grey darken-1"
               empty-icon="$ratingFull"
-              half-increments
-              hover
-              disabled
+              readonly
             ></v-rating>
 
             <span>위생 {{ selectedPost.clean }}</span>
@@ -44,9 +40,7 @@
               color="yellow darken-3"
               background-color="grey darken-1"
               empty-icon="$ratingFull"
-              half-increments
-              hover
-              disabled
+              readonly
             ></v-rating>
           <v-divider></v-divider>
             <p class="my-3 text-start" style="min-height:100px;">{{ selectedPost.contents }}</p>
