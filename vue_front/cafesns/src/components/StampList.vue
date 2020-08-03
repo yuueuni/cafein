@@ -7,9 +7,10 @@
     <v-slide-item
       v-for="cafe in cafeList"
       :key="cafe.id"
-      v-slot:default="{ toggle }"
+      v-slot:default="{ active, toggle }"
     >
       <v-card
+        :color="active ? 'primary' : 'grey' "
         class="ma-4"
         @click="toggle"
       >
@@ -37,9 +38,7 @@ export default {
   name: 'SlideList',
   data() {
     return {
-      randomImg : "https://cdn.vuetifyjs.com/images/cards/cooking.png",
-      likeImg: null,
-      stampImg: null,
+      randomImg : "https://cdn.vuetifyjs.com/images/cards/cooking.png"
     }
   },
   computed: {
@@ -49,14 +48,14 @@ export default {
   },
   methods: {
     ...mapActions([
-      'fetchCafeList',
+      'fetchlikeList',
     ]),
     onSelectCafe(target) {
       this.$router.push(`/cafe/detail/${target}`)
     },
   },
   created() {
-    this.fetchCafeList()
+    this.fetchlikeList()
   }
 }
 </script>

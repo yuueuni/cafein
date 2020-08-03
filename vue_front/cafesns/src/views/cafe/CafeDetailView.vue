@@ -12,12 +12,18 @@
           >
             <v-row align="end" class="fill-height text-end">
               <v-col>
-                <v-btn icon color="red lighten-3">
+                <!-- <v-btn icon color="red lighten-3">
                   <v-icon>mdi-heart</v-icon>
-                </v-btn>
-                <v-btn icon color="blue lighten-3">
+                </v-btn> -->
+                <button style="font-size: 3em; color: Tomato;" @click="likeCafe(selectedCafe.cafeno)">
+                  <i class="fas fa-heart"></i>
+                </button>
+                <!-- <v-btn icon color="blue lighten-3">
                   <v-icon>mdi-bookmark-outline</v-icon>
-                </v-btn>
+                </v-btn> -->
+                <button style="font-size: 3em; color: Mediumslateblue;" @click="stampCafe(selectedCafe.cafeno)">
+                 <i class="fas fa-shoe-prints fa-rotate-270"></i>
+                </button>
               </v-col>
             </v-row>
           </v-img>
@@ -74,7 +80,11 @@ export default {
     ...mapState(['selectedCafe'])
   },
   methods: {
-    ...mapActions(['cafeDetail']),
+    ...mapActions([
+      'cafeDetail', 
+      'likeCafe', 
+      'stampCafe'
+    ]),
     cafePost(cafeno) {
       this.$router.push(`/cafe/detail/${cafeno}`)
     }
