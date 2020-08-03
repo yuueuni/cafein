@@ -43,7 +43,7 @@ export default new Vuex.Store({
     },
     config: state => ({
       headers: {
-        Authorization: `Token ${state.authToken}`
+        Authorization: `${state.authToken}`
       }
     })
   },
@@ -146,16 +146,11 @@ export default new Vuex.Store({
 
     // post
     createPost({ state, getters }, postList) {
-
       postList.uid = state.currentUser
       postList.image = state.uploadImageURL
-
-      console.log(postList)
-
       axios.post(SERVER.URL + SERVER.ROUTES.createPost, postList, getters.config)
         .then((res) => {
-          console.log('success', res)
-          router.push({ name: 'Home' })
+          router.push(`/post/detail/${res.data.pno}`)
         })
         .catch(err => console.log('error', err))
     },
@@ -194,22 +189,23 @@ export default new Vuex.Store({
     },
 
     // comment
-    createComment({ getters }, commentData) {
+    createComment({ state, getters,dispatch }, commentData) {
+      commentData.uid = state.currentUser
       axios.post(SERVER.URL + SERVER.ROUTES.createComment, commentData, getters.config)
         .then(() => {
-          console.log(commentData)
+          dispatch('fetchComments', state.selectedPost.pno)
         })
         .catch(err => console.log(err))
     },
-    fetchComments({ commit }) {
-      axios.get(SERVER.URL + SERVER.ROUTES.commentList)
+    fetchComments({ commit }, postno) {
+      axios.get(SERVER.URL + SERVER.ROUTES.commentList+postno)
         .then(res => commit('SET_COMMENTS', res.data))
         .catch(err => console.error(err))
     },
     deleteComment({ state, getters, dispatch }, commentId) {
-      axios.delete(SERVER.URL + SERVER.ROUTES.deletePost + `/${state.selectedPost.id}/comment/${commentId}`, getters.config)
+      axios.delete(SERVER.URL + SERVER.ROUTES.deleteComment + `${commentId}`, getters.config)
         .then(() => {
-          dispatch('fetchComments', state.selectedPost.id)
+          dispatch('fetchComments', state.selectedPost.pno)
         })
         .catch(err => console.log(err))
     },

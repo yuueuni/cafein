@@ -7,10 +7,9 @@
     <v-slide-item
       v-for="cafe in cafeList"
       :key="cafe.id"
-      v-slot:default="{ active, toggle }"
+      v-slot:default="{ toggle }"
     >
       <v-card
-        :color="active ? 'primary' : 'grey' "
         class="ma-4"
         @click="toggle"
       >
