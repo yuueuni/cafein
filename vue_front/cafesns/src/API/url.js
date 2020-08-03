@@ -8,6 +8,7 @@ export default{
 
         //post
         postList: '/post/list/cafe/1/',
+        createPost: '/post',
         postDetail: '/post/',
         UploadImage: '/post/upload',
 
