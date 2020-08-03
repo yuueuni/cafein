@@ -38,9 +38,7 @@ export default {
   name: 'SlideList',
   data() {
     return {
-      randomImg : "https://cdn.vuetifyjs.com/images/cards/cooking.png",
-      likeImg: null,
-      stampImg: null,
+      randomImg : "https://cdn.vuetifyjs.com/images/cards/cooking.png"
     }
   },
   computed: {
@@ -50,14 +48,14 @@ export default {
   },
   methods: {
     ...mapActions([
-      'fetchCafeList',
+      'fetchlikeList',
     ]),
     onSelectCafe(target) {
       this.$router.push(`/cafe/detail/${target}`)
     },
   },
   created() {
-    this.fetchCafeList()
+    this.fetchlikeList()
   }
 }
 </script>

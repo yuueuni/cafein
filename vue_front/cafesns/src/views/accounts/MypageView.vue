@@ -3,7 +3,7 @@
       <div class="float-right">
         <!-- <router-link to="" class="link-text "><v-btn text>Followers: {{ followerList.length }}</v-btn></router-link> | -->
         <!-- <router-link to="" class="link-text "><v-btn text>Following: {{ followingList.length }}</v-btn></router-link> | -->
-        <!-- <router-link to="" class="link-text"><v-btn text>Posts: { PostList.length }</v-btn></router-link>  -->
+        <!-- <router-link to="" class="link-text"><v-btn text>Posts: {{ PostList.length }}</v-btn></router-link>  -->
       </div>
       <!-- <h1>{{ userData }}</h1> -->
       <h1>{{ userData.id }}</h1>
@@ -32,6 +32,9 @@
             <!-- <h4>{{ stamp.cafeno.name }}</h4> -->
         <!-- </router-link> -->
       </div>
+      <div>{{ likeList }}</div>
+      <div>{{ likeList.length }}</div>
+      <div>{{ stampList }}</div>
   </div>
 </template>
 
@@ -61,16 +64,21 @@ export default {
     ...mapActions([
       'fetchUserData',
       'fetchPostList', 
-      'fetchLikeLikst', 
+      'fetchLikeList', 
       'fetchStampList', 
       'fetchFollowingList',
       'fetchFollowerList',
     ])
   },
   
-  create() {
+  created() {
     this.fetchUserData()
-  }
+      .then(() => {
+        this.fetchLikeList()
+        this.fetchStampList()
+        this.fetchPostList()
+      })
+  },
 }
 </script>
 
