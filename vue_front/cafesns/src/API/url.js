@@ -13,9 +13,9 @@ export default{
         UploadImage: '/post/upload',
 
         //comment
-        createComment: '',
-        commentList: '',
-        deleteComment: '',
+        createComment: '/comment',
+        commentList: '/comment/list/',
+        deleteComment: '/comment/delete/',
 
         //like, stamp
         like: '/like',
