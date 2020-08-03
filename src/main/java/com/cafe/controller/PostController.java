@@ -2,6 +2,7 @@ package com.cafe.controller;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Options;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -80,6 +81,7 @@ public class PostController {
 		return posts;
 	}
 
+	@CrossOrigin
 	@ApiOperation(value = "게시글 작성", authorizations = { @Authorization(value = "jwt_token") })
 	@PostMapping
 	public String insert(@RequestBody PostDto post) {

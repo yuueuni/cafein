@@ -15,6 +15,7 @@ public class FileUploadService {
 //	따라서 workspace가 C드라이브에 있다면 C드라이브에 upload 폴더를 생성해 놓아야 한다.
 	
 	private static final String SAVE_PATH = "/home/data/images";
+	
 //	private static final String SAVE_PATH = "/SSAFY/final_project/yobang_vue/src/assets/images";
 	
 //	private static final String PREFIX_URL = "/upload/";
@@ -99,7 +100,7 @@ public class FileUploadService {
 	
 	// 파일을 실제로 write 하는 메서드
 	private boolean writeFile(MultipartFile multipartFile, String saveFileName) throws IOException{
-		boolean result = false;
+		boolean result = true;
 
 		byte[] data = multipartFile.getBytes();
 		FileOutputStream fos = new FileOutputStream(SAVE_PATH + "/" + saveFileName);
