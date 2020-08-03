@@ -152,7 +152,7 @@ export default new Vuex.Store({
 
       console.log(postList)
 
-      axios.post(SERVER.URL + SERVER.ROUTES.postList, postList, getters.config)
+      axios.post(SERVER.URL + SERVER.ROUTES.createPost, postList, getters.config)
         .then((res) => {
           console.log('success', res)
           router.push({ name: 'Home' })
