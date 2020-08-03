@@ -1,13 +1,16 @@
 <template>
-  <div>
-    <v-text-field
-      label="Content" 
-      v-model="commentData.content"
-      id="content"
-    >
-    </v-text-field>
-    <v-btn color="secondary" @click="createComment(commentData)">등록</v-btn>
-  </div>
+  <v-layout row>
+    <v-flex>
+      <v-text-field
+        label="Content" 
+        v-model="commentData.contents"
+        id="content"
+        append-outer-icon
+      >
+      </v-text-field>
+      <v-btn color="secondary" @click="createComment(commentData)">등록</v-btn>
+    </v-flex>
+  </v-layout>
 </template>
 
 <script>
@@ -18,13 +21,15 @@ export default {
   data() {
     return {
       commentData: {
-        content: null,
+        pno: this.$route.params.post_id,
+        contents: null,
+        uid: null,
       }
     }
   },
   methods: {
     ...mapActions(['createComment'])
-  }
+  },
 
 }
 </script>
