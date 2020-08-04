@@ -15,9 +15,13 @@
                 <!-- <v-btn icon color="red lighten-3">
                   <v-icon>mdi-heart</v-icon>
                 </v-btn> -->
-                <button style="font-size: 3em; color: Tomato;" @click="likeCafe(selectedCafe.cafeno)">
+                <!-- :color="active ? 'primary' : 'grey lighten-1'" -->
+                <v-btn icon style="font-size: 3em;" :color="active ? 'red lighten-3': 'white'" @click="likeCafe(selectedCafe.cafeno)">
                   <i class="fas fa-heart"></i>
-                </button>
+                </v-btn>
+                <!-- <button style="font-size: 3em; color: Tomato;" @click="likeCafe(selectedCafe.cafeno)">
+                  <i class="fas fa-heart"></i>
+                </button> -->
                 <!-- <v-btn icon color="blue lighten-3">
                   <v-icon>mdi-bookmark-outline</v-icon>
                 </v-btn> -->
@@ -74,6 +78,7 @@ export default {
   data() {
     return {
       cafeId: this.$route.params.cafe_id,
+      active: 1
     }
   },
   computed: {

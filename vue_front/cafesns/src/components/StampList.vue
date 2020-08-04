@@ -5,12 +5,11 @@
     show-arrows
   >
     <v-slide-item
-      v-for="cafe in cafeList"
+      v-for="cafe in stampList"
       :key="cafe.id"
       v-slot:default="{ active, toggle }"
     >
       <v-card
-        :color="active ? 'primary' : 'grey' "
         class="ma-4"
         @click="toggle"
       >
@@ -35,7 +34,7 @@
 import { mapState, mapActions } from 'vuex'
 
 export default {
-  name: 'SlideList',
+  name: 'StampList',
   data() {
     return {
       randomImg : "https://cdn.vuetifyjs.com/images/cards/cooking.png"
@@ -43,19 +42,19 @@ export default {
   },
   computed: {
     ...mapState([
-      'cafeList'
+      'stampList'
     ])
   },
   methods: {
     ...mapActions([
-      'fetchlikeList',
+      'fetchStampList',
     ]),
     onSelectCafe(target) {
       this.$router.push(`/cafe/detail/${target}`)
     },
   },
   created() {
-    this.fetchlikeList()
+    this.fetchStampList()
   }
 }
 </script>
