@@ -73,7 +73,7 @@ export default {
   data() {
     return {
       postList: {
-        cafeno: 7,
+        cafeno: null,
         contents: null,
         taste: 3,
         mood: 3,
