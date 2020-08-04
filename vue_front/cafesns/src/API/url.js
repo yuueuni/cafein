@@ -8,8 +8,8 @@ export default{
 
         //post
         postList: '/post/list/cafe/1/',
-        createPost: '/post',
-        postDetail: '/post/',
+        postDetail: '/post',
+        postDelete: '/post/delete/',
         UploadImage: '/post/upload',
 
         //comment
@@ -26,7 +26,7 @@ export default{
         
         // cafe
         cafeDetail: '/cafe/', // + :id
-        cafeList: '/cafe/list/1'
+        cafeList: '/cafe/list/'
 
 
     }

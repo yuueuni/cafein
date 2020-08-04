@@ -39,7 +39,7 @@ Vue.use(VueRouter)
   //   component: LogoutView
   // },
   {
-    path: '/accounts/:userid',
+    path: '/accounts/:user_id',
     name: 'Mypage',
     component: MypageView
   },
