@@ -7,8 +7,6 @@ import SignupView from '@/views/accounts/SignupView.vue'
 import LoginView from '@/views/accounts/LoginView.vue'
 import MypageView from '@/views/accounts/MypageView.vue'
 
-import tempView from '@/views/accounts/temp.vue'
-
 // post
 import PostCreateView from '@/views/post/PostCreateView.vue'
 import PostDetailView from '@/views/post/PostDetailView.vue'
@@ -44,11 +42,6 @@ Vue.use(VueRouter)
     path: '/accounts/:user_id',
     name: 'Mypage',
     component: MypageView
-  },
-  {
-    path: '/accounts/temp',
-    name: 'Temp',
-    component: tempView
   },
   {
     path: '/post/create',

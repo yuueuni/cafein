@@ -140,10 +140,7 @@ export default new Vuex.Store({
     // user
     fetchUserData({ state, commit, getters }) {
       axios.get(SERVER.URL + SERVER.ROUTES.mypage + `/${state.currentUser}`, getters.config)
-        .then(res => {
-          // console.log(res)
-          commit('SET_USERDATA', res.data)
-        })
+        .then(res => commit('SET_USERDATA', res.data))
         .catch(err => console.log(err))
     },
 
@@ -229,10 +226,10 @@ export default new Vuex.Store({
         })
         .catch(err => console.log(err))
     },
-    likeCafe({ state }, cafeno) {
+    likeCafe({ state, getters }, cafeno) {
       console.log("like")
       const userid = state.userData.id
-      axios.get(SERVER.URL + SERVER.ROUTES.like + `/check/${cafeno}/${userid}`)
+      axios.get(SERVER.URL + SERVER.ROUTES.like + `/check/${cafeno}/${userid}`, getters.config)
         .then(res => {
           console.log("COUNT: " + res.data);
           if (res.data === 0) {
@@ -240,32 +237,32 @@ export default new Vuex.Store({
               cafeno: cafeno,
               uid: userid
             }
-            axios.post(SERVER.URL + SERVER.ROUTES.like, likeData)
+            axios.post(SERVER.URL + SERVER.ROUTES.like, likeData, getters.config)
               .then(() => console.log("success"))
               .catch(err => console.log(err))
           } 
           else {
-            axios.delete(SERVER.URL + SERVER.ROUTES.like + `/delete/${cafeno}/${userid}`)
+            axios.delete(SERVER.URL + SERVER.ROUTES.like + `/delete/${cafeno}/${userid}`, getters.config)
               .then(() => console.log("success"))
               .catch(err => console.log(err))
           }
         })
         .catch(err => console.log(err))
     },
+
     //stamp
-    fetchStampList({ state, getters, commit }) {
+    fetchStampList({ state, commit }) {
       const userid = state.userData.id
-      axios.get(SERVER.URL + SERVER.ROUTES.stamp + `/list/${userid}`, getters.config)
+      axios.get(SERVER.URL + SERVER.ROUTES.stamp + `/list/${userid}`)
       .then(res => {
-        console.log("ok")
         commit('SET_STAMPLIST', res.data)
       })
       .catch(err => console.log(err))
     },
-    stampCafe({ state }, cafeno) {
+    stampCafe({ state, getters }, cafeno) {
       console.log("stamp")
       const userid = state.userData.id
-      axios.get(SERVER.URL + SERVER.ROUTES.stamp + `/check/${cafeno}/${userid}`)
+      axios.get(SERVER.URL + SERVER.ROUTES.stamp + `/check/${cafeno}/${userid}`, getters.config)
         .then(res => {
           console.log("COUNT: " + res.data);
           if (res.data === 0) {
@@ -273,12 +270,12 @@ export default new Vuex.Store({
               cafeno: cafeno,
               uid: userid
             }
-            axios.post(SERVER.URL + SERVER.ROUTES.stamp, stampData)
+            axios.post(SERVER.URL + SERVER.ROUTES.stamp, stampData, getters.config)
               .then(() => console.log("success"))
               .catch(err => console.log(err))
           } 
           else {
-            axios.delete(SERVER.URL + SERVER.ROUTES.stamp + `/delete/${cafeno}/${userid}`)
+            axios.delete(SERVER.URL + SERVER.ROUTES.stamp + `/delete/${cafeno}/${userid}`, getters.config)
               .then(() => console.log("success"))
               .catch(err => console.log(err))
           }
@@ -287,25 +284,43 @@ export default new Vuex.Store({
     },
 
     // follow
-    fetchFollowingList({ getters, commit }) {
-      axios.get(SERVER.URL + SERVER.ROUTES.following, getters.config)
+    fetchFollowingList({ state, getters, commit }) {
+      const userid = state.userData.id
+      axios.get(SERVER.URL + SERVER.ROUTES.follow + `/list/following/${userid}` , getters.config)
         .then(res => {
           commit('SET_FOLLWINGLIST', res)
         })
         .catch(err => console.log(err))
     },
-    fetchFollowerList({ getters, commit }) {
-      axios.get(SERVER.URL + SERVER.ROUTES.follower, getters.config)
+    fetchFollowerList({ state, commit }) {
+      const userid = state.userData.id
+      axios.get(SERVER.URL + SERVER.ROUTES.follow + `/list/follower/${userid}`)
       .then(res => {
         commit('SET_FOLLOWERLIST', res)
       })
       .catch(err => console.log(err))
     },
-
-    followUser() {
-      axios.post
+    followUser({ state, getters }, followingid) {
+      console.log("follow")
+      const userid = state.userData.id
+      axios.get(SERVER.URL + SERVER.ROUTES.follow + `/check/${userid}/${followingid}`, getters.config)
+        .then(res => {
+          console.log("COUNT: " + res.data);
+          if (res.data === 0) {
+            axios.post(SERVER.URL + SERVER.ROUTES.follow, {userid,followingid}, getters.config)
+              .then(() => console.log("success"))
+              .catch(err => console.log(err))
+          } 
+          else {
+            axios.delete(SERVER.URL + SERVER.ROUTES.follow + `/delete/${userid}/${followingid}`, getters.config)
+              .then(() => console.log("success"))
+              .catch(err => console.log(err))
+          }
+        })
+        .catch(err => console.log(err))
     },
-
+      
+   
     //cafe
     fetchCafeList({ commit }, page) {
       page = page || 1
