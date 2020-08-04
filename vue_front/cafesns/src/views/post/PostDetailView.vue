@@ -10,7 +10,7 @@
         <v-card ref="form" class="px-3">
           <v-card-text class="text-center">
             <v-card-title>
-              <h1>{{ selectedPost.uid }}</h1>
+              <h1><v-btn @click="onMypage(selectedPost.uid)" text>{{ selectedPost.uid }}</v-btn></h1>
               <v-spacer></v-spacer>
               <span class="text-subtitle-2">{{ selectedPost.cafeno }}</span>
             </v-card-title>
@@ -47,11 +47,11 @@
 
             <v-img src="https://cdn.vuetifyjs.com/images/cards/cooking.png" contain max-width="100%" max-height="300px"></v-img>
           </v-card-text>
-          <!-- <v-card-actions>
+          <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn text color="secondary">삭제</v-btn>
-            <v-btn text color="primary">수정</v-btn>
-          </v-card-actions> -->
+            <v-btn v-if="selectedPost.uid === currentUser" @click="deletePost(selectedPost.pno)" text color="secondary">삭제</v-btn>
+            <v-btn v-if="selectedPost.uid === currentUser" @click="deletePost(selectedPost.pno)" text color="primary">수정</v-btn>
+          </v-card-actions>
         </v-card>
       </v-col>
     </v-row>
@@ -78,10 +78,19 @@ export default {
     }
   },
   computed: {
-    ...mapState(['selectedPost'])
+    ...mapState([
+      'selectedPost',
+      'currentUser',
+    ])
   },
   methods: {
-    ...mapActions(['postDetail']),
+    ...mapActions([
+      'postDetail',
+      'deletePost',
+    ]),
+    onMyPage(userid) {
+      this.$router.push(`/accounts/${userid}`)
+    }
   },
   created() {
     this.postDetail(this.postId)
