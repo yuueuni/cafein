@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cafe.dto.FollowDto;
+import com.cafe.dto.LikeDto;
 import com.cafe.service.FollowService;
 
 import io.swagger.annotations.ApiOperation;
@@ -26,6 +27,15 @@ import io.swagger.annotations.Authorization;
 public class FollowController {
 	@Autowired
 	private FollowService service;
+	
+	@ApiOperation(value = "이전에 팔로우 눌렀는지 체크(눌렀으면 1,안눌렀으면 0)", authorizations = { @Authorization(value="jwt_token") })
+	@GetMapping("/check/{uid}/{followingid}")
+	public int check(@PathVariable String uid, @PathVariable String followingid) {
+		FollowDto follow = new FollowDto();
+		follow.setUid(uid);
+		follow.setFollowingid(followingid);
+		return service.check(follow);
+	}
 	
 	@ApiOperation(value = "팔로워 수")
 	@GetMapping("/count/follower/{followingid}")
@@ -80,8 +90,8 @@ public class FollowController {
 	public String delete(@PathVariable String uid, @PathVariable String followingid) {
 		System.out.println("delete follow");
 		FollowDto follow = new FollowDto();
-		follow.setUid(uid);;
-		follow.setFollowingid(followingid);;
+		follow.setUid(uid);
+		follow.setFollowingid(followingid);
 		if(service.delete(follow)>0) {
 			return "Success";
 		}
