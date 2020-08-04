@@ -84,6 +84,9 @@ export default new Vuex.Store({
     },
 
     SET_CAFELIST(state, cafeList) {
+      state.cafeList = state.cafeList.concat(cafeList)
+    },
+    RESET_CAFELIST(state, cafeList) {
       state.cafeList = cafeList
     },
     SET_SELECTCAFE(state, selectedCafe) {
@@ -146,11 +149,12 @@ export default new Vuex.Store({
 
     // post
     createPost({ state, getters }, postList) {
+      postList.cafeno = state.selectedCafe.cafeno
       postList.uid = state.currentUser
       postList.image = state.uploadImageURL
-      axios.post(SERVER.URL + SERVER.ROUTES.createPost, postList, getters.config)
-        .then((res) => {
-          router.push(`/post/detail/${res.data.pno}`)
+      axios.post(SERVER.URL + SERVER.ROUTES.postDetail, postList, getters.config)
+        .then(() => {
+          router.push(`/cafe/detail/${state.selectedCafe.cafeno}`)
         })
         .catch(err => console.log('error', err))
     },
@@ -160,7 +164,7 @@ export default new Vuex.Store({
         .catch(err => console.error(err))
     },
     postDetail({ commit }, id) {
-      axios.get(SERVER.URL + SERVER.ROUTES.postDetail + id)
+      axios.get(SERVER.URL + SERVER.ROUTES.postDetail + `/${id}`)
         .then(res => {
           commit('SET_SELECTPOST', res.data)
         })
@@ -173,8 +177,13 @@ export default new Vuex.Store({
         // }
     //     .catch(err => console.error(err))
     // },
-    deletePost({ getters }, postId) {
-      axios.delete(SERVER.URL + SERVER.ROUTES.postList + `/${postId}`, getters.config)
+    deletePost({ state, getters, dispatch }, postId) {
+      axios.delete(SERVER.URL + SERVER.ROUTES.postDelete + `${postId}`, getters.config)
+        .then(() => {
+          dispatch('fetchPosts', state.selectedPost.pno)
+          router.push(`/cafe/detail/${state.selectedCafe.cafeno}`)
+        })
+        .catch(err => console.log(err))
     },
     uploadImage({ dispatch, commit }, postData) {
       commit('SET_IMAGEURL', "2020630111230621.png")
@@ -298,9 +307,16 @@ export default new Vuex.Store({
     },
 
     //cafe
-    fetchCafeList({ commit }) {
-      axios.get(SERVER.URL + SERVER.ROUTES.cafeList)
-        .then(res => commit('SET_CAFELIST', res.data))
+    fetchCafeList({ commit }, page) {
+      page = page || 1
+      axios.get(SERVER.URL + SERVER.ROUTES.cafeList + page)
+        .then(res => {
+          if (page === 1) {
+            commit('RESET_CAFELIST', res.data)
+          } else {
+            commit('SET_CAFELIST', res.data)
+          }
+        })
         .catch(err => console.error(err))
     },
     cafeDetail({ commit }, id) {
