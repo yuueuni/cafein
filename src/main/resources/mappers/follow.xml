@@ -3,40 +3,50 @@
 
 <mapper namespace="follow">
 
+	<select id="check" resultType="int">
+		select count(*)
+		from follow
+		where uid = #{uid} and followingid = #{followingid}
+	</select>
+	
 	<select id="countFollower" resultType="int">
- 		select count(*) 
- 		from follow 
- 		where followingid = #{followingid}
+		select count(*)
+		from follow
+		where followingid = #{followingid}
 	</select>
-	
+
 	<select id="countFollowing" resultType="int">
- 		select count(*) 
- 		from follow 
- 		where uid = #{uid}
-	</select>
-	
-	<select id="selectFollower" resultType="string">
-		select followingid
+		select count(*)
 		from follow
 		where uid = #{uid}
-		order by followingid asc
 	</select>
-	
-	<select id="selectFollowing" resultType="string">
+
+	<select id="selectFollower" resultType="string">
 		select uid
 		from follow
 		where followingid = #{followingid}
 		order by uid asc
+
 	</select>
-	
+
+	<select id="selectFollowing" resultType="string">
+		select followingid
+		from
+		follow
+		where uid = #{uid}
+		order by followingid asc
+	</select>
+
 	<insert id="insert">
 		insert into follow (uid, followingid)
-		values (#{uid}, #{followingid})
+		values (#{uid},
+		#{followingid})
 	</insert>
-	
+
 	<delete id="delete">
 		delete from follow
-		where uid = #{uid} and followingid = #{followingid}
+		where uid = #{uid} and followingid
+		= #{followingid}
 	</delete>
-	
+
 </mapper>

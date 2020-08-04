@@ -7,12 +7,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.cafe.dto.FollowDto;
+import com.cafe.dto.LikeDto;
 
 @Repository
 public class FollowDaoImpl implements FollowDao {
 
 	@Autowired
 	private SqlSession session;
+	
+	@Override
+	public int check(FollowDto follow) {
+		return session.selectOne("follow.check", follow);
+	}
 	
 	@Override
 	public int countFollower(String followingid) {
