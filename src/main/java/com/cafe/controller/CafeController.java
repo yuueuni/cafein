@@ -48,7 +48,6 @@ public class CafeController {
 	@ApiOperation(value = "카페 전체 리스트")
 	@GetMapping("/list/{page}")
 	public List<CafeDto> selectAll(@PathVariable Integer page) {
-		System.out.println("list");
 		System.out.println(page);
 		List<CafeDto> cafeList = service.selectAll(page);
 		return cafeList;
