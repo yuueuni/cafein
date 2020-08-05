@@ -10,54 +10,64 @@
         <v-card ref="form" class="px-3">
           <v-card-text class="text-center">
             <v-card-title>
-              <h1>New Post</h1>
-              <v-spacer></v-spacer>
-              <span class="text-subtitle-2">cafe name</span>
+              <h1>{{ selectedCafe.name }}</h1>
+              <p class="text-subtitle-2 mx-3 mb-0 align-self-end">카페에 대해 알려주세요 !</p>
             </v-card-title>
             <v-divider class="mb-3"></v-divider>
 
-            <span>맛 {{ postList.taste }}</span>
-            <v-rating
-              v-model="postList.taste"
-              color="yellow darken-3"
-              background-color="grey darken-1"
-              empty-icon="$ratingFull"
-              half-increments
-              hover
-            ></v-rating>
+            <v-row class="d-flex align-center justify-center">
+              <span>맛</span>
+              <v-rating
+                v-model="postList.taste"
+                color="yellow darken-3"
+                background-color="grey darken-1"
+                empty-icon="$ratingFull"
+                half-increments
+                hover
+              ></v-rating>
+              <span>({{ postList.taste }})</span>
+            </v-row>
 
-            <span>분위기 {{ postList.mood }}</span>
-            <v-rating
-              v-model="postList.mood"
-              color="yellow darken-3"
-              background-color="grey darken-1"
-              empty-icon="$ratingFull"
-              half-increments
-              hover
-            ></v-rating>
+            <v-row class="d-flex align-center justify-center">
+              <span>분위기</span>
+              <v-rating
+                v-model="postList.mood"
+                color="yellow darken-3"
+                background-color="grey darken-1"
+                empty-icon="$ratingFull"
+                half-increments
+                hover
+              ></v-rating>
+              <span>({{ postList.mood }})</span>
+            </v-row>
 
-            <span>위생 {{ postList.clean }}</span>
-            <v-rating
-              v-model="postList.clean"
-              color="yellow darken-3"
-              background-color="grey darken-1"
-              empty-icon="$ratingFull"
-              half-increments
-              hover
-            ></v-rating>
-
+            <v-row class="d-flex align-center justify-center">
+              <span>위생</span>
+              <v-rating
+                v-model="postList.clean"
+                color="yellow darken-3"
+                background-color="grey darken-1"
+                empty-icon="$ratingFull"
+                half-increments
+                hover
+              ></v-rating>
+              <span>({{ postList.clean }})</span>
+            </v-row>
+            
             <v-textarea 
               label="Content" 
               v-model="postList.contents"
               id="content"
+              autofocus
+              :rules="[ checkContents ]"
             >
             </v-textarea>
 
-            <v-file-input accept="image/*" label="File input" @change="onFileChange"></v-file-input>
+            <v-file-input accept="image/*" label="File input" @change="onFileChange" :rules="[ checkImage ]"></v-file-input>
             <v-img v-if="url" :src="url" contain max-width="100%" max-height="300px"></v-img>
           </v-card-text>
           <div class="text-center mb-3 pb-3">
-            <v-btn color="secondary" @click="uploadImage({postList, formData})">Save</v-btn>
+            <v-btn color="secondary" :disabled="disabled" @click="uploadImage({postList, formData})">Save</v-btn>
           </div>
         </v-card>  
       </v-col>
@@ -74,6 +84,7 @@ export default {
     return {
       postList: {
         cafeno: null,
+        cafename: null,
         contents: null,
         taste: 3,
         mood: 3,
@@ -84,21 +95,41 @@ export default {
       formData: new FormData(),
       url: null,
       selectedFile: null,
+      disabled: true,
     }
   },
   computed: {
-    ...mapState(['currentUser'])
+    ...mapState([
+        'currentUser',
+        'selectedCafe',
+      ])
   },
   methods: {
     ...mapActions(['uploadImage']),
     onFileChange(e) {
-      this.selectedFile = e
-
-      this.url = URL.createObjectURL(this.selectedFile)
-
-      this.formData.append("image", this.selectedFile, this.selectedFile.name)
+      if (!e) {
+        this.url = null
+      } else {
+        this.selectedFile = e
+        this.url = URL.createObjectURL(this.selectedFile)
+        this.formData.append("image", this.selectedFile, this.selectedFile.name)
+      }
     },
-  }
+    checkContents(value) {
+      if (!value) {
+        return '내용을 입력해주세요.'
+      } else if (this.postList.contents && this.url) {
+        this.disabled = false
+      }
+    },
+    checkImage(value) {
+      if (!value) {
+        return '사진을 등록해주세요.'
+      } else if (this.url && this.postList.contents) {
+        this.disabled = false
+      }
+    },
+  },
 }
 </script>
 
