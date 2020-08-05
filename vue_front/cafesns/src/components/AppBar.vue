@@ -26,7 +26,6 @@ export default {
   computed: {
     ...mapGetters(['isLoggedIn']),
     ...mapState(['currentUser']),
-    ...mapState(['userData'])
   },
 
   methods: {
