@@ -40,7 +40,6 @@ public class CafeController {
 	@ApiOperation(value = "카페 정보 가져오기")
 	@GetMapping("/{cafeno}")
 	public CafeDto select(@PathVariable Integer cafeno) {
-		System.out.println("select");
 		CafeDto cafe = service.select(cafeno);
 		return cafe;
 	}
