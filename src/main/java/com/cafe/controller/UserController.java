@@ -74,7 +74,7 @@ public class UserController {
    //유저검색
    @GetMapping("/search/{keyword}")
    public List<String> search(@PathVariable String keyword) {
-		System.out.println("search user list");
+		System.out.println("search user list!!");
 		List<String> userList = userservice.search(keyword);
 		return userList;
 	}
