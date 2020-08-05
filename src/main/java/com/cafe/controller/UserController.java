@@ -43,96 +43,106 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 
-
 //Ajax요청의 응답 전용 컨트롤러!!
 @CrossOrigin("*")
-@RestController 
+@RestController
 @RequestMapping("/api/user")
 public class UserController {
-   
-   
-   private static final Logger logger = LoggerFactory.getLogger(UserController.class);
-   private static final String OK = "SUCCESS";
-   private static final String FAIL = "FAIL";
-   
-   
-   @Autowired
-   UserService userservice;
-   
-   @Autowired
-   private JwtService jwtService;
-   
-   
-   
-   @ApiOperation(value = "id에 맞는 유저을 조회합니다.", response = List.class)
-   @GetMapping("/{id}")
-   public ResponseEntity<UserDto> select(Model m, @PathVariable("id") String id) {
-      return new ResponseEntity<>(userservice.select(id), HttpStatus.OK);
-   }// 해당 user조회 : http://localhost:8080/api/user/select/{id} + GET
-   
-   
-   //유저검색
-   @GetMapping("/search/{keyword}")
-   public List<String> search(@PathVariable String keyword) {
+
+	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+	private static final String OK = "SUCCESS";
+	private static final String FAIL = "FAIL";
+
+	@Autowired
+	UserService userservice;
+
+	@Autowired
+	private JwtService jwtService;
+
+	@ApiOperation(value = "id에 맞는 유저을 조회합니다.", response = List.class)
+	@GetMapping("/{id}")
+	public ResponseEntity<UserDto> select(Model m, @PathVariable("id") String id) {
+		return new ResponseEntity<>(userservice.select(id), HttpStatus.OK);
+	}// 해당 user조회 : http://localhost:8080/api/user/select/{id} + GET
+
+	// 유저검색
+	@GetMapping("/search/{keyword}")
+	public List<String> search(@PathVariable String keyword) {
 		System.out.println("search user list!!");
 		List<String> userList = userservice.search(keyword);
 		return userList;
 	}
-   //로그인 구현
-   @PostMapping("/login")
-   @ApiOperation(value="로그인을 하기 위해 id와 pw를 보낸다.", response = Integer.class)
-   public ResponseEntity login(@RequestBody LoginUserDto loginUser) {
-      String id = loginUser.getId();
-      String pw = loginUser.getPw();
-      UserDto loginuser = userservice.login(id, pw);
-      if(loginuser == null) {
-         System.out.println("로그인 실패");
-         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-      }
-      
-      String token = jwtService.create("user", loginuser, "user"); // 토큰 발급 유저 정보 들어있음
-      HttpHeaders responseHeaders = new HttpHeaders();
-      responseHeaders.set("Authorization", token);
-      
-      return new ResponseEntity<String>(token, HttpStatus.OK);
-   }
-   
-   //회원가입
-   @PostMapping("/signup")
-   @ApiOperation(value="회원가입", response = Integer.class)
-   public ResponseEntity signup(@RequestBody UserDto user) {
-      
-      // 여기 중복 체크
-      int result = userservice.join(user);
-      if(result == -1) { // 등록 안되면
-         System.out.println(result);
-         return new ResponseEntity<>(HttpStatus.BAD_REQUEST); // 400 에러 
-      }
-      String token = jwtService.create("user", user, "user"); // 토큰 발급 유저 정보 들어있음
-      HttpHeaders responseHeaders = new HttpHeaders();
-      responseHeaders.set("Authorization", token);
-      return new ResponseEntity<String>(token,HttpStatus.OK); // 성공시 ,
-   }
-   
-   //회원탈퇴
-   @DeleteMapping("/delete/{id}")
-   @ApiOperation(value="회원탈퇴", response = Integer.class)
-   public ResponseEntity delete(@PathVariable("id") String id) {
-      int result = userservice.delete(id);
-      if(result < 0) {
-         return new ResponseEntity<String>(FAIL,HttpStatus.BAD_REQUEST);
-      }
-      return new ResponseEntity<String>(OK, HttpStatus.OK);
-   }
-   
-   @PutMapping("/update")
-   @ApiOperation(value="회원정보수정", response = Integer.class)
-   public ResponseEntity update(@RequestBody UserDto user) {
-      int result = userservice.update(user);
-      if(result == -1) { // 등록 안되면
-         return new ResponseEntity<String>(FAIL,HttpStatus.BAD_REQUEST); // 400 에러 
-      }
-      return new ResponseEntity<String>(OK,HttpStatus.OK); // 성공시 ,
-   }
-      
+
+	// 로그인 구현
+	@PostMapping("/login")
+	@ApiOperation(value = "로그인을 하기 위해 id와 pw를 보낸다.", response = Integer.class)
+	public ResponseEntity login(@RequestBody LoginUserDto loginUser) {
+		String id = loginUser.getId();
+		String pw = loginUser.getPw();
+		UserDto loginuser = userservice.login(id, pw);
+		if (loginuser == null) {
+			System.out.println("---로그인 실패---");
+			UserDto haveUser = userservice.select(id);
+			if (haveUser == null) {// 없는 아이디
+				System.out.println("없는 아이디");
+				return new ResponseEntity<String>("NO_ID", HttpStatus.BAD_REQUEST);
+			} else if (haveUser.getPassword() != pw) {// 틀린 비밀번호
+				System.out.println("틀린 비밀번호");
+				return new ResponseEntity<String>("WRONG_PW", HttpStatus.BAD_REQUEST);
+			}
+
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+
+		String token = jwtService.create("user", loginuser, "user"); // 토큰 발급 유저 정보 들어있음
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.set("Authorization", token);
+
+		return new ResponseEntity<String>(token, HttpStatus.OK);
+	}
+
+	// 회원가입
+	@PostMapping("/signup")
+	@ApiOperation(value = "회원가입", response = Integer.class)
+	public ResponseEntity signup(@RequestBody UserDto user) {
+
+		// 여기 중복 체크
+		UserDto haveUser = userservice.select(user.getId());
+		if (haveUser != null) {
+			System.out.println("아이디 중복");
+			return new ResponseEntity<String>("EXISTING_ID", HttpStatus.BAD_REQUEST);
+		} else {
+			int result = userservice.join(user);
+			if (result == -1) { // 등록 안되면 System.out.println("중복 아이디");
+				System.out.println(result);
+				return new ResponseEntity<>(HttpStatus.BAD_REQUEST); // 400 에러 }
+			}
+		}
+		String token = jwtService.create("user", user, "user"); // 토큰 발급 유저 정보 들어있음
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.set("Authorization", token);
+		return new ResponseEntity<String>(token, HttpStatus.OK); // 성공시 ,
+	}
+
+	// 회원탈퇴
+	@DeleteMapping("/delete/{id}")
+	@ApiOperation(value = "회원탈퇴", response = Integer.class)
+	public ResponseEntity delete(@PathVariable("id") String id) {
+		int result = userservice.delete(id);
+		if (result < 0) {
+			return new ResponseEntity<String>(FAIL, HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<String>(OK, HttpStatus.OK);
+	}
+
+	@PutMapping("/update")
+	@ApiOperation(value = "회원정보수정", response = Integer.class)
+	public ResponseEntity update(@RequestBody UserDto user) {
+		int result = userservice.update(user);
+		if (result == -1) { // 등록 안되면
+			return new ResponseEntity<String>(FAIL, HttpStatus.BAD_REQUEST); // 400 에러
+		}
+		return new ResponseEntity<String>(OK, HttpStatus.OK); // 성공시 ,
+	}
+
 }

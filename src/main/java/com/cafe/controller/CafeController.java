@@ -40,7 +40,6 @@ public class CafeController {
 	@ApiOperation(value = "카페 정보 가져오기")
 	@GetMapping("/{cafeno}")
 	public CafeDto select(@PathVariable Integer cafeno) {
-		System.out.println("select");
 		CafeDto cafe = service.select(cafeno);
 		return cafe;
 	}
@@ -56,7 +55,6 @@ public class CafeController {
 	@ApiOperation(value = "카페 추가", authorizations = { @Authorization(value = "jwt_token") })
 	@PostMapping
 	public String insert(@RequestBody CafeDto cafe) {
-		System.out.println("insert");
 		int cnt = service.insert(cafe);
 		System.out.println(cafe);
 		if (cnt > 0) {
