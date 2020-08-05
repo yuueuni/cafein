@@ -3,7 +3,7 @@
     <AppBar class="d-block"/>
     <v-main>
       <v-container class="mt-16">
-        <router-view/>
+        <router-view :key="$route.fullPath"/>
       </v-container>
     </v-main>
 

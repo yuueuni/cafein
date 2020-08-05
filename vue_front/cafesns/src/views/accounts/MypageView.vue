@@ -1,6 +1,5 @@
 <template>
     <div>
-      <router-view :key="$route.fullPath"></router-view>
       <div class="float-right">
         <div>{{ followerList }}</div>
         <div>{{ followingList }}</div>
@@ -86,30 +85,14 @@ export default {
   },
   
   created() {
-    this.currentUserId = this.$route.params.user_id
-    console.log('========', 'create', this.currentUserId)
     this.fetchUserData(this.currentUserId)
-      .then(() => {
         this.fetchLikeList()
         this.fetchStampList()
-        this.fetchFollwingList()
-        this.fetchFollowerList()
-        this.fetchPostList()
-      })
+        // this.fetchFollwingList()
+        // this.fetchFollowerList()
+        // this.fetchPostList()
   },
-  mounted() {
-    this.currentUserId = this.$route.params.user_id
-    console.log('************', 'mounted', this.currentUserId)
-    this.fetchUserData(this.currentUserId)
-      .then(() => {
-        this.fetchLikeList()
-        this.fetchStampList()
-        this.fetchFollwingList()
-        this.fetchFollowerList()
-        this.fetchPostList()
-      })
-
-  }
+  
 }
 </script>
 
