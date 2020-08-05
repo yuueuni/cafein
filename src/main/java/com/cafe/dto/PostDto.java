@@ -6,12 +6,14 @@ public class PostDto {
 	private int pno;
 	private String uid;
 	private int cafeno;
+	private String cafename;
 	private String contents;
 	private String image;
 	private String taste;
 	private String mood;
 	private String clean;
 	private Date date;
+	
 	public int getPno() {
 		return pno;
 	}
@@ -29,6 +31,12 @@ public class PostDto {
 	}
 	public void setCafeno(int cafeno) {
 		this.cafeno = cafeno;
+	}
+	public String getCafename() {
+		return cafename;
+	}
+	public void setCafename(String cafename) {
+		this.cafename = cafename;
 	}
 	public String getContents() {
 		return contents;
@@ -70,14 +78,11 @@ public class PostDto {
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		builder.append("PostDto [pno=").append(pno).append(", uid=").append(uid).append(", cafeno=").append(cafeno)
-				.append(", contents=").append(contents).append(", image=").append(image).append(", taste=")
-				.append(taste).append(", mood=").append(mood).append(", clean=").append(clean).append(", date=")
-				.append(date).append("]");
+				.append(", cafename=").append(cafename).append(", contents=").append(contents).append(", image=")
+				.append(image).append(", taste=").append(taste).append(", mood=").append(mood).append(", clean=")
+				.append(clean).append(", date=").append(date).append("]");
 		return builder.toString();
 	}
-	
-	
-	
 	
 	
 }
