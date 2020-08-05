@@ -52,7 +52,7 @@ public class PostController {
 		return url;
 	}
 	
-	@ApiOperation(value="post 이미지 가져오기")
+	@ApiOperation(value="post 이미지 가져오기 (아직안됨 좀더 찾아봐야함)")
 	@GetMapping(value="/get/image/{pno}",
 			produces = MediaType.IMAGE_JPEG_VALUE)
 	public @ResponseBody byte[] getImage(@PathVariable Integer pno) {
