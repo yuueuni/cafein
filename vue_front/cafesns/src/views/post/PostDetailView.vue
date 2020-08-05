@@ -10,9 +10,9 @@
         <v-card ref="form" class="px-3">
           <v-card-text class="text-center">
             <v-card-title>
-              <h1><v-btn @click="onMypage(selectedPost.uid)" text>{{ selectedPost.uid }}</v-btn></h1>
+              <h1><v-btn @click="mypage(selectedPost.uid)" text>{{ selectedPost.uid }}</v-btn></h1>
               <v-spacer></v-spacer>
-              <span class="text-subtitle-2">{{ selectedPost.cafeno }}</span>
+              <span class="text-subtitle-2"><router-link to="/cafe/detail/${selectedPost.cafeno}`">{{ selectedPost.cafeno }}</router-link></span>
             </v-card-title>
             <v-divider class="mb-3"></v-divider>
 
@@ -67,7 +67,7 @@ import CommentCreate from '@/components/CommentCreate.vue'
 import CommentList from '@/components/CommentList.vue'
 
 export default {
-  name: 'PostDatilView',
+  name: 'PostDetailView',
   components: {
     CommentCreate,
     CommentList,
@@ -88,7 +88,7 @@ export default {
       'postDetail',
       'deletePost',
     ]),
-    onMyPage(userid) {
+    onMypage(userid) {
       this.$router.push(`/accounts/${userid}`)
     }
   },

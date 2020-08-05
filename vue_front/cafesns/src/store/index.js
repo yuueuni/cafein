@@ -138,8 +138,8 @@ export default new Vuex.Store({
     },
 
     // user
-    fetchUserData({ state, commit, getters }) {
-      axios.get(SERVER.URL + SERVER.ROUTES.mypage + `/${state.currentUser}`, getters.config)
+    fetchUserData({ commit, getters }, userid) {
+      axios.get(SERVER.URL + SERVER.ROUTES.mypage + `/${userid}`, getters.config)
         .then(res => commit('SET_USERDATA', res.data))
         .catch(err => console.log(err))
     },

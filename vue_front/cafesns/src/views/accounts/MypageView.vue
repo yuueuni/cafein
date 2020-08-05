@@ -1,5 +1,6 @@
 <template>
     <div>
+      <router-view :key="$route.fullPath"></router-view>
       <div class="float-right">
         <div>{{ followerList }}</div>
         <div>{{ followingList }}</div>
@@ -51,6 +52,11 @@ import { mapState, mapActions } from 'vuex'
 
 export default {
   name: "MyPageView",
+  data() {
+    return {
+      currentUserId : this.$route.params.user_id
+    }
+  },
   components: {
     LikeList,
     StampList
@@ -80,7 +86,9 @@ export default {
   },
   
   created() {
-    this.fetchUserData()
+    this.currentUserId = this.$route.params.user_id
+    console.log('========', 'create', this.currentUserId)
+    this.fetchUserData(this.currentUserId)
       .then(() => {
         this.fetchLikeList()
         this.fetchStampList()
@@ -89,6 +97,19 @@ export default {
         this.fetchPostList()
       })
   },
+  mounted() {
+    this.currentUserId = this.$route.params.user_id
+    console.log('************', 'mounted', this.currentUserId)
+    this.fetchUserData(this.currentUserId)
+      .then(() => {
+        this.fetchLikeList()
+        this.fetchStampList()
+        this.fetchFollwingList()
+        this.fetchFollowerList()
+        this.fetchPostList()
+      })
+
+  }
 }
 </script>
 
