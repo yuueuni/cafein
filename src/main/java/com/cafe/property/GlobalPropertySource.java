@@ -34,8 +34,6 @@ public class GlobalPropertySource {
 		LOGGER.debug("spring.datasource.url=" + url);
 		LOGGER.debug("spring.datasource.username=" + username);
 		LOGGER.debug("spring.datasource.password=**********");
-		System.out.println("####" + this.url);
-		System.out.println("####" + this.username);
 	}
 	
 	public String getDriverClassName() {
