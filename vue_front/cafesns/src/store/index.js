@@ -327,7 +327,7 @@ export default new Vuex.Store({
       
    
     //cafe
-    fetchCafeList({ commit }, page) {
+    fetchCafeList({ state, commit }, page) {
       page = page || 1
       axios.get(SERVER.URL + SERVER.ROUTES.cafeList + page)
         .then(res => {
