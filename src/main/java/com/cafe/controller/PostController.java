@@ -60,6 +60,7 @@ public class PostController {
 		PostDto post = service.select(pno);
 		CafeDto cafe = caService.select(post.getCafeno());
 		post.setCafename(cafe.getName());
+		System.out.println(post);
 		return post;
 	}
 
