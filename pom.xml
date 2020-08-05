@@ -146,6 +146,15 @@
 		    <version>0.3m</version>
 		</dependency>
 
+
+		<!-- file 보내기 위한 메이븐 -->
+		<!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
+		<dependency>
+		    <groupId>commons-io</groupId>
+		    <artifactId>commons-io</artifactId>
+		    <version>2.4</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>

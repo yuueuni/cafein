@@ -16,9 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.cafe.dto.CafeDto;
 import com.cafe.dto.PostDto;
-import com.cafe.service.CafeService;
 import com.cafe.service.FileUploadService;
 import com.cafe.service.PostService;
 
@@ -36,9 +34,6 @@ public class PostController {
 	private PostService service;
 
 	@Autowired
-	private CafeService caService;
-	
-	@Autowired
 	private FileUploadService fuService;
 
 	
@@ -51,6 +46,8 @@ public class PostController {
 		System.out.println("URL :" + url);
 		return url;
 	}
+	
+	
 
 	@GetMapping("/{pno}")
 //	@ApiImplicitParams({ @ApiImplicitParam(name = "Authorization", value = "jwt_token", required = true, dataType = "String", paramType = "header") })
@@ -58,9 +55,6 @@ public class PostController {
 	public PostDto select(@PathVariable Integer pno) {
 		System.out.println("select");
 		PostDto post = service.select(pno);
-		CafeDto cafe = caService.select(post.getCafeno());
-		post.setCafename(cafe.getName());
-		System.out.println(post);
 		return post;
 	}
 
