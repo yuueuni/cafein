@@ -41,6 +41,7 @@ public class CafeController {
 	@GetMapping("/{cafeno}")
 	public CafeDto select(@PathVariable Integer cafeno) {
 		CafeDto cafe = service.select(cafeno);
+		System.out.println(cafe);
 		return cafe;
 	}
 
