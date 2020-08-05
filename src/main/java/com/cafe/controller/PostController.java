@@ -1,9 +1,13 @@
 package com.cafe.controller;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.List;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.ibatis.annotations.Options;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +17,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -45,6 +50,25 @@ public class PostController {
 		String url = fuService.restore(image);
 		System.out.println("URL :" + url);
 		return url;
+	}
+	
+	@ApiOperation(value="post 이미지 가져오기")
+	@GetMapping(value="/get/image/{pno}",
+			produces = MediaType.IMAGE_JPEG_VALUE)
+	public @ResponseBody byte[] getImage(@PathVariable Integer pno) {
+		PostDto post = service.select(pno);
+		String target = post.getImage();
+		System.out.println("post image : " + target);
+		FileInputStream in;
+		try {
+			in = new FileInputStream(target);
+			return IOUtils.toByteArray(in);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			System.out.println("i cant find file");
+			e1.printStackTrace();
+			return null;
+		}
 	}
 	
 	
