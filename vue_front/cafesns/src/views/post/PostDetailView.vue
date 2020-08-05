@@ -12,7 +12,7 @@
             <v-card-title>
               <h1><v-btn @click="mypage(selectedPost.uid)" text>{{ selectedPost.uid }}</v-btn></h1>
               <v-spacer></v-spacer>
-              <span class="text-subtitle-2"><router-link to="/cafe/detail/${selectedPost.cafeno}`">{{ selectedPost.cafeno }}</router-link></span>
+              <span class="text-subtitle-2"><router-link to="/cafe/detail/${selectedPost.cafeno}`">{{ selectedPost.cafename }}</router-link></span>
             </v-card-title>
             <v-divider class="mb-3"></v-divider>
 
