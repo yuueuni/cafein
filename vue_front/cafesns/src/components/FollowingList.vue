@@ -4,9 +4,8 @@
       <div class="float-right">
         <div>{{ followerList }}</div>
         <div>{{ followingList }}</div>
-        <FollowerList/>
-        <v-btn text >Following: {{ followerList.length }}</v-btn>|
-        <v-btn text>Followers: {{ followingList.length }}</v-btn> |
+        <router-link to="" class="link-text "><v-btn text>Following: {{ followerList.length }}</v-btn></router-link> |
+        <router-link to="" class="link-text "><v-btn text>Followers: {{ followingList.length }}</v-btn></router-link> |
         <!-- <router-link to="" class="link-text"><v-btn text>Posts: { PostList.length }</v-btn></router-link>  -->
       </div>
       <!-- <h1>{{ userData }}</h1> -->
@@ -39,16 +38,10 @@
             <!-- <h4>{{ stamp.cafeno.name }}</h4> -->
         <!-- </router-link> -->
       </div>
-      <div>{{ likeList }}</div>
-      <br>
-      <div>{{ stampList }}</div>
   </div>
 </template>
 
 <script>
-import LikeList from '@/components/LikeList.vue'
-import StampList from '@/components/StampList.vue'
-import FollowerList from '@/components/FollowerList.vue'
 
 import { mapState, mapActions } from 'vuex'
 
@@ -60,17 +53,11 @@ export default {
     }
   },
   components: {
-    LikeList,
-    StampList,
-    FollowerList,
   },
   
   computed: {
     ...mapState([
-      'userData', 
-      'postList',
-      'likeList', 
-      'stampList', 
+      'userData',  
       'followingList', 
       'followerList',
     ])
@@ -78,23 +65,16 @@ export default {
   
   methods: {
     ...mapActions([
-      'fetchUserData',
-      'fetchPostList', 
-      'fetchLikeList', 
-      'fetchStampList', 
+      'fetchUserData', 
       'fetchFollowingList',
       'fetchFollowerList',
-      'followUser',
     ])
   },
   
   created() {
     this.fetchUserData(this.currentUserId)
-      this.fetchLikeList()
-      this.fetchStampList()
       this.fetchFollowingList()
       this.fetchFollowerList()
-      this.fetchPostList()
   },
   watch : {
     '$route.params.user_id' : 'fetchUserData'

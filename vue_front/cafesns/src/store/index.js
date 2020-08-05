@@ -105,7 +105,6 @@ export default new Vuex.Store({
         .then(res => {
           commit('SET_TOKEN', res.data)
           state.currentUser = info.data.id
-          this.dispatch("fetchUserData")
           router.push({ name: 'Home' })
         })
         .catch(err => {
@@ -284,11 +283,12 @@ export default new Vuex.Store({
     },
 
     // follow
-    fetchFollowingList({ state, getters, commit }) {
+    fetchFollowingList({ state, commit }) {
       const userid = state.userData.id
-      axios.get(SERVER.URL + SERVER.ROUTES.follow + `/list/following/${userid}` , getters.config)
+      axios.get(SERVER.URL + SERVER.ROUTES.follow + `/list/following/${userid}`)
         .then(res => {
-          commit('SET_FOLLWINGLIST', res)
+          console.log(res.data)
+          commit('SET_FOLLWINGLIST', res.data)
         })
         .catch(err => console.log(err))
     },
@@ -296,7 +296,7 @@ export default new Vuex.Store({
       const userid = state.userData.id
       axios.get(SERVER.URL + SERVER.ROUTES.follow + `/list/follower/${userid}`)
       .then(res => {
-        commit('SET_FOLLOWERLIST', res)
+        commit('SET_FOLLOWERLIST', res.data)
       })
       .catch(err => console.log(err))
     },
