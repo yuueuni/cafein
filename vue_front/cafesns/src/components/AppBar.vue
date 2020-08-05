@@ -10,7 +10,7 @@
       <!-- {{ currentUser }} 님 반갑습니다 ! -->
       <router-link v-if="!isLoggedIn" to="/accounts/signup" class="link-text"><v-btn text>Signup</v-btn></router-link>
       <router-link v-if="!isLoggedIn" to="/accounts/login" class="link-text"><v-btn text>Login</v-btn></router-link>
-      <router-link v-if="isLoggedIn" to="/accounts/${currentUser}`" class="link-text"><v-btn text>Mypage</v-btn></router-link>
+      <v-btn v-if="isLoggedIn" @click="onMypage(currentUser)" text>Mypage</v-btn>
       <router-link to="/post/create" class="link-text"><v-btn text>New Post</v-btn></router-link>
       <router-link to="/cafe/all" class="link-text"><v-btn text>cafe</v-btn></router-link>
       <router-link v-if="isLoggedIn" to="/accounts/logout" @click.native="logout" class="link-text"><v-btn text>Logout</v-btn></router-link>
@@ -30,7 +30,10 @@ export default {
   },
 
   methods: {
-    ...mapActions(['logout'])
+    ...mapActions(['logout']),
+    onMypage(userid) {
+      this.$router.push(`/accounts/${userid}`)
+    }
   },
 
   mounted() {
