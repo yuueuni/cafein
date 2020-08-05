@@ -83,10 +83,10 @@ export default new Vuex.Store({
       state.followerList = followerList
     },
 
-    SET_CAFELIST(state, cafeList) {
+    SET_ADDCAFELIST(state, cafeList) {
       state.cafeList = state.cafeList.concat(cafeList)
     },
-    RESET_CAFELIST(state, cafeList) {
+    SET_CAFELIST(state, cafeList) {
       state.cafeList = cafeList
     },
     SET_SELECTCAFE(state, selectedCafe) {
@@ -331,11 +331,11 @@ export default new Vuex.Store({
       page = page || 1
       axios.get(SERVER.URL + SERVER.ROUTES.cafeList + page)
         .then(res => {
-          // if (page === 1) {
-          //   commit('RESET_CAFELIST', res.data)
-          // } else {
-          commit('SET_CAFELIST', res.data)
-          // }
+          if (!state.cafeList) {
+            commit('SET_CAFELIST', res.data)
+          } else {
+            commit('SET_ADDCAFELIST', res.data)
+          }
         })
         .catch(err => console.error(err))
     },
