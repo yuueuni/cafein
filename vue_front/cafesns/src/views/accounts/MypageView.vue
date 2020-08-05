@@ -1,6 +1,5 @@
 <template>
     <div>
-      <!-- <router-view ></router-view> -->
       <div class="float-right">
         <div>{{ followerList }}</div>
         <div>{{ followingList }}</div>

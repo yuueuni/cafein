@@ -107,9 +107,17 @@ export default new Vuex.Store({
           state.currentUser = info.data.id
           router.push({ name: 'Home' })
         })
-        .catch(err => {
-          console.log(err)
-          alert("이메일과 비밀번호를 확인하세요.")
+        .catch(error => {
+          const msg = error.response.data
+          if ( msg === 'NO_ID') {
+            alert('이메일을 다시 확인해주세요.')
+          } else if (msg === 'WRONG_PW') {
+            alert('비밀번호를 확인해주세요.')
+          } else if (msg === 'EXISTING_ID') {
+            alert('이미 존재하는 이메일입니다.')
+          } else {
+            alert("잘못된 접근입니다.")
+          }
         })
     },
 
@@ -218,9 +226,9 @@ export default new Vuex.Store({
     // like
     fetchLikeList({ state, getters, commit }) {
       const userid = state.userData.id
+      console.log('like', userid, '---=====================')
       axios.get(SERVER.URL + SERVER.ROUTES.like + `/list/${userid}`, getters.config)
         .then(res => {
-          console.log(res.data)
           commit('SET_LIKELIST', res.data)
         })
         .catch(err => console.log(err))
@@ -230,7 +238,6 @@ export default new Vuex.Store({
       const userid = state.userData.id
       axios.get(SERVER.URL + SERVER.ROUTES.like + `/check/${cafeno}/${userid}`, getters.config)
         .then(res => {
-          console.log("COUNT: " + res.data);
           if (res.data === 0) {
             const likeData = {
               cafeno: cafeno,
@@ -259,11 +266,9 @@ export default new Vuex.Store({
       .catch(err => console.log(err))
     },
     stampCafe({ state, getters }, cafeno) {
-      console.log("stamp")
       const userid = state.userData.id
       axios.get(SERVER.URL + SERVER.ROUTES.stamp + `/check/${cafeno}/${userid}`, getters.config)
         .then(res => {
-          console.log("COUNT: " + res.data);
           if (res.data === 0) {
             const stampData = {
               cafeno: cafeno,
@@ -326,11 +331,11 @@ export default new Vuex.Store({
       page = page || 1
       axios.get(SERVER.URL + SERVER.ROUTES.cafeList + page)
         .then(res => {
-          if (page === 1) {
-            commit('RESET_CAFELIST', res.data)
-          } else {
-            commit('SET_CAFELIST', res.data)
-          }
+          // if (page === 1) {
+          //   commit('RESET_CAFELIST', res.data)
+          // } else {
+          commit('SET_CAFELIST', res.data)
+          // }
         })
         .catch(err => console.error(err))
     },
