@@ -8,7 +8,7 @@
           <!-- cafe image -->
           <v-img
             height="250"
-            src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
+            :src="selectedCafe.thumb"
           >
             <v-row align="end" class="fill-height text-end">
               <v-col>
