@@ -328,11 +328,13 @@ export default new Vuex.Store({
    
     //cafe
     fetchCafeList({ state, commit }, page) {
-      page = page || 1
+      const cafeLen = Object.keys(state.cafeList).length
       axios.get(SERVER.URL + SERVER.ROUTES.cafeList + page)
         .then(res => {
-          if (!state.cafeList) {
+          if (!cafeLen) {
             commit('SET_CAFELIST', res.data)
+          } else if (page === 1) {
+            return
           } else {
             commit('SET_ADDCAFELIST', res.data)
           }
