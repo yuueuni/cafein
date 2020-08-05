@@ -56,7 +56,7 @@ export default {
     },
   },
   created() {
-    this.fetchCafeList()
+    this.fetchCafeList(1)
   }
 }
 </script>
