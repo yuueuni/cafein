@@ -87,7 +87,7 @@ export default {
             this.pwValid = true
           } else {
             this.pwValid = false
-            return '비밀번호가 올바른 형식이 아닙니다.'
+            return '* 최소 8자리(영문,숫자,특수문자 모두 포함)'
           }
         },
         passwordConfirm: () => {

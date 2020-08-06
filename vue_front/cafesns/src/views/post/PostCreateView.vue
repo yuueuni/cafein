@@ -84,7 +84,6 @@ export default {
     return {
       postList: {
         cafeno: null,
-        cafename: null,
         contents: null,
         taste: 3,
         mood: 3,

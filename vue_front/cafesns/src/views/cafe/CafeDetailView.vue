@@ -14,7 +14,7 @@
           >
           </v-img>
           <v-row align="end"> 
-            <!-- <v-card-title>cafe keywords</v-card-title> -->
+            <v-card-title>cafe keywords</v-card-title>
             <v-col class="text-end">
               <v-btn icon :color="active ? 'red lighten-3': 'white'" @click="likeCafe(selectedCafe.cafeno)" class="mx-1">
                 <i class="fas fa-heart fa-2x"></i>
@@ -24,7 +24,12 @@
               </v-btn>
             </v-col>
           </v-row>
-          <!-- <v-card-text>keyword, ,,, </v-card-text> -->
+          <v-chip-group>
+            <v-chip>cafe</v-chip>
+            <v-chip>coffee</v-chip>
+            <v-chip>drink</v-chip>
+            <v-chip>dessert</v-chip>
+          </v-chip-group>
         </v-col>
 
         <v-col cols="6">

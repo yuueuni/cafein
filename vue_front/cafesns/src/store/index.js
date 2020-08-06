@@ -154,7 +154,6 @@ export default new Vuex.Store({
     // post
     createPost({ state, getters }, postList) {
       postList.cafeno = state.selectedCafe.cafeno
-      postList.cafename = state.selectedCafe.name
       postList.uid = state.currentUser
       postList.image = state.uploadImageURL
       axios.post(SERVER.URL + SERVER.ROUTES.postDetail, postList, getters.config)

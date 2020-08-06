@@ -16,32 +16,42 @@
             </v-card-title>
             <v-divider class="mb-3"></v-divider>
 
-            <span>맛 {{ selectedPost.taste }}</span>
-            <v-rating
-              v-model="selectedPost.taste"
-              color="yellow darken-3"
-              background-color="grey darken-1"
-              empty-icon="$ratingFull"
-              readonly
-            ></v-rating>
+            <v-row class="d-flex align-center justify-center">
+              <span>맛</span>
+              <v-rating
+                v-model="selectedPost.taste"
+                color="yellow darken-3"
+                background-color="grey darken-1"
+                empty-icon="$ratingFull"
+                readonly
+              ></v-rating>
+              <span>({{ selectedPost.taste }})</span>
+            </v-row>
 
-            <span>분위기 {{ selectedPost.mood }}</span>
-            <v-rating
-              v-model="selectedPost.mood"
-              color="yellow darken-3"
-              background-color="grey darken-1"
-              empty-icon="$ratingFull"
-              readonly
-            ></v-rating>
+            <v-row class="d-flex align-center justify-center">
+              <span>분위기</span>
+              <v-rating
+                v-model="selectedPost.mood"
+                color="yellow darken-3"
+                background-color="grey darken-1"
+                empty-icon="$ratingFull"
+                readonly
+              ></v-rating>
+              <span>({{ selectedPost.mood }})</span>
+            </v-row>
 
-            <span>위생 {{ selectedPost.clean }}</span>
-            <v-rating
-              v-model="selectedPost.clean"
-              color="yellow darken-3"
-              background-color="grey darken-1"
-              empty-icon="$ratingFull"
-              readonly
-            ></v-rating>
+            <v-row class="d-flex align-center justify-center">
+              <span>위생</span>
+              <v-rating
+                v-model="selectedPost.clean"
+                color="yellow darken-3"
+                background-color="grey darken-1"
+                empty-icon="$ratingFull"
+                readonly
+              ></v-rating>
+              <span>({{ selectedPost.clean }})</span>
+            </v-row>
+
           <v-divider></v-divider>
             <p class="my-3 text-start" style="min-height:100px;">{{ selectedPost.contents }}</p>
 
