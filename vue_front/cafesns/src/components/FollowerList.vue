@@ -1,44 +1,44 @@
 <template>
-  <v-row justify="center">
+  <div>
     <v-dialog v-model="dialog" scrollable max-width="300px">
       <template v-slot:activator="{ on, attrs }">
         <v-btn
-          color="primary"
-          dark
+          color="#BCAAA4"
           v-bind="attrs"
           v-on="on"
+          text
         >
-          Follower
+          Followers {{ followerList.length }}
         </v-btn>
       </template>
       <v-card>
-        <v-card-title>Follower</v-card-title>
+        <v-card-title>Followers</v-card-title>
         <v-divider></v-divider>
         <v-card-text style="height: 300px;">
           <v-radio-group v-model="dialogm1" column>
-            <v-radio label="Bahamas, The" value="bahamas"></v-radio>
-            <v-radio label="Bahrain" value="bahrain"></v-radio>
-            <v-radio label="Bangladesh" value="bangladesh"></v-radio>
-            <v-radio label="Barbados" value="barbados"></v-radio>
-            <v-radio label="Belarus" value="belarus"></v-radio>
-            <v-radio label="Belgium" value="belgium"></v-radio>
-            <v-radio label="Belize" value="belize"></v-radio>
-            <v-radio label="Benin" value="benin"></v-radio>
-            <v-radio label="Bhutan" value="bhutan"></v-radio>
-            <v-radio label="Bolivia" value="bolivia"></v-radio>
-            <v-radio label="Bosnia and Herzegovina" value="bosnia"></v-radio>
-            <v-radio label="Botswana" value="botswana"></v-radio>
-            <v-radio label="Brazil" value="brazil"></v-radio>
-            <v-radio label="Brunei" value="brunei"></v-radio>
-            <v-radio label="Bulgaria" value="bulgaria"></v-radio>
-            <v-radio label="Burkina Faso" value="burkina"></v-radio>
-            <v-radio label="Burma" value="burma"></v-radio>
-            <v-radio label="Burundi" value="burundi"></v-radio>
+            <v-row v-for="user in followerList" :key="user.id">
+              <v-list rounded>
+                <v-list-item-group color="primary">
+                  <v-list-item
+                    v-for="(item, i) in items"
+                    :key="i"
+                    @click="onMypage(user)"
+                  >
+                  <v-list-item-icon>
+                    <v-icon v-text="item.icon"></v-icon>
+                  </v-list-item-icon>
+                  <v-list-item-content>
+                    <v-list-item-title >{{ user }}</v-list-item-title>
+                  </v-list-item-content>
+                  </v-list-item>
+                </v-list-item-group>
+              </v-list>
+            </v-row>
           </v-radio-group>
         </v-card-text>
       </v-card>
     </v-dialog>
-  </v-row>
+  </div>
 </template>
 
 <script>
@@ -51,39 +51,34 @@ export default {
       dialogm1: '',
       dialog: false,
       currentUserId : this.$route.params.user_id,
+      items: [
+        { text: 'user', icon: 'mdi-account' }
+      ],
     }
   },
-  
+
   computed: {
     ...mapState([
-      'userData', 
-      'postList',
-      'likeList', 
-      'stampList', 
-      'followingList', 
-      'followerList',
+      'userData',  
+      'followerList', 
     ])
   },
   
   methods: {
     ...mapActions([
       'fetchUserData',
-      'fetchPostList', 
-      'fetchLikeList', 
-      'fetchStampList', 
-      'fetchFollowingList',
       'fetchFollowerList',
       'followUser',
-    ])
+    ]),
+    onMypage(userid) {
+      this.dialog = false
+      this.$router.push(`/accounts/${userid}`)
+    }
   },
   
   created() {
     this.fetchUserData(this.currentUserId)
-      this.fetchLikeList()
-      this.fetchStampList()
-      this.fetchFollowingList()
       this.fetchFollowerList()
-      this.fetchPostList()
   },
 }
 </script>

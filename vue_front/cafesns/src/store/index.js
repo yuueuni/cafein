@@ -76,17 +76,17 @@ export default new Vuex.Store({
       state.stampList = stampList
     },
 
-    SET_FOLLWINGLIST(state, followingList) {
+    SET_FOLLOWINGLIST(state, followingList) {
       state.followingList = followingList
     },
     SET_FOLLOWERLIST(state, followerList) {
       state.followerList = followerList
     },
 
-    SET_CAFELIST(state, cafeList) {
+    SET_ADDCAFELIST(state, cafeList) {
       state.cafeList = state.cafeList.concat(cafeList)
     },
-    RESET_CAFELIST(state, cafeList) {
+    SET_CAFELIST(state, cafeList) {
       state.cafeList = cafeList
     },
     SET_SELECTCAFE(state, selectedCafe) {
@@ -291,18 +291,13 @@ export default new Vuex.Store({
     fetchFollowingList({ state, commit }) {
       const userid = state.userData.id
       axios.get(SERVER.URL + SERVER.ROUTES.follow + `/list/following/${userid}`)
-        .then(res => {
-          console.log(res.data)
-          commit('SET_FOLLWINGLIST', res.data)
-        })
+        .then(res => commit('SET_FOLLOWINGLIST', res.data))
         .catch(err => console.log(err))
     },
     fetchFollowerList({ state, commit }) {
       const userid = state.userData.id
       axios.get(SERVER.URL + SERVER.ROUTES.follow + `/list/follower/${userid}`)
-      .then(res => {
-        commit('SET_FOLLOWERLIST', res.data)
-      })
+      .then(res => commit('SET_FOLLOWERLIST', res.data))
       .catch(err => console.log(err))
     },
     followUser({ state, getters }, followingid) {
@@ -327,15 +322,15 @@ export default new Vuex.Store({
       
    
     //cafe
-    fetchCafeList({ commit }, page) {
+    fetchCafeList({ state, commit }, page) {
       page = page || 1
       axios.get(SERVER.URL + SERVER.ROUTES.cafeList + page)
         .then(res => {
-          // if (page === 1) {
-          //   commit('RESET_CAFELIST', res.data)
-          // } else {
-          commit('SET_CAFELIST', res.data)
-          // }
+          if (!state.cafeList) {
+            commit('SET_CAFELIST', res.data)
+          } else {
+            commit('SET_ADDCAFELIST', res.data)
+          }
         })
         .catch(err => console.error(err))
     },
