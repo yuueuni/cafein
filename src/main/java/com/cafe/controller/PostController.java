@@ -56,6 +56,7 @@ public class PostController {
 	@ApiOperation(value = "게시글 조회")
 	public PostDto select(@PathVariable Integer pno) {
 		System.out.println("select post");
+		
 		PostDto post = service.select(pno);
 		CafeDto cafe = caService.select(post.getCafeno());
 		post.setCafename(cafe.getName());
