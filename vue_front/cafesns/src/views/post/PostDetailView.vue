@@ -1,5 +1,6 @@
 <template>
   <div>
+    <v-btn @click="$router.go(-1)" text><h3>BACK</h3></v-btn>
     <v-row justify="center">
       <v-col
         cols="12"

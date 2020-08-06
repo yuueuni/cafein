@@ -198,7 +198,7 @@ export default new Vuex.Store({
       if (!postData.formData.image) {
         dispatch('updatePost', postData.selectedPost)
       } else {
-        axios.post(SERVER.URL + SERVER.ROUTES.UploadImage, postData.formData)
+        axios.post(SERVER.URL + SERVER.ROUTES.uploadImage, postData.formData)
           .then((res) => {
             if (postData.selectedPost) {
               commit('SET_IMAGEURL', res.data)

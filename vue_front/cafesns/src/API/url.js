@@ -10,7 +10,7 @@ export default{
         postList: '/post/list/cafe/1/',
         postDetail: '/post',
         postDelete: '/post/delete/',
-        UploadImage: '/post/upload',
+        uploadImage: '/post/upload',
 
         //comment
         createComment: '/comment',
