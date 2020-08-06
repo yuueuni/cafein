@@ -26,7 +26,7 @@ export default {
   name: 'CafeListView',
   data() {
     return {
-      page: 0,
+      page: 1,
     }
   },
   components: {

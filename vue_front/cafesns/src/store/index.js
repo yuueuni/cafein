@@ -105,7 +105,7 @@ export default new Vuex.Store({
         .then(res => {
           commit('SET_TOKEN', res.data)
           state.currentUser = info.data.id
-          router.push({ name: 'Home' })
+          router.go(-1)
         })
         .catch(error => {
           const msg = error.response.data
@@ -141,7 +141,7 @@ export default new Vuex.Store({
       commit('SET_TOKEN', null)
       state.currentUser = null
       cookies.remove('auth-token')
-      router.push({ name: 'Home' })
+      router.go(-1)
     },
 
     // user
@@ -154,6 +154,7 @@ export default new Vuex.Store({
     // post
     createPost({ state, getters }, postList) {
       postList.cafeno = state.selectedCafe.cafeno
+      postList.cafename = state.selectedCafe.name
       postList.uid = state.currentUser
       postList.image = state.uploadImageURL
       axios.post(SERVER.URL + SERVER.ROUTES.postDetail, postList, getters.config)
@@ -226,7 +227,6 @@ export default new Vuex.Store({
     // like
     fetchLikeList({ state, getters, commit }) {
       const userid = state.userData.id
-      console.log('like', userid, '---=====================')
       axios.get(SERVER.URL + SERVER.ROUTES.like + `/list/${userid}`, getters.config)
         .then(res => {
           commit('SET_LIKELIST', res.data)
@@ -234,7 +234,10 @@ export default new Vuex.Store({
         .catch(err => console.log(err))
     },
     likeCafe({ state, getters }, cafeno) {
-      console.log("like")
+      if (!getters.isLoggedIn) {
+        alert('로그인이 필요합니다!')
+        router.push(`/accounts/login`)
+      }
       const userid = state.userData.id
       axios.get(SERVER.URL + SERVER.ROUTES.like + `/check/${cafeno}/${userid}`, getters.config)
         .then(res => {
@@ -266,6 +269,10 @@ export default new Vuex.Store({
       .catch(err => console.log(err))
     },
     stampCafe({ state, getters }, cafeno) {
+      if (!getters.isLoggedIn) {
+        alert('로그인이 필요합니다!')
+        router.push(`/accounts/login`)
+      }
       const userid = state.userData.id
       axios.get(SERVER.URL + SERVER.ROUTES.stamp + `/check/${cafeno}/${userid}`, getters.config)
         .then(res => {
@@ -301,11 +308,9 @@ export default new Vuex.Store({
       .catch(err => console.log(err))
     },
     followUser({ state, getters }, followingid) {
-      console.log("follow")
       const userid = state.userData.id
       axios.get(SERVER.URL + SERVER.ROUTES.follow + `/check/${userid}/${followingid}`, getters.config)
         .then(res => {
-          console.log("COUNT: " + res.data);
           if (res.data === 0) {
             axios.post(SERVER.URL + SERVER.ROUTES.follow, {userid,followingid}, getters.config)
               .then(() => console.log("success"))
@@ -323,11 +328,13 @@ export default new Vuex.Store({
    
     //cafe
     fetchCafeList({ state, commit }, page) {
-      page = page || 1
+      const cafeLen = Object.keys(state.cafeList).length
       axios.get(SERVER.URL + SERVER.ROUTES.cafeList + page)
         .then(res => {
-          if (!state.cafeList) {
+          if (!cafeLen) {
             commit('SET_CAFELIST', res.data)
+          } else if (page === 1) {
+            return
           } else {
             commit('SET_ADDCAFELIST', res.data)
           }
