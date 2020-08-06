@@ -3,47 +3,42 @@
         <!-- <div>{{ followingList }}</div>
         <div>{{ followerList }}</div> -->
         <v-row>
-          <h1>{{ userData.id.split('@')[0] }}</h1>
-          <v-btn @click="followUser(userData.id)">
-            <h2>follow</h2>
+          <h1 class="px-3">{{ userData.id.split('@')[0] }}</h1>
+          <v-btn class="px-1" @click="followUser(profileUserId)">
+            <h2 v-if="followState">follow</h2>
+            <h2 v-else>Unfollow</h2>
           </v-btn>
           <v-spacer></v-spacer>
           <FollowingList/>
           <FollowerList/>
+          <UserPostList/>
         </v-row>
         <!-- <router-link to="" class="link-text"><v-btn text>Posts: { PostList.length }</v-btn></router-link>  -->
       <v-divider></v-divider>
       <div>
-        <span style="font-size: 3em; color: Tomato;">
-          <i class="fas fa-heart"></i>
+        <span style="font-size: 3em">
+          <i class="fas fa-heart" style="color: #ef9a9a"></i>
         </span>
-        <!-- <router-link v-for="like in likeList" :key="like.lno" to="" class="link-text"> -->
           <div class="home text-center"><LikeList/></div>
-          <!-- <img src="like.cafeno" alt="like cafe image"> -->
-          <!-- <h4>{{ like.cafeno.name }}</h4> -->
-        <!-- </router-link> -->
       </div>
       <div>
-        <span style="font-size: 3em; color: Mediumslateblue;">
-          <i class="fas fa-shoe-prints fa-rotate-270"></i>
+        <span style="font-size: 3em">
+          <i class="fas fa-shoe-prints fa-rotate-270" style="color: #90caf9"></i>
         </span>
-          <!-- <router-link v-for="stamp in stampList" :key="stamp.sno" to="" class="link-text"> -->
           <div class="home text-center"><StampList/></div>
-            <!-- <img src="stamp.cafeno" alt="stamp cafe image"> -->
-            <!-- <h4>{{ stamp.cafeno.name }}</h4> -->
-        <!-- </router-link> -->
       </div>
-      <div>{{ likeList }}</div>
+      <!-- <div>{{ likeList }}</div>
       <br>
-      <div>{{ stampList }}</div>
+      <div>{{ stampList }}</div> -->
   </div>
 </template>
 
 <script>
-import LikeList from '@/components/LikeList.vue'
-import StampList from '@/components/StampList.vue'
-import FollowingList from '@/components/FollowingList.vue'
-import FollowerList from '@/components/FollowerList.vue'
+import LikeList from '@/components/user_profile/LikeList.vue'
+import StampList from '@/components/user_profile/StampList.vue'
+import FollowingList from '@/components/user_profile/FollowingList.vue'
+import FollowerList from '@/components/user_profile/FollowerList.vue'
+import UserPostList from '@/components/user_profile/UserPostList.vue'
 
 import { mapState, mapActions } from 'vuex'
 
@@ -51,24 +46,28 @@ export default {
   name: "MyPageView",
   data() {
     return {
-      currentUserId : this.$route.params.user_id
+      profileUserId : null,
     }
   },
+
   components: {
     LikeList,
     StampList,
     FollowingList,
     FollowerList,
+    UserPostList,
   },
   
   computed: {
     ...mapState([
-      'userData', 
-      'postList',
+      'userData',
+      'currentUser',
       'likeList', 
       'stampList', 
+      'followState',
       'followingList', 
       'followerList',
+      'postList',
     ])
   },
   
@@ -80,18 +79,32 @@ export default {
       'fetchFollowingList',
       'fetchFollowerList',
       'followUser',
-    ])
+    ]),
+    showUserProfile() {
+      this.profileUserId = this.$route.params.user_id
+      this.fetchUserData(this.profileUserId)
+        .then(() => {
+          this.fetchLikeList()
+          this.fetchStampList()
+          this.fetchFollowingList()
+          this.fetchFollowerList()
+        })
+    },
+    
   },
-  
+
   created() {
-    this.fetchUserData(this.currentUserId)
-      this.fetchLikeList()
-      this.fetchStampList()
-      this.fetchFollowingList()
-      this.fetchFollowerList()
+    this.showUserProfile()
+    // console.log(typeof(this.currentUser))
+    // console.log(this.currentUser.toString() in this.followerList)
   },
-  watch : {
-    '$route.params.user_id' : 'fetchUserData'
+
+  watch: {
+    '$route' (to, from) {
+      if (to !== from ) {
+        this.showUserProfile()
+      }
+    }
   },
 }
 </script>

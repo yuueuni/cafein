@@ -4,12 +4,17 @@
     <v-list flat>
       <v-list-item-group>
         <v-list-item
-          v-for="post in posts"
+          v-for="post in postList"
           :key="post.pno"
           @click="onSelectPost(post.pno)"
         >
           <v-list-item-avatar>
-            <v-icon class="grey lighten-1 white--text" v-text="folder"></v-icon>
+            <!-- <v-icon class="grey lighten-1 white--text" v-text="folder"></v-icon> -->
+            <v-img
+              src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
+              @click="onSelectPost(post.pno)"
+            >
+            </v-img>
           </v-list-item-avatar>
 
           <v-list-item-content>
@@ -30,16 +35,16 @@ import { mapState, mapActions } from 'vuex'
 export default {
   name: 'PostList',
   computed: {
-    ...mapState(['posts'])
+    ...mapState(['postList'])
   },
   methods: {
-    ...mapActions(['fetchPosts']),
+    ...mapActions(['fetchList']),
     onSelectPost(postno) {
       this.$router.push(`/post/detail/${postno}`)
     }
   },
   created() {
-    this.fetchPosts(this.$route.params.cafe_id)
+    this.fetchPostList(this.$route.params.cafe_id)
   },
 
 }

@@ -16,19 +16,20 @@ export default new Vuex.Store({
     currentUser: null,
     userData: {},
     
+    userPostList: {},
     postList: {},
-    posts: [],
     selectedPost: null,
     updatePostData: {},
     uploadImageURL: null,
     
     commentData: {},
-    comments: [],
+    commentList: {},
     selectedComment: null,
     
     likeList: {},
     stampList: {},
     
+    followState: null,
     followingList: {},
     followerList: {},
     
@@ -58,15 +59,18 @@ export default new Vuex.Store({
       state.userData = userData
     },
 
-    SET_POSTS(state, posts) {
-      state.posts = posts
+    SET_USERPOSTLIST(state, POSTLIST) {
+      state.userPostList = POSTLIST
+    },
+    SET_POSTLIST(state, POSTLIST) {
+      state.postList = POSTLIST
     },
     SET_SELECTPOST(state, selectedPost) {
       state.selectedPost = selectedPost
     },
 
-    SET_COMMENTS(state, comments) {
-      state.comments = comments
+    SET_COMMENTLIST(state, commentList) {
+      state.commentList = commentList
     },
 
     SET_LIKELIST(state, likeList) {
@@ -141,14 +145,22 @@ export default new Vuex.Store({
       commit('SET_TOKEN', null)
       state.currentUser = null
       cookies.remove('auth-token')
-      router.go(-1)
+      router.push('/')
     },
 
     // user
-    fetchUserData({ commit, getters }, userid) {
-      axios.get(SERVER.URL + SERVER.ROUTES.mypage + `/${userid}`, getters.config)
-        .then(res => commit('SET_USERDATA', res.data))
-        .catch(err => console.log(err))
+    fetchUserData({ getters, commit }, userid) {
+      return new Promise((resolve, reject) => {
+        axios.get(SERVER.URL + SERVER.ROUTES.mypage + `/${userid}`, getters.config)
+          .then(res => {
+            commit('SET_USERDATA', res.data)
+            resolve(res)
+          })
+          .catch(err => {
+            console.error(err.response.data)
+            reject(err)
+          })
+      })
     },
 
     // post
@@ -162,9 +174,14 @@ export default new Vuex.Store({
         })
         .catch(err => console.log('error', err))
     },
-    fetchPosts({ commit }, cafeno) {
+    fetchPostList({ commit }, cafeno) {
       axios.get(SERVER.URL + SERVER.ROUTES.postList + cafeno)
-        .then(res => commit('SET_POSTS', res.data))
+        .then(res => commit('SET_POSTLIST', res.data))
+        .catch(err => console.error(err))
+    },
+    fetchUserPostList({ commit }, userId) {
+      axios.get(SERVER.URL + SERVER.ROUTES.userPostList + `${userId}`)
+        .then(res => commit('SET_USERPOSTLIST', res.data))
         .catch(err => console.error(err))
     },
     postDetail({ commit }, id) {
@@ -184,7 +201,7 @@ export default new Vuex.Store({
     deletePost({ state, getters, dispatch }, postId) {
       axios.delete(SERVER.URL + SERVER.ROUTES.postDelete + `${postId}`, getters.config)
         .then(() => {
-          dispatch('fetchPosts', state.selectedPost.pno)
+          dispatch('fetchPostList', state.selectedPost.pno)
           router.push(`/cafe/detail/${state.selectedCafe.cafeno}`)
         })
         .catch(err => console.log(err))
@@ -206,19 +223,19 @@ export default new Vuex.Store({
       commentData.uid = state.currentUser
       axios.post(SERVER.URL + SERVER.ROUTES.createComment, commentData, getters.config)
         .then(() => {
-          dispatch('fetchComments', state.selectedPost.pno)
+          dispatch('fetchCommentList', state.selectedPost.pno)
         })
         .catch(err => console.log(err))
     },
-    fetchComments({ commit }, postno) {
+    fetchCommentList({ commit }, postno) {
       axios.get(SERVER.URL + SERVER.ROUTES.commentList+postno)
-        .then(res => commit('SET_COMMENTS', res.data))
+        .then(res => commit('SET_COMMENTLIST', res.data))
         .catch(err => console.error(err))
     },
     deleteComment({ state, getters, dispatch }, commentId) {
       axios.delete(SERVER.URL + SERVER.ROUTES.deleteComment + `${commentId}`, getters.config)
         .then(() => {
-          dispatch('fetchComments', state.selectedPost.pno)
+          dispatch('fetchCommentList', state.selectedPost.pno)
         })
         .catch(err => console.log(err))
     },
@@ -306,24 +323,35 @@ export default new Vuex.Store({
       .then(res => commit('SET_FOLLOWERLIST', res.data))
       .catch(err => console.log(err))
     },
-    followUser({ state, getters }, followingid) {
-      const userid = state.userData.id
-      axios.get(SERVER.URL + SERVER.ROUTES.follow + `/check/${userid}/${followingid}`, getters.config)
+    followUser({ state, getters, dispatch, }, followingid) {
+      return new Promise((resolve, reject) => {
+      const currentUserId = state.currentUser
+      axios.get(SERVER.URL + SERVER.ROUTES.follow + `/check/${currentUserId}/${followingid}`, getters.config)
         .then(res => {
           if (res.data === 0) {
-            axios.post(SERVER.URL + SERVER.ROUTES.follow, {userid,followingid}, getters.config)
-              .then(() => console.log("success"))
+            const followData = {
+              followingid: followingid,
+              uid: currentUserId
+            }
+            axios.post(SERVER.URL + SERVER.ROUTES.follow, followData, getters.config)
+              .then(() => state.followState = 1 )
               .catch(err => console.log(err))
           } 
           else {
-            axios.delete(SERVER.URL + SERVER.ROUTES.follow + `/delete/${userid}/${followingid}`, getters.config)
-              .then(() => console.log("success"))
+            axios.delete(SERVER.URL + SERVER.ROUTES.follow + `/delete/${currentUserId}/${followingid}`, {followingid, currentUserId,}, getters.config)
+              .then(() => state.followState = 0)
               .catch(err => console.log(err))
           }
+          dispatch('fetchFollowingList')
+          dispatch('fetchFollowerList')
+          resolve(res)
         })
-        .catch(err => console.log(err))
+        .catch(err => {
+          console.error(err.response.data)
+          reject(err)
+        })
+      })
     },
-      
    
     //cafe
     fetchCafeList({ state, commit }, page) {

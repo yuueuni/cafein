@@ -76,10 +76,11 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'postCreateView',
+
   data() {
     return {
       postList: {
@@ -97,12 +98,15 @@ export default {
       disabled: true,
     }
   },
+
   computed: {
     ...mapState([
         'currentUser',
         'selectedCafe',
-      ])
+      ]),
+    ...mapGetters(['isLoggedIn']),
   },
+
   methods: {
     ...mapActions(['uploadImage']),
     onFileChange(e) {
@@ -129,6 +133,12 @@ export default {
       }
     },
   },
+
+  created() {
+    if (!this.isLoggedIn) {
+      this.$router.push({ name: 'Login'})
+    }
+  }, 
 }
 </script>
 

@@ -2,7 +2,7 @@
   <div>
     <h3>작성자 | 댓글 내용 | 작성시간</h3>
     <div
-      v-for="comment in comments"
+      v-for="comment in commentList"
       :key="comment.key"
     >
       <p>{{ comment.uid }} | {{ comment.contents }} | {{ comment.date }} <v-btn v-if="comment.uid === currentUser" @click="deleteComment(comment.cno)">삭제</v-btn></p>
@@ -22,18 +22,18 @@ export default {
   },
   computed: {
     ...mapState([
-      'comments',
+      'commentList',
       'currentUser'
     ])
   },
   methods: {
     ...mapActions([
-      'fetchComments',
+      'fetchCommentList',
       'deleteComment',
     ])
   },
   created() {
-    this.fetchComments(this.postId)
+    this.fetchCommentList(this.postId)
   }
 
 }
