@@ -12,7 +12,7 @@
 	<select id="selectAll" resultType="CafeDto">
 		select *
 		from cafe
-		order by cafeno desc
+		order by cafeno asc
 	</select>
 	
 	<!--카페 검색-->
