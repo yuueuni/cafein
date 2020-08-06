@@ -61,7 +61,7 @@ public class PostController {
 	@GetMapping(value="/get/image/{pno}",
 			produces = MediaType.IMAGE_JPEG_VALUE)
 	public @ResponseBody byte[] getImage(@PathVariable Integer pno) {
-		String imgPath = "/home/data/images";
+		String imgPath = "/home/data/images/";
 		PostDto post = service.select(pno);
 		String target = imgPath+post.getImage();
 		System.out.println("post image : " + target);
