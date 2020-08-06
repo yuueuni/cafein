@@ -119,6 +119,10 @@ public class PostController {
 		System.out.println("list by cafeno");
 		System.out.println(page);
 		List<PostDto> posts = service.selectAllByCafe(page, cafeno);
+		for(PostDto p : posts) {
+			CafeDto cafe = caService.select(p.getCafeno());
+			p.setCafename(cafe.getName());	
+		}
 		return posts;
 	}
 
