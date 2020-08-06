@@ -157,8 +157,9 @@ export default new Vuex.Store({
       postList.uid = state.currentUser
       postList.image = state.uploadImageURL
       axios.post(SERVER.URL + SERVER.ROUTES.postDetail, postList, getters.config)
-        .then(() => {
-          router.push(`/cafe/detail/${state.selectedCafe.cafeno}`)
+        .then((res) => {
+          console.log(res)
+          router.push(`/post/detail/${res.data.pno}`)
         })
         .catch(err => console.log('error', err))
     },
@@ -173,14 +174,18 @@ export default new Vuex.Store({
           commit('SET_SELECTPOST', res.data)
         })
         .catch(err => console.error(err))
+      },
+    updatePost({ state, commit, dispatch, getters }, postData) {
+      postData.image = state.uploadImageURL
+      console.log(postData.image, state.uploadImageURL)
+      axios.put(SERVER.URL + SERVER.ROUTES.postDetail, postData, getters.config)
+        .then(() => {
+          dispatch('fetchPosts', postData.cafeno)
+          commit('SET_SELECTPOST', postData)
+          router.push(`/post/detail/${postData.pno}`)
+        })
+        .catch(err => console.error(err))
     },
-    // updatePosts({ state, dispatch, getters }, updatePostDate) {
-    //   axios.put(SERVER.URL + SERVER.ROUTES.postList + `/${state.selectedPost.id}`,updatePostDate, getters.config)
-        // .then(() => {
-        //   dispatch('fetchPosts', state.selectedPost.id)
-        // }
-    //     .catch(err => console.error(err))
-    // },
     deletePost({ state, getters, dispatch }, postId) {
       axios.delete(SERVER.URL + SERVER.ROUTES.postDelete + `${postId}`, getters.config)
         .then(() => {
@@ -190,15 +195,21 @@ export default new Vuex.Store({
         .catch(err => console.log(err))
     },
     uploadImage({ dispatch, commit }, postData) {
-      commit('SET_IMAGEURL', "2020630111230621.png")
-      dispatch('createPost', postData.postList)
-      // axios.post(SERVER.URL + SERVER.ROUTES.UploadImage, postData.formData)
-      //   .then(res => {
-      //     console.log(res)
-      //     commit('SET_IMAGEURL', res.data)
-      //     dispatch('createPost', postData.postList)
-      //   })
-      //   .catch(err => console.log(err))
+      if (!postData.formData.image) {
+        dispatch('updatePost', postData.selectedPost)
+      } else {
+        axios.post(SERVER.URL + SERVER.ROUTES.UploadImage, postData.formData)
+          .then((res) => {
+            if (postData.selectedPost) {
+              commit('SET_IMAGEURL', res.data)
+              dispatch('updatePost', postData.selectedPost)
+            } else {
+              commit('SET_IMAGEURL', res.data)
+              dispatch('createPost', postData.postList)
+            }
+          })
+          .catch(err => console.log(err))
+      }
     },
 
     // comment

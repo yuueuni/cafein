@@ -10,64 +10,65 @@
         <v-card ref="form" class="px-3">
           <v-card-text class="text-center">
             <v-card-title>
-              <h1>{{ selectedCafe.name }}</h1>
+              <h2>{{ selectedPost.cafename }} POST 수정</h2>
             </v-card-title>
             <v-divider class="mb-3"></v-divider>
 
             <v-row class="d-flex align-center justify-center">
               <span>맛</span>
               <v-rating
-                v-model="postList.taste"
+                v-model="selectedPost.taste"
                 color="yellow darken-3"
                 background-color="grey darken-1"
                 empty-icon="$ratingFull"
                 half-increments
                 hover
               ></v-rating>
-              <span>({{ postList.taste }})</span>
+              <span>({{ selectedPost.taste }})</span>
             </v-row>
 
             <v-row class="d-flex align-center justify-center">
               <span>분위기</span>
               <v-rating
-                v-model="postList.mood"
+                v-model="selectedPost.mood"
                 color="yellow darken-3"
                 background-color="grey darken-1"
                 empty-icon="$ratingFull"
                 half-increments
                 hover
               ></v-rating>
-              <span>({{ postList.mood }})</span>
+              <span>({{ selectedPost.mood }})</span>
             </v-row>
 
             <v-row class="d-flex align-center justify-center">
               <span>위생</span>
               <v-rating
-                v-model="postList.clean"
+                v-model="selectedPost.clean"
                 color="yellow darken-3"
                 background-color="grey darken-1"
                 empty-icon="$ratingFull"
                 half-increments
                 hover
               ></v-rating>
-              <span>({{ postList.clean }})</span>
+              <span>({{ selectedPost.clean }})</span>
             </v-row>
             
             <v-textarea 
               label="Content" 
-              v-model="postList.contents"
+              v-model="selectedPost.contents"
               id="content"
               autofocus
-              :rules="[ checkContents ]"
             >
             </v-textarea>
 
             <v-file-input accept="image/*" label="File input" @change="onFileChange" :rules="[ checkImage ]"></v-file-input>
             <v-img v-if="url" :src="url" contain max-width="100%" max-height="300px"></v-img>
           </v-card-text>
-          <div class="text-center mb-3 pb-3">
-            <v-btn color="secondary" :disabled="disabled" @click="uploadImage({postList, formData})">Save</v-btn>
-          </div>
+          <v-card-actions>
+            <v-btn color="secondary" @click="$router.go(-1)" text>cancle</v-btn>
+            <v-spacer></v-spacer>
+            <v-btn color="secondary" @click="uploadImage({selectedPost, formData})">Save</v-btn>
+          </v-card-actions>
         </v-card>  
       </v-col>
     </v-row>
@@ -78,18 +79,9 @@
 import { mapState, mapActions } from 'vuex'
 
 export default {
-  name: 'postCreateView',
+  name: 'postUpdateView',
   data() {
     return {
-      postList: {
-        cafeno: null,
-        contents: null,
-        taste: 0,
-        mood: 0,
-        clean: 0,
-        uid: null,
-        image: null,
-      },
       formData: new FormData(),
       url: null,
       selectedFile: null,
@@ -99,11 +91,14 @@ export default {
   computed: {
     ...mapState([
         'currentUser',
-        'selectedCafe',
+        'selectedPost',
       ])
   },
   methods: {
-    ...mapActions(['uploadImage']),
+    ...mapActions([
+        'uploadImage',
+        'updatePost',
+      ]),
     onFileChange(e) {
       if (!e) {
         this.url = null
@@ -113,21 +108,17 @@ export default {
         this.formData.append("image", this.selectedFile, this.selectedFile.name)
       }
     },
-    checkContents(value) {
-      if (!value) {
-        return '내용을 입력해주세요.'
-      } else if (this.postList.contents && this.url) {
-        this.disabled = false
-      }
-    },
     checkImage(value) {
       if (!value) {
         return '사진을 등록해주세요.'
-      } else if (this.url && this.postList.contents) {
+      } else {
         this.disabled = false
       }
     },
   },
+  created() {
+    this.url = 'http://i3a203.p.ssafy.io:5000/api/post/get/image/'+this.selectedPost.pno
+  }
 }
 </script>
 

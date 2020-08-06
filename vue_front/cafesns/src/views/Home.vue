@@ -11,7 +11,7 @@
               class="d-flex white v-card--reveal display-3"
               style="height: 100%;"
             >
-              Cafe
+              <span style="font-family:'BBTreeGR';">Cafe</span>
             </div>
           </v-expand-transition>
         </v-card>
@@ -27,7 +27,7 @@
               class="d-flex white v-card--reveal display-3"
               style="height: 100%;"
             >
-              Post
+              <span style="font-family:'BBTreeGR';">Post</span>
             </div>
           </v-expand-transition>
         </v-card>

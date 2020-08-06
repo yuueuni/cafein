@@ -9,6 +9,7 @@ import MypageView from '@/views/accounts/MypageView.vue'
 
 // post
 import PostCreateView from '@/views/post/PostCreateView.vue'
+import PostUpdateView from '@/views/post/PostUpdateView.vue'
 import PostDetailView from '@/views/post/PostDetailView.vue'
 
 // cafe
@@ -49,7 +50,11 @@ Vue.use(VueRouter)
     component: PostCreateView
   },
   {
-    // path: '/post/detail',
+    path: '/post/update/:post_id',
+    name: 'PostUpdate',
+    component: PostUpdateView
+  },
+  {
     path: '/post/detail/:post_id',
     name: 'PostDetail',
     component: PostDetailView,
@@ -61,7 +66,6 @@ Vue.use(VueRouter)
   },
   {
     path: '/cafe/detail/:cafe_id',
-    // path: '/cafe/:id'
     name: 'CafeDetail',
     component: CafeDetailView,
   },

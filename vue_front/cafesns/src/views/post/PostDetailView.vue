@@ -10,12 +10,18 @@
         <v-card ref="form" class="px-3">
           <v-card-text class="text-center">
             <v-card-title>
-              <h1><v-btn @click="onMypage(selectedPost.uid)" text>{{ selectedPost.uid }}</v-btn></h1>
+              <v-btn @click="onCafeDetail(selectedPost.cafeno)" class="ma-0 pa-0" text><h1>{{ selectedPost.cafename }}</h1></v-btn>
               <v-spacer></v-spacer>
-              <span class="text-subtitle-2"><router-link to="/cafe/detail/${selectedPost.cafeno}`">{{ selectedPost.cafename }}</router-link></span>
+              <v-btn @click="onMypage(selectedPost.uid)" text>{{ selectedPost.uid }}</v-btn>
             </v-card-title>
+            
             <v-divider class="mb-3"></v-divider>
 
+            <v-img :src="'http://i3a203.p.ssafy.io:5000/api/post/get/image/'+selectedPost.pno" contain max-width="100%" max-height="300px"></v-img>
+
+            <v-divider class="my-3"></v-divider>
+
+            <p class="my-3 text-start">{{ selectedPost.contents }}</p>
             <v-row class="d-flex align-center justify-center">
               <span>맛</span>
               <v-rating
@@ -52,15 +58,11 @@
               <span>({{ selectedPost.clean }})</span>
             </v-row>
 
-          <v-divider></v-divider>
-            <p class="my-3 text-start" style="min-height:100px;">{{ selectedPost.contents }}</p>
-
-            <v-img src="https://cdn.vuetifyjs.com/images/cards/cooking.png" contain max-width="100%" max-height="300px"></v-img>
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn v-if="selectedPost.uid === currentUser" @click="deletePost(selectedPost.pno)" text color="secondary">삭제</v-btn>
-            <v-btn v-if="selectedPost.uid === currentUser" @click="deletePost(selectedPost.pno)" text color="primary">수정</v-btn>
+            <v-btn v-if="selectedPost.uid === currentUser" @click="onUpdatePost(selectedPost.pno)" text color="primary">수정</v-btn>
           </v-card-actions>
         </v-card>
       </v-col>
@@ -103,11 +105,16 @@ export default {
     ]),
     onMypage(userid) {
       this.$router.push(`/accounts/${userid}`)
-    }
+    },
+    onUpdatePost(postid) {
+      this.$router.push(`/post/update/${postid}`)
+    },
+    onCafeDetail(cafeid) {
+      this.$router.push(`/cafe/detail/${cafeid}`)
+    },
   },
   created() {
     this.postDetail(this.postId)
-    // if (this.isLoggedIn === false)
   }
 }
 </script>
