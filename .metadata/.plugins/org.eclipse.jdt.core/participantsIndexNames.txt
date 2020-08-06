@@ -1,9 +1,0 @@
-INDEX VERSION 1.131
-C:\SSAFY\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3946351453.index
-\HappyHouse_Web_Final_2\src\main\java
-C:\SSAFY\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3018902644.index
-\HappyHouse_Web_Final_2\src\main\java
-C:\SSAFY\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\1673511263.index
-\HappyHouse_Web_Final_2\src\main\java
-C:\SSAFY\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3723707800.index
-\HappyHouse_Web_Final_2\src\main\java

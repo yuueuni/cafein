@@ -5,6 +5,7 @@ import java.util.List;
 import com.cafe.dto.FollowDto;
 
 public interface FollowDao {
+	int check(FollowDto follow);
 	public int countFollower(String followingid);
 	public int countFollowing(String uid);
 	public List<String> selectFollower(String followingid);

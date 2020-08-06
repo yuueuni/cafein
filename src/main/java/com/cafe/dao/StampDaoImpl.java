@@ -39,7 +39,7 @@ public class StampDaoImpl implements StampDao{
 	
 	@Override
 	public List<CafeDto> selectCafe(String uid) {
-		return session.selectList("like.selectCafe", uid);
+		return session.selectList("stamp.selectCafe", uid);
 	}
 
 }

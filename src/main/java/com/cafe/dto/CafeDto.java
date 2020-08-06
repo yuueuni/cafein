@@ -7,6 +7,7 @@ public class CafeDto {
 	private String address;
 	private String tel;
 	private String business_hours;
+	private String thumb;
 	
 	public int getCafeno() {
 		return cafeno;
@@ -44,14 +45,21 @@ public class CafeDto {
 	public void setBusiness_hours(String business_hours) {
 		this.business_hours = business_hours;
 	}
+	public String getThumb() {
+		return thumb;
+	}
+	public void setThumb(String thumb) {
+		this.thumb = thumb;
+	}
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		builder.append("CafeDto [cafeno=").append(cafeno).append(", name=").append(name).append(", status=")
 				.append(status).append(", address=").append(address).append(", tel=").append(tel)
-				.append(", business_hours=").append(business_hours).append("]");
+				.append(", business_hours=").append(business_hours).append(", thumb=").append(thumb).append("]");
 		return builder.toString();
 	}
+	
 	
 	
 }

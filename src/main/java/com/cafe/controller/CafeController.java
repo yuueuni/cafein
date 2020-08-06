@@ -1,8 +1,14 @@
 package com.cafe.controller;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
+import org.apache.commons.io.IOUtils;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cafe.dto.CafeDto;
@@ -37,18 +44,37 @@ public class CafeController {
 		return cafeList;
 	}
 
+	@ApiOperation(value = "카페 사진 가져오기")
+	@GetMapping(value = "/get/image/{cafeno}",
+			produces = MediaType.IMAGE_JPEG_VALUE)
+	public @ResponseBody byte[] getImage(@PathVariable Integer cafeno) {
+		CafeDto cafe = service.select(cafeno);
+		String target = cafe.getThumb();
+//		target = "/picture/kum.jpg";
+		System.out.println(target);
+		FileInputStream in;
+		try {
+			in = new FileInputStream(target);
+			return IOUtils.toByteArray(in);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			System.out.println("i cant find file");
+			e1.printStackTrace();
+			return null;
+		}
+	}
 	@ApiOperation(value = "카페 정보 가져오기")
 	@GetMapping("/{cafeno}")
 	public CafeDto select(@PathVariable Integer cafeno) {
-		System.out.println("select");
 		CafeDto cafe = service.select(cafeno);
+		System.out.println(cafe);
 		return cafe;
 	}
 
+	
 	@ApiOperation(value = "카페 전체 리스트")
 	@GetMapping("/list/{page}")
 	public List<CafeDto> selectAll(@PathVariable Integer page) {
-		System.out.println("list");
 		System.out.println(page);
 		List<CafeDto> cafeList = service.selectAll(page);
 		return cafeList;
@@ -57,7 +83,6 @@ public class CafeController {
 	@ApiOperation(value = "카페 추가", authorizations = { @Authorization(value = "jwt_token") })
 	@PostMapping
 	public String insert(@RequestBody CafeDto cafe) {
-		System.out.println("insert");
 		int cnt = service.insert(cafe);
 		System.out.println(cafe);
 		if (cnt > 0) {

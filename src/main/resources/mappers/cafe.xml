@@ -30,7 +30,7 @@
 	<update id="update">
 		update cafe
 		set name = #{name},status = #{status}, address = #{address}, tel = #{tel}, 
-		business_hours = #{business_hours}
+		business_hours = #{business_hours}, thumb = #{thumb}
 		where cafeno = #{cafeno}
 	</update>
 	

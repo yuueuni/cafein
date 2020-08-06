@@ -27,17 +27,22 @@ public class JwtInterceptor implements HandlerInterceptor {
 		jwtService = new JwtServiceImpl();
 		System.out.println("interceptor");
 		final String token = request.getHeader(HEADER_AUTH);
+		System.out.println("요청방식 : "+  request.getMethod());
+		System.out.println("요청url :" + request.getRequestURI());
+		
 		System.out.println("token is   " + token);
 //		Enumeration headerNames = request.getHeaderNames();
 
-//		while(headerNames.hasMoreElements()) {
+//		while(headerNames.hasMoreElements()) { 
 //			   String name = (String)headerNames.nextElement();
 //			   String value = request.getHeader(name);
 //			   System.out.println(name +"   "+ value);
 //			}
 //		return false;
 
-		
+		if (request.getMethod().equals("OPTIONS")) {
+			return true;
+		}
 		 if(token != null && jwtService.isUsable(token)){
 			 return true; 
 		 }else{ 

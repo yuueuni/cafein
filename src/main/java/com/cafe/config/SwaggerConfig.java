@@ -1,9 +1,19 @@
 package com.cafe.config;
 import java.util.Arrays;
 
+import javax.sql.DataSource;
+
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.mybatis.spring.SqlSessionFactoryBean;
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+
 
 import io.swagger.annotations.ApiKeyAuthDefinition;
 import io.swagger.annotations.Authorization;
@@ -38,6 +48,8 @@ public class SwaggerConfig {
                 .build();
             }
 	*/
+	
+	 
 	@Bean
 	public Docket api() {
 	    return new Docket(DocumentationType.SWAGGER_2)
