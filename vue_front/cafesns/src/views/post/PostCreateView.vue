@@ -11,7 +11,6 @@
           <v-card-text class="text-center">
             <v-card-title>
               <h1>{{ selectedCafe.name }}</h1>
-              <p class="text-subtitle-2 mx-3 mb-0 align-self-end">카페에 대해 알려주세요 !</p>
             </v-card-title>
             <v-divider class="mb-3"></v-divider>
 
@@ -86,9 +85,9 @@ export default {
       postList: {
         cafeno: null,
         contents: null,
-        taste: 3,
-        mood: 3,
-        clean: 3,
+        taste: 0,
+        mood: 0,
+        clean: 0,
         uid: null,
         image: null,
       },

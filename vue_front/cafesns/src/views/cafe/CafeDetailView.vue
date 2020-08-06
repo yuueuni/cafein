@@ -4,7 +4,9 @@
       class="mx-auto my-12 px-3"
     >
       <v-row>
-        <v-col cols="6">
+        <v-col
+          cols="6"  
+        >
           <!-- cafe image -->
           <v-img
             height="250"
@@ -33,8 +35,8 @@
         </v-col>
 
         <v-col cols="6">
-          <v-card-title class="display-2">
-            {{ selectedCafe.name }}
+          <v-card-title>
+            <h1>{{ selectedCafe.name }}</h1>
           </v-card-title>
           <v-card-text>
             <span class="my-4 subtitle-1">tel) {{ selectedCafe.tel }}</span>

@@ -1,6 +1,5 @@
 <template>
   <div>
-    <v-btn @click="$router.go(-1)" text><h3>BACK</h3></v-btn>
     <v-row justify="center">
       <v-col
         cols="12"
@@ -11,18 +10,10 @@
         <v-card ref="form" class="px-3">
           <v-card-text class="text-center">
             <v-card-title>
-              <v-btn @click="onCafeDetail(selectedPost.cafeno)" class="ma-0 pa-0" text><h1>{{ selectedPost.cafename }}</h1></v-btn>
-              <v-spacer></v-spacer>
-              <v-btn @click="onMypage(selectedPost.uid)" text>{{ selectedPost.uid }}</v-btn>
+              <h2>{{ selectedPost.cafename }} POST 수정</h2>
             </v-card-title>
-            
             <v-divider class="mb-3"></v-divider>
 
-            <v-img :src="'http://i3a203.p.ssafy.io:5000/api/post/get/image/'+selectedPost.pno" contain max-width="100%" max-height="300px"></v-img>
-
-            <v-divider class="my-3"></v-divider>
-
-            <p class="my-3 text-start">{{ selectedPost.contents }}</p>
             <v-row class="d-flex align-center justify-center">
               <span>맛</span>
               <v-rating
@@ -30,7 +21,8 @@
                 color="yellow darken-3"
                 background-color="grey darken-1"
                 empty-icon="$ratingFull"
-                readonly
+                half-increments
+                hover
               ></v-rating>
               <span>({{ selectedPost.taste }})</span>
             </v-row>
@@ -42,7 +34,8 @@
                 color="yellow darken-3"
                 background-color="grey darken-1"
                 empty-icon="$ratingFull"
-                readonly
+                half-increments
+                hover
               ></v-rating>
               <span>({{ selectedPost.mood }})</span>
             </v-row>
@@ -54,73 +47,88 @@
                 color="yellow darken-3"
                 background-color="grey darken-1"
                 empty-icon="$ratingFull"
-                readonly
+                half-increments
+                hover
               ></v-rating>
               <span>({{ selectedPost.clean }})</span>
             </v-row>
+            
+            <v-textarea 
+              label="Content" 
+              v-model="selectedPost.contents"
+              id="content"
+              autofocus
+            >
+            </v-textarea>
 
+            <v-file-input accept="image/*" label="File input" @change="onFileChange" :rules="[ checkImage ]"></v-file-input>
+            <v-img v-if="url" :src="url" contain max-width="100%" max-height="300px"></v-img>
           </v-card-text>
           <v-card-actions>
+            <v-btn color="secondary" @click="$router.go(-1)" text>cancle</v-btn>
             <v-spacer></v-spacer>
-            <v-btn v-if="selectedPost.uid === currentUser" @click="deletePost(selectedPost.pno)" text color="secondary">삭제</v-btn>
-            <v-btn v-if="selectedPost.uid === currentUser" @click="onUpdatePost(selectedPost.pno)" text color="primary">수정</v-btn>
+            <v-btn color="secondary" @click="uploadImage({selectedPost, formData})">Save</v-btn>
           </v-card-actions>
-        </v-card>
+        </v-card>  
       </v-col>
     </v-row>
-    <CommentCreate/>
-    <CommentList/>
   </div>
 </template>
 
 <script>
-import { mapState, mapGetters, mapActions } from 'vuex'
-
-import CommentCreate from '@/components/CommentCreate.vue'
-import CommentList from '@/components/CommentList.vue'
+import { mapState, mapActions } from 'vuex'
 
 export default {
-  name: 'PostDetailView',
-  components: {
-    CommentCreate,
-    CommentList,
-  },
+  name: 'postUpdateView',
   data() {
     return {
-      postId: this.$route.params.post_id,
+      formData: new FormData(),
+      url: null,
+      selectedFile: null,
+      disabled: true,
     }
   },
   computed: {
     ...mapState([
-      'selectedPost',
-      'currentUser',
-    ]),
-    ...mapGetters([
-      'isLoggedIn'
-    ]),
+        'currentUser',
+        'selectedPost',
+      ])
   },
   methods: {
     ...mapActions([
-      'postDetail',
-      'deletePost',
-    ]),
-    onMypage(userid) {
-      this.$router.push(`/accounts/${userid}`)
+        'uploadImage',
+        'updatePost',
+      ]),
+    onFileChange(e) {
+      if (!e) {
+        this.url = null
+      } else {
+        this.selectedFile = e
+        this.url = URL.createObjectURL(this.selectedFile)
+        this.formData.append("image", this.selectedFile, this.selectedFile.name)
+      }
     },
-    onUpdatePost(postid) {
-      this.$router.push(`/post/update/${postid}`)
-    },
-    onCafeDetail(cafeid) {
-      this.$router.push(`/cafe/detail/${cafeid}`)
+    checkImage(value) {
+      if (!value) {
+        return '사진을 등록해주세요.'
+      } else {
+        this.disabled = false
+      }
     },
   },
   created() {
-    this.postDetail(this.postId)
+    this.url = 'http://i3a203.p.ssafy.io:5000/api/post/get/image/'+this.selectedPost.pno
   }
 }
 </script>
 
 <style scoped>
+.post-checklist {
+  justify-content: center;
+  width: 100%;
+  margin-top: 1rem;
+}
+
 .disabled-button {
   pointer-events: none;
 }
