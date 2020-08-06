@@ -27,10 +27,11 @@
             </v-col>
           </v-row>
           <v-chip-group>
-            <v-chip>cafe</v-chip>
-            <v-chip>coffee</v-chip>
-            <v-chip>drink</v-chip>
-            <v-chip>dessert</v-chip>
+            <v-chip 
+              v-for="keyword in keywords"
+              :key="keyword"
+            >{{ keyword }}
+            </v-chip>
           </v-chip-group>
         </v-col>
 
@@ -78,7 +79,8 @@ export default {
   data() {
     return {
       cafeId: this.$route.params.cafe_id,
-      active: 1
+      active: 1,
+      keywords: ['coffee', 'drink', 'dessert']
     }
   },
   computed: {

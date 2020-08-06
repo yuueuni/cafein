@@ -6,7 +6,7 @@
           <v-toolbar-title>Sign up</v-toolbar-title>
           <v-spacer></v-spacer>
           <v-toolbar-items>
-            <v-btn icon dark @click="$router.go(-1)">
+            <v-btn icon dark @click="$router.push('/')">
               <v-icon>mdi-close</v-icon>
             </v-btn>
           </v-toolbar-items>
@@ -110,9 +110,6 @@ export default {
         return false
       }
     },
-    emailCheck() {
-      console.log('ok')
-    }
   },
 }
 

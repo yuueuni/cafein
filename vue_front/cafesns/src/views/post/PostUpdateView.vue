@@ -10,7 +10,7 @@
         <v-card ref="form" class="px-3">
           <v-card-text class="text-center">
             <v-card-title>
-              <h2>{{ selectedPost.cafename }} POST 수정</h2>
+              <h2>{{ selectedPost.cafename }}</h2>
             </v-card-title>
             <v-divider class="mb-3"></v-divider>
 
@@ -61,7 +61,14 @@
             >
             </v-textarea>
 
-            <v-file-input accept="image/*" label="File input" @change="onFileChange" :rules="[ checkImage ]"></v-file-input>
+            <v-file-input 
+              accept="image/*"
+              label="File input"
+              @change="onFileChange"
+              hint="* 사진을 변경할 경우 새로운 사진을 업로드 해주세요."
+              persistent-hint
+              class="mb-3"
+            ></v-file-input>
             <v-img v-if="url" :src="url" contain max-width="100%" max-height="300px"></v-img>
           </v-card-text>
           <v-card-actions>
@@ -97,7 +104,6 @@ export default {
   methods: {
     ...mapActions([
         'uploadImage',
-        'updatePost',
       ]),
     onFileChange(e) {
       if (!e) {
@@ -118,7 +124,7 @@ export default {
   },
   created() {
     this.url = 'http://i3a203.p.ssafy.io:5000/api/post/get/image/'+this.selectedPost.pno
-  }
+  },
 }
 </script>
 
