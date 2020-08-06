@@ -122,6 +122,8 @@ public class PostController {
 	@PostMapping
 	public String insert(@RequestBody PostDto post) {
 		System.out.println("게시글 작성");
+		CafeDto cafe = caService.select(post.getCafeno());
+		post.setCafename(cafe.getName());
 		int cnt = service.insert(post);
 		System.out.println(post);
 		if (cnt > 0) {
