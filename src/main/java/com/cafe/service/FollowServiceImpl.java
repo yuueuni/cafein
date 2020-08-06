@@ -7,12 +7,18 @@ import org.springframework.stereotype.Service;
 
 import com.cafe.dao.FollowDao;
 import com.cafe.dto.FollowDto;
+import com.cafe.dto.LikeDto;
 
 @Service
 public class FollowServiceImpl implements FollowService {
 
 	@Autowired
 	private FollowDao dao;
+	
+	@Override
+	public int check(FollowDto follow) {
+		return dao.check(follow);
+	}
 	
 	@Override
 	public int countFollower(String followingid) {

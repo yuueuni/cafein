@@ -8,25 +8,34 @@
           <!-- cafe image -->
           <v-img
             height="250"
-            src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
+            contain
+            class="grey lighten-2"
+            :src="'http://i3a203.p.ssafy.io:5000/api/cafe/get/image/'+selectedCafe.cafeno"
           >
-            <v-row align="end" class="fill-height text-end">
-              <v-col>
-                <v-btn icon color="red lighten-3">
-                  <v-icon>mdi-heart</v-icon>
-                </v-btn>
-                <v-btn icon color="blue lighten-3">
-                  <v-icon>mdi-bookmark-outline</v-icon>
-                </v-btn>
-              </v-col>
-            </v-row>
           </v-img>
-          <v-card-title>cafe keywords</v-card-title>
-          <v-card-text></v-card-text>
+          <v-row align="end"> 
+            <v-card-title>cafe keywords</v-card-title>
+            <v-col class="text-end">
+              <v-btn icon :color="active ? 'red lighten-3': 'white'" @click="likeCafe(selectedCafe.cafeno)" class="mx-1">
+                <i class="fas fa-heart fa-2x"></i>
+              </v-btn>
+              <v-btn icon :color="active ? 'blue lighten-3': 'white'" @click="stampCafe(selectedCafe.cafeno)" class="mx-1">
+                <i class="fas fa-shoe-prints fa-rotate-270 fa-2x"></i>
+              </v-btn>
+            </v-col>
+          </v-row>
+          <v-chip-group>
+            <v-chip>cafe</v-chip>
+            <v-chip>coffee</v-chip>
+            <v-chip>drink</v-chip>
+            <v-chip>dessert</v-chip>
+          </v-chip-group>
         </v-col>
 
         <v-col cols="6">
-          <v-card-title class="display-2">{{ selectedCafe.name }}</v-card-title>
+          <v-card-title class="display-2">
+            {{ selectedCafe.name }}
+          </v-card-title>
           <v-card-text>
             <span class="my-4 subtitle-1">tel) {{ selectedCafe.tel }}</span>
           </v-card-text>
@@ -40,11 +49,10 @@
 
       <v-card-actions>
         <v-spacer></v-spacer>
-        <router-link to="/post/create" class="link-text">
+        <router-link to="/post/create" class="text-decoration-none">
           <v-btn
             color="deep-purple lighten-2"
             text
-            @click="cafePost(selectedCafe.cafeno)"
           >
             new post
           </v-btn>
@@ -68,16 +76,18 @@ export default {
   data() {
     return {
       cafeId: this.$route.params.cafe_id,
+      active: 1
     }
   },
   computed: {
     ...mapState(['selectedCafe'])
   },
   methods: {
-    ...mapActions(['cafeDetail']),
-    cafePost(cafeno) {
-      this.$router.push(`/cafe/detail/${cafeno}`)
-    }
+    ...mapActions([
+      'cafeDetail', 
+      'likeCafe', 
+      'stampCafe'
+    ]),
   },
   created() {
     this.cafeDetail(this.cafeId)

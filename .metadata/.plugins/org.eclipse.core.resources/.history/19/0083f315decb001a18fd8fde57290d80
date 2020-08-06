@@ -1,5 +1,0 @@
-package com.web.cafe.service;
-
-public interface MenuService {
-
-}

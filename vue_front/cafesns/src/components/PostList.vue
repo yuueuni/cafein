@@ -6,12 +6,13 @@
         <v-list-item
           v-for="post in posts"
           :key="post.pno"
+          @click="onSelectPost(post.pno)"
         >
           <v-list-item-avatar>
             <v-icon class="grey lighten-1 white--text" v-text="folder"></v-icon>
           </v-list-item-avatar>
 
-          <v-list-item-content @click="onSelectPost(post.pno)">
+          <v-list-item-content>
             <v-list-item-title>{{ post.contents }}</v-list-item-title>
             
             <v-list-item-subtitle>{{ post.uid }}</v-list-item-subtitle>
