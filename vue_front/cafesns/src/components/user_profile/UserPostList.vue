@@ -17,21 +17,26 @@
         </v-row>
         <v-divider></v-divider>
         <v-card-text style="height: 300px;">
+          <div v-if="!userPostList.length" class="text-center">
+            <span>아직 등록된 글이 없습니다.</span>
+          </div>
           <v-radio-group v-model="dialogm1" column>
             <v-row v-for="post in userPostList" :key="post.pno">
-              <h1>{{ post }}</h1>
               <v-list rounded>
                 <v-list-item-group color="primary">
                   <v-list-item
-                    v-for="(item, i) in items"
-                    :key="i"
                     @click="onSelectPost(post)"
                   >
-                  <v-list-item-icon>
-                    <v-icon v-text="item.icon"></v-icon>
-                  </v-list-item-icon>
+                    <v-list-item-avatar>
+                      <v-img
+                        :src="'http://i3a203.p.ssafy.io:5000/api/post/get/image/'+post.pno"
+                        @click="onSelectPost(post.pno)"
+                      >
+                      </v-img>
+                    </v-list-item-avatar>
                   <v-list-item-content>
-                    <v-list-item-title >{{ post.cafename }}</v-list-item-title>
+                    <v-list-item-title v-if="post.cafename.length<10">{{ post.cafename }}</v-list-item-title>
+                    <v-list-item-title v-else>{{ post.cafename.substring(0, 10) + "..." }}</v-list-item-title>
                   </v-list-item-content>
                   </v-list-item>
                 </v-list-item-group>
@@ -54,9 +59,6 @@ export default {
       dialogm1: '',
       dialog: false,
       currentUserId : null,
-      items: [
-        { text: 'post.pno', icon: 'mdi-account' }
-      ],
     }
   },
 

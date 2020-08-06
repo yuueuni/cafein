@@ -166,12 +166,13 @@ export default new Vuex.Store({
     // post
     createPost({ state, getters }, postList) {
       postList.cafeno = state.selectedCafe.cafeno
+      postList.cafename = state.selectedCafe.cafename
       postList.uid = state.currentUser
       postList.image = state.uploadImageURL
       axios.post(SERVER.URL + SERVER.ROUTES.postDetail, postList, getters.config)
         .then((res) => {
           console.log(res)
-          router.push(`/post/detail/${res.data.pno}`)
+          router.push(`/cafe/detail/${state.selectedCafe.cafeno}`)
         })
         .catch(err => console.log('error', err))
     },
@@ -194,12 +195,11 @@ export default new Vuex.Store({
       },
     updatePost({ state, commit, dispatch, getters }, postData) {
       postData.image = state.uploadImageURL
-      console.log(postData.image, state.uploadImageURL)
       axios.put(SERVER.URL + SERVER.ROUTES.postDetail, postData, getters.config)
         .then(() => {
-          dispatch('fetchPosts', postData.cafeno)
           commit('SET_SELECTPOST', postData)
-          router.push(`/post/detail/${postData.pno}`)
+          dispatch('fetchPostList', postData.cafeno)
+          router.push(`/cafe/detail/${postData.cafeno}`)
         })
         .catch(err => console.error(err))
     },
@@ -212,7 +212,7 @@ export default new Vuex.Store({
         .catch(err => console.log(err))
     },
     uploadImage({ dispatch, commit }, postData) {
-      if (!postData.formData.image) {
+      if (!postData.formData.get("image")) {
         dispatch('updatePost', postData.selectedPost)
       } else {
         axios.post(SERVER.URL + SERVER.ROUTES.uploadImage, postData.formData)
@@ -226,7 +226,7 @@ export default new Vuex.Store({
             }
           })
           .catch(err => console.log(err))
-      }
+        }
     },
 
     // comment

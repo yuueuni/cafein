@@ -4,9 +4,9 @@
         <div>{{ followerList }}</div> -->
         <v-row>
           <h1 class="px-3">{{ userData.id.split('@')[0] }}</h1>
-          <v-btn class="px-1" @click="followUser(profileUserId)">
-            <h2 v-if="followState">follow</h2>
-            <h2 v-else>Unfollow</h2>
+          <v-btn v-if="profileUserId !== currentUser" class="px-1" @click="followUser(profileUserId)" small>
+            <span v-if="followState">follow</span>
+            <span v-else>Unfollow</span>
           </v-btn>
           <v-spacer></v-spacer>
           <FollowingList/>
@@ -14,18 +14,18 @@
           <UserPostList/>
         </v-row>
         <!-- <router-link to="" class="link-text"><v-btn text>Posts: { PostList.length }</v-btn></router-link>  -->
-      <v-divider></v-divider>
+      <v-divider class="mb-3"></v-divider>
       <div>
-        <span style="font-size: 3em">
-          <i class="fas fa-heart" style="color: #ef9a9a"></i>
-        </span>
-          <div class="home text-center"><LikeList/></div>
+        <i class="fas fa-heart fa-3x" style="color: #ef9a9a"></i>
+        <div class="home text-center">
+          <LikeList/>
+        </div>
       </div>
       <div>
-        <span style="font-size: 3em">
-          <i class="fas fa-shoe-prints fa-rotate-270" style="color: #90caf9"></i>
-        </span>
-          <div class="home text-center"><StampList/></div>
+          <i class="fas fa-shoe-prints fa-rotate-270 fa-3x" style="color: #90caf9"></i>
+          <div class="home text-center">
+            <StampList/>
+          </div>
       </div>
       <!-- <div>{{ likeList }}</div>
       <br>

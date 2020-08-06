@@ -11,7 +11,7 @@
           <v-list-item-avatar>
             <!-- <v-icon class="grey lighten-1 white--text" v-text="folder"></v-icon> -->
             <v-img
-              src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
+              :src="'http://i3a203.p.ssafy.io:5000/api/post/get/image/'+post.pno"
               @click="onSelectPost(post.pno)"
             >
             </v-img>
@@ -38,7 +38,7 @@ export default {
     ...mapState(['postList'])
   },
   methods: {
-    ...mapActions(['fetchList']),
+    ...mapActions(['fetchPostList']),
     onSelectPost(postno) {
       this.$router.push(`/post/detail/${postno}`)
     }
