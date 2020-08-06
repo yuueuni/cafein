@@ -57,12 +57,13 @@ public class PostController {
 		return url;
 	}
 	
-	@ApiOperation(value="post 이미지 가져오기 (아직안됨 좀더 찾아봐야함)")
+	@ApiOperation(value="post 이미지 가져오기 ")
 	@GetMapping(value="/get/image/{pno}",
 			produces = MediaType.IMAGE_JPEG_VALUE)
 	public @ResponseBody byte[] getImage(@PathVariable Integer pno) {
+		String imgPath = "/home/data/images";
 		PostDto post = service.select(pno);
-		String target = post.getImage();
+		String target = imgPath+post.getImage();
 		System.out.println("post image : " + target);
 		FileInputStream in;
 		try {
