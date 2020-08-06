@@ -77,7 +77,7 @@ public class PostController {
 //	@ApiImplicitParams({ @ApiImplicitParam(name = "Authorization", value = "jwt_token", required = true, dataType = "String", paramType = "header") })
 	@ApiOperation(value = "게시글 조회")
 	public PostDto select(@PathVariable Integer pno) {
-		System.out.println("select");
+		System.out.println("select post");
 		PostDto post = service.select(pno);
 		return post;
 	}
