@@ -3,7 +3,7 @@
         <!-- <div>{{ followingList }}</div>
         <div>{{ followerList }}</div> -->
         <v-row>
-          <h1>{{ userData.id }}</h1>
+          <h1>{{ userData.id.split('@')[0] }}</h1>
           <v-btn @click="followUser(userData.id)">
             <h2>follow</h2>
           </v-btn>
@@ -11,12 +11,7 @@
           <FollowingList/>
           <FollowerList/>
         </v-row>
-        <!-- <v-btn text >Followings: {{ followingList.length }}</v-btn>|
-        <v-btn text>Followers: {{ followerList.length }}</v-btn> | -->
         <!-- <router-link to="" class="link-text"><v-btn text>Posts: { PostList.length }</v-btn></router-link>  -->
-        <!-- <h3>{{ userData.id.split('@')[0] }}</h3> -->
-        <!-- const username = userData.id.spli('@')
-        <h3>{{ username[0] }}</h3> -->
       <v-divider></v-divider>
       <div>
         <span style="font-size: 3em; color: Tomato;">
