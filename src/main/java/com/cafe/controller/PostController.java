@@ -21,7 +21,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.cafe.dto.CafeDto;
 import com.cafe.dto.PostDto;
+import com.cafe.service.CafeService;
 import com.cafe.service.FileUploadService;
 import com.cafe.service.PostService;
 
@@ -38,6 +40,9 @@ public class PostController {
 	@Autowired
 	private PostService service;
 
+	@Autowired
+	private CafeService caService;
+	
 	@Autowired
 	private FileUploadService fuService;
 
@@ -78,8 +83,11 @@ public class PostController {
 	@ApiOperation(value = "게시글 조회")
 	public PostDto select(@PathVariable Integer pno) {
 		System.out.println("select post");
-		
+
 		PostDto post = service.select(pno);
+		CafeDto cafe = caService.select(post.getCafeno());
+		post.setCafename(cafe.getName());
+		System.out.println(post);
 		return post;
 	}
 
