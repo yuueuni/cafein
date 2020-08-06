@@ -1,23 +1,23 @@
 <template>
     <div>
-      <div class="float-right">
-        <div>{{ followerList }}</div>
-        <div>{{ followingList }}</div>
-        <FollowerList/>
-        <v-btn text >Following: {{ followerList.length }}</v-btn>|
-        <v-btn text>Followers: {{ followingList.length }}</v-btn> |
+        <!-- <div>{{ followingList }}</div>
+        <div>{{ followerList }}</div> -->
+        <v-row>
+          <h1>{{ userData.id }}</h1>
+          <v-btn @click="followUser(userData.id)">
+            <h2>follow</h2>
+          </v-btn>
+          <v-spacer></v-spacer>
+          <FollowingList/>
+          <FollowerList/>
+        </v-row>
+        <!-- <v-btn text >Followings: {{ followingList.length }}</v-btn>|
+        <v-btn text>Followers: {{ followerList.length }}</v-btn> | -->
         <!-- <router-link to="" class="link-text"><v-btn text>Posts: { PostList.length }</v-btn></router-link>  -->
-      </div>
-      <!-- <h1>{{ userData }}</h1> -->
-      <h1>{{ userData.id }}</h1>
-      <v-btn @click="followUser(userData.id)">
-        <h2>follow</h2>
-      </v-btn>
         <!-- <h3>{{ userData.id.split('@')[0] }}</h3> -->
         <!-- const username = userData.id.spli('@')
         <h3>{{ username[0] }}</h3> -->
-      <hr>
-      <br>
+      <v-divider></v-divider>
       <div>
         <span style="font-size: 3em; color: Tomato;">
           <i class="fas fa-heart"></i>
@@ -47,6 +47,7 @@
 <script>
 import LikeList from '@/components/LikeList.vue'
 import StampList from '@/components/StampList.vue'
+import FollowingList from '@/components/FollowingList.vue'
 import FollowerList from '@/components/FollowerList.vue'
 
 import { mapState, mapActions } from 'vuex'
@@ -61,6 +62,7 @@ export default {
   components: {
     LikeList,
     StampList,
+    FollowingList,
     FollowerList,
   },
   
@@ -77,8 +79,7 @@ export default {
   
   methods: {
     ...mapActions([
-      'fetchUserData',
-      'fetchPostList', 
+      'fetchUserData', 
       'fetchLikeList', 
       'fetchStampList', 
       'fetchFollowingList',
@@ -93,7 +94,6 @@ export default {
       this.fetchStampList()
       this.fetchFollowingList()
       this.fetchFollowerList()
-      this.fetchPostList()
   },
   watch : {
     '$route.params.user_id' : 'fetchUserData'

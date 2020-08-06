@@ -76,7 +76,7 @@ export default new Vuex.Store({
       state.stampList = stampList
     },
 
-    SET_FOLLWINGLIST(state, followingList) {
+    SET_FOLLOWINGLIST(state, followingList) {
       state.followingList = followingList
     },
     SET_FOLLOWERLIST(state, followerList) {
@@ -298,17 +298,13 @@ export default new Vuex.Store({
     fetchFollowingList({ state, commit }) {
       const userid = state.userData.id
       axios.get(SERVER.URL + SERVER.ROUTES.follow + `/list/following/${userid}`)
-        .then(res => {
-          commit('SET_FOLLWINGLIST', res.data)
-        })
+        .then(res => commit('SET_FOLLOWINGLIST', res.data))
         .catch(err => console.log(err))
     },
     fetchFollowerList({ state, commit }) {
       const userid = state.userData.id
       axios.get(SERVER.URL + SERVER.ROUTES.follow + `/list/follower/${userid}`)
-      .then(res => {
-        commit('SET_FOLLOWERLIST', res.data)
-      })
+      .then(res => commit('SET_FOLLOWERLIST', res.data))
       .catch(err => console.log(err))
     },
     followUser({ state, getters }, followingid) {

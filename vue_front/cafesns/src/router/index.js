@@ -73,4 +73,26 @@ const router = new VueRouter({
   routes
 })
 
+router.beforeEach((to, from, next) => {
+  const publicPages = ['Home', 'Signup', 'Login', 'PostDetail', 'CafeList', 'CafeDetail', ]  //login 안해도 됨
+  const privatePages = ['Login', 'Signup', ]  //login 되어 있으면 안됨
+
+  const authRequired = !publicPages.includes(to.name)
+  const unauthRequired = privatePages.includes(to.name)  //로그인 안한 상태가 필요함
+  
+  const isLoggedIn = !!Vue.$cookies.isKey('auth-token')
+
+  document.title = to.meta.title
+
+  if (unauthRequired && isLoggedIn) {
+    next('/')
+  }
+
+  if (authRequired && !isLoggedIn) {
+    next({ next: 'Login' })
+  } else {
+    next()
+  }
+})
+
 export default router

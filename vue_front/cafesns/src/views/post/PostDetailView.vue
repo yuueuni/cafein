@@ -10,7 +10,7 @@
         <v-card ref="form" class="px-3">
           <v-card-text class="text-center">
             <v-card-title>
-              <h1><v-btn @click="mypage(selectedPost.uid)" text>{{ selectedPost.uid }}</v-btn></h1>
+              <h1><v-btn @click="onMypage(selectedPost.uid)" text>{{ selectedPost.uid }}</v-btn></h1>
               <v-spacer></v-spacer>
               <span class="text-subtitle-2"><router-link to="/cafe/detail/${selectedPost.cafeno}`">{{ selectedPost.cafename }}</router-link></span>
             </v-card-title>
@@ -61,7 +61,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapGetters, mapActions } from 'vuex'
 
 import CommentCreate from '@/components/CommentCreate.vue'
 import CommentList from '@/components/CommentList.vue'
@@ -81,7 +81,10 @@ export default {
     ...mapState([
       'selectedPost',
       'currentUser',
-    ])
+    ]),
+    ...mapGetters([
+      'isLoggedIn'
+    ]),
   },
   methods: {
     ...mapActions([
@@ -94,6 +97,7 @@ export default {
   },
   created() {
     this.postDetail(this.postId)
+    // if (this.isLoggedIn === false)
   }
 }
 </script>
