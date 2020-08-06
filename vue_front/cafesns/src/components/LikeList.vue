@@ -5,7 +5,7 @@
     show-arrows
   >
     <v-slide-item
-      v-for="cafe in cafeList"
+      v-for="cafe in likeList"
       :key="cafe.id"
       v-slot:default="{ toggle }"
     >
@@ -14,10 +14,9 @@
         @click="toggle"
       >
         <v-img
+          :src= randomImg
           height="200px"
           width="200px"
-          class="grey lighten-2"
-          :src="'http://i3a203.p.ssafy.io:5000/api/cafe/get/image/'+cafe.cafeno"
           @click="onSelectCafe(cafe.cafeno)"
         >
           <v-row align="end" class="lightbox white--text fill-height">
@@ -35,7 +34,7 @@
 import { mapState, mapActions } from 'vuex'
 
 export default {
-  name: 'SlideList',
+  name: 'LikeList',
   data() {
     return {
       randomImg : "https://cdn.vuetifyjs.com/images/cards/cooking.png",
@@ -43,19 +42,19 @@ export default {
   },
   computed: {
     ...mapState([
-      'cafeList'
+      'likeList'
     ])
   },
   methods: {
     ...mapActions([
-      'fetchCafeList',
+      'fetchLikeList',
     ]),
     onSelectCafe(target) {
       this.$router.push(`/cafe/detail/${target}`)
     },
   },
   created() {
-    this.fetchCafeList(1)
+    this.fetchLikeList()
   }
 }
 </script>

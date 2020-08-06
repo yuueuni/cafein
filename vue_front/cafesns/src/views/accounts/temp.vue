@@ -1,9 +1,8 @@
 <template>
   <div class="home">
-    <template v-if="!isAuthenticated">
-      <Signin />
-    </template>
-    <template v-else>
+    <!-- <template v-if="!isAuthenticated"> -->
+    <!-- </template> -->
+    <!-- <template v-else> -->
       <div v-for="(item, index) in posts" :key="index" class="container">
         <article class="bg-white border mb-5 mt-5">
           <div class="d-flex justify-content-between border-bottom">
@@ -16,12 +15,10 @@
               @click="removePost(item, index)"
             />
           </div>
-          <img :src="require(`../assets/images/${item.image}`)" alt="image" />
           <div>
             <div class="border-bottom border-top">
               <div id="heart" class="mx-3 my-0">
                 <button id="like" @click="like(item.pno, index)">
-                  <ToggleFavorite />
                 </button>
                 <span class="lcnt font-weight-bold mt-1"
                   >{{ item.like }}개</span
@@ -100,17 +97,15 @@
         @infinite="infiniteHandler"
         spinner="waveDots"
       ></infinite-loading>
-    </template>
+    <!-- </template> -->
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
-import Signin from "../components/Signin.vue";
 import axios from "axios";
-import ToggleFavorite from "../components/ToggleFavorite";
 
-const api = "http://localhost:8080/post/list";
+// const api = "http://localhost:8080/post/list";
 
 export default {
   name: "Home",
@@ -180,6 +175,7 @@ export default {
             axios
               .post(`http://localhost:8080/like`, data)
               .then(() => {
+                console.log(this.posts, this.posts[i])
                 this.$set(this.posts[i], "like", this.posts[i].like + 1);
                 console.log("success");
               })
@@ -244,7 +240,7 @@ export default {
     },
     infiniteHandler($state) {
       axios
-        .get(`${api}/${this.page}`)
+        // .get(`${api}/${this.page}`)
         .then(({ data }) => {
           let promises = [];
           for (let i = 0; i < data.length; i++) {
@@ -284,13 +280,8 @@ export default {
           console.log(err);
         });
     },
-    movePage() {
-      this.$router.push("/signin");
-    }
   },
   components: {
-    Signin,
-    ToggleFavorite
   }
 };
 </script>
