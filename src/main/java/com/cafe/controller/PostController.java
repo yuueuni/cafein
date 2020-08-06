@@ -126,7 +126,7 @@ public class PostController {
 		post.setCafename(cafe.getName());
 		int cnt = service.insert(post);
 		System.out.println(post);
-		if (cnt > 0) {
+		if (cnt > 0) { 
 			return "Success";
 		}
 		return "Failure";
