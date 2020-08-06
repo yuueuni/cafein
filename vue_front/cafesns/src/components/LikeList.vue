@@ -38,8 +38,6 @@ export default {
   data() {
     return {
       randomImg : "https://cdn.vuetifyjs.com/images/cards/cooking.png",
-      likeImg: null,
-      stampImg: null,
     }
   },
   computed: {
