@@ -12,7 +12,9 @@
         </v-btn>
       </template>
       <v-card>
-        <v-card-title>Followers</v-card-title>
+        <v-row align="center" justify="center">
+          <v-card-title>Followers</v-card-title>
+        </v-row>
         <v-divider></v-divider>
         <v-card-text style="height: 300px;">
           <v-radio-group v-model="dialogm1" column>

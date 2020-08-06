@@ -107,7 +107,6 @@ export default {
   },
   created() {
     this.postDetail(this.postId)
-    // if (this.isLoggedIn === false)
   }
 }
 </script>

@@ -7,6 +7,7 @@ export default{
         mypage: '/user',
 
         //post
+        userPostList: '/post/list/user/1/',
         postList: '/post/list/cafe/1/',
         postDetail: '/post',
         postDelete: '/post/delete/',

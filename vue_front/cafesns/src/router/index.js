@@ -26,18 +26,19 @@ Vue.use(VueRouter)
   {
     path: '/accounts/signup',
     name: 'Signup',
-    component: SignupView
+    component: SignupView,
+    meta: {
+      title: 'Signup'
+    },
   },
   {
     path: '/accounts/login',
     name: 'Login',
-    component: LoginView
+    component: LoginView,
+    meta: {
+      title: 'Login'
+    },
   },
-  // {
-  //   path: '/accounts/logout',
-  //   name: 'Logout',
-  //   component: LogoutView
-  // },
   {
     path: '/accounts/:user_id',
     name: 'Mypage',

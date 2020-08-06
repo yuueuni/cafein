@@ -8,13 +8,13 @@
         append-outer-icon
       >
       </v-text-field>
-      <v-btn color="secondary" @click="createComment(commentData)">등록</v-btn>
+      <v-btn color="secondary" @click="checkBeforeCreateComment(commentData)">등록</v-btn>
     </v-flex>
   </v-layout>
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'CommentCreate',
@@ -27,10 +27,22 @@ export default {
       }
     }
   },
-  methods: {
-    ...mapActions(['createComment'])
+
+  computed: {
+    ...mapGetters(['isLoggedIn']),
   },
 
+  methods: {
+    ...mapActions(['createComment']),
+    checkBeforeCreateComment(commentData) {
+      if (!this.isLoggedIn) {
+        this.$router.push({ name: 'Login'})
+      } 
+      else {
+        this.createComment(commentData)
+      }
+    },
+  },
 }
 </script>
 

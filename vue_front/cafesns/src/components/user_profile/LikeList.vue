@@ -5,16 +5,16 @@
     show-arrows
   >
     <v-slide-item
-      v-for="cafe in stampList"
+      v-for="cafe in likeList"
       :key="cafe.id"
-      v-slot:default="{ active, toggle }"
+      v-slot:default="{ toggle }"
     >
       <v-card
         class="ma-4"
         @click="toggle"
       >
         <v-img
-          :src= randomImg
+          :src="'http://i3a203.p.ssafy.io:5000/api/cafe/get/image/'+cafe.cafeno"
           height="200px"
           width="200px"
           @click="onSelectCafe(cafe.cafeno)"
@@ -34,27 +34,27 @@
 import { mapState, mapActions } from 'vuex'
 
 export default {
-  name: 'StampList',
+  name: 'LikeList',
   data() {
     return {
-      randomImg : "https://cdn.vuetifyjs.com/images/cards/cooking.png"
+      randomImg : "https://cdn.vuetifyjs.com/images/cards/cooking.png",
     }
   },
   computed: {
     ...mapState([
-      'stampList'
+      'likeList'
     ])
   },
   methods: {
     ...mapActions([
-      'fetchStampList',
+      'fetchLikeList',
     ]),
     onSelectCafe(target) {
       this.$router.push(`/cafe/detail/${target}`)
     },
   },
   created() {
-    this.fetchStampList()
+    this.fetchLikeList()
   }
 }
 </script>
