@@ -35,7 +35,7 @@ public class KeywordController {
 	}
 	
 	@ApiOperation(value = "키워드로 카페 리스트 가져오기")
-	@GetMapping("/list/{keyword}")
+	@GetMapping("/cafelist/{keyword}")
 	public List<CafeDto> selectByKeyword(@PathVariable String keyword){
 		System.out.println("selectByKeyword");
 		return service.selectByKeyword(keyword);
