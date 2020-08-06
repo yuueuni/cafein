@@ -105,6 +105,11 @@ public class PostController {
 		System.out.println("list by userid");
 		System.out.println(page);
 		List<PostDto> posts = service.selectAllByUser(page, uid);
+		
+		for(PostDto p : posts) {
+			CafeDto cafe = caService.select(p.getCafeno());
+			p.setCafename(cafe.getName());	
+		}
 		return posts;
 	}
 
@@ -122,8 +127,7 @@ public class PostController {
 	@PostMapping
 	public String insert(@RequestBody PostDto post) {
 		System.out.println("게시글 작성");
-		CafeDto cafe = caService.select(post.getCafeno());
-		post.setCafename(cafe.getName());
+	
 		int cnt = service.insert(post);
 		System.out.println(post);
 		if (cnt > 0) { 
