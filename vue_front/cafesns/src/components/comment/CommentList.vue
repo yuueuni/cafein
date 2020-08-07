@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3>작성자 | 댓글 내용 | 작성시간</h3>
+    <span>작성자 | 댓글 내용 | 작성시간</span>
     <div
       v-for="comment in commentList"
       :key="comment.key"

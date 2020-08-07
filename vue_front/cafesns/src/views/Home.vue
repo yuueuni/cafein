@@ -2,54 +2,50 @@
   <div class="home text-center">
     <!-- cafe -->
     <v-hover v-slot:default="{ hover }">
-        <v-card outlined class="card-list">
-            <h1>Cafe</h1>
-            <SlideList/>
-          <v-expand-transition>
-            <div
-              v-if="!hover"
-              class="d-flex white v-card--reveal display-3"
-              style="height: 100%;"
-            >
-              <span style="font-family:'BBTreeGR';">Cafe</span>
-            </div>
-          </v-expand-transition>
-        </v-card>
+      <v-card outlined class="card-list">
+          <h1>Cafe</h1>
+          <CafeList/>
+        <v-expand-transition>
+          <div
+            v-if="!hover"
+            class="d-flex white v-card--reveal display-3"
+            style="height: 100%;"
+          >
+            <span style="font-family:'BBTreeGR';">Cafe</span>
+          </div>
+        </v-expand-transition>
+      </v-card>
     </v-hover>
     <!-- post -->
     <v-hover v-slot:default="{ hover }">
-        <v-card outlined class="card-list">
-            <h1>Post</h1>
-            <SlideList/>
-          <v-expand-transition>
-            <div
-              v-if="!hover"
-              class="d-flex white v-card--reveal display-3"
-              style="height: 100%;"
-            >
-              <span style="font-family:'BBTreeGR';">Post</span>
-            </div>
-          </v-expand-transition>
-        </v-card>
+      <v-card outlined class="card-list">
+          <h1>Post</h1>
+          <PostList/>
+        <v-expand-transition>
+          <div
+            v-if="!hover"
+            class="d-flex white v-card--reveal display-3"
+            style="height: 100%;"
+          >
+            <span style="font-family:'BBTreeGR';">Post</span>
+          </div>
+        </v-expand-transition>
+      </v-card>
     </v-hover>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import SlideList from '@/components/SlideList.vue'
+import CafeList from '@/components/CafeList.vue'
+import PostList from '@/components/PostList.vue'
 
 export default {
   name: 'Home',
   components: {
-    SlideList
+    CafeList,
+    PostList,
   },
-  methods: {
-    checkLogin() {
-      alert('로그인이 필요합니다 !')
-      this.$router.push({ name: 'Login'})
-    }
-  }
 }
 </script>
 
@@ -72,5 +68,4 @@ export default {
 .card-list {
   border: none;
 }
-
 </style>

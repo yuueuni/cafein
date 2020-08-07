@@ -69,7 +69,7 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
-import PostList from '@/components/PostList.vue'
+import PostList from '@/components/cafe/PostList.vue'
 
 export default {
   name: 'CafeDetail',
