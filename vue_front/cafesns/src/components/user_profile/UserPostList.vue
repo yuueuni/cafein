@@ -25,7 +25,7 @@
               <v-list rounded>
                 <v-list-item-group color="primary">
                   <v-list-item
-                    @click="onSelectPost(post)"
+                    @click="onSelectPost(post.pno)"
                   >
                     <v-list-item-avatar>
                       <v-img

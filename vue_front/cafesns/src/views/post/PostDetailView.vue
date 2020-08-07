@@ -76,8 +76,8 @@
 <script>
 import { mapState, mapGetters, mapActions } from 'vuex'
 
-import CommentCreate from '@/components/CommentCreate.vue'
-import CommentList from '@/components/CommentList.vue'
+import CommentCreate from '@/components/comment/CommentCreate.vue'
+import CommentList from '@/components/comment/CommentList.vue'
 
 export default {
   name: 'PostDetailView',

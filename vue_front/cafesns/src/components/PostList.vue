@@ -1,55 +1,62 @@
 <template>
-  <div>
-    <h3>Posts</h3>
-    <v-list flat>
-      <v-list-item-group>
-        <v-list-item
-          v-for="post in postList"
-          :key="post.pno"
-          @click="onSelectPost(post.pno)"
+  <v-slide-group
+    class="pa-4"
+    active-class="secondary"
+    show-arrows
+  >
+    <v-slide-item
+      v-for="cafe in newCafeList"
+      :key="cafe.cafeno"
+      v-slot:default="{ toggle }"
+    >
+      <v-card
+        class="ma-4"
+        @click="toggle"
+      >
+        <v-img
+          height="200px"
+          width="200px"
+          class="grey lighten-2"
+          :src="'http://i3a203.p.ssafy.io:5000/api/cafe/get/image/'+cafe.cafeno"
+          @click="onSelectCafe(cafe.cafeno)"
         >
-          <v-list-item-avatar>
-            <!-- <v-icon class="grey lighten-1 white--text" v-text="folder"></v-icon> -->
-            <v-img
-              :src="'http://i3a203.p.ssafy.io:5000/api/post/get/image/'+post.pno"
-              @click="onSelectPost(post.pno)"
-            >
-            </v-img>
-          </v-list-item-avatar>
-
-          <v-list-item-content>
-            <v-list-item-title>{{ post.contents }}</v-list-item-title>
-            
-            <v-list-item-subtitle>{{ post.uid }}</v-list-item-subtitle>
-          </v-list-item-content>
-          <v-list-item-action>{{ post.date }}</v-list-item-action>
-        </v-list-item>
-      </v-list-item-group>
-    </v-list>
-  </div>
+          <v-row align="end" class="lightbox white--text fill-height">
+            <v-col style="background:#00000080">
+              <div v-if="cafe.name.length<10" class="subheading">{{ cafe.name }}</div>
+              <div v-else class="subheading">{{ cafe.name.substring(0, 10) + "..." }}</div>
+            </v-col>
+          </v-row>
+        </v-img>
+      </v-card>
+    </v-slide-item>
+  </v-slide-group>
 </template>
 
 <script>
 import { mapState, mapActions } from 'vuex'
 
 export default {
-  name: 'PostList',
-  computed: {
-    ...mapState(['postList'])
-  },
-  methods: {
-    ...mapActions(['fetchPostList']),
-    onSelectPost(postno) {
-      this.$router.push(`/post/detail/${postno}`)
+  name: 'SlideList',
+  data() {
+    return {
+      randomImg : "https://cdn.vuetifyjs.com/images/cards/cooking.png",
     }
   },
-  created() {
-    this.fetchPostList(this.$route.params.cafe_id)
+  computed: {
+    ...mapState([
+      'newCafeList'
+    ])
   },
-
+  methods: {
+    ...mapActions([
+      'fetchNewCafeList',
+    ]),
+    onSelectCafe(target) {
+      this.$router.push(`/cafe/detail/${target}`)
+    },
+  },
+  created() {
+    this.fetchNewCafeList(3)
+  }
 }
 </script>
-
-<style>
-
-</style>

@@ -35,6 +35,7 @@ export default new Vuex.Store({
     
     cafeList: {},
     selectedCafe: null,
+    newCafeList: {},
     
   },
   
@@ -92,6 +93,9 @@ export default new Vuex.Store({
     },
     SET_CAFELIST(state, cafeList) {
       state.cafeList = cafeList
+    },
+    SET_NEWCAFELIST(state, cafeList) {
+      state.newCafeList = cafeList
     },
     SET_SELECTCAFE(state, selectedCafe) {
       state.selectedCafe = selectedCafe
@@ -199,6 +203,7 @@ export default new Vuex.Store({
         .then(() => {
           commit('SET_SELECTPOST', postData)
           dispatch('fetchPostList', postData.cafeno)
+          dispatch('postDetail', postData.pno)
           router.push(`/cafe/detail/${postData.cafeno}`)
         })
         .catch(err => console.error(err))
@@ -212,21 +217,27 @@ export default new Vuex.Store({
         .catch(err => console.log(err))
     },
     uploadImage({ dispatch, commit }, postData) {
-      if (!postData.formData.get("image")) {
-        dispatch('updatePost', postData.selectedPost)
-      } else {
-        axios.post(SERVER.URL + SERVER.ROUTES.uploadImage, postData.formData)
-          .then((res) => {
-            if (postData.selectedPost) {
-              commit('SET_IMAGEURL', res.data)
-              dispatch('updatePost', postData.selectedPost)
-            } else {
-              commit('SET_IMAGEURL', res.data)
-              dispatch('createPost', postData.postList)
-            }
-          })
-          .catch(err => console.log(err))
-        }
+      return new Promise((resolve, reject) => {
+        if (!postData.formData.get("image")) {
+          dispatch('updatePost', postData.selectedPost)
+        } else {
+          axios.post(SERVER.URL + SERVER.ROUTES.uploadImage, postData.formData)
+            .then((res) => {
+              if (postData.selectedPost) {
+                commit('SET_IMAGEURL', res.data)
+                dispatch('updatePost', postData.selectedPost)
+              } else {
+                commit('SET_IMAGEURL', res.data)
+                dispatch('createPost', postData.postList)
+              }
+              resolve(res)
+            })
+            .catch(err => {
+              console.log(err)
+              reject(err)
+            })
+          }
+      })
     },
 
     // comment
@@ -368,14 +379,21 @@ export default new Vuex.Store({
     fetchCafeList({ state, commit }, page) {
       const cafeLen = Object.keys(state.cafeList).length
       axios.get(SERVER.URL + SERVER.ROUTES.cafeList + page)
-        .then(res => {
-          if (!cafeLen) {
-            commit('SET_CAFELIST', res.data)
-          } else if (page === 1) {
+      .then(res => {
+        if (!cafeLen) {
+          commit('SET_CAFELIST', res.data)
+        } else if (page === 1) {
             return
           } else {
             commit('SET_ADDCAFELIST', res.data)
           }
+        })
+        .catch(err => console.error(err))
+    },
+    fetchNewCafeList({ commit }, page) {
+      axios.get(SERVER.URL + SERVER.ROUTES.cafeList + page)
+      .then(res => {
+          commit('SET_NEWCAFELIST', res.data)
         })
         .catch(err => console.error(err))
     },

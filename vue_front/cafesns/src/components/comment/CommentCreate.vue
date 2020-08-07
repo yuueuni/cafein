@@ -1,14 +1,20 @@
 <template>
-  <v-layout row>
+  <v-layout>
     <v-flex>
       <v-text-field
         label="Content" 
         v-model="commentData.contents"
         id="content"
-        append-outer-icon
+        clearable
+        @keypress.enter="checkBeforeCreateComment(commentData)"
       >
+      <template v-slot:append-outer>
+        <v-btn
+          color="secondary"
+          @click="checkBeforeCreateComment(commentData)"
+        >등록</v-btn>
+      </template>
       </v-text-field>
-      <v-btn color="secondary" @click="checkBeforeCreateComment(commentData)">등록</v-btn>
     </v-flex>
   </v-layout>
 </template>
