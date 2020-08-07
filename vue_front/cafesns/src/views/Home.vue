@@ -11,7 +11,7 @@
             class="d-flex white v-card--reveal display-3"
             style="height: 100%;"
           >
-            <span style="font-family:'BBTreeGR';">Cafe</span>
+            <span style="font-family:'BBTreeGR';">Recommend</span>
           </div>
         </v-expand-transition>
       </v-card>
@@ -19,7 +19,7 @@
     <!-- post -->
     <v-hover v-slot:default="{ hover }">
       <v-card outlined class="card-list">
-          <h1>Post</h1>
+          <h1>Cafe</h1>
           <PostList/>
         <v-expand-transition>
           <div
@@ -27,7 +27,7 @@
             class="d-flex white v-card--reveal display-3"
             style="height: 100%;"
           >
-            <span style="font-family:'BBTreeGR';">Post</span>
+            <span style="font-family:'BBTreeGR';">Cafe</span>
           </div>
         </v-expand-transition>
       </v-card>
