@@ -37,11 +37,6 @@ import { mapState, mapActions } from 'vuex'
 
 export default {
   name: 'SlideList',
-  data() {
-    return {
-      randomImg : "https://cdn.vuetifyjs.com/images/cards/cooking.png",
-    }
-  },
   computed: {
     ...mapState([
       'cafeList'
