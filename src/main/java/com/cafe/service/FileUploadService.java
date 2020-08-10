@@ -22,41 +22,12 @@ public class FileUploadService {
 	
 //	private static final String PREFIX_URL = "/upload/";
 	
-//	public String restore(MultipartFile multipartFile) {
-//		
-//		String saveFileName = null;
-//		
-//		try {
-//			String originFilename = multipartFile.getOriginalFilename();
-//			System.out.println("file name: " + originFilename);
-//			
-//			String extName = originFilename.substring(originFilename.lastIndexOf("."), originFilename.length());
-//			extName=extName.toLowerCase();
-//			System.out.println("extension name: " + extName);
-//			
-//			Long size = multipartFile.getSize();
-//			System.out.println("size: " + size);
-//			
-//			saveFileName = genSaveFileName(extName);
-//			System.out.println("save name: " + saveFileName);
-//			
-//			System.out.println("RESULT: " + writeFile(multipartFile, saveFileName));
-//		} 
-//		catch(IOException e) 
-//		{
-//			throw new RuntimeException(e);
-//		}
-//		finally {
-//			System.out.println("FIL");
-//		}
-//		
-//		return saveFileName;
-//	}
-	public String restore(MultipartFile multipartFile, int pno) {
+	public String restore(MultipartFile multipartFile) {
 		
 		if(checkImageType((File)multipartFile)==false) {
 			return "NOT_IMAGE_FILE";
 		}
+		
 		String saveFileName = null;
 		
 		try {
@@ -70,7 +41,7 @@ public class FileUploadService {
 			Long size = multipartFile.getSize();
 			System.out.println("size: " + size);
 			
-			saveFileName = pno+"";
+			saveFileName = genSaveFileName(extName);
 			System.out.println("save name: " + saveFileName);
 			
 			System.out.println("RESULT: " + writeFile(multipartFile, saveFileName));
@@ -85,6 +56,39 @@ public class FileUploadService {
 		
 		return saveFileName;
 	}
+//	public String restore(MultipartFile multipartFile, int pno) {
+//		
+//		if(checkImageType((File)multipartFile)==false) {
+//			return "NOT_IMAGE_FILE";
+//		}
+//		String saveFileName = null;
+//		
+//		try {
+//			String originFilename = multipartFile.getOriginalFilename();
+//			System.out.println("file name: " + originFilename);
+//			
+//			String extName = originFilename.substring(originFilename.lastIndexOf("."), originFilename.length());
+//			extName=extName.toLowerCase();
+//			System.out.println("extension name: " + extName);
+//			
+//			Long size = multipartFile.getSize();
+//			System.out.println("size: " + size);
+//			
+//			saveFileName = pno+"";
+//			System.out.println("save name: " + saveFileName);
+//			
+//			System.out.println("RESULT: " + writeFile(multipartFile, saveFileName));
+//		} 
+//		catch(IOException e) 
+//		{
+//			throw new RuntimeException(e);
+//		}
+//		finally {
+//			System.out.println("FIL");
+//		}
+//		
+//		return saveFileName;
+//	}
 	
 	private String genSaveFileName(String extName) {
 		
