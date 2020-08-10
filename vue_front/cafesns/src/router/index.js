@@ -16,6 +16,8 @@ import PostDetailView from '@/views/post/PostDetailView.vue'
 import CafeListView from '@/views/cafe/CafeListView.vue'
 import CafeDetailView from '@/views/cafe/CafeDetailView.vue'
 
+import NotFound from '@/components/404.vue'
+
 Vue.use(VueRouter)
 
   const routes = [
@@ -70,6 +72,11 @@ Vue.use(VueRouter)
     name: 'CafeDetail',
     component: CafeDetailView,
   },
+  {
+    path: '*',
+    name: '404Page',
+    component: NotFound,
+  },
 ]
 
 const router = new VueRouter({
@@ -86,8 +93,7 @@ router.beforeEach((to, from, next) => {
   const unauthRequired = privatePages.includes(to.name)  //로그인 안한 상태가 필요함
   
   const isLoggedIn = !!Vue.$cookies.isKey('auth-token')
-
-  document.title = to.meta.title
+  
 
   if (unauthRequired && isLoggedIn) {
     next('/')

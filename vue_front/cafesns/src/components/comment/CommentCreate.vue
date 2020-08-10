@@ -43,8 +43,9 @@ export default {
     checkBeforeCreateComment(commentData) {
       if (!this.isLoggedIn) {
         this.$router.push({ name: 'Login'})
-      } 
-      else {
+      } else if (!this.commentData.contents) {
+        alert('내용을 입력해주세요.')
+      } else {
         this.createComment(commentData)
       }
     },
