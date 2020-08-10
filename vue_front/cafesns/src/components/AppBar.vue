@@ -34,9 +34,9 @@ export default {
     }
   },
 
-  mounted() {
-    this.isLoggedIn = this.$cookies.isKey('auth-token')
-  }
+  // mounted() {
+  //   this.isLoggedIn = this.$cookies.isKey('auth-token')
+  // }
 }
 </script>
 

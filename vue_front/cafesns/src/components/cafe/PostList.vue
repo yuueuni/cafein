@@ -4,7 +4,7 @@
     <v-list flat>
       <v-list-item-group>
         <v-list-item
-          v-for="post in postList"
+          v-for="post in cafePostList"
           :key="post.pno"
           @click="onSelectPost(post.pno)"
         >
@@ -35,10 +35,10 @@ import { mapState, mapActions } from 'vuex'
 export default {
   name: 'PostList',
   computed: {
-    ...mapState(['postList'])
+    ...mapState(['cafePostList'])
   },
   methods: {
-    ...mapActions(['fetchPostList']),
+    ...mapActions(['fetchCafePostList']),
     onSelectPost(postno) {
       this.$router.push(`/post/detail/${postno}`)
     }

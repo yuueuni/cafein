@@ -16,8 +16,9 @@ export default new Vuex.Store({
     currentUser: null,
     userData: {},
     
-    userPostList: {},
     postList: {},
+    userPostList: {},
+    cafePostList: {},
     selectedPost: null,
     updatePostData: {},
     uploadImageURL: null,
@@ -35,7 +36,6 @@ export default new Vuex.Store({
     
     cafeList: {},
     selectedCafe: null,
-    newCafeList: {},
     
   },
   
@@ -59,12 +59,15 @@ export default new Vuex.Store({
     SET_USERDATA(state, userData) {
       state.userData = userData
     },
-
+    
+    SET_POSTLIST(state, postList) {
+      state.postList = postList
+    },
     SET_USERPOSTLIST(state, POSTLIST) {
       state.userPostList = POSTLIST
     },
-    SET_POSTLIST(state, POSTLIST) {
-      state.postList = POSTLIST
+    SET_CAFEPOSTLIST(state, postList) {
+      state.cafePostList = postList
     },
     SET_SELECTPOST(state, selectedPost) {
       state.selectedPost = selectedPost
@@ -93,9 +96,6 @@ export default new Vuex.Store({
     },
     SET_CAFELIST(state, cafeList) {
       state.cafeList = cafeList
-    },
-    SET_NEWCAFELIST(state, cafeList) {
-      state.newCafeList = cafeList
     },
     SET_SELECTCAFE(state, selectedCafe) {
       state.selectedCafe = selectedCafe
@@ -179,10 +179,17 @@ export default new Vuex.Store({
           router.push(`/cafe/detail/${state.selectedCafe.cafeno}`)
         })
         .catch(err => console.log('error', err))
+      },
+    fetchPostList({ commit }, page) {
+      axios.get(SERVER.URL + SERVER.ROUTES.postList + page)
+      .then(res => {
+          commit('SET_POSTLIST', res.data)
+        })
+        .catch(err => console.error(err))
     },
-    fetchPostList({ commit }, cafeno) {
-      axios.get(SERVER.URL + SERVER.ROUTES.postList + cafeno)
-        .then(res => commit('SET_POSTLIST', res.data))
+    fetchCafePostList({ commit }, cafeno) {
+      axios.get(SERVER.URL + SERVER.ROUTES.cafePostList + cafeno)
+        .then(res => commit('SET_CAFEPOSTLIST', res.data))
         .catch(err => console.error(err))
     },
     fetchUserPostList({ commit }, userId) {
@@ -236,10 +243,10 @@ export default new Vuex.Store({
               console.log(err)
               reject(err)
             })
-          }
+        }
       })
     },
-
+    
     // comment
     createComment({ state, getters,dispatch }, commentData) {
       commentData.uid = state.currentUser
@@ -274,7 +281,7 @@ export default new Vuex.Store({
     likeCafe({ state, getters }, cafeno) {
       if (!getters.isLoggedIn) {
         alert('로그인이 필요합니다!')
-        router.push(`/accounts/login`)
+        router.replace(`/accounts/login`)
       }
       const userid = state.userData.id
       axios.get(SERVER.URL + SERVER.ROUTES.like + `/check/${cafeno}/${userid}`, getters.config)
@@ -313,7 +320,7 @@ export default new Vuex.Store({
       }
       const userid = state.userData.id
       axios.get(SERVER.URL + SERVER.ROUTES.stamp + `/check/${cafeno}/${userid}`, getters.config)
-        .then(res => {
+      .then(res => {
           if (res.data === 0) {
             const stampData = {
               cafeno: cafeno,
@@ -387,13 +394,6 @@ export default new Vuex.Store({
           } else {
             commit('SET_ADDCAFELIST', res.data)
           }
-        })
-        .catch(err => console.error(err))
-    },
-    fetchNewCafeList({ commit }, page) {
-      axios.get(SERVER.URL + SERVER.ROUTES.cafeList + page)
-      .then(res => {
-          commit('SET_NEWCAFELIST', res.data)
         })
         .catch(err => console.error(err))
     },

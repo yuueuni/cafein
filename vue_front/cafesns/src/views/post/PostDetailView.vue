@@ -108,7 +108,11 @@ export default {
       this.$router.push(`/accounts/${userid}`)
     },
     onUpdatePost(postid) {
-      this.$router.push(`/post/update/${postid}`)
+      if (!this.isLoggedIn) {
+        this.$router.push({ name: 'Login'})
+      } else {
+        this.$router.push(`/post/update/${postid}`)
+      }
     },
     onCafeDetail(cafeid) {
       this.$router.push(`/cafe/detail/${cafeid}`)

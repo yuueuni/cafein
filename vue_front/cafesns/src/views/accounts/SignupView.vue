@@ -6,7 +6,7 @@
           <v-toolbar-title>Sign up</v-toolbar-title>
           <v-spacer></v-spacer>
           <v-toolbar-items>
-            <v-btn icon dark @click="$router.push('/')">
+            <v-btn icon dark @click="$router.go(-1)">
               <v-icon>mdi-close</v-icon>
             </v-btn>
           </v-toolbar-items>
@@ -25,7 +25,7 @@
             label="Password" 
             type="password" 
             v-model="signupData.password"
-            :rules="[rules.passwordMatch]"
+            :rules="[rules.passwordMatch, rules.passwordConfirm]"
             hint="* 최소 8자리(영문,숫자,특수문자 모두 포함)"
             persistent-hint
             id="password"
@@ -82,20 +82,25 @@ export default {
           }
         },
         passwordMatch:  v => {
-          const pattern = /^(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/
+          const pattern = /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/
           if (pattern.test(v)) {
             this.pwValid = true
           } else {
             this.pwValid = false
-            return '* 최소 8자리(영문,숫자,특수문자 모두 포함)'
+            return '* 8 - 15자리 이내(영문, 숫자, 특수문자 모두 포함)'
           }
         },
         passwordConfirm: () => {
-          if (this.signupData.password2 && this.signupData.password === this.signupData.password2) {
-            this.conPwValid = true
+          if (this.signupData.password2) {
+            if (this.signupData.password == this.signupData.password2) {
+              this.conPwValid = true
+            } else {
+              this.conPwValid = false
+              return '비밀번호를 확인해주세요.'
+            }
           } else {
             this.conPwValid = false
-            return '비밀번호를 확인해주세요.'
+            return '비밀번호를 입력해주세요.'
           }
         },
       },
