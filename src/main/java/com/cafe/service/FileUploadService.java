@@ -24,9 +24,9 @@ public class FileUploadService {
 	
 	public String restore(MultipartFile multipartFile) {
 		
-		if(checkImageType((File)multipartFile)==false) {
-			return "NOT_IMAGE_FILE";
-		}
+//		if(checkImageType((File)multipartFile)==false) {
+//			return "NOT_IMAGE_FILE";
+//		}
 		
 		String saveFileName = null;
 		
@@ -39,6 +39,9 @@ public class FileUploadService {
 			System.out.println("extension name: " + extName);
 			
 			Long size = multipartFile.getSize();
+			if(size>100000) {
+				return "EXCEEDED_FILE_SIZE";
+			}
 			System.out.println("size: " + size);
 			
 			saveFileName = genSaveFileName(extName);
