@@ -5,7 +5,7 @@
         <v-row>
           <h1 class="px-3">{{ userData.id.split('@')[0] }}</h1>
           <v-btn v-if="profileUserId !== currentUser" class="px-1" @click="followUser(profileUserId)" small>
-            <span v-if="followState">follow</span>
+            <span v-if="!followState">follow</span>
             <span v-else>Unfollow</span>
           </v-btn>
           <v-spacer></v-spacer>
