@@ -94,6 +94,7 @@ export default {
     ]),
   },
   created() {
+    // this.cafeId = this.$route.params.cafe_id
     this.cafeDetail(this.cafeId)
   }
 }
