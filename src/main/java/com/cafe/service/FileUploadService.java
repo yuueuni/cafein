@@ -27,11 +27,17 @@ public class FileUploadService {
 //		if(checkImageType((File)multipartFile)==false) {
 //			return "NOT_IMAGE_FILE";
 //		}
+		String originFilename = multipartFile.getOriginalFilename();
+		System.out.println("file name: " + originFilename);
 		
+		if ( originFilename.toLowerCase().endsWith(".png") || originFilename.toLowerCase().endsWith(".jpg")
+			    || originFilename.toLowerCase().endsWith(".jpeg")) {
+			return "NOT_IMAGE_FILE";
+		}
 		String saveFileName = null;
 		
 		try {
-			String originFilename = multipartFile.getOriginalFilename();
+			
 			System.out.println("file name: " + originFilename);
 			
 			String extName = originFilename.substring(originFilename.lastIndexOf("."), originFilename.length());
@@ -56,6 +62,7 @@ public class FileUploadService {
 		}
 		
 		return saveFileName;
+		
 	}
 //	public String restore(MultipartFile multipartFile, int pno) {
 //		
@@ -120,15 +127,11 @@ public class FileUploadService {
 		return result;
 	}
 	
-	//이미지 파일 판단하는 메서드
-	private boolean checkImageType(File file) {
-		try {
-			String contentType = Files.probeContentType(file.toPath());
-			
-			return contentType.startsWith("image");
-		}catch(IOException e) {
-			e.printStackTrace();
-		}
-		return false;
-	}
+	/*
+	 * //이미지 파일 판단하는 메서드 private boolean checkImageType(File file) { try { String
+	 * contentType = Files.probeContentType(file.toPath());
+	 * 
+	 * return contentType.startsWith("image"); }catch(IOException e) {
+	 * e.printStackTrace(); } return false; }
+	 */
 }
