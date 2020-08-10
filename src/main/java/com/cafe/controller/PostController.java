@@ -92,6 +92,14 @@ public class PostController {
 		return post;
 	}
 
+	@ApiOperation(value = "게시글 전체 리스트")
+	@GetMapping("/list/{page}")
+	public List<PostDto> selectAll(@PathVariable Integer page) {
+		System.out.println(page);
+		List<PostDto> postList = service.selectAll(page);
+		return postList;
+	}
+	
 	@ApiOperation(value = "유저가 작성한 게시글 수")
 	@GetMapping("/count/{uid}")
 	public int count(@PathVariable String uid) {

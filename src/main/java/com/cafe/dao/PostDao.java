@@ -10,6 +10,8 @@ public interface PostDao {
 	
 	public PostDto select(int pno);
 	
+	public List<PostDto> selectAll(int page);
+	
 	public int countByUser(String uid);
 	
 	public List<PostDto> selectAllByUser(int page, String uid);
