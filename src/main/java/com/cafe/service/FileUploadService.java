@@ -30,8 +30,8 @@ public class FileUploadService {
 		String originFilename = multipartFile.getOriginalFilename();
 		System.out.println("file name: " + originFilename);
 		
-		if ( originFilename.toLowerCase().endsWith(".png") || originFilename.toLowerCase().endsWith(".jpg")
-			    || originFilename.toLowerCase().endsWith(".jpeg")) {
+		if ( !(originFilename.toLowerCase().endsWith(".png") || originFilename.toLowerCase().endsWith(".jpg")
+			    || originFilename.toLowerCase().endsWith(".jpeg"))) {
 			return "NOT_IMAGE_FILE";
 		}
 		String saveFileName = null;
