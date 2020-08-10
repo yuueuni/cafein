@@ -39,9 +39,7 @@ public class FileUploadService {
 			System.out.println("extension name: " + extName);
 			
 			Long size = multipartFile.getSize();
-			if(size>100000) {
-				return "EXCEEDED_FILE_SIZE";
-			}
+			
 			System.out.println("size: " + size);
 			
 			saveFileName = genSaveFileName(extName);
