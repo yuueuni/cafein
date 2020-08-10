@@ -115,7 +115,12 @@ export default {
       } else {
         this.selectedFile = e
         this.url = URL.createObjectURL(this.selectedFile)
-        this.formData.append("image", this.selectedFile, this.selectedFile.name)
+        if (this.formData.get("image")) {
+          this.formData.delete("image")
+          this.formData.set("image", this.selectedFile, this.selectedFile.name)
+        } else {
+          this.formData.append("image", this.selectedFile, this.selectedFile.name)
+        }
       }
     },
     checkContents(value) {
@@ -136,7 +141,7 @@ export default {
 
   created() {
     if (!this.isLoggedIn) {
-      this.$router.push({ name: 'Login'})
+      this.$router.replace({ name: 'Login'})
     }
   }, 
 }

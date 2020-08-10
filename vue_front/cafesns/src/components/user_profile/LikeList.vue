@@ -4,6 +4,9 @@
     active-class="secondary"
     show-arrows
   >
+    <div v-if="!likeList.length" class="mx-auto">
+      현재 좋아하는 카페가 없습니다.
+    </div>
     <v-slide-item
       v-for="cafe in likeList"
       :key="cafe.id"
