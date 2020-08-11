@@ -27,9 +27,9 @@ export default new Vuex.Store({
     commentList: {},
     selectedComment: null,
     
-    checkLike: null,
+    likeState: null,
     likeList: {},
-    checkStamp: null,
+    stampState: null,
     stampList: {},
     
     followState: null,
@@ -280,105 +280,98 @@ export default new Vuex.Store({
         .catch(err => console.log(err))
     },
 
-    aboutLike({ state, getters, dispatch }, cafeno) {
-      state.checkLike = 0
+    aboutLike({ state, getters }, cafeno) {
       if (!getters.isLoggedIn) {
         alert('로그인이 필요합니다!')
-        router.replace(`/accounts/login`)
-        return state.checkLike = 0
-      } 
-      else {
-        const userid = state.userData.id
-        axios.get(SERVER.URL + SERVER.ROUTES.like + `/check/${cafeno}/${userid}`, getters.config)
-          .then(res => {
+        router.push(`/accounts/login`)
+      }
+      axios.get(SERVER.URL + SERVER.ROUTES.like + `/check/${cafeno}/${state.userData.id}`, getters.config)
+        .then(res => state.likeState = res.data)
+        .catch(err => console.error(err.response.data))
+    },
+
+    likeCafe({ state, getters, dispatch }, cafeno) {
+      if (!getters.isLoggedIn) {
+        alert('로그인이 필요합니다!')
+        router.push(`/accounts/login`)
+      }
+      const userid = state.userData.id
+      axios.get(SERVER.URL + SERVER.ROUTES.like + `/check/${cafeno}/${userid}`, getters.config)
+        .then(res => {
+          if (res.data === 0) {
             const likeData = {
               cafeno: cafeno,
               uid: userid
             }
-            if (res.data === 0) {
-              dispatch('likeCafe', likeData)
-            } 
-            else {
-              dispatch('unLikeCafe', likeData)
-            }
-          })
-          .catch(err => console.log(err))
-      }
-    },
-
-    likeCafe({ state, getters }, likeData) {
-      axios.post(SERVER.URL + SERVER.ROUTES.like, likeData, getters.config)
-        .then(() => {
-          console.log("like")
-          state.checkLike = 1
+            axios.post(SERVER.URL + SERVER.ROUTES.like, likeData, getters.config)
+              .then(() => {
+                console.log("like")
+                state.likeState = 1
+                dispatch('fetchLikeList')
+              })
+              .catch(err => console.log(err))
+          } 
+          else {
+            axios.delete(SERVER.URL + SERVER.ROUTES.like + `/delete/${cafeno}/${userid}`, getters.config)
+              .then(() => {
+                console.log("unlike")
+                state.likeState = 0
+                dispatch('fetchLikeList')
+              })
+              .catch(err => console.log(err))
+          }
         })
         .catch(err => console.log(err))
     },
-
-    unLikeCafe({ state, getters }, likeData) {
-      axios.delete(SERVER.URL + SERVER.ROUTES.like + `/delete/${likeData.cafeno}/${likeData.uid}`, getters.config)
-        .then(() => {
-          console.log("unlike")
-          state.checkLike = 0
-        })
-        .catch(err => console.log(err))
-    },  
 
     //stamp
     fetchStampList({ state, commit }) {
       const userid = state.userData.id
       axios.get(SERVER.URL + SERVER.ROUTES.stamp + `/list/${userid}`)
-      .then(res => commit('SET_STAMPLIST', res.data))
-      .catch(err => console.log(err))
+        .then(res => commit('SET_STAMPLIST', res.data))
+        .catch(err => console.log(err))
     },
 
-    aboutStamp({ state, getters, dispatch }, cafeno) {
+    aboutStamp({ state, getters }, cafeno) {
       if (!getters.isLoggedIn) {
         alert('로그인이 필요합니다!')
         router.push(`/accounts/login`)
-<<<<<<< vue_front/cafesns/src/store/index.js
-        // return state.checkStamp = 0
-      } 
-      else {
-        const userid = state.userData.id
-        axios.get(SERVER.URL + SERVER.ROUTES.stamp + `/check/${cafeno}/${userid}`, getters.config)
-          .then(res => {
-=======
+      }
+        axios.get(SERVER.URL + SERVER.ROUTES.stamp + `/check/${cafeno}/${state.userData.id}`, getters.config)
+          .then(res => state.likeState = res.data)
+          .catch(err => console.error(err.response.data))
+    }, 
+
+    stampCafe({ state, getters, dispatch }, cafeno) {
+      if (!getters.isLoggedIn) {
+        alert('로그인이 필요합니다!')
+        router.push(`/accounts/login`)
       }
       const userid = state.userData.id
       axios.get(SERVER.URL + SERVER.ROUTES.stamp + `/check/${cafeno}/${userid}`, getters.config)
-      .then(res => {
+        .then(res => {
           if (res.data === 0) {
->>>>>>> vue_front/cafesns/src/store/index.js
             const stampData = {
               cafeno: cafeno,
               uid: userid
             }
-            if (res.data === 0) {
-              dispatch('stampCafe', stampData)
-            } 
-            else {
-              dispatch('unStampCafe', stampData)
-            }
-          })
-          .catch(err => console.log(err))    
-      }
-    },
-
-    stampCafe({ state, getters }, stampData) {
-      axios.post(SERVER.URL + SERVER.ROUTES.stamp, stampData, getters.config)
-        .then(() => {
-          console.log("stamp")
-          state.checkStamp = 1
-        })
-        .catch(err => console.log(err))
-    },
-
-    unStampCafe({ state, getters }, stampData) {
-      axios.delete(SERVER.URL + SERVER.ROUTES.stamp + `/delete/${stampData.cafeno}/${stampData.uid}`, getters.config)
-        .then(() => {
-          console.log("unstamp")
-          state.checkStamp = 0
+            axios.post(SERVER.URL + SERVER.ROUTES.stamp, stampData, getters.config)
+              .then(() => {
+                console.log("stamp")
+                state.stampState = 1
+                dispatch('fetchStampList')
+              })
+              .catch(err => console.log(err))
+          } 
+          else {
+            axios.delete(SERVER.URL + SERVER.ROUTES.stamp + `/delete/${cafeno}/${userid}`, getters.config)
+              .then(() => {
+                console.log("unstamp")
+                state.stampState = 0
+                dispatch('fetchStampList')
+              })
+              .catch(err => console.log(err))
+          }
         })
         .catch(err => console.log(err))
     },
@@ -398,11 +391,11 @@ export default new Vuex.Store({
     },
 
     aboutFollow({ state, getters }, followingid) {
-      console.log(state.followState, followingid, state.currentUserId)
-      axios.get(SERVER.URL + SERVER.ROUTES.follow + `/check/${state.currentUserId}/${followingid}`, getters.config)
-        .then(res => state.followState= res.data)
+      axios.get(SERVER.URL + SERVER.ROUTES.follow + `/check/${state.currentUser}/${followingid}`, getters.config)
+        .then(res => {
+          state.followState = res.data
+        })
         .catch(err => console.error(err.response.data))
-        console.log(state.followState, followingid, state.currentUserId)
     },
 
     followUser({ state, getters, dispatch, }, followingid) {
@@ -416,15 +409,20 @@ export default new Vuex.Store({
               uid: currentUserId
             }
             axios.post(SERVER.URL + SERVER.ROUTES.follow, followData, getters.config)
-              .then(() => state.followState = 1 )
+              .then(() => {
+                state.followState = 1 
+                dispatch('fetchFollowerList')
+              })
               .catch(err => console.log(err))
-          } 
-          else {
-            axios.delete(SERVER.URL + SERVER.ROUTES.follow + `/delete/${currentUserId}/${followingid}`, {followingid, currentUserId,}, getters.config)
-              .then(() => state.followState = 0)
+            } 
+            else {
+              axios.delete(SERVER.URL + SERVER.ROUTES.follow + `/delete/${currentUserId}/${followingid}`, {followingid, currentUserId,}, getters.config)
+              .then(() => {
+                state.followState = 0
+                dispatch('fetchFollowerList')
+              })
               .catch(err => console.log(err))
           }
-          dispatch('fetchFollowerList')
           resolve(res)
         })
         .catch(err => {
