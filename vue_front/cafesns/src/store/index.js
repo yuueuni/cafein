@@ -281,23 +281,32 @@ export default new Vuex.Store({
     },
 
     aboutLike({ state, getters }, cafeno) {
+      console.log('aboutlikecheck1', state.likeState)
       if (!getters.isLoggedIn) {
-        alert('로그인이 필요합니다!')
-        router.push(`/accounts/login`)
+        state.likeState = 0
       }
-      axios.get(SERVER.URL + SERVER.ROUTES.like + `/check/${cafeno}/${state.userData.id}`, getters.config)
-        .then(res => state.likeState = res.data)
-        .catch(err => console.error(err.response.data))
+      else {
+        axios.get(SERVER.URL + SERVER.ROUTES.like + `/check/${cafeno}/${state.userData.id}`, getters.config)
+          .then(res => {
+            console.log('aboutlikecheck2',state.likeState)
+            state.likeState = res.data
+            console.log('aboutlikecheck3',state.likeState)
+          })
+          .catch(err => console.error(err.response.data))
+      }
     },
 
     likeCafe({ state, getters, dispatch }, cafeno) {
       if (!getters.isLoggedIn) {
         alert('로그인이 필요합니다!')
-        router.push(`/accounts/login`)
+        router.replace(`/accounts/login`)
       }
+      return new Promise((resolve, reject) => {
       const userid = state.userData.id
+      console.log('likeCafe',state.likeState)
       axios.get(SERVER.URL + SERVER.ROUTES.like + `/check/${cafeno}/${userid}`, getters.config)
         .then(res => {
+          console.log('likeCafeCheck1',state.likeState)
           if (res.data === 0) {
             const likeData = {
               cafeno: cafeno,
@@ -305,23 +314,33 @@ export default new Vuex.Store({
             }
             axios.post(SERVER.URL + SERVER.ROUTES.like, likeData, getters.config)
               .then(() => {
+                console.log('likePost',state.likeState)
                 console.log("like")
                 state.likeState = 1
                 dispatch('fetchLikeList')
+                console.log('likePost2', state.likeState)
               })
               .catch(err => console.log(err))
           } 
           else {
             axios.delete(SERVER.URL + SERVER.ROUTES.like + `/delete/${cafeno}/${userid}`, getters.config)
               .then(() => {
+                console.log('likeDelete1', state.likeState)
                 console.log("unlike")
                 state.likeState = 0
                 dispatch('fetchLikeList')
+                console.log('likeDelete2', state.likeState)
               })
               .catch(err => console.log(err))
           }
+          resolve(res)
+          console.log('resolve', state.likeState)
         })
-        .catch(err => console.log(err))
+        .catch(err => {
+          console.error(err.response.data)
+          reject(err)
+        })
+      })
     },
 
     //stamp
@@ -334,8 +353,7 @@ export default new Vuex.Store({
 
     aboutStamp({ state, getters }, cafeno) {
       if (!getters.isLoggedIn) {
-        alert('로그인이 필요합니다!')
-        router.push(`/accounts/login`)
+        state.stampState = 0
       }
         axios.get(SERVER.URL + SERVER.ROUTES.stamp + `/check/${cafeno}/${state.userData.id}`, getters.config)
           .then(res => state.likeState = res.data)
@@ -345,7 +363,7 @@ export default new Vuex.Store({
     stampCafe({ state, getters, dispatch }, cafeno) {
       if (!getters.isLoggedIn) {
         alert('로그인이 필요합니다!')
-        router.push(`/accounts/login`)
+        router.replace(`/accounts/login`)
       }
       const userid = state.userData.id
       axios.get(SERVER.URL + SERVER.ROUTES.stamp + `/check/${cafeno}/${userid}`, getters.config)
@@ -399,36 +417,40 @@ export default new Vuex.Store({
     },
 
     followUser({ state, getters, dispatch, }, followingid) {
+      if (!getters.isLoggedIn) {
+        alert('로그인이 필요합니다!')
+        router.push(`/accounts/login`)
+      }
       return new Promise((resolve, reject) => {
-      const currentUserId = state.currentUser
-      axios.get(SERVER.URL + SERVER.ROUTES.follow + `/check/${currentUserId}/${followingid}`, getters.config)
-        .then(res => {
-          if (res.data === 0) {
-            const followData = {
-              followingid: followingid,
-              uid: currentUserId
+        const currentUserId = state.currentUser
+        axios.get(SERVER.URL + SERVER.ROUTES.follow + `/check/${currentUserId}/${followingid}`, getters.config)
+          .then(res => {
+            if (res.data === 0) {
+              const followData = {
+                followingid: followingid,
+                uid: currentUserId
+              }
+              axios.post(SERVER.URL + SERVER.ROUTES.follow, followData, getters.config)
+                .then(() => {
+                  state.followState = 1 
+                  dispatch('fetchFollowerList')
+                })
+                .catch(err => console.log(err))
+              } 
+              else {
+                axios.delete(SERVER.URL + SERVER.ROUTES.follow + `/delete/${currentUserId}/${followingid}`, {followingid, currentUserId,}, getters.config)
+                .then(() => {
+                  state.followState = 0
+                  dispatch('fetchFollowerList')
+                })
+                .catch(err => console.log(err))
             }
-            axios.post(SERVER.URL + SERVER.ROUTES.follow, followData, getters.config)
-              .then(() => {
-                state.followState = 1 
-                dispatch('fetchFollowerList')
-              })
-              .catch(err => console.log(err))
-            } 
-            else {
-              axios.delete(SERVER.URL + SERVER.ROUTES.follow + `/delete/${currentUserId}/${followingid}`, {followingid, currentUserId,}, getters.config)
-              .then(() => {
-                state.followState = 0
-                dispatch('fetchFollowerList')
-              })
-              .catch(err => console.log(err))
-          }
-          resolve(res)
-        })
-        .catch(err => {
-          console.error(err.response.data)
-          reject(err)
-        })
+            resolve(res)
+          })
+          .catch(err => {
+            console.error(err.response.data)
+            reject(err)
+          })
       })
     },
    

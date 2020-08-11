@@ -110,8 +110,9 @@ export default {
   },
   created() {
     this.cafeDetail(this.cafeId)
-    this.aboutLike(this.$route.params.cafe_id)
-    this.aboutStamp(this.$route.params.cafe_id)
+    this.aboutLike(this.cafeId)
+    this.aboutStamp(this.cafeId)
+    console.log('createdconsole',this.likeState)
   }
 }
 </script>

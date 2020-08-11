@@ -1,25 +1,30 @@
 <template>
   <v-layout>
     <v-flex>
-      <v-text-field
-        v-if="isLoggedIn"
-        label="Content" 
-        v-model="commentData.contents"
-        id="content"
-        clearable
-        @keypress.enter="checkBeforeCreateComment(commentData)"
-      >
-      <template v-slot:append-outer>
-        <v-btn
-          color="secondary"
-          @click="checkBeforeCreateComment(commentData)"
-        >등록</v-btn>
-      </template>
-      </v-text-field>
-      <v-text-field v-else label="Content" @click="toLoginPage()"></v-text-field>
+      <v-container>
+        <v-text-field
+          v-if="isLoggedIn"
+          label="Content" 
+          v-model="commentData.contents"
+          id="content"
+          clearable
+          clear-icon="fas fa-times-circle"
+          @keypress.enter="checkBeforeCreateComment(commentData)"
+        >
+        <template v-slot:append-outer>
+          <v-btn
+            color="secondary"
+            @click="checkBeforeCreateComment(commentData)"
+          >등록</v-btn>
+        </template>
+        </v-text-field>
+        <v-text-field v-else label="Content" @click="toLoginPage()"></v-text-field>
+      </v-container>
     </v-flex>
   </v-layout>
 </template>
+
+
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
@@ -43,13 +48,19 @@ export default {
   methods: {
     ...mapActions(['createComment']),
     checkBeforeCreateComment(commentData) {
-      if (!this.isLoggedIn) {
+      return new Promise((resolve) => {
+        if (!this.isLoggedIn) {
         this.$router.push({ name: 'Login'})
-      } else if (!this.commentData.contents) {
-        alert('내용을 입력해주세요.')
-      } else {
-        this.createComment(commentData)
-      }
+        } else if (!this.commentData.contents) {
+          alert('내용을 입력해주세요.')
+        } else {
+          // console.log(this.commentData.contents)
+          this.createComment(commentData)
+          // console.log(this.commentData.contents)
+        }
+        resolve(this.createComment(commentData));
+      })
+      .then(this.commentData.contents = null)
     },
     toLoginPage() {
       console.log('noaccess')
