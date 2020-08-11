@@ -33,7 +33,10 @@ public class CafeDaoImpl implements CafeDao {
 		RowBounds bound = new RowBounds((page - 1) * n, n);
 		return session.selectList("cafe.selectAll", null, bound);
 	}
-
+	@Override
+	public List<CafeDto> selectAllAll(){
+		return session.selectList("cafe.selectAll");
+	}
 	@Override
 	public int insert(CafeDto cafe) {
 		return session.insert("cafe.insert", cafe);

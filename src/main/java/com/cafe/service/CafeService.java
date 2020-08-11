@@ -12,6 +12,7 @@ public interface CafeService {
 	public CafeDto select(int cafeno);
 	
 	public List<CafeDto> selectAll(int page);
+	public List<CafeDto> selectAllAll(); // this is used for finding geo
 	
 	public int insert(CafeDto cafe);
 	

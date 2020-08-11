@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.LinkedList;
 import java.util.List;
 import org.apache.commons.io.IOUtils;
 
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cafe.dto.CafeDto;
+import com.cafe.dto.GeoDto;
 import com.cafe.service.CafeService;
 
 import io.swagger.annotations.ApiOperation;
@@ -79,6 +81,25 @@ public class CafeController {
 		List<CafeDto> cafeList = service.selectAll(page);
 		return cafeList;
 	}
+	
+	@ApiOperation(value = "현위치 가장 가까운 카페 찾기")
+	@PostMapping("/geolocation/")
+	public List<CafeDto> getClosedCafe(@RequestBody GeoDto geo) {
+		System.out.println("geolocation api entered");
+		System.out.println(geo.getLat() +","+ geo.getLng());
+		
+		List<CafeDto> cafeList = service.selectAllAll();
+		List<CafeDto> outList= new LinkedList<CafeDto>();
+		for(CafeDto x : cafeList) {
+			// 여기서 좌표 비교 하면 됨.
+			
+		}
+		//test
+		outList.add(cafeList.get(0));
+		outList.add(cafeList.get(1));
+		outList.add(cafeList.get(2));
+		return outList;
+	}
 
 	@ApiOperation(value = "카페 추가", authorizations = { @Authorization(value = "jwt_token") })
 	@PostMapping
@@ -113,5 +134,7 @@ public class CafeController {
 		}
 		return "Failure";
 	}
+	
+	
 
 }
