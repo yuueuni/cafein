@@ -9,6 +9,7 @@ import SERVER from '@/API/url'
 import createPersistedState from 'vuex-persistedstate'
 
 Vue.use(Vuex)
+// test
 
 export default new Vuex.Store({
   state: {
