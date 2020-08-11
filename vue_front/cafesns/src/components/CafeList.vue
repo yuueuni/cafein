@@ -6,7 +6,7 @@
   >
     <v-slide-item
       v-for="cafe in cafeList"
-      :key="cafe.cafeno"
+      :key="cafe.id"
       v-slot:default="{ toggle }"
     >
       <v-card
