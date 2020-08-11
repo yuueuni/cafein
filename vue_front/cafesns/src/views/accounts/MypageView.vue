@@ -5,7 +5,7 @@
         <v-row>
           <h1 class="px-3">{{ userData.id.split('@')[0] }}</h1>
           <v-btn v-if="profileUserId !== currentUser" class="px-1" @click="followUser(profileUserId)" small>
-            <span v-if="!followState">follow</span>
+            <span v-if="followState">follow</span>
             <span v-else>Unfollow</span>
           </v-btn>
           <v-spacer></v-spacer>
@@ -47,6 +47,7 @@ export default {
   data() {
     return {
       profileUserId : null,
+      check: 1,
     }
   },
 
@@ -76,27 +77,33 @@ export default {
       'fetchUserData', 
       'fetchLikeList', 
       'fetchStampList', 
+      'aboutFollow',
       'fetchFollowingList',
       'fetchFollowerList',
       'followUser',
     ]),
-    showUserProfile() {
-      this.profileUserId = this.$route.params.user_id
-      this.fetchUserData(this.profileUserId)
-        .then(() => {
-          this.fetchLikeList()
-          this.fetchStampList()
-          this.fetchFollowingList()
-          this.fetchFollowerList()
-        })
-    },
+    // showUserProfile() {
+    //   this.profileUserId = this.$route.params.user_id
+    //   this.fetchUserData(this.profileUserId)
+    //     .then(() => {
+    //       this.fetchLikeList()
+    //       this.fetchStampList()
+    //       this.fetchFollowingList()
+    //       this.fetchFollowerList()
+    //     })
+    // },
     
   },
 
   created() {
-    this.showUserProfile()
-    // console.log(typeof(this.currentUser))
-    // console.log(this.currentUser.toString() in this.followerList)
+    // showUserProfile() {
+    this.profileUserId = this.$route.params.user_id
+    this.fetchUserData(this.profileUserId)
+    this.aboutFollow(this.$route.params.user_id)
+    this.fetchFollowerList()
+    this.fetchFollowingList()
+    this.fetchLikeList()
+    this.fetchStampList()
   },
 
   watch: {
