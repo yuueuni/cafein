@@ -14,14 +14,31 @@
             class="grey lighten-2"
             :src="'http://i3a203.p.ssafy.io:5000/api/cafe/get/image/'+selectedCafe.cafeno"
           >
+
+
+
+                    <!-- <v-col cols="12" sm="3">
+                      <v-btn icon disabled>
+                        <v-icon>mdi-heart</v-icon>
+                      </v-btn>
+                    </v-col> -->
+
           </v-img>
           <v-row align="end"> 
             <v-card-title>cafe keywords</v-card-title>
             <v-col class="text-end">
-              <v-btn icon :color="active ? 'red lighten-3': 'white'" @click="likeCafe(selectedCafe.cafeno)" class="mx-1">
+              <!-- like -->
+              <v-btn v-if="checkLike" icon color="red lighten-3" @click="aboutLike(selectedCafe.cafeno)" class="mr-2">
                 <i class="fas fa-heart fa-2x"></i>
               </v-btn>
-              <v-btn icon :color="active ? 'blue lighten-3': 'white'" @click="stampCafe(selectedCafe.cafeno)" class="mx-1">
+              <v-btn v-else icon color="grey lighten-1" @click="aboutLike(selectedCafe.cafeno)" class="mr-2">
+                <i class="fas fa-heart fa-2x"></i>
+              </v-btn>
+              <!-- stamp -->
+              <v-btn v-if="checkStamp" icon color="blue lighten-3" @click="aboutStamp(selectedCafe.cafeno)" class="mx-1">
+                <i class="fas fa-shoe-prints fa-rotate-270 fa-2x"></i>
+              </v-btn>
+              <v-btn v-else icon color="grey lighten-1" @click="aboutStamp(selectedCafe.cafeno)" class="mx-1">
                 <i class="fas fa-shoe-prints fa-rotate-270 fa-2x"></i>
               </v-btn>
             </v-col>
@@ -68,7 +85,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapActions, mapGetters } from 'vuex'
 import PostList from '@/components/cafe/PostList.vue'
 
 export default {
@@ -80,21 +97,25 @@ export default {
     return {
       cafeId: this.$route.params.cafe_id,
       active: 1,
-      keywords: ['coffee', 'drink', 'dessert']
+      keywords: ['coffee', 'drink', 'dessert'],
     }
   },
   computed: {
-    ...mapState(['selectedCafe'])
+    ...mapState([
+      'selectedCafe',
+      'checkLike', 
+      'checkStamp'
+    ]),
+    ...mapGetters(['isLoggedIn']),
   },
   methods: {
     ...mapActions([
       'cafeDetail', 
-      'likeCafe', 
-      'stampCafe'
+      'aboutLike',
+      'aboutStamp',
     ]),
   },
   created() {
-    // this.cafeId = this.$route.params.cafe_id
     this.cafeDetail(this.cafeId)
   }
 }

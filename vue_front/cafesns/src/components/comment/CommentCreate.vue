@@ -2,6 +2,7 @@
   <v-layout>
     <v-flex>
       <v-text-field
+        v-if="isLoggedIn"
         label="Content" 
         v-model="commentData.contents"
         id="content"
@@ -15,6 +16,7 @@
         >등록</v-btn>
       </template>
       </v-text-field>
+      <v-text-field v-else label="Content" @click="toLoginPage()"></v-text-field>
     </v-flex>
   </v-layout>
 </template>
@@ -48,6 +50,10 @@ export default {
       } else {
         this.createComment(commentData)
       }
+    },
+    toLoginPage() {
+      console.log('noaccess')
+      this.$router.push({ name: 'Login'})
     },
   },
 }
