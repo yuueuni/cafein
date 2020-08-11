@@ -22,7 +22,7 @@
 		
 			(6371*acos(cos(radians(#{lat}))*cos(radians(lat))*cos(radians(lng)
 		
-			-radians(#{lng}))+sin(radians(37.4685225))*sin(radians(lat))))
+			-radians(#{lng}))+sin(radians(#{lat}))*sin(radians(lat))))
 		
 			AS distance
 		
