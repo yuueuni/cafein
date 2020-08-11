@@ -16,7 +16,7 @@
 	</select>
 	
 	
-	<!-- distance 가 거리임 지금은 500m 로 되어있음 -->
+	<!-- distance 가 거리임 지금은 3km 로 되어있음 -->
 	<select id="selectAllAll" resultType ="CafeDto">
 		<![CDATA[SELECT *,
 		
@@ -28,7 +28,7 @@
 		
 		FROM cafe
 		
-		HAVING distance <= 0.5
+		HAVING distance <= 3
 		
 		ORDER BY distance 
 		
