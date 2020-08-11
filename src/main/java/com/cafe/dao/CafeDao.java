@@ -3,6 +3,7 @@ package com.cafe.dao;
 import java.util.List;
 
 import com.cafe.dto.CafeDto;
+import com.cafe.dto.GeoDto;
 
 
 public interface CafeDao {
@@ -12,7 +13,7 @@ public interface CafeDao {
 	public CafeDto select(int cafeno);
 	
 	public List<CafeDto> selectAll(int page);
-	public List<CafeDto> selectAllAll(); // this is used for finding geo
+	public List<CafeDto> selectAllAll(GeoDto geo); // this is used for finding geo
 	
 	public int insert(CafeDto cafe);
 	

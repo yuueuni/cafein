@@ -88,17 +88,9 @@ public class CafeController {
 		System.out.println("geolocation api entered");
 		System.out.println(geo.getLat() +","+ geo.getLng());
 		
-		List<CafeDto> cafeList = service.selectAllAll();
-		List<CafeDto> outList= new LinkedList<CafeDto>();
-		for(CafeDto x : cafeList) {
-			// 여기서 좌표 비교 하면 됨.
-			
-		}
-		//test
-		outList.add(cafeList.get(0));
-		outList.add(cafeList.get(1));
-		outList.add(cafeList.get(2));
-		return outList;
+		List<CafeDto> cafeList = service.selectAllAll(geo); // mybatis 에서 다처리함.
+
+		return cafeList;
 	}
 
 	@ApiOperation(value = "카페 추가", authorizations = { @Authorization(value = "jwt_token") })
