@@ -455,6 +455,27 @@ export default new Vuex.Store({
         })
         .catch(err => console.error(err))
     },
+    
+    // geo
+    geo({ commit }, location) {
+      var input = {
+        lat: location.coords.latitude, //위도
+        lng: location.coords.longitude, //경도
+      }
+  
+      axios.post(SERVER.URL + '/cafe/geolocation/', input)
+        .then(res => {
+          console.log(res.data)
+          commit('SET_CAFELIST', res.data)
+        })
+        .catch(err => {
+          console.error(err)
+          // console.log(SERVER.URL + '/cafe/geolocation/')
+          // console.log(SERVER.ROUTES.geo)
+          // console.log(input.lat)
+          // console.log(input.lng)
+        })
+    },
   },
   modules: {
   },
