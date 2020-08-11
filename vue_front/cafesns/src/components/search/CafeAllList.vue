@@ -1,25 +1,23 @@
 <template>
   <v-simple-table>
-    <template v-slot:default>
-      <thead>
-        <tr>
-          <th>Cafe Name</th>
-          <th>Location</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr
-          v-for="cafe in cafeList"
-          :key="cafe.id"
-          class="hover-table"
-          @click="onSelectCafe(cafe.cafeno)"
-        >
-          <td>{{ cafe.name }}</td>
-          <td>{{ cafe.address }}</td>
-        </tr>
-      </tbody>
-      <infinite-loading @infinite="infiniteHandler" spinner="waveDots"></infinite-loading>
-    </template>
+    <thead>
+      <tr>
+        <th>Cafe Name</th>
+        <th>Location</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        v-for="cafe in cafeList"
+        :key="cafe.id"
+        class="hover-table"
+        @click="onSelectCafe(cafe.cafeno)"
+      >
+        <td>{{ cafe.name }}</td>
+        <td>{{ cafe.address }}</td>
+      </tr>
+    </tbody>
+  <infinite-loading @infinite="infiniteHandler" spinner="waveDots"></infinite-loading>
   </v-simple-table>
 </template>
 
@@ -28,7 +26,7 @@ import { mapState, mapActions } from 'vuex'
 import InfiniteLoading from 'vue-infinite-loading'
 
 export default {
-  name: 'CafeListView',
+  name: 'CafeAllList',
   data() {
     return {
       page: 1,

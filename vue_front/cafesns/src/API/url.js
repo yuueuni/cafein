@@ -26,10 +26,13 @@ export default{
         //follow
         follow: '/follow',
         
-        // cafe
-        cafeDetail: '/cafe/', // + :id
-        cafeList: '/cafe/list/'
+        //cafe
+        cafeDetail: '/cafe/',
+        cafeList: '/cafe/list/',
 
-
+        //search
+        cafeSearch: '/cafe/search/',
+        keywordSearch: '/keyword/cafelist/',
+        userSearch: '/user/search/'
     }
 }
