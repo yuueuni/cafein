@@ -36,7 +36,7 @@
 import { mapState, mapActions } from 'vuex'
 
 export default {
-  name: 'SlideList',
+  name: 'CafeList',
   computed: {
     ...mapState([
       'cafeList'

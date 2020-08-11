@@ -44,7 +44,7 @@ export default {
     }
   },
   created() {
-    this.fetchPostList(this.$route.params.cafe_id)
+    this.fetchCafePostList(this.$route.params.cafe_id)
   },
 
 }

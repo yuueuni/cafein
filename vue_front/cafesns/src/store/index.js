@@ -336,20 +336,12 @@ export default new Vuex.Store({
       if (!getters.isLoggedIn) {
         alert('로그인이 필요합니다!')
         router.push(`/accounts/login`)
-<<<<<<< vue_front/cafesns/src/store/index.js
         // return state.checkStamp = 0
       } 
       else {
         const userid = state.userData.id
         axios.get(SERVER.URL + SERVER.ROUTES.stamp + `/check/${cafeno}/${userid}`, getters.config)
           .then(res => {
-=======
-      }
-      const userid = state.userData.id
-      axios.get(SERVER.URL + SERVER.ROUTES.stamp + `/check/${cafeno}/${userid}`, getters.config)
-      .then(res => {
-          if (res.data === 0) {
->>>>>>> vue_front/cafesns/src/store/index.js
             const stampData = {
               cafeno: cafeno,
               uid: userid
