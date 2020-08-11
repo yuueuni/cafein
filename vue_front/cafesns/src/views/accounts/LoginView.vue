@@ -5,7 +5,7 @@
         <v-toolbar-title>Login</v-toolbar-title>
         <v-spacer></v-spacer>
         <v-toolbar-items>
-          <v-btn icon dark @click="$router.push('/')">
+          <v-btn icon dark @click="$router.go(-1)">
             <v-icon>mdi-close</v-icon>
           </v-btn>
         </v-toolbar-items>
@@ -34,7 +34,7 @@
       </v-card-text>
       <v-divider></v-divider>
       <v-card-actions>
-        <span style="font-size:small;">아직 회원이 아니신가요? <router-link to="/accounts/signup" class="text-decoration-none">회원가입</router-link></span>
+        <span style="font-size:small;">아직 회원이 아니신가요? <v-btn class="my-0" color="primary" @click="onSingup" text small>회원가입</v-btn></span>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -55,7 +55,10 @@ export default {
       }
     },
     methods: {
-      ...mapActions(['login'])
+      ...mapActions(['login']),
+      onSingup() {
+        this.$router.replace({ name: 'Signup'})
+      }
     }
 
 }

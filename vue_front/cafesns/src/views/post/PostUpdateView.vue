@@ -123,9 +123,6 @@ export default {
     },
   },
   created() {
-    if (!this.isLoggedIn) {
-      this.$router.push({ name: 'Login'})
-    }
     this.url = 'http://i3a203.p.ssafy.io:5000/api/post/get/image/'+this.selectedPost.pno
   },
 }
