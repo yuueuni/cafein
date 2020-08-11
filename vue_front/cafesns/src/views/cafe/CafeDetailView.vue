@@ -14,31 +14,22 @@
             class="grey lighten-2"
             :src="'http://i3a203.p.ssafy.io:5000/api/cafe/get/image/'+selectedCafe.cafeno"
           >
-
-
-
-                    <!-- <v-col cols="12" sm="3">
-                      <v-btn icon disabled>
-                        <v-icon>mdi-heart</v-icon>
-                      </v-btn>
-                    </v-col> -->
-
           </v-img>
           <v-row align="end"> 
             <v-card-title>cafe keywords</v-card-title>
             <v-col class="text-end">
               <!-- like -->
-              <v-btn v-if="checkLike" icon color="red lighten-3" @click="aboutLike(selectedCafe.cafeno)" class="mr-2">
+              <v-btn v-if="likeState" icon color="red lighten-3" @click="likeCafe(selectedCafe.cafeno)" class="mr-2">
                 <i class="fas fa-heart fa-2x"></i>
               </v-btn>
-              <v-btn v-else icon color="grey lighten-1" @click="aboutLike(selectedCafe.cafeno)" class="mr-2">
+              <v-btn v-else icon color="grey lighten-1" @click="likeCafe(selectedCafe.cafeno)" class="mr-2">
                 <i class="fas fa-heart fa-2x"></i>
               </v-btn>
               <!-- stamp -->
-              <v-btn v-if="checkStamp" icon color="blue lighten-3" @click="aboutStamp(selectedCafe.cafeno)" class="mx-1">
+              <v-btn v-if="stampState" icon color="blue lighten-3" @click="stampCafe(selectedCafe.cafeno)" class="mx-1">
                 <i class="fas fa-shoe-prints fa-rotate-270 fa-2x"></i>
               </v-btn>
-              <v-btn v-else icon color="grey lighten-1" @click="aboutStamp(selectedCafe.cafeno)" class="mx-1">
+              <v-btn v-else icon color="grey lighten-1" @click="stampCafe(selectedCafe.cafeno)" class="mx-1">
                 <i class="fas fa-shoe-prints fa-rotate-270 fa-2x"></i>
               </v-btn>
             </v-col>
@@ -103,20 +94,24 @@ export default {
   computed: {
     ...mapState([
       'selectedCafe',
-      'checkLike', 
-      'checkStamp'
+      'likeState', 
+      'stampState',
     ]),
     ...mapGetters(['isLoggedIn']),
   },
   methods: {
     ...mapActions([
-      'cafeDetail', 
+      'cafeDetail',
       'aboutLike',
-      'aboutStamp',
+      'aboutStamp', 
+      'likeCafe',
+      'stampCafe',
     ]),
   },
   created() {
     this.cafeDetail(this.cafeId)
+    this.aboutLike(this.$route.params.cafe_id)
+    this.aboutStamp(this.$route.params.cafe_id)
   }
 }
 </script>
