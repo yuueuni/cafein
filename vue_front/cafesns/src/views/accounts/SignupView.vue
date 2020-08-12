@@ -25,7 +25,7 @@
             label="Password" 
             type="password" 
             v-model="signupData.password"
-            :rules="[rules.passwordMatch, rules.passwordConfirm]"
+            :rules="[rules.passwordMatch]"
             hint="* 최소 8자리(영문,숫자,특수문자 모두 포함)"
             persistent-hint
             id="password"
@@ -82,7 +82,13 @@ export default {
           }
         },
         passwordMatch:  v => {
-          const pattern = /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/
+          const pattern = /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=`~;':"-*/?`]).*$/
+          if (this.signupData.password2) {
+            if (this.signupData.password !== this.signupData.password2) {
+              this.conPwValid = false
+              this.passwordConfirm(this.signupData.password2)
+            }
+          }
           if (pattern.test(v)) {
             this.pwValid = true
           } else {
