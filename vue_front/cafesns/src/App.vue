@@ -9,13 +9,13 @@
     </v-main>
 
     <v-footer
-      class="font-weight-medium mt-10"
+      class="font-weight-medium mt-10 white"
     >
       <v-col
         class="text-center"
         cols="12"
       >
-        &copy; {{ new Date().getFullYear() }} — <strong>Cafe人</strong>
+        &copy; 2020 <strong>Cafe人: 나를 위한 카페 추천</strong>
       </v-col>
     </v-footer>
   </v-app>

@@ -55,4 +55,5 @@ export default {
 .hover-table :hover {
   cursor: pointer;
 }
+
 </style>
