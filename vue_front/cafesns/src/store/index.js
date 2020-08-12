@@ -129,11 +129,11 @@ export default new Vuex.Store({
         .catch(error => {
           const msg = error.response.data
           if ( msg === 'NO_ID') {
-            alert('이메일을 다시 확인해주세요.')
+            alert('존재하지 않는 계정입니다.')
           } else if (msg === 'WRONG_PW') {
             alert('비밀번호를 확인해주세요.')
           } else if (msg === 'EXISTING_ID') {
-            alert('이미 존재하는 이메일입니다.')
+            alert('이미 존재하는 계정입니다.')
           } else {
             alert("잘못된 접근입니다.")
           }
@@ -241,7 +241,11 @@ export default new Vuex.Store({
         } else {
           axios.post(SERVER.URL + SERVER.ROUTES.uploadImage, postData.formData)
             .then((res) => {
-              if (postData.selectedPost) {
+              const msg = res.data
+              console.log(msg)
+              if (msg === 'NOT_IMAGE_FILE') {
+                alert('이미지 파일(jpg, jpeg, png)만 업로드 가능합니다.')
+              } else if (postData.selectedPost) {
                 commit('SET_IMAGEURL', res.data)
                 dispatch('updatePost', postData.selectedPost)
               } else {
