@@ -18,6 +18,8 @@ import CafeDetailView from '@/views/cafe/CafeDetailView.vue'
 import SearchView from '@/views/SearchView.vue'
 import NotFound from '@/components/404.vue'
 
+//geo
+import GeolocationView from '@/views/GeolocationView.vue'
 Vue.use(VueRouter)
 
   const routes = [
@@ -76,7 +78,12 @@ Vue.use(VueRouter)
     path: '*',
     name: '404Page',
     component: NotFound,
-  },
+    },
+    {
+      path: '/geolocation/',
+      name: 'Geolocation',
+      component: GeolocationView,
+      },
 ]
 
 const router = new VueRouter({
