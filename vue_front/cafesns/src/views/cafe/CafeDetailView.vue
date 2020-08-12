@@ -19,17 +19,17 @@
             <v-card-title>cafe keywords</v-card-title>
             <v-col class="text-end">
               <!-- like -->
-              <v-btn v-if="likeState" icon color="red lighten-3" @click="likeCafe(selectedCafe.cafeno)" class="mr-2">
+              <v-btn v-if="liked" icon color="red lighten-3" @click="thisViewLikeCafe(selectedCafe.cafeno)" class="mr-2">
                 <i class="fas fa-heart fa-2x"></i>
               </v-btn>
-              <v-btn v-else icon color="grey lighten-1" @click="likeCafe(selectedCafe.cafeno)" class="mr-2">
+              <v-btn v-else icon color="grey lighten-1" @click="thisViewLikeCafe(selectedCafe.cafeno)" class="mr-2">
                 <i class="fas fa-heart fa-2x"></i>
               </v-btn>
               <!-- stamp -->
-              <v-btn v-if="stampState" icon color="blue lighten-3" @click="stampCafe(selectedCafe.cafeno)" class="mx-1">
+              <v-btn v-if="stamped" icon color="blue lighten-3" @click="thisViewStampCafe(selectedCafe.cafeno)" class="mx-1">
                 <i class="fas fa-shoe-prints fa-rotate-270 fa-2x"></i>
               </v-btn>
-              <v-btn v-else icon color="grey lighten-1" @click="stampCafe(selectedCafe.cafeno)" class="mx-1">
+              <v-btn v-else icon color="grey lighten-1" @click="thisViewStampCafe(selectedCafe.cafeno)" class="mx-1">
                 <i class="fas fa-shoe-prints fa-rotate-270 fa-2x"></i>
               </v-btn>
             </v-col>
@@ -89,13 +89,13 @@ export default {
       cafeId: this.$route.params.cafe_id,
       active: 1,
       keywords: ['coffee', 'drink', 'dessert'],
+      liked: null,
+      stamped: null,
     }
   },
   computed: {
     ...mapState([
       'selectedCafe',
-      'likeState', 
-      'stampState',
     ]),
     ...mapGetters(['isLoggedIn']),
   },
@@ -107,13 +107,30 @@ export default {
       'likeCafe',
       'stampCafe',
     ]),
+    thisViewLikeCafe(data) {
+      this.likeCafe(data)
+        .then(res => {
+          this.liked = !res
+          console.log(res, this.liked) 
+        })
+    },
+    thisViewStampCafe(data) {
+      this.stampCafe(data)
+        .then(res => {
+          this.stamped = !res
+          console.log(res, this.stamped) 
+        })
+    },
+  },
+  beforeUpdate() {
+    this.aboutLike(this.cafeId)
+      .then(res => this.liked = res)
+    this.aboutStamp(this.cafeId)
+      .then(res => this.stamped = res)
   },
   created() {
     this.cafeDetail(this.cafeId)
-    this.aboutLike(this.cafeId)
-    this.aboutStamp(this.cafeId)
-    console.log('createdconsole',this.likeState)
-  }
+  },
 }
 </script>
 
