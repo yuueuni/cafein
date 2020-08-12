@@ -142,6 +142,7 @@ public class PostController {
 	
 		int cnt = service.insert(post);
 		System.out.println(post);
+		System.out.println("+++++++++++++++++++++++ "+cnt);
 		if (cnt > 0) {
 			return post.getPno();
 		}
