@@ -38,6 +38,9 @@ export default new Vuex.Store({
     
     cafeList: {},
     selectedCafe: null,
+
+    cafeSearchList: {},
+    userSearchList: {},
     
   },
   
@@ -106,7 +109,12 @@ export default new Vuex.Store({
     SET_IMAGEURL(state, imageURL) {
       state.uploadImageURL = imageURL
     },
-
+    SET_CAFESEARCHLIST(state, cafeList) {
+      state.cafeSearchList = cafeList
+    },
+    SET_USERSEARCHLIST(state, userList) {
+      state.userSearchList = userList
+    },
   },
 
   actions: {
@@ -380,8 +388,7 @@ export default new Vuex.Store({
                 dispatch('fetchStampList')
               })
               .catch(err => console.log(err))
-          } 
-          else {
+          } else {
             axios.delete(SERVER.URL + SERVER.ROUTES.stamp + `/delete/${cafeno}/${userid}`, getters.config)
               .then(() => {
                 console.log("unstamp")
@@ -471,10 +478,27 @@ export default new Vuex.Store({
     },
     cafeDetail({ commit }, id) {
       axios.get(SERVER.URL + SERVER.ROUTES.cafeDetail + id)
-        .then(res => {
-          commit('SET_SELECTCAFE', res.data)
+      .then(res => {
+        commit('SET_SELECTCAFE', res.data)
+      })
+      .catch(err => console.error(err))
+    },
+    
+    // search
+    // - cafeSearch, userSearch, keywordSearch
+    searchCafeUser({ commit }, word) {
+      axios.get(SERVER.URL + SERVER.ROUTES.cafeSearch + word)
+        .then((res) => {
+          commit('SET_CAFESEARCHLIST', res.data)
         })
         .catch(err => console.error(err))
+
+      axios.get(SERVER.URL + SERVER.ROUTES.userSearch + word)
+        .then((res) => {
+          commit('SET_USERSEARCHLIST', res.data)
+        })
+        .catch(err => console.error(err))
+      
     },
   },
   modules: {

@@ -13,9 +13,9 @@ import PostUpdateView from '@/views/post/PostUpdateView.vue'
 import PostDetailView from '@/views/post/PostDetailView.vue'
 
 // cafe
-import CafeListView from '@/views/cafe/CafeListView.vue'
 import CafeDetailView from '@/views/cafe/CafeDetailView.vue'
 
+import SearchView from '@/views/SearchView.vue'
 import NotFound from '@/components/404.vue'
 
 Vue.use(VueRouter)
@@ -63,14 +63,14 @@ Vue.use(VueRouter)
     component: PostDetailView,
   },
   {
-    path: '/cafe/all',
-    name: 'CafeList',
-    component: CafeListView,
-  },
-  {
     path: '/cafe/detail/:cafe_id',
     name: 'CafeDetail',
     component: CafeDetailView,
+  },
+  {
+    path: '/search',
+    name: 'Search',
+    component: SearchView,
   },
   {
     path: '*',
