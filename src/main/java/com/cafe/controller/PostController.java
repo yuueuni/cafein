@@ -143,10 +143,8 @@ public class PostController {
 		int cnt = service.insert(post);
 		System.out.println(post);
 		System.out.println("+++++++++++++++++++++++ "+cnt);
-		if (cnt > 0) {
-			return post.getPno();
-		}
-		return -1;
+	
+		return cnt;
 	}
 
 	@ApiOperation(value = "게시글 수정", authorizations = { @Authorization(value = "jwt_token") })
