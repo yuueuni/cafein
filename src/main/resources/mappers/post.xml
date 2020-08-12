@@ -37,11 +37,13 @@
 		order by date desc
 	</select>
 
-	<insert id="insert">
+	<insert id="insert" keyProperty="pno" parameterType="PostDto">
 		insert into post (uid, cafeno, contents, image,
 		taste, mood, clean)
 		values (#{uid}, #{cafeno}, #{contents}, #{image},
-		#{taste}, #{mood}, #{clean})
+		#{taste}, #{mood},
+		#{clean})
+	
 	</insert>
 
 
