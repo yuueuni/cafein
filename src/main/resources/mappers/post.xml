@@ -6,15 +6,13 @@
 	<select id="select" resultType="PostDto">
 		select *
 		from post
-		where pno =
-		#{pno}
+		where pno = #{pno}
 	</select>
 
 	<select id="selectAll" resultType="PostDto">
 		select *
 		from post
-		order by date
-		desc
+		order by date desc
 	</select>
 
 	<select id="countByUser" resultType="int">
@@ -54,8 +52,7 @@
 		set contents = #{contents}, image =
 		#{image},
 		taste = #{taste}, mood = #{mood}, clean = #{clean}
-		where pno =
-		#{pno}
+		where pno = #{pno}
 	</update>
 
 	<delete id="delete">
