@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.LinkedList;
 import java.util.List;
 import org.apache.commons.io.IOUtils;
 
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cafe.dto.CafeDto;
+import com.cafe.dto.GeoDto;
 import com.cafe.service.CafeService;
 
 import io.swagger.annotations.ApiOperation;
@@ -79,6 +81,17 @@ public class CafeController {
 		List<CafeDto> cafeList = service.selectAll(page);
 		return cafeList;
 	}
+	
+	@ApiOperation(value = "현위치 가장 가까운 카페 찾기")
+	@PostMapping("/geolocation/")
+	public List<CafeDto> getClosedCafe(@RequestBody GeoDto geo) {
+		System.out.println("geolocation api entered");
+		System.out.println(geo.getLat() +","+ geo.getLng());
+		
+		List<CafeDto> cafeList = service.selectAllAll(geo); // mybatis 에서 다처리함.
+
+		return cafeList;
+	}
 
 	@ApiOperation(value = "카페 추가", authorizations = { @Authorization(value = "jwt_token") })
 	@PostMapping
@@ -113,5 +126,7 @@ public class CafeController {
 		}
 		return "Failure";
 	}
+	
+	
 
 }

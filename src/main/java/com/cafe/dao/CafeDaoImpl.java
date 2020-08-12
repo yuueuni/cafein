@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.cafe.dto.CafeDto;
+import com.cafe.dto.GeoDto;
 
 
 
@@ -33,7 +34,10 @@ public class CafeDaoImpl implements CafeDao {
 		RowBounds bound = new RowBounds((page - 1) * n, n);
 		return session.selectList("cafe.selectAll", null, bound);
 	}
-
+	@Override
+	public List<CafeDto> selectAllAll(GeoDto geo){
+		return session.selectList("cafe.selectAllAll",geo);
+	}
 	@Override
 	public int insert(CafeDto cafe) {
 		return session.insert("cafe.insert", cafe);

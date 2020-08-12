@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.cafe.dao.CafeDao;
 import com.cafe.dto.CafeDto;
+import com.cafe.dto.GeoDto;
 
 
 @Service
@@ -29,7 +30,11 @@ public class CafeServiceImpl implements CafeService {
 	public List<CafeDto> selectAll(int page) {
 		return dao.selectAll(page);
 	}
-
+	
+	@Override
+	public List<CafeDto> selectAllAll(GeoDto geo){
+		return dao.selectAllAll(geo);
+	}
 	@Override
 	public int insert(CafeDto cafe) {
 		return dao.insert(cafe);
