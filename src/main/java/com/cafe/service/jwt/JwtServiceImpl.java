@@ -12,9 +12,12 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.SignatureException;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -51,7 +54,7 @@ public class JwtServiceImpl implements JwtService {
 		
 		return key;
 	}
-	
+	@SuppressWarnings("unchecked")
 	@Override
 	public Map<String, Object> get(String key) {
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
@@ -61,16 +64,19 @@ public class JwtServiceImpl implements JwtService {
 			claims = Jwts.parser()
 						 .setSigningKey(SALT.getBytes("UTF-8"))
 						 .parseClaimsJws(jwt);
+			Map<String, Object> value = (LinkedHashMap<String, Object>)claims.getBody().get(key);
+			return value;
 		} catch (Exception e) {
 				e.printStackTrace();
+				return null;
 			/*개발환경
 			Map<String,Object> testMap = new HashMap<>();
 			testMap.put("memberId", 2);
 			return testMap;*/
 		}
-		@SuppressWarnings("unchecked")
-		Map<String, Object> value = (LinkedHashMap<String, Object>)claims.getBody().get(key);
-		return value;
+//		@SuppressWarnings("unchecked")
+//		Map<String, Object> value = (LinkedHashMap<String, Object>)claims.getBody().get(key);
+//		return value;
 	}
 
 	@Override
