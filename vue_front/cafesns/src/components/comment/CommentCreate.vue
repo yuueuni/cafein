@@ -8,7 +8,6 @@
           v-model="commentData.contents"
           id="content"
           clearable
-          clear-icon="fas fa-times-circle"
           @keypress.enter="checkBeforeCreateComment(commentData)"
         >
         <template v-slot:append-outer>
@@ -48,23 +47,18 @@ export default {
   methods: {
     ...mapActions(['createComment']),
     checkBeforeCreateComment(commentData) {
-      return new Promise((resolve) => {
-        if (!this.isLoggedIn) {
-        this.$router.push({ name: 'Login'})
-        } else if (!this.commentData.contents) {
-          alert('내용을 입력해주세요.')
-        } else {
-          // console.log(this.commentData.contents)
-          this.createComment(commentData)
-          // console.log(this.commentData.contents)
-        }
-        resolve(this.createComment(commentData));
-      })
-      .then(this.commentData.contents = null)
+      if (!this.isLoggedIn) {
+        this.$router.replace({ name: 'Login'})
+      } else if (!this.commentData.contents) {
+        alert('내용을 입력해주세요.')
+      } else {
+        this.createComment(commentData)
+          .then(res => this.commentData.contents = res)
+      }
     },
     toLoginPage() {
       console.log('noaccess')
-      this.$router.push({ name: 'Login'})
+      this.$router.replace({ name: 'Login'})
     },
   },
 }

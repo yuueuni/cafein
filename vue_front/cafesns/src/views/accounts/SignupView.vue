@@ -2,7 +2,7 @@
   <div>
     <v-dialog v-model="dialog" transition="dialog-bottom-transition" persistent max-width="600px">
       <v-card ref="form">
-        <v-toolbar dark>
+        <v-toolbar color="#BCAAA4">
           <v-toolbar-title>Sign up</v-toolbar-title>
           <v-spacer></v-spacer>
           <v-toolbar-items>
@@ -46,7 +46,7 @@
         <v-divider></v-divider>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn :disabled="!checkValidForm()" color="secondary" @click="signup(signupData)">Sumbit</v-btn>
+          <v-btn :disabled="!checkValidForm()" color="#BCAAA4" @click="signup(signupData)">Sumbit</v-btn>
           <v-spacer></v-spacer>
         </v-card-actions>
       </v-card>

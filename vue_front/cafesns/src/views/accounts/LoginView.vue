@@ -1,7 +1,7 @@
 <template>
   <v-dialog v-model="dialog" transition="dialog-bottom-transition" persistent max-width="600px">
     <v-card ref="form">
-      <v-toolbar dark>
+      <v-toolbar color="#BCAAA4">
         <v-toolbar-title>Login</v-toolbar-title>
         <v-spacer></v-spacer>
         <v-toolbar-items>
@@ -21,6 +21,7 @@
         >
         </v-text-field>
         <v-text-field 
+
           label="Password" 
           type="password"
           v-model="loginData.pw"
@@ -29,7 +30,7 @@
         >
         </v-text-field>
       <div class="text-center">
-        <v-btn color="secondary" @click="login(loginData)">Login</v-btn>
+        <v-btn color="#BCAAA4" @click="login(loginData)">Login</v-btn>
       </div>
       </v-card-text>
       <v-divider></v-divider>
