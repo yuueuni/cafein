@@ -137,15 +137,15 @@ public class PostController {
 	@CrossOrigin
 	@ApiOperation(value = "게시글 작성", authorizations = { @Authorization(value = "jwt_token") })
 	@PostMapping
-	public String insert(@RequestBody PostDto post) {
+	public int insert(@RequestBody PostDto post) {
 		System.out.println("게시글 작성");
 	
 		int cnt = service.insert(post);
 		System.out.println(post);
-		if (cnt > 0) { 
-			return "Success";
+		if (cnt > 0) {
+			return post.getPno();
 		}
-		return "Failure";
+		return -1;
 	}
 
 	@ApiOperation(value = "게시글 수정", authorizations = { @Authorization(value = "jwt_token") })
