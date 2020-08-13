@@ -10,9 +10,22 @@
       <h2 v-html="item.question"></h2>
       </v-carousel-item>
     </v-carousel>
-    <v-btn rounded text @click="$router.push(`/`)">skip</v-btn>
+      <v-btn absolute right rounded text @click="$router.push(`/`)">skip</v-btn>
+      <v-btn
+        class="ma-2"
+        :loading="loading"
+        :disabled="loading"
+        color="success"
+        @click="loader = 'loading'"
+      >
+      추천 카페 보기
+      <template v-slot:loader>
+        <span>카페 찾는 중...</span>
+      </template>
+      </v-btn>
   </v-overlay>
 </template>
+
 
 <script>
   export default {
@@ -41,8 +54,17 @@
             question: 'https://cdn.vuetifyjs.com/images/carousel/sky.jpg',
           },
         ],
+        loader: null,
+        loading: false,
       }
-    
+    },
+    watch: {
+      loader () {
+        const l = this.loader
+        this[l] = !this[l]
+        setTimeout(() => (this[l] = false), 3000)
+        this.loader = null
+      },
     },
   }
 </script>
@@ -53,4 +75,40 @@
 .backgroundcolor{
   background: #2c001e
 }
+.custom-loader {
+    animation: loader 1s infinite;
+    display: flex;
+  }
+  @-moz-keyframes loader {
+    from {
+      transform: rotate(0);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  @-webkit-keyframes loader {
+    from {
+      transform: rotate(0);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  @-o-keyframes loader {
+    from {
+      transform: rotate(0);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  @keyframes loader {
+    from {
+      transform: rotate(0);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
 </style>

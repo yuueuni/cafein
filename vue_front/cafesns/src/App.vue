@@ -15,7 +15,7 @@
         class="text-center"
         cols="12"
       >
-        &copy; 2020 <strong>Cafe人: 나를 위한 카페 추천</strong>
+        &copy; 2020  <strong>Cafe人: 나를 위한 카페 추천</strong>
       </v-col>
     </v-footer>
   </v-app>
