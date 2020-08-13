@@ -8,7 +8,7 @@
         md="8"
         lg="6"
       >
-        <v-card ref="form" class="px-3">
+        <v-card ref="form" class="px-3 pb-3">
           <v-card-text class="text-center">
             <v-card-title>
               <v-btn @click="onCafeDetail(selectedPost.cafeno)" class="ma-0 pa-0" text><h1>{{ selectedPost.cafename }}</h1></v-btn>
@@ -62,8 +62,8 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn v-if="selectedPost.uid === currentUser" @click="deletePost(selectedPost.pno)" text color="secondary">삭제</v-btn>
             <v-btn v-if="selectedPost.uid === currentUser" @click="onUpdatePost(selectedPost.pno)" text color="primary">수정</v-btn>
+            <v-btn v-if="selectedPost.uid === currentUser" @click="deletePost(selectedPost.pno)" text color="secondary">삭제</v-btn>
           </v-card-actions>
         </v-card>
       </v-col>
