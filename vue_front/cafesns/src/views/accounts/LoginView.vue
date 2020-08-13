@@ -1,15 +1,23 @@
 <template>
-  <v-dialog v-model="dialog" transition="dialog-bottom-transition" persistent max-width="600px">
-    <v-card ref="form">
-      <v-toolbar color="#BCAAA4">
-        <v-toolbar-title>Login</v-toolbar-title>
-        <v-spacer></v-spacer>
-        <v-toolbar-items>
+  <v-dialog
+    v-model="dialog"
+    transition="dialog-bottom-transition"
+    persistent
+    max-width="600px"
+    overlay-color="#2c001e"
+    overlay-opacity="1"
+  >
+    <v-card ref="form" color="#2c001e" dark class="pb-3">
+      <v-list-item color="#2c001e" dark>
+        <v-list-item-content>
+          <v-list-ites-title class="headline">Login</v-list-ites-title>
+        </v-list-item-content>
+        <v-list-item-avatar>
           <v-btn icon dark @click="$router.go(-1)">
             <v-icon>mdi-close</v-icon>
           </v-btn>
-        </v-toolbar-items>
-      </v-toolbar>
+        </v-list-item-avatar>
+      </v-list-item>
       <v-card-text class="px-3 pt-5">
         <v-text-field 
           label="Username"
@@ -33,9 +41,8 @@
         <v-btn color="#BCAAA4" @click="login(loginData)">Login</v-btn>
       </div>
       </v-card-text>
-      <v-divider></v-divider>
       <v-card-actions>
-        <span style="font-size:small;">아직 회원이 아니신가요? <v-btn class="my-0" color="primary" @click="onSingup" text small>회원가입</v-btn></span>
+        <span style="font-size:small;">아직 회원이 아니신가요? <v-btn class="my-0" color="warning" @click="onSingup" text small>회원가입</v-btn></span>
       </v-card-actions>
     </v-card>
   </v-dialog>
