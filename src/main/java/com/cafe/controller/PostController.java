@@ -2,6 +2,7 @@ package com.cafe.controller;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.io.IOUtils;
@@ -58,9 +59,9 @@ public class PostController {
 	}
 	
 	@ApiOperation(value="post 이미지 가져오기 ")
-	@GetMapping(value="/get/image/{pno}",
+	@GetMapping(value="/get/image/{pno}/{time}",
 			produces = MediaType.IMAGE_JPEG_VALUE)
-	public @ResponseBody byte[] getImage(@PathVariable Integer pno) {
+	public @ResponseBody byte[] getImage(@PathVariable Integer pno, @PathVariable Date time) {
 		String imgPath = "/home/data/images/";
 		PostDto post = service.select(pno);
 		String target = imgPath+post.getImage();
