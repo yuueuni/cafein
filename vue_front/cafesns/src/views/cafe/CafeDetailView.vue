@@ -10,7 +10,6 @@
           <!-- cafe image -->
           <v-img
             height="250"
-            contain
             class="grey lighten-2"
             :src="'http://i3a203.p.ssafy.io:5000/api/cafe/get/image/'+selectedCafe.cafeno"
           >
