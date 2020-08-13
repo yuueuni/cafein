@@ -32,6 +32,22 @@
         </v-expand-transition>
       </v-card>
     </v-hover>
+    <!-- geo -->
+    <v-hover v-slot:default="{ hover }">
+      <v-card outlined class="card-list">
+          <h1>근처 카페</h1>
+          <GeoList/>
+        <v-expand-transition>
+          <div
+            v-if="!hover"
+            class="d-flex white v-card--reveal display-3"
+            style="height: 100%;"
+          >
+            <span style="font-family:'BBTreeGR';">Around Cafes</span>
+          </div>
+        </v-expand-transition>
+      </v-card>
+    </v-hover>
   </div>
 </template>
 
@@ -39,12 +55,14 @@
 // @ is an alias to /src
 import CafeList from '@/components/CafeList.vue'
 import PostList from '@/components/PostList.vue'
+import GeoList from '@/components/GeoList.vue'
 
 export default {
   name: 'Home',
   components: {
     CafeList,
     PostList,
+    GeoList,
   },
 }
 </script>
