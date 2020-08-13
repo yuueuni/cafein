@@ -18,7 +18,7 @@
             
             <v-divider class="mb-3"></v-divider>
 
-            <v-img :src="'http://i3a203.p.ssafy.io:5000/api/post/get/image/'+selectedPost.pno" contain max-width="100%" max-height="300px"></v-img>
+            <v-img :src="postImage" contain max-width="100%" max-height="300px"></v-img>
 
             <v-divider class="my-3"></v-divider>
 
@@ -88,6 +88,7 @@ export default {
   data() {
     return {
       postId: this.$route.params.post_id,
+      postImage: null,
     }
   },
   computed: {
@@ -120,6 +121,7 @@ export default {
   },
   created() {
     this.postDetail(this.postId)
+    this.postImage = "http://i3a203.p.ssafy.io:5000/api/post/get/image/"+this.postId+'/'+ new Date()
   }
 }
 </script>

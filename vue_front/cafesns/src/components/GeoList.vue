@@ -9,14 +9,12 @@
     <div v-if="gettingLocation">
       <i>Getting your location...</i>
     </div>
-    
-    <div v-if="location">
-      Your location data is {{ location.coords.latitude }}, {{ location.coords.longitude}}
-      <v-btn color="secondary" @click="geo(location)">find</v-btn>
-    </div>
 
+    <div v-if="!geoCafeList.length">
+      <h2>검색된 카페가 없습니다.</h2>
+    </div>
     <v-slide-group
-      v-if="geoCafeList"
+      v-else
       class="pa-4"
       active-class="secondary"
       show-arrows
@@ -55,7 +53,7 @@
 import { mapState, mapActions } from 'vuex'
 
 export default {
-  name: 'GeolocationView',
+  name: 'GeoList',
   data() {
     return {
       location:null,
@@ -71,26 +69,26 @@ export default {
     onSelectCafe(target) {
       this.$router.push(`/cafe/detail/${target}`)
     },
+    geoLocation() {
+      if(!("geolocation" in navigator)) {
+        this.errorStr = 'Geolocation is not available.';
+        return;
+      } else {
+        this.gettingLocation = true;
+        // get position
+        navigator.geolocation.getCurrentPosition(pos => {
+          this.gettingLocation = false;
+          this.location = pos;
+        }, err => {
+          this.gettingLocation = false;
+          this.errorStr = err.message;
+        })
+      }
+      this.geo(this.location)
+    }
   },
   created() {
-    // console.log("created start") 
-    //do we support geolocation
-    if(!("geolocation" in navigator)) {
-      this.errorStr = 'Geolocation is not available.';
-      return;
-    }
-
-    this.gettingLocation = true;
-    // get position
-    navigator.geolocation.getCurrentPosition(pos => {
-      this.gettingLocation = false;
-      this.location = pos;
-    }, err => {
-      this.gettingLocation = false;
-      this.errorStr = err.message;
-    })
-
-    this.geo(this.location)
+    this.geoLocation()
   }, 
 }
 </script>

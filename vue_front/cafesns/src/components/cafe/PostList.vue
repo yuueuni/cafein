@@ -11,7 +11,7 @@
           <v-list-item-avatar>
             <!-- <v-icon class="grey lighten-1 white--text" v-text="folder"></v-icon> -->
             <v-img
-              :src="'http://i3a203.p.ssafy.io:5000/api/post/get/image/'+post.pno"
+              :src="'http://i3a203.p.ssafy.io:5000/api/post/get/image/'+post.pno+'/'+new Date()"
               @click="onSelectPost(post.pno)"
             >
             </v-img>
