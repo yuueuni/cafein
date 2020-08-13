@@ -7,7 +7,7 @@
         md="8"
         lg="6"
       >
-        <v-card ref="form" class="px-3">
+        <v-card ref="form" class="px-3 pb-3">
           <v-card-text class="text-center">
             <v-card-title>
               <h2>{{ selectedPost.cafename }}</h2>
@@ -21,7 +21,6 @@
                 color="yellow darken-3"
                 background-color="grey darken-1"
                 empty-icon="$ratingFull"
-                half-increments
                 hover
               ></v-rating>
               <span>({{ selectedPost.taste }})</span>
@@ -34,7 +33,6 @@
                 color="yellow darken-3"
                 background-color="grey darken-1"
                 empty-icon="$ratingFull"
-                half-increments
                 hover
               ></v-rating>
               <span>({{ selectedPost.mood }})</span>
@@ -47,7 +45,6 @@
                 color="yellow darken-3"
                 background-color="grey darken-1"
                 empty-icon="$ratingFull"
-                half-increments
                 hover
               ></v-rating>
               <span>({{ selectedPost.clean }})</span>
@@ -111,7 +108,11 @@ export default {
       } else {
         this.selectedFile = e
         this.url = URL.createObjectURL(this.selectedFile)
-        this.formData.append("image", this.selectedFile, this.selectedFile.name)
+        if (this.formData.get("image")) {
+          this.formData.set("image", this.selectedFile, this.selectedFile.name)
+        } else {
+          this.formData.append("image", this.selectedFile, this.selectedFile.name)
+        }
       }
     },
     checkImage(value) {

@@ -33,6 +33,9 @@ export default{
         //search
         cafeSearch: '/cafe/search/',
         keywordSearch: '/keyword/cafelist/',
-        userSearch: '/user/search/'
+        userSearch: '/user/search/',
+
+        //geo
+        geolocation: '/cafe/geolocation/',
     }
 }

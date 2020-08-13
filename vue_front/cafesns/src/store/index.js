@@ -21,6 +21,7 @@ export default new Vuex.Store({
     userPostList: {},
     cafePostList: {},
     selectedPost: null,
+
     updatePostData: {},
     uploadImageURL: null,
     
@@ -38,6 +39,7 @@ export default new Vuex.Store({
     followerList: {},
     
     cafeList: {},
+    geoCafeList: {},
     selectedCafe: null,
 
     cafeSearchList: {},
@@ -103,6 +105,9 @@ export default new Vuex.Store({
     },
     SET_CAFELIST(state, cafeList) {
       state.cafeList = cafeList
+    },
+    SET_GEOCAFELIST(state, cafeList) {
+      state.geoCafeList = cafeList
     },
     SET_SELECTCAFE(state, selectedCafe) {
       state.selectedCafe = selectedCafe
@@ -187,8 +192,7 @@ export default new Vuex.Store({
       postList.image = state.uploadImageURL
       axios.post(SERVER.URL + SERVER.ROUTES.postDetail, postList, getters.config)
         .then((res) => {
-          console.log(res)
-          router.push(`/cafe/detail/${state.selectedCafe.cafeno}`)
+          router.push(`/post/detail/${res.data}`)
         })
         .catch(err => console.log('error', err))
       },
@@ -223,7 +227,7 @@ export default new Vuex.Store({
           commit('SET_SELECTPOST', postData)
           dispatch('fetchPostList', postData.cafeno)
           dispatch('postDetail', postData.pno)
-          router.push(`/cafe/detail/${postData.cafeno}`)
+          router.push(`/post/detail/${postData.pno}`)
         })
         .catch(err => console.error(err))
     },
@@ -512,22 +516,21 @@ export default new Vuex.Store({
     
     // geo
     geo({ commit }, location) {
-      var input = {
+      if (!location.coords) {
+        commit('SET_GEOCAFELIST', {})
+      }
+      const userLoc = {
         lat: location.coords.latitude, //위도
         lng: location.coords.longitude, //경도
       }
   
-      axios.post(SERVER.URL + '/cafe/geolocation/', input)
+      axios.post(SERVER.URL + SERVER.ROUTES.geolocation, userLoc)
         .then(res => {
           console.log(res.data)
-          commit('SET_CAFELIST', res.data)
+          commit('SET_GEOCAFELIST', res.data)
         })
         .catch(err => {
           console.error(err)
-          // console.log(SERVER.URL + '/cafe/geolocation/')
-          // console.log(SERVER.ROUTES.geo)
-          // console.log(input.lat)
-          // console.log(input.lng)
         })
     },
   },

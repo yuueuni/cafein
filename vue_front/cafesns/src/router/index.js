@@ -21,9 +21,6 @@ import NotFound from '@/components/404.vue'
 //survey
 import SurveyView from '@/views/survey/SurveyView.vue'
 
-//geo
-import GeolocationView from '@/views/GeolocationView.vue'
-
 Vue.use(VueRouter)
 
   const routes = [
@@ -87,11 +84,6 @@ Vue.use(VueRouter)
     path: '/survey',
     name: 'Survey',
     component: SurveyView,
-  },
-  {
-    path: '/geolocation/',
-    name: 'Geolocation',
-    component: GeolocationView,
   },
 
 ]

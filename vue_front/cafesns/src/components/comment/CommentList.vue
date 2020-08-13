@@ -8,7 +8,7 @@
       <v-dialog v-model="dialog" persistent max-width="290">
         <template v-slot:activator="{ on, attrs }">
         <p>
-          {{ comment.uid }} | {{ comment.contents }} | {{ comment.date }}
+          <v-btn @click="onUserPage(comment.uid)" text>{{ comment.uid }}</v-btn> | {{ comment.contents }} | {{ comment.date }}
           <v-btn
             v-if="comment.uid === currentUser"
             color="primary"
@@ -57,7 +57,10 @@ export default {
     ...mapActions([
       'fetchCommentList',
       'deleteComment',
-    ])
+    ]),
+    onUserPage(userid) {
+      this.$router.push(`/accounts/${userid}`)
+    }
   },
   created() {
     this.fetchCommentList(this.postId)
