@@ -18,8 +18,12 @@ import CafeDetailView from '@/views/cafe/CafeDetailView.vue'
 import SearchView from '@/views/SearchView.vue'
 import NotFound from '@/components/404.vue'
 
+//survey
+import SurveyView from '@/views/survey/SurveyView.vue'
+
 //geo
 import GeolocationView from '@/views/GeolocationView.vue'
+
 Vue.use(VueRouter)
 
   const routes = [
@@ -78,12 +82,18 @@ Vue.use(VueRouter)
     path: '*',
     name: '404Page',
     component: NotFound,
-    },
-    {
-      path: '/geolocation/',
-      name: 'Geolocation',
-      component: GeolocationView,
-      },
+  },
+  {
+    path: '/survey',
+    name: 'Survey',
+    component: SurveyView,
+  },
+  {
+    path: '/geolocation/',
+    name: 'Geolocation',
+    component: GeolocationView,
+  },
+
 ]
 
 const router = new VueRouter({
@@ -93,7 +103,7 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  const publicPages = ['Home', 'Signup', 'Login', 'PostDetail', 'CafeList', 'CafeDetail', ]  //login 안해도 됨
+  const publicPages = ['Home', 'Signup', 'Login', 'PostDetail', 'CafeList', 'CafeDetail', 'Survey' ]  //login 안해도 됨
   const privatePages = ['Login', 'Signup', ]  //login 되어 있으면 안됨
 
   const authRequired = !publicPages.includes(to.name)

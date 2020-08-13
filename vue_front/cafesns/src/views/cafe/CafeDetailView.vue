@@ -19,19 +19,29 @@
             <v-card-title>cafe keywords</v-card-title>
             <v-col class="text-end">
               <!-- like -->
-              <v-btn v-if="liked" icon color="red lighten-3" @click="thisViewLikeCafe(selectedCafe.cafeno)" class="mr-2">
-                <i class="fas fa-heart fa-2x"></i>
-              </v-btn>
-              <v-btn v-else icon color="grey lighten-1" @click="thisViewLikeCafe(selectedCafe.cafeno)" class="mr-2">
-                <i class="fas fa-heart fa-2x"></i>
-              </v-btn>
+              <v-tooltip top>
+                <template v-slot:activator="{on}">
+                  <v-btn v-if="liked" v-on="on" icon color="red lighten-3" @mouseover="likeExplanation()" @click="thisViewLikeCafe(selectedCafe.cafeno)" class="mr-2">
+                    <i class="fas fa-heart fa-2x"></i>
+                  </v-btn>
+                  <v-btn v-else v-on="on" icon color="grey lighten-1" @click="thisViewLikeCafe(selectedCafe.cafeno)" class="mr-2">
+                    <i class="fas fa-heart fa-2x"></i>
+                  </v-btn>
+                </template>  
+                <span>방문하고 싶은 카페</span>
+              </v-tooltip>
               <!-- stamp -->
-              <v-btn v-if="stamped" icon color="blue lighten-3" @click="thisViewStampCafe(selectedCafe.cafeno)" class="mx-1">
-                <i class="fas fa-shoe-prints fa-rotate-270 fa-2x"></i>
-              </v-btn>
-              <v-btn v-else icon color="grey lighten-1" @click="thisViewStampCafe(selectedCafe.cafeno)" class="mx-1">
-                <i class="fas fa-shoe-prints fa-rotate-270 fa-2x"></i>
-              </v-btn>
+              <v-tooltip top>
+                <template v-slot:activator="{on}">
+                  <v-btn v-if="stamped" v-on="on" icon color="blue lighten-3" @click="thisViewStampCafe(selectedCafe.cafeno)" class="mx-1">
+                    <i class="fas fa-shoe-prints fa-rotate-270 fa-2x"></i>
+                  </v-btn>
+                  <v-btn v-else v-on="on" icon color="grey lighten-1" @click="thisViewStampCafe(selectedCafe.cafeno)" class="mx-1">
+                    <i class="fas fa-shoe-prints fa-rotate-270 fa-2x"></i>
+                  </v-btn>
+                </template>
+                <span>방문한 카페</span>
+               </v-tooltip>
             </v-col>
           </v-row>
           <v-chip-group>
