@@ -29,6 +29,7 @@ export default{
         //cafe
         cafeDetail: '/cafe/',
         cafeList: '/cafe/list/',
+        cafeKeyword: '/keyword/keywords/',
 
         //search
         cafeSearch: '/cafe/search/',

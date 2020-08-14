@@ -15,7 +15,7 @@
           >
           </v-img>
           <v-row align="end"> 
-            <v-card-title>cafe keywords</v-card-title>
+            <v-card-title v-if="cafeKeywords">cafe keywords</v-card-title>
             <v-col class="text-end">
               <!-- like -->
               <v-tooltip top>
@@ -43,13 +43,12 @@
                </v-tooltip>
             </v-col>
           </v-row>
-          <v-chip-group>
-            <v-chip 
-              v-for="keyword in keywords"
-              :key="keyword"
-            >{{ keyword }}
-            </v-chip>
-          </v-chip-group>
+          <v-chip 
+            v-for="keyword in cafeKeywords"
+            :key="keyword.keyno"
+            class="keyword ma-2"
+          >{{ keyword.keyword }}
+          </v-chip>
         </v-col>
 
         <v-col cols="6">
@@ -79,7 +78,6 @@
         </router-link>
       </v-card-actions>
     </v-card>
-
     <PostList/>
   </div>
 </template>
@@ -105,6 +103,7 @@ export default {
   computed: {
     ...mapState([
       'selectedCafe',
+      'cafeKeywords',
     ]),
     ...mapGetters(['isLoggedIn']),
   },
@@ -143,6 +142,8 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+.keyword :hover {
+  cursor: pointer;
+}
 </style>

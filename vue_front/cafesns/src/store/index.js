@@ -41,6 +41,7 @@ export default new Vuex.Store({
     cafeList: {},
     geoCafeList: {},
     selectedCafe: null,
+    cafeKeywords: {},
 
     cafeSearchList: {},
     userSearchList: {},
@@ -111,6 +112,9 @@ export default new Vuex.Store({
     },
     SET_SELECTCAFE(state, selectedCafe) {
       state.selectedCafe = selectedCafe
+    },
+    SET_CAFEKEYWORD(state, keywords) {
+      state.cafeKeywords = keywords
     },
     SET_IMAGEURL(state, imageURL) {
       state.uploadImageURL = imageURL
@@ -489,29 +493,41 @@ export default new Vuex.Store({
         })
         .catch(err => console.error(err))
     },
-    cafeDetail({ commit }, id) {
+    cafeDetail({ commit, dispatch }, id) {
       axios.get(SERVER.URL + SERVER.ROUTES.cafeDetail + id)
       .then(res => {
         commit('SET_SELECTCAFE', res.data)
+        dispatch('cafeKeyword', id)
       })
       .catch(err => console.error(err))
+    },
+    cafeKeyword({ commit }, cafeno) {
+      axios.get(SERVER.URL + SERVER.ROUTES.cafeKeyword + cafeno)
+        .then( res => {
+          commit('SET_CAFEKEYWORD', res.data)
+        })
+        .catch(err => console.error(err))
     },
     
     // search
     // - cafeSearch, userSearch, keywordSearch
     searchCafeUser({ commit }, word) {
-      axios.get(SERVER.URL + SERVER.ROUTES.cafeSearch + word)
-        .then((res) => {
-          commit('SET_CAFESEARCHLIST', res.data)
-        })
-        .catch(err => console.error(err))
-
-      axios.get(SERVER.URL + SERVER.ROUTES.userSearch + word)
-        .then((res) => {
-          commit('SET_USERSEARCHLIST', res.data)
-        })
-        .catch(err => console.error(err))
-      
+      if (!word) {
+        commit('SET_CAFESEARCHLIST', {})
+        commit('SET_USERSEARCHLIST', {})
+      } else {
+        axios.get(SERVER.URL + SERVER.ROUTES.cafeSearch + word)
+          .then((res) => {
+            commit('SET_CAFESEARCHLIST', res.data)
+          })
+          .catch(err => console.error(err))
+  
+        axios.get(SERVER.URL + SERVER.ROUTES.userSearch + word)
+          .then((res) => {
+            commit('SET_USERSEARCHLIST', res.data)
+          })
+          .catch(err => console.error(err))
+      }
     },
     
     // geo
