@@ -48,6 +48,9 @@ export default {
       'searchCafeUser',
     ]),
   },
+  created() {
+    this.searchCafeUser(this.keyword)
+  }
 }
 </script>
 
