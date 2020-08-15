@@ -23,7 +23,7 @@ public class CafesnsApplication {
 
     private Connector createStandardConnector(){
         Connector connector = new Connector("org.apache.coyote.http11.Http11NioProtocol");
-        connector.setPort(8070);
+		connector.setPort(8070);
         return connector;
     }
 }
