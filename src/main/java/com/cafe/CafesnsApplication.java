@@ -14,7 +14,7 @@ public class CafesnsApplication {
 		SpringApplication.run(CafesnsApplication.class, args);
 	}
 
-	/*
+	
 	@Bean
     public ServletWebServerFactory serveltContainer(){
         TomcatServletWebServerFactory tomcat = new TomcatServletWebServerFactory();
@@ -27,5 +27,5 @@ public class CafesnsApplication {
 		connector.setPort(8070);
         return connector;
 	}
-	*/
+	
 }
