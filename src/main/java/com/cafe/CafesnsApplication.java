@@ -14,6 +14,7 @@ public class CafesnsApplication {
 		SpringApplication.run(CafesnsApplication.class, args);
 	}
 
+	/*
 	@Bean
     public ServletWebServerFactory serveltContainer(){
         TomcatServletWebServerFactory tomcat = new TomcatServletWebServerFactory();
@@ -25,5 +26,6 @@ public class CafesnsApplication {
         Connector connector = new Connector("org.apache.coyote.http11.Http11NioProtocol");
 		connector.setPort(8070);
         return connector;
-    }
+	}
+	*/
 }
