@@ -44,6 +44,8 @@ export default new Vuex.Store({
 
     cafeSearchList: {},
     userSearchList: {},
+
+    surveyState: {},
     
   },
   
@@ -533,7 +535,14 @@ export default new Vuex.Store({
           console.error(err)
         })
     },
+
+    surveySubmit({ state }, result ) {
+      axios.post(SERVER.URL + SERVER.ROUTES.geolocation, result)
+      state.surveyState = result
+      router.push(`/survey/result`)
+    },
   },
+
   modules: {
   },
   plugins: [

@@ -1,5 +1,5 @@
 export default{
-    URL: 'http://i3a203.p.ssafy.io:5000/api',
+    URL: 'https://i3a203.p.ssafy.io:5000/api',
     ROUTES: {
         //accounts 
         signup: '/user/signup',
@@ -37,5 +37,8 @@ export default{
 
         //geo
         geolocation: '/cafe/geolocation/',
+
+        //survey
+        surveySubmit: '/',
     }
 }
