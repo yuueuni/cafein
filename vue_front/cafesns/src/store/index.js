@@ -534,22 +534,23 @@ export default new Vuex.Store({
     
     // geo
     geo({ commit }, location) {
-      if (!location.coords) {
+      if (!location) {
         commit('SET_GEOCAFELIST', {})
+      } else {
+        const userLoc = {
+          lat: location.coords.latitude, //위도
+          lng: location.coords.longitude, //경도
+        }
+    
+        axios.post(SERVER.URL + SERVER.ROUTES.geolocation, userLoc)
+          .then(res => {
+            console.log(res.data)
+            commit('SET_GEOCAFELIST', res.data)
+          })
+          .catch(err => {
+            console.error(err)
+          })
       }
-      const userLoc = {
-        lat: location.coords.latitude, //위도
-        lng: location.coords.longitude, //경도
-      }
-  
-      axios.post(SERVER.URL + SERVER.ROUTES.geolocation, userLoc)
-        .then(res => {
-          console.log(res.data)
-          commit('SET_GEOCAFELIST', res.data)
-        })
-        .catch(err => {
-          console.error(err)
-        })
     },
 
     surveySubmit({ state }, result ) {
