@@ -121,7 +121,7 @@ export default {
   },
   created() {
     this.postDetail(this.postId)
-    this.postImage = "http://i3a203.p.ssafy.io:5000/api/post/get/image/"+this.postId+'/'+ new Date()
+    this.postImage = "https://i3a203.p.ssafy.io:5000/api/post/get/image/"+this.postId+'/'+ new Date()
   }
 }
 </script>

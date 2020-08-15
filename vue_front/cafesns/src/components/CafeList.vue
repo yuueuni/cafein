@@ -17,7 +17,7 @@
           height="200px"
           width="200px"
           class="grey lighten-2"
-          :src="'http://i3a203.p.ssafy.io:5000/api/cafe/get/image/'+cafe.cafeno"
+          :src="'https://i3a203.p.ssafy.io:5000/api/cafe/get/image/'+cafe.cafeno"
           @click="onSelectCafe(cafe.cafeno)"
         >
           <v-row align="end" class="lightbox white--text fill-height">

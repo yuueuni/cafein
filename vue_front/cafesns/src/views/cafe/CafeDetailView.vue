@@ -11,7 +11,7 @@
           <v-img
             height="250"
             class="grey lighten-2"
-            :src="'http://i3a203.p.ssafy.io:5000/api/cafe/get/image/'+selectedCafe.cafeno"
+            :src="'https://i3a203.p.ssafy.io:5000/api/cafe/get/image/'+selectedCafe.cafeno"
           >
           </v-img>
           <v-row align="end"> 

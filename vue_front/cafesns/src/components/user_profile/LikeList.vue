@@ -17,7 +17,7 @@
         @click="toggle"
       >
         <v-img
-          :src="'http://i3a203.p.ssafy.io:5000/api/cafe/get/image/'+cafe.cafeno"
+          :src="'https://i3a203.p.ssafy.io:5000/api/cafe/get/image/'+cafe.cafeno"
           height="200px"
           width="200px"
           @click="onSelectCafe(cafe.cafeno)"

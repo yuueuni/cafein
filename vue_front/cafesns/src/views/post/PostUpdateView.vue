@@ -124,7 +124,7 @@ export default {
     },
   },
   created() {
-    this.url = 'http://i3a203.p.ssafy.io:5000/api/post/get/image/'+this.selectedPost.pno+'/'+new Date()
+    this.url = 'https://i3a203.p.ssafy.io:5000/api/post/get/image/'+this.selectedPost.pno+'/'+new Date()
   },
 }
 </script>

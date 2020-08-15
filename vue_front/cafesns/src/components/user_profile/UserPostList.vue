@@ -29,7 +29,7 @@
                   >
                     <v-list-item-avatar>
                       <v-img
-                        :src="'http://i3a203.p.ssafy.io:5000/api/post/get/image/'+post.pno+'/'+new Date()"
+                        :src="'https://i3a203.p.ssafy.io:5000/api/post/get/image/'+post.pno+'/'+new Date()"
                         @click="onSelectPost(post.pno)"
                       >
                       </v-img>
