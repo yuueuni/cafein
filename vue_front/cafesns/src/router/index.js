@@ -20,6 +20,7 @@ import NotFound from '@/components/404.vue'
 
 //survey
 import SurveyView from '@/views/survey/SurveyView.vue'
+import SurveyResultView from '@/views/survey/SurveyResultView.vue'
 
 Vue.use(VueRouter)
 
@@ -84,6 +85,11 @@ Vue.use(VueRouter)
     path: '/survey',
     name: 'Survey',
     component: SurveyView,
+  },
+  {
+    path: '/survey/result',
+    name: 'SurveyResult',
+    component: SurveyResultView,
   },
 
 ]

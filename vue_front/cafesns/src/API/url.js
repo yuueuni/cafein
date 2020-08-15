@@ -38,5 +38,8 @@ export default{
 
         //geo
         geolocation: '/cafe/geolocation/',
+
+        //survey
+        surveySubmit: '/',
     }
 }

@@ -9,10 +9,10 @@
       <v-spacer></v-spacer>
       <router-link v-if="!isLoggedIn" to="/accounts/login" class="link-text"><v-btn text>Login</v-btn></router-link>
       <router-link v-if="!isLoggedIn" to="/accounts/signup" class="link-text"><v-btn text>Signup</v-btn></router-link>
-      <v-btn v-if="isLoggedIn" @click="onMypage(currentUser)" text>Mypage</v-btn>
+      <router-link v-if="isLoggedIn" :to="`/accounts/${currentUser}`" class="link-text"><v-btn text>Mypage</v-btn></router-link>
       <!-- <router-link to="/post/create" class="link-text"><v-btn text>New Post</v-btn></router-link> -->
       <router-link to="/search" class="link-text"><v-btn text>search</v-btn></router-link>
-      <router-link v-if="isLoggedIn" to="/accounts/logout" @click.native="logout" class="link-text"><v-btn text>Logout</v-btn></router-link>
+      <router-link v-if="isLoggedIn" to="#" @click.native="logout" class="link-text"><v-btn text>Logout</v-btn></router-link>
       <router-link to="/survey" class="link-text"><v-btn text>survey</v-btn></router-link>
     </v-app-bar>
 </template>
@@ -24,8 +24,8 @@ export default {
   name: 'AppBar',
 
   computed: {
-    ...mapGetters(['isLoggedIn']),
     ...mapState(['currentUser']),
+    ...mapGetters(['isLoggedIn']),
   },
 
   methods: {

@@ -1,7 +1,5 @@
 <template>
     <div>
-        <!-- <div>{{ followingList }}</div>
-        <div>{{ followerList }}</div> -->
         <v-row>
           <h1 class="px-3">{{ userData.id.split('@')[0] }}</h1>
           <v-btn v-if="profileUserId !== currentUser" class="px-1" @click="followUser(profileUserId)" small>
@@ -13,7 +11,6 @@
           <FollowerList/>
           <UserPostList/>
         </v-row>
-        <!-- <router-link to="" class="link-text"><v-btn text>Posts: { PostList.length }</v-btn></router-link>  -->
       <v-divider class="mb-3"></v-divider>
       <div>
         <i class="fas fa-heart fa-3x" style="color: #ef9a9a"></i>
@@ -27,9 +24,6 @@
             <StampList/>
           </div>
       </div>
-      <!-- <div>{{ likeList }}</div>
-      <br>
-      <div>{{ stampList }}</div> -->
   </div>
 </template>
 
