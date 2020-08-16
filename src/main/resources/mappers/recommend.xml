@@ -16,6 +16,16 @@
 		where cafeno = #{cafeno}
 	</select>
 	
+	<select id="selectCafeStamped" resultType="int">
+		select cafeno
+		from stamp
+		where uid = #{uid}
+	</select>
 	
+	<select id="selectUserStamped" resultType="string">
+		select uid
+		from stamp
+		where cafeno = #{cafeno}
+	</select>
 	
 </mapper>

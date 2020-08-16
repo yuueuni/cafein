@@ -24,4 +24,14 @@ public class RecommendServiceImpl implements RecommendService {
 		return dao.selectUserLiked(cafeno);
 	}
 
+	@Override
+	public List<Integer> selectCafeStamped(String uid) {
+		return dao.selectCafeStamped(uid);
+	}
+
+	@Override
+	public List<String> selectUserStamped(int cafeno) {
+		return dao.selectUserStamped(cafeno);
+	}
+
 }
