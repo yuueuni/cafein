@@ -4,8 +4,8 @@
 <mapper namespace="recommend">
 
 	
-	<select id="selectCafeLiked" resultType="CafeDto">
-		select *
+	<select id="selectCafeLiked" resultType="int">
+		select cafeno
 		from `like`
 		where uid = #{uid}
 	</select>

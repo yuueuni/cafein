@@ -15,7 +15,7 @@ public class RecommendServiceImpl implements RecommendService {
 	private RecommendDao dao;
 	
 	@Override
-	public List<CafeDto> selectCafeLiked(String uid) {
+	public List<Integer> selectCafeLiked(String uid) {
 		return dao.selectCafeLiked(uid);
 	}
 
