@@ -24,4 +24,14 @@ public class RecommendDaoImpl implements RecommendDao {
 		return session.selectList("recommend.selectUserLiked", cafeno);
 	}
 
+	@Override
+	public List<Integer> selectCafeStamped(String uid) {
+		return session.selectList("recommend.selectCafeStamped", uid);
+	}
+
+	@Override
+	public List<String> selectUserStamped(int cafeno) {
+		return session.selectList("recommend.selectUserStamped", cafeno);
+	}
+
 }
