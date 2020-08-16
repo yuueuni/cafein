@@ -16,7 +16,7 @@ public class RecommendDaoImpl implements RecommendDao {
 	
 	@Override
 	public List<CafeDto> selectCafeLiked(String uid) {
-		return session.selectList("recommend.selectCafeList", uid);
+		return session.selectList("recommend.selectCafeLiked", uid);
 	}
 
 	@Override
