@@ -17,7 +17,7 @@ import com.cafe.service.jwt.JwtServiceImpl;
 @Component
 public class JwtInterceptor implements HandlerInterceptor {
 	private static final String HEADER_AUTH = "Authorization";
-
+	
 	@Autowired
 	private JwtService jwtService;
 
