@@ -28,17 +28,12 @@
 		values (#{cafeno}, #{uid})
 	</insert>
 	
-	<update id="plusCount">
+	<update id="update">
 		update cafe
-		set like_count = #{like_count+1}
+		set like_count = #{like_count}
 		where cafeno = #{cafeno}
 	</update>
 	
-	<update id="minusCount">
-		update cafe
-		set like_count = #{like_count-1}
-		where cafeno = #{cafeno}
-	</update>
 	
 	<delete id="delete">
 		delete from `like`

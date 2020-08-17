@@ -43,13 +43,13 @@ public class LikeDaoImpl implements LikeDao{
 	}
 
 	@Override
-	public void plusCount(int cafeno) {
-		session.update("like.plusCount", cafeno);
-	}
-
-	@Override
-	public void minusCount(int cafeno) {
-		session.update("like.minusCount", cafeno);
+	public void update(CafeDto cafe) {
+		session.selectList("like.update", cafe);
 		
 	}
+
+
+	
+
+	
 }
