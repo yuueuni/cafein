@@ -43,12 +43,12 @@ public class LikeServiceImpl implements LikeService {
 	}
 
 	@Override
-	public void plusCount(int cafeno) {
-		dao.plusCount(cafeno);
+	public void update(CafeDto cafe) {
+		dao.update(cafe);
+		
 	}
 
-	@Override
-	public void minusCount(int cafeno) {
-		dao.minusCount(cafeno);
-	}
+	
+
+	
 }

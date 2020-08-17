@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cafe.dto.CafeDto;
 import com.cafe.dto.LikeDto;
+import com.cafe.service.CafeService;
 import com.cafe.service.LikeService;
 
 import io.swagger.annotations.ApiOperation;
@@ -27,6 +28,9 @@ import io.swagger.annotations.Authorization;
 public class LikeController {
 	@Autowired
 	private LikeService service;
+	
+	@Autowired
+	private CafeService caService;
 	
 	@ApiOperation(value = "좋아요 수")
 	@GetMapping("/{cafeno}")
@@ -50,7 +54,9 @@ public class LikeController {
 	public String insert(@RequestBody LikeDto like) {
 		System.out.println("insert like");
 		if(service.insert(like)>0) {
-			service.plusCount(like.getCafeno());
+			CafeDto cafe=caService.select(like.getCafeno());
+			cafe.setLike_count(cafe.getLike_count()+1);
+			service.update(cafe);
 			return "Success";
 		}
 		return "Failure";
@@ -64,7 +70,9 @@ public class LikeController {
 		like.setCafeno(cafeno);
 		like.setUid(uid);
 		if(service.delete(like)>0) {
-			service.minusCount(like.getCafeno());
+			CafeDto cafe=caService.select(like.getCafeno());
+			cafe.setLike_count(cafe.getLike_count()-1);
+			service.update(cafe);
 			return "Success";
 		}
 		return "Failure";
