@@ -41,4 +41,15 @@ public class LikeDaoImpl implements LikeDao{
 	public List<CafeDto> selectCafe(String uid) {
 		return session.selectList("like.selectCafe", uid);
 	}
+
+	@Override
+	public void plusCount(int cafeno) {
+		session.update("like.plusCount", cafeno);
+	}
+
+	@Override
+	public void minusCount(int cafeno) {
+		session.update("like.minusCount", cafeno);
+		
+	}
 }
