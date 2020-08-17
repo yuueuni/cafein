@@ -43,7 +43,7 @@ public class JwtInterceptor implements HandlerInterceptor {
 		if (request.getMethod().equals("OPTIONS")) {
 			return true;
 		}
-		 if(token != null && jwtService.isUsable(token)){
+		 if(token != null && jwtService.isValidToken(token, jwtService.getKey())){
 			 return true; 
 		 }else{ 
 			 throw new UnauthorizedException(); 
