@@ -63,7 +63,7 @@ public class RecommendController {
 			}
 		});
 				
-		return recommendList;
+		return recommendList.subList(0, 9);
 	}
 	
 	@ApiOperation(value = "스탬프 기반 추천 리스트")
@@ -91,8 +91,14 @@ public class RecommendController {
 				}
 			}
 		}
-				
-		return recommendList;
+		Collections.sort(recommendList, new Comparator<CafeDto>() {
+
+			@Override
+			public int compare(CafeDto o1, CafeDto o2) {
+				return -Integer.compare(o1.getStamp_count(), o2.getStamp_count());
+			}
+		});
+		return recommendList.subList(0, 9);
 	}
 
 }
