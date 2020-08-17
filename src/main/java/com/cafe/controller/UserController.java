@@ -104,6 +104,13 @@ public class UserController {
 		return new ResponseEntity<String>(token, HttpStatus.OK);
 	}
 
+	@PostMapping("/refreshAccessToken")
+	@ApiOperation(value = "refresh Token 확인", response = Integer.class)
+	public ResponseEntity refreshAccessToken(@RequestBody String token){
+		TokenSet tokenSet = jwtService.refreshAccessToken(token);
+		return tokenSet != null ? new ResponseEntity<String>(tokenSet.getAccessToken(), HttpStatus.OK)
+						: new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+	}
 	// 회원가입
 	@PostMapping("/signup")
 	@ApiOperation(value = "회원가입", response = Integer.class)
