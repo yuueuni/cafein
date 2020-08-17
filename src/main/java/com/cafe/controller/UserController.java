@@ -40,6 +40,7 @@ import com.cafe.dto.TokenSet;
 import com.cafe.dto.UserDto;
 import com.cafe.service.UserService;
 import com.cafe.service.jwt.JwtService;
+import com.cafe.response.ResponseMessage;
 
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -81,7 +82,7 @@ public class UserController {
 	// 로그인 구현
 	@PostMapping("/login")
 	@ApiOperation(value = "로그인을 하기 위해 id와 pw를 보낸다.", response = Integer.class)
-	public ResponseEntity login(@RequestBody LoginUserDto loginUser) {
+	public ResponseEntity<ResponseMessage> login(@RequestBody LoginUserDto loginUser) {
 		String id = loginUser.getId();
 		String pw = loginUser.getPw();
 		UserDto loginuser = userservice.login(id, pw);
@@ -90,10 +91,12 @@ public class UserController {
 			UserDto haveUser = userservice.select(id);
 			if (haveUser == null) {// 없는 아이디
 				System.out.println("없는 아이디");
-				return new ResponseEntity<String>("NO_ID", HttpStatus.BAD_REQUEST);
+				return ResponseEntity.badRequest().body(new ResponseMessage("NO_ID"));
+				//return new ResponseEntity<String>("NO_ID", HttpStatus.BAD_REQUEST);
 			} else if (haveUser.getPassword() != pw) {// 틀린 비밀번호
 				System.out.println("틀린 비밀번호");
-				return new ResponseEntity<String>("WRONG_PW", HttpStatus.BAD_REQUEST);
+				return ResponseEntity.badRequest().body(new ResponseMessage("WRONG_PW"));
+				//return new ResponseEntity<String>("WRONG_PW", HttpStatus.BAD_REQUEST);
 			}
 
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -102,15 +105,18 @@ public class UserController {
 		TokenSet tokenSet = jwtService.createTokenSet(loginuser); // 토큰 발급 유저 정보 들어있
 
 		HttpHeaders responseHeaders = new HttpHeaders();
-		String token = tokenSet.getAccessToken();
-		responseHeaders.set("Authorization", token);
-		
-		loginuser.setRefreshToken(tokenSet.getRefreshToken());
+		responseHeaders.set("access-token", tokenSet.getAccessToken());
+		responseHeaders.set("refresh-token", tokenSet.getRefreshToken());
+
+		// user의 refresh_token을 DB에 저장
+		loginuser.setRefreshToken(tokenSet.getRefreshToken());	
 		int res = userservice.updateRefreshToken(loginuser);
 		
 		if(res == -1) return new ResponseEntity<>(HttpStatus.BAD_REQUEST); // 400 에러
-		
-		return new ResponseEntity<String>(token, HttpStatus.OK);
+
+		//return new ResponseEntity<TokenSet>(tokenSet, HttpStatus.OK);
+		return ResponseEntity.ok().body(new ResponseMessage(null, tokenSet, true));
+
 	}
 
 	@PostMapping("/refreshAccessToken")
