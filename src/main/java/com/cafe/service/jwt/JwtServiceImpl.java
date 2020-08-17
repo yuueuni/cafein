@@ -39,9 +39,6 @@ public class JwtServiceImpl implements JwtService {
 	private static final String SALT =  "CafeSnsSecret";
 	private static final int oneMinute = 60000;	// 토큰 만료기간 1분(milli 단위)
 
-	@Autowired
-	private UserDao userDao;
-
 	@Override
 	public TokenSet createTokenSet(UserDto user) {
 		long curTime = System.currentTimeMillis();
@@ -58,10 +55,6 @@ public class JwtServiceImpl implements JwtService {
 				.signWith(SignatureAlgorithm.HS256, this.generateKey(RT_SECRET_KEY))
 				//.setSubject(subject)
 				.compact());
-
-		// refreshToke DB에 넣기 해야함
-		user.setRefreshToken(tokenSet.getRefreshToken());
-		userDao.updateRefreshToken(user);
 
 		return tokenSet.accessToken(Jwts.builder()
 				.setIssuer("cafein")
