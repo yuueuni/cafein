@@ -10,6 +10,8 @@ public class CafeDto {
 	private String thumb;
 	private int like_count;
 	private int stamp_count;
+	private int recent_like;
+	private int recent_stamp;
 	
 	public int getCafeno() {
 		return cafeno;
@@ -65,15 +67,30 @@ public class CafeDto {
 	public void setStamp_count(int stamp_count) {
 		this.stamp_count = stamp_count;
 	}
+	public int getRecent_like() {
+		return recent_like;
+	}
+	public void setRecent_like(int recent_like) {
+		this.recent_like = recent_like;
+	}
+	public int getRecent_stamp() {
+		return recent_stamp;
+	}
+	public void setRecent_stamp(int recent_stamp) {
+		this.recent_stamp = recent_stamp;
+	}
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		builder.append("CafeDto [cafeno=").append(cafeno).append(", name=").append(name).append(", status=")
 				.append(status).append(", address=").append(address).append(", tel=").append(tel)
 				.append(", business_hours=").append(business_hours).append(", thumb=").append(thumb)
-				.append(", like_count=").append(like_count).append(", stamp_count=").append(stamp_count).append("]");
+				.append(", like_count=").append(like_count).append(", stamp_count=").append(stamp_count)
+				.append(", recent_like=").append(recent_like).append(", recent_stamp=").append(recent_stamp)
+				.append("]");
 		return builder.toString();
 	}
+
 	
 	
 }
