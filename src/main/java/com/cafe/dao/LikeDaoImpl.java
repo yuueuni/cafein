@@ -48,8 +48,8 @@ public class LikeDaoImpl implements LikeDao{
 	}
 
 	@Override
-	public Integer getMaxLike() {
-		return session.selectOne("like.getMaxLike");
+	public Integer getMaxLike(int cafeno) {
+		return session.selectOne("like.getMaxLike",cafeno);
 	}
 
 
