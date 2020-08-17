@@ -12,7 +12,7 @@
 
 	<update id="update_refreshToken">
 		update user set
-		refresh_toke=#{refreshToken}
+		refresh_token=#{refreshToken}
 		where id=#{id}
 	</update>
 
