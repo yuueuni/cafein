@@ -42,6 +42,7 @@ export default new Vuex.Store({
     geoCafeList: {},
     selectedCafe: null,
     cafeKeywords: {},
+    cafeMenu: {},
 
     cafeSearchList: {},
     userSearchList: {},
@@ -121,6 +122,9 @@ export default new Vuex.Store({
     SET_CAFEKEYWORD(state, keywords) {
       state.cafeKeywords = keywords
     },
+    SET_CAFEMENU(state, menuList) {
+      state.cafeMenu = menuList
+    },
     SET_IMAGEURL(state, imageURL) {
       state.uploadImageURL = imageURL
     },
@@ -136,6 +140,9 @@ export default new Vuex.Store({
     SET_STAMPRECOMMENDLIST(state, stampRecommendList) {
       state.stampRecommendList = stampRecommendList
     },
+    SET_SURVEY(state, survey) {
+      state.surveyState = survey
+    }
   },
 
   actions: {
@@ -318,8 +325,7 @@ export default new Vuex.Store({
         console.log('aboutlikecheck1', state.likeState)
         if (!getters.isLoggedIn) {
           return null
-        }
-        else {
+        } else {
           axios.get(SERVER.URL + SERVER.ROUTES.like + `/check/${cafeno}/${state.userData.id}`, getters.config)
             .then(res => resolve(res.data)) // -> resolve == retrun 역할
             .catch(err => {
@@ -350,8 +356,7 @@ export default new Vuex.Store({
                   dispatch('fetchLikeList')
                 })
                 .catch(err => console.log(err))
-            } 
-            else {
+            } else {
               axios.delete(SERVER.URL + SERVER.ROUTES.like + `/delete/${cafeno}/${userid}`, getters.config)
                 .then(() => {
                   console.log("unlike")
@@ -380,8 +385,7 @@ export default new Vuex.Store({
       return new Promise((resolve, reject) => {
         if (!getters.isLoggedIn) {
           return null
-        }
-        else {
+        } else {
           axios.get(SERVER.URL + SERVER.ROUTES.stamp + `/check/${cafeno}/${state.userData.id}`, getters.config)
             .then(res => resolve(res.data))
             .catch(err => {
@@ -471,8 +475,7 @@ export default new Vuex.Store({
                   dispatch('fetchFollowerList')
                 })
                 .catch(err => console.log(err))
-              } 
-              else {
+              } else {
                 axios.delete(SERVER.URL + SERVER.ROUTES.follow + `/delete/${currentUserId}/${followingid}`, {followingid, currentUserId,}, getters.config)
                 .then(() => {
                   state.followState = 0
@@ -509,6 +512,7 @@ export default new Vuex.Store({
       .then(res => {
         commit('SET_SELECTCAFE', res.data)
         dispatch('cafeKeyword', id)
+        dispatch('cafeMenu', id)
       })
       .catch(err => console.error(err))
     },
@@ -516,6 +520,13 @@ export default new Vuex.Store({
       axios.get(SERVER.URL + SERVER.ROUTES.cafeKeyword + cafeno)
         .then( res => {
           commit('SET_CAFEKEYWORD', res.data)
+        })
+        .catch(err => console.error(err))
+    },
+    cafeMenu({ commit }, cafeno) {
+      axios.get(SERVER.URL + SERVER.ROUTES.cafeMenu+ cafeno)
+        .then( res => {
+          commit('SET_CAFEMENU', res.data)
         })
         .catch(err => console.error(err))
     },
@@ -553,7 +564,6 @@ export default new Vuex.Store({
     
         axios.post(SERVER.URL + SERVER.ROUTES.geolocation, userLoc)
           .then(res => {
-            console.log(res.data)
             commit('SET_GEOCAFELIST', res.data)
           })
           .catch(err => {
@@ -562,17 +572,18 @@ export default new Vuex.Store({
       }
     },
 
-    surveySubmit({ state, getters }, result ) {
-      state.surveyState = result
+    surveySubmit({ state, commit, getters }, result ) {
       if (!getters.isLoggedIn) {
         axios.post(SERVER.URL + SERVER.ROUTES.surveyResult, result)
-         .then(res => state.surveyState=res)
-      }
-      else (
+         .then(res => {
+           commit('SET_SURVEY', res.data)
+          })
+      } else {
         axios.post(SERVER.URL + SERVER.ROUTES.surveyResult, result, getters.config)
-        .then(res => state.surveyState=res)
-      )
-      router.push(`/survey/result`)
+        .then(res => {
+          commit('SET_SURVEY', result)
+        })
+      }
     },
 
     //recommend

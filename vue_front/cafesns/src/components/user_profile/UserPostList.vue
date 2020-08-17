@@ -11,8 +11,8 @@
           POSTS {{ userPostList.length }}
         </v-btn>
       </template>
-      <v-card>
-        <v-row align="center" justify="center">
+      <v-card class="d-inline-block">
+        <v-row class="d-inline-block px-2">
           <v-card-title>Posts</v-card-title>
         </v-row>
         <v-divider></v-divider>
