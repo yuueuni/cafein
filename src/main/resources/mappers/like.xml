@@ -30,13 +30,13 @@
 	
 	<update id="plusCount">
 		update cafe
-		set like_count = #{like_count}+1
+		set like_count = #{like_count+1}
 		where cafeno = #{cafeno}
 	</update>
 	
 	<update id="minusCount">
 		update cafe
-		set like_count = #{like_count}-1
+		set like_count = #{like_count-1}
 		where cafeno = #{cafeno}
 	</update>
 	
