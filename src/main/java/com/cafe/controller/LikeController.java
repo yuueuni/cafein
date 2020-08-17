@@ -71,12 +71,11 @@ public class LikeController {
 		if (service.delete(like) > 0) {
 			CafeDto cafe = caService.select(like.getCafeno());
 			cafe.setLike_count(cafe.getLike_count() - 1);
-			// System.out.println("############# max: "+service.getMaxLike(cafeno));
 			Integer max = service.getMaxLike(cafeno);
 			if (max == null) {
 				cafe.setRecent_like(0);
 			} else {
-				cafe.setRecent_like(service.getMaxLike(cafeno));
+				cafe.setRecent_like(max);
 			}
 			service.update(cafe);
 

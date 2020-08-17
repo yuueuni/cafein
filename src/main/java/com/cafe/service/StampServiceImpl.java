@@ -44,6 +44,10 @@ public class StampServiceImpl implements StampService {
 	@Override
 	public void update(CafeDto cafe) {
 		dao.update(cafe);
-		
+	}
+
+	@Override
+	public Integer getMaxStamp(int cafeno) {
+		return dao.getMaxStamp(cafeno);
 	}
 }
