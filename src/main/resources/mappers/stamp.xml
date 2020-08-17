@@ -15,7 +15,7 @@
 		where cafeno = #{cafeno} and uid = #{uid}
 	</select>
 	
-	<select id="getMaxLike" resultType="int">
+	<select id="getMaxStamp" resultType="int">
 		select max(sno)
 		from stamp
 		where cafeno = #{cafeno}
