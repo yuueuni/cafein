@@ -55,6 +55,13 @@ public class RecommendController {
 				}
 			}
 		}
+		Collections.sort(recommendList, new Comparator<CafeDto>() {
+
+			@Override
+			public int compare(CafeDto o1, CafeDto o2) {
+				return -Integer.compare(o1.getLike_count(), o2.getLike_count());
+			}
+		});
 				
 		return recommendList;
 	}
