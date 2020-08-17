@@ -45,7 +45,11 @@ public class LikeDaoImpl implements LikeDao{
 	@Override
 	public void update(CafeDto cafe) {
 		session.update("like.update", cafe);
-		
+	}
+
+	@Override
+	public Integer getMaxLike() {
+		return session.selectOne("like.getMaxLike");
 	}
 
 

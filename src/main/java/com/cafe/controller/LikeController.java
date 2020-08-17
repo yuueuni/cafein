@@ -73,7 +73,9 @@ public class LikeController {
 		if(service.delete(like)>0) {
 			CafeDto cafe=caService.select(like.getCafeno());
 			cafe.setLike_count(cafe.getLike_count()-1);
+			cafe.setRecent_like(service.getMaxLike());
 			service.update(cafe);
+			
 			return "Success";
 		}
 		return "Failure";

@@ -12,4 +12,5 @@ public interface LikeDao {
 	public int selectByUser(LikeDto user);
 	public List<CafeDto> selectCafe(String uid);
 	public void update(CafeDto cafe);//카페의 카운트수 변경
+	public Integer getMaxLike();
 }

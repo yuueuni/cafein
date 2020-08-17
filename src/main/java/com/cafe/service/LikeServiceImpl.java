@@ -48,6 +48,11 @@ public class LikeServiceImpl implements LikeService {
 		
 	}
 
+	@Override
+	public Integer getMaxLike() {
+		return dao.getMaxLike();
+	}
+
 	
 
 	
