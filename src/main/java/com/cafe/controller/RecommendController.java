@@ -63,7 +63,7 @@ public class RecommendController {
 			}
 		});
 				
-		return recommendList.subList(0, 9);
+		return recommendList.subList(0, 10);
 	}
 	
 	@ApiOperation(value = "스탬프 기반 추천 리스트")
@@ -98,7 +98,7 @@ public class RecommendController {
 				return -Integer.compare(o1.getStamp_count(), o2.getStamp_count());
 			}
 		});
-		return recommendList.subList(0, 9);
+		return recommendList.subList(0, 10);
 	}
 
 }
