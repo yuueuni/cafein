@@ -79,17 +79,17 @@ export default {
         navigator.geolocation.getCurrentPosition(pos => {
           this.gettingLocation = false;
           this.location = pos;
+          this.geo(this.location)
         }, err => {
           this.gettingLocation = false;
           this.errorStr = err.message;
         })
       }
-      this.geo(this.location)
-    }
+    },
   },
   created() {
     this.geoLocation()
-  }, 
+  },
 }
 </script>
 

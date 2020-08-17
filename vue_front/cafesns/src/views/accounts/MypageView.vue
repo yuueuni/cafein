@@ -1,15 +1,18 @@
 <template>
     <div>
         <v-row>
-          <h1 class="px-3">{{ userData.id.split('@')[0] }}</h1>
-          <v-btn v-if="profileUserId !== currentUser" class="px-1" @click="followUser(profileUserId)" small>
-            <span v-if="!followState">Follow</span>
-            <span v-else>Following</span>
-          </v-btn>
-          <v-spacer></v-spacer>
-          <FollowingList/>
-          <FollowerList/>
-          <UserPostList/>
+          <v-row justify=left align=center class="ma-2">
+            <h1 class="px-3">{{ userData.id.split('@')[0] }}</h1>
+            <v-btn v-if="profileUserId !== currentUser" @click="followUser(profileUserId)" small>
+              <span v-if="!followState">Follow</span>
+              <span v-else>Following</span>
+            </v-btn>
+          </v-row>
+          <v-row align=center justify=center class="ma-2">
+            <FollowingList/>
+            <FollowerList/>
+            <UserPostList/>
+          </v-row>
         </v-row>
       <v-divider class="mb-3"></v-divider>
       <div>

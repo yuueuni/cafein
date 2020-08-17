@@ -1,27 +1,40 @@
 <template>
   <div id="surveyContainer">
     <v-dialog
-    v-model="dialog"
-    transition="dialog-bottom-transition"
-    persistent
-    max-width="600px"
-    overlay-color="#2c001e"
-    overlay-opacity="0"
+      v-model="dialog"
+      transition="dialog-bottom-transition"
+      persistent
+      width="600px"
+      overlay-color="#2c001e"
+      overlay-opacity="0"
+      class="py-4"
     >
-    <v-row justify="space-around">
-      <v-icon v-if="questionNo===0" @click="questionNo++">YES1</v-icon>
-      <v-icon v-if="questionNo!==0 && questionNo!==2" @click="questionNo++, answer[questionNo-1]= 1;">YES2</v-icon>
-      <v-icon v-if="questionNo>=2" @click="toSurveySubmit(questionNo,1)">YES3</v-icon>
-        <!-- <h2 v-for="(item,i) in items" :key="i" > -->  
-        <h2>{{ items[questionNo].title }}</h2> 
-        <!-- </h2> -->
-      <h1 v-html="item"></h1>
-      <v-icon v-if="questionNo===0" @click="questionNo++">NO1</v-icon>
-      <v-icon v-if="questionNo!==0 && questionNo!==2" @click="questionNo++, answer[questionNo-1]= 0;">NO2</v-icon>
-      <v-icon v-if="questionNo>=2" @click="toSurveySubmit(questionNo,0)">NO3</v-icon>
-      <h2>{{ answer }}</h2>
-      <v-btn v-if="questionNo!==3" absoute right rounded text dark color="red" @click="$router.push(`/`)">skip</v-btn>
-    </v-row>
+    <v-stepper v-model="survey">
+      <v-stepper-items>
+        <v-stepper-content
+          v-for="(item, i) in items"
+          :key="i"
+          :step="i"
+        >
+          <p v-html="item"></p>
+          <div v-if="i == 0">
+            <v-btn @click="survey = 1">next</v-btn>
+          </div>
+          <!-- answer -->
+          <div v-else>
+            <v-btn @click="target=1, onNext(i)" width="100%">1</v-btn>
+            <v-btn @click="target=2, onNext(i)" width="100%">2</v-btn>
+            <v-btn @click="target=3, onNext(i)" width="100%">3</v-btn>
+            <v-btn @click="target=4, onNext(i)" width="100%">4</v-btn>
+            <v-btn @click="target=5, onNext(i)" width="100%">5</v-btn>
+          </div>
+          
+        </v-stepper-content>
+        <div class="text-right">
+          <v-btn v-if="survey == 0" class="ma-2" rounded text dark color="red" @click="$router.push(`/`)">skip</v-btn>
+        </div>
+      </v-stepper-items>
+    </v-stepper>
     </v-dialog>
   </div>
 </template>
@@ -42,7 +55,8 @@ export default {
   data() {
     return {
       dialog: true,
-      questionNo:0,
+      survey: 0,
+      target: null,
       answer: {
         1: null,
         2: null,
@@ -51,16 +65,9 @@ export default {
         5: null,
       },
       items: [
-        { 
-          title:
-            "환영합니다. <br> cafe人 서비스는 <br> 성향테스트 결과에 따른 <br> 맞춤형 카페를 추천해드립니다. <br> 설문을 진행하시겠습니까?"
-        },
-        {
-          title: '맛 vs 위치'
-        },
-        {
-          title: '음료 vs 디저트'
-        },
+          "환영합니다. <br> cafe人 서비스는 <br> 성향테스트 결과에 따른 <br> 맞춤형 카페를 추천해드립니다. <br> 설문을 진행하시겠습니까?",
+          '맛 vs 위치',
+          '음료 vs 디저트',
       ],
       // survey : new Survey.Model(surveyJSON),
       // $("#surveyContainer").Survey({
@@ -119,6 +126,14 @@ export default {
     sendDataToServer(survey) {
   //send Ajax request to your web server.
     alert("The results are:" + JSON.stringify(survey.data))
+    },
+    onNext(i) {
+      this.answer[i] = this.target
+      if (i === this.items.length-1) {
+        this.surveySubmit(this.answer)
+      } else {
+        this.survey = i + 1
+      }
     },
   },
   

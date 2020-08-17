@@ -30,6 +30,7 @@ export default{
         cafeDetail: '/cafe/',
         cafeList: '/cafe/list/',
         cafeKeyword: '/keyword/keywords/',
+        cafeMenu: '/menu/list/',
 
         //search
         cafeSearch: '/cafe/search/',

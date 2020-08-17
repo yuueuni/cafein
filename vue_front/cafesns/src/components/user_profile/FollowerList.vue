@@ -11,11 +11,11 @@
           Followers {{ followerList.length }}
         </v-btn>
       </template>
-      <v-card>
-        <v-row align="center" justify="center">
+      <v-card class="d-inline-block">
+        <v-row class="d-inline-block px-2">
           <v-card-title>Followers</v-card-title>
         </v-row>
-        <v-divider></v-divider>
+        <v-divider class="mb-2"></v-divider>
         <v-card-text style="height: 300px;">
           <div v-if="!followerList.length" class="text-center">
             <span>현재 팔로워하는 유저가 없습니다.</span>
