@@ -56,6 +56,7 @@ public class LikeController {
 		if(service.insert(like)>0) {
 			CafeDto cafe=caService.select(like.getCafeno());
 			cafe.setLike_count(cafe.getLike_count()+1);
+			cafe.setRecent_like(like.getLno());
 			service.update(cafe);
 			return "Success";
 		}

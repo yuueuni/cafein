@@ -30,9 +30,9 @@ public class RecommendController {
 	@Autowired
 	private CafeService caService;
 
-	@ApiOperation(value = "좋아요 기반 추천 리스트")
-	@GetMapping("/like/{uid}")
-	public List<CafeDto> recommendByLike(@PathVariable String uid) {
+	@ApiOperation(value = "좋아요 기반 추천 리스트(많은 순)")
+	@GetMapping("/like/count/{uid}")
+	public List<CafeDto> recommendByLikeCount(@PathVariable String uid) {
 		List<Integer> myCafeList = service.selectCafeLiked(uid);// 내가 좋아요 누른 카페들
 		List<String> userList = new ArrayList<>();// 내가 좋아요 누른 카페들을 좋아요 누른 유저들
 		List<Integer> othersCafeList = new ArrayList<>();// 다른 유저들이 좋아요 누른 카페들
@@ -70,9 +70,9 @@ public class RecommendController {
 		}
 	}
 
-	@ApiOperation(value = "스탬프 기반 추천 리스트")
-	@GetMapping("/stamp/{uid}")
-	public List<CafeDto> recommendByStamp(@PathVariable String uid) {
+	@ApiOperation(value = "스탬프 기반 추천 리스트(많은 순)")
+	@GetMapping("/stamp/count/{uid}")
+	public List<CafeDto> recommendByStampCount(@PathVariable String uid) {
 		List<Integer> myCafeList = service.selectCafeStamped(uid);// 내가 좋아요 누른 카페들
 		List<String> userList = new ArrayList<>();// 내가 좋아요 누른 카페들을 좋아요 누른 유저들
 		List<Integer> othersCafeList = new ArrayList<>();// 다른 유저들이 좋아요 누른 카페들
@@ -100,6 +100,85 @@ public class RecommendController {
 			@Override
 			public int compare(CafeDto o1, CafeDto o2) {
 				return -Integer.compare(o1.getStamp_count(), o2.getStamp_count());
+			}
+		});
+		if (recommendList.size() > 10) {
+			return recommendList.subList(0, 10);
+		} else {
+			return recommendList;
+		}
+	}
+	
+	@ApiOperation(value = "좋아요 기반 추천 리스트(최근 순)")
+	@GetMapping("/like/recent/{uid}")
+	public List<CafeDto> recommendByLikeRecent(@PathVariable String uid) {
+		List<Integer> myCafeList = service.selectCafeLiked(uid);// 내가 좋아요 누른 카페들
+		List<String> userList = new ArrayList<>();// 내가 좋아요 누른 카페들을 좋아요 누른 유저들
+		List<Integer> othersCafeList = new ArrayList<>();// 다른 유저들이 좋아요 누른 카페들
+		List<CafeDto> recommendList = new ArrayList<>();// 추천할 카페들
+
+		for (Integer cafeno : myCafeList) {// userList 구하기
+			List<String> tmpList = service.selectUserLiked(cafeno);
+			for (String now : tmpList) {
+				if (!now.equals(uid) && !userList.contains(now)) {
+					userList.add(now);
+				}
+			}
+		}
+		for (String user : userList) {// othersCafeList 구하기
+			List<Integer> tmpList = service.selectCafeLiked(user);
+			for (Integer cafeno : tmpList) {
+				if (!myCafeList.contains(cafeno) && !othersCafeList.contains(cafeno)) {
+					othersCafeList.add(cafeno);
+					recommendList.add(caService.select(cafeno));
+				}
+			}
+		}
+		Collections.sort(recommendList, new Comparator<CafeDto>() {
+
+			@Override
+			public int compare(CafeDto o1, CafeDto o2) {
+				return -Integer.compare(o1.getRecent_like(), o2.getRecent_like());
+			}
+		});
+
+		if (recommendList.size() > 10) {
+			return recommendList.subList(0, 10);
+		} else {
+			return recommendList;
+		}
+	}
+
+	@ApiOperation(value = "스탬프 기반 추천 리스트(최근 순)")
+	@GetMapping("/stamp/recent/{uid}")
+	public List<CafeDto> recommendByStampRecent(@PathVariable String uid) {
+		List<Integer> myCafeList = service.selectCafeStamped(uid);// 내가 좋아요 누른 카페들
+		List<String> userList = new ArrayList<>();// 내가 좋아요 누른 카페들을 좋아요 누른 유저들
+		List<Integer> othersCafeList = new ArrayList<>();// 다른 유저들이 좋아요 누른 카페들
+		List<CafeDto> recommendList = new ArrayList<>();// 추천할 카페들
+
+		for (Integer cafeno : myCafeList) {// userList 구하기
+			List<String> tmpList = service.selectUserStamped(cafeno);
+			for (String now : tmpList) {
+				if (!now.equals(uid) && !userList.contains(now)) {
+					userList.add(now);
+				}
+			}
+		}
+		for (String user : userList) {// othersCafeList 구하기
+			List<Integer> tmpList = service.selectCafeStamped(user);
+			for (Integer cafeno : tmpList) {
+				if (!myCafeList.contains(cafeno) && !othersCafeList.contains(cafeno)) {
+					othersCafeList.add(cafeno);
+					recommendList.add(caService.select(cafeno));
+				}
+			}
+		}
+		Collections.sort(recommendList, new Comparator<CafeDto>() {
+
+			@Override
+			public int compare(CafeDto o1, CafeDto o2) {
+				return -Integer.compare(o1.getRecent_stamp(), o2.getRecent_stamp());
 			}
 		});
 		if (recommendList.size() > 10) {

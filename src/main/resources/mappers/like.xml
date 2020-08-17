@@ -23,14 +23,14 @@
 		and l.uid = #{uid};
 	</select>
 	
-	<insert id="insert">
+	<insert id="insert" useGeneratedKeys="true" keyProperty="lno" parameterType="LikeDto">
 		insert into `like` (cafeno, uid)
 		values (#{cafeno}, #{uid})
 	</insert>
 	
 	<update id="update">
 		update cafe
-		set like_count = #{like_count}
+		set like_count = #{like_count}, recent_like = #{recent_like}
 		where cafeno = #{cafeno}
 	</update>
 	
