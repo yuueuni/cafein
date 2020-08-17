@@ -29,7 +29,7 @@
 		and l.uid = #{uid};
 	</select>
 
-	<insert id="insert" useGeneratedKeys="true" keyProperty="lno"
+	<insert id="insert" useGeneratedKeys="true" keyProperty="lno">
 		parameterType="LikeDto">
 		insert into `like` (cafeno, uid)
 		values (#{cafeno},

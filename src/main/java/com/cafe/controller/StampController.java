@@ -55,6 +55,7 @@ public class StampController {
 		if(service.insert(stamp)>0) {
 			CafeDto cafe=caService.select(stamp.getCafeno());
 			cafe.setStamp_count(cafe.getStamp_count()+1);
+			cafe.setRecent_stamp(stamp.getSno());
 			service.update(cafe);
 			return "Success";
 		}
