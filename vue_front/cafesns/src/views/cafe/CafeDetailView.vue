@@ -5,12 +5,13 @@
     >
       <v-row>
         <v-col
-          cols="6"  
+          cols="12"
+          sm="6" 
         >
           <!-- cafe image -->
           <v-img
             height="250"
-            class="grey lighten-2"
+            class="grey lighten-2 ma-3"
             :src="'https://i3a203.p.ssafy.io:5000/api/cafe/get/image/'+selectedCafe.cafeno"
           >
           </v-img>
@@ -49,19 +50,48 @@
             class="keyword ma-2"
           >{{ keyword.keyword }}
           </v-chip>
+          <v-chip v-if="!cafeKeywords.length">
+            coffee
+          </v-chip>
         </v-col>
 
-        <v-col cols="6">
+        <v-col
+          cols="12"
+          sm="6"
+        >
           <v-card-title>
             <h1>{{ selectedCafe.name }}</h1>
           </v-card-title>
-          <v-card-text>
-            <span class="my-4 subtitle-1">tel) {{ selectedCafe.tel }}</span>
-          </v-card-text>
-          <v-card-title>cafe open - close</v-card-title>
-          <v-card-text>{{ selectedCafe.business_hours }}</v-card-text>
-          <v-card-title>cafe address</v-card-title>
-          <v-card-text>{{ selectedCafe.address }}</v-card-text>
+          <v-row>
+            <v-col
+              cols="12"
+              sm="7"
+            >
+              <v-card-title>cafe open - close</v-card-title>
+              <v-card-text>{{ selectedCafe.business_hours }}</v-card-text>
+              <v-card-title>cafe info</v-card-title>
+              <v-card-text>
+                <p class="mb-0">tel) {{ selectedCafe.tel }}</p>
+                address) {{ selectedCafe.address }}
+              </v-card-text>
+            </v-col>
+            <v-col
+              cols="12"
+              sm="5"
+            >
+              <v-card-title>cafe menu</v-card-title>
+              <v-card-text v-if="!cafeMenu.length">메뉴 준비 중 입니다.</v-card-text>
+              <v-card-text>
+                <p
+                  v-for="menu in cafeMenu"
+                  :key="menu.id"
+                  class="text-justify mb-1"
+                >
+                  {{ menu.item }} {{ menu.price }}
+                </p>
+              </v-card-text>
+            </v-col>
+          </v-row>
 
         </v-col>
       </v-row>
@@ -104,6 +134,7 @@ export default {
     ...mapState([
       'selectedCafe',
       'cafeKeywords',
+      'cafeMenu',
     ]),
     ...mapGetters(['isLoggedIn']),
   },
