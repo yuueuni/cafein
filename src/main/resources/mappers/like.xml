@@ -18,6 +18,7 @@
 	<select id="getMaxLike" resultType="int">
 		select max(lno)
 		from `like`
+		where cafeno = #{cafeno}
 	</select>
 	
 	<!-- 좋아요 누른 카페 리스트 -->
