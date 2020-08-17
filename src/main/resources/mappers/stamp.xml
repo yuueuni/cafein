@@ -37,6 +37,7 @@
 	<update id="update">
 		update cafe
 		set stamp_count = #{stamp_count}
+		recent_stamp = #{recent_stamp}
 		where cafeno = #{cafeno}
 	</update>
 	
