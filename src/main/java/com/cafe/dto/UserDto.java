@@ -1,15 +1,24 @@
 package com.cafe.dto;
 
 public class UserDto {
-	  private String id;     
-	  private String password;    
-	  private String name;
-	  private String gender;
-	  private String phone;  
-	  private String birth;  
-	  private String survey; 
-	  private String auth;
-	  
+	private String id;     
+	private String password;    
+	private String name;
+	private String gender;
+	private String phone;  
+	private String birth;  
+	private String survey; 
+	private String auth;
+	private String refreshToken;
+
+	public String getRefreshToken(){
+		return refreshToken;
+	}
+
+	public void setRefreshToken(String refreshToken){
+		this.refreshToken = refreshToken;
+	}
+
 	public String getId() {
 		return id;
 	}

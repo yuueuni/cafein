@@ -8,12 +8,14 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.cafe.dao.UserDao;
 import com.cafe.dto.TokenSet;
 import com.cafe.dto.UserDto;
 import com.cafe.service.error.AuthenticationException;
 import com.cafe.service.error.JWTException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -37,6 +39,9 @@ public class JwtServiceImpl implements JwtService {
 	private static final String SALT =  "CafeSnsSecret";
 	private static final int oneMinute = 60000;	// 토큰 만료기간 1분(milli 단위)
 
+	@Autowired
+	private UserDao userDao;
+
 	@Override
 	public TokenSet createTokenSet(UserDto user) {
 		long curTime = System.currentTimeMillis();
@@ -55,7 +60,9 @@ public class JwtServiceImpl implements JwtService {
 				.compact());
 
 		// refreshToke DB에 넣기 해야함
-				
+		user.setRefreshToken(tokenSet.getRefreshToken());
+		userDao.updateRefreshToken(user);
+
 		return tokenSet.accessToken(Jwts.builder()
 				.setIssuer("cafein")
 				.setExpiration(accessExDate)
