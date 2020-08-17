@@ -40,6 +40,9 @@ export default{
         geolocation: '/cafe/geolocation/',
 
         //survey
-        surveySubmit: '/',
+        surveyResult: '/',
+
+        //recommend
+        recommend: '/recommend/',
     }
 }
