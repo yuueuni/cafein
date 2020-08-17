@@ -54,7 +54,7 @@ public class UserDaoImpl implements UserDao {
 
 	
 	@Override
-	public void updateRefreshToken(UserDto user){
-		session.update("user.update_refreshToken", user);
+	public int updateRefreshToken(UserDto user){
+		return session.update("user.update_refreshToken", user);
 	}
 }

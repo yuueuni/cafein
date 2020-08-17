@@ -105,5 +105,8 @@ public class UserServiceImpl implements UserService {
 		return false; // 아니면 false 리턴
 	}
 
-
+	@Override
+	public int updateRefreshToken(UserDto user){
+		return userDao.updateRefreshToken(user);
+	}
 }

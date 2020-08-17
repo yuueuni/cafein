@@ -12,5 +12,5 @@ public interface UserDao {
 	public UserDto select(String id);
 	public List<UserDto> selectAll();
 	public UserDto findpassword(UserDto user);
-	public void updateRefreshToken(UserDto user);
+	public int updateRefreshToken(UserDto user);
 }
