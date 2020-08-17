@@ -2,13 +2,9 @@ package com.cafe.service.jwt;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Date;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.cafe.dao.UserDao;
 import com.cafe.dto.TokenSet;
 import com.cafe.dto.UserDto;
 import com.cafe.service.error.AuthenticationException;

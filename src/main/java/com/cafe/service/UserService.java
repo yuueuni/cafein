@@ -16,4 +16,5 @@ public interface UserService {
 	public int update(UserDto user); // User 수정
 	public List<UserDto> selectAll(); // 모든 User 리턴
 	public UserDto findpassword(UserDto user);
+	public int updateRefreshToken(UserDto user);
 }

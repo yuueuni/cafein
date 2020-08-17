@@ -33,6 +33,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.cafe.dao.UserDao;
 import com.cafe.dto.CafeDto;
 import com.cafe.dto.LoginUserDto;
 import com.cafe.dto.TokenSet;
@@ -56,6 +57,9 @@ public class UserController {
 
 	@Autowired
 	UserService userservice;
+
+	@Autowired
+	UserDao userDao;
 
 	@Autowired
 	private JwtService jwtService;
@@ -100,7 +104,12 @@ public class UserController {
 		HttpHeaders responseHeaders = new HttpHeaders();
 		String token = tokenSet.getAccessToken();
 		responseHeaders.set("Authorization", token);
-
+		
+		loginuser.setRefreshToken(tokenSet.getRefreshToken());
+		int res = userservice.updateRefreshToken(loginuser);
+		
+		if(res == -1) return new ResponseEntity<>(HttpStatus.BAD_REQUEST); // 400 에러
+		
 		return new ResponseEntity<String>(token, HttpStatus.OK);
 	}
 
@@ -111,6 +120,7 @@ public class UserController {
 		return tokenSet != null ? new ResponseEntity<String>(tokenSet.getAccessToken(), HttpStatus.OK)
 						: new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
+
 	// 회원가입
 	@PostMapping("/signup")
 	@ApiOperation(value = "회원가입", response = Integer.class)
