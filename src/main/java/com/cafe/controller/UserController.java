@@ -35,6 +35,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.cafe.dto.CafeDto;
 import com.cafe.dto.LoginUserDto;
+import com.cafe.dto.TokenSet;
 import com.cafe.dto.UserDto;
 import com.cafe.service.UserService;
 import com.cafe.service.jwt.JwtService;
@@ -94,8 +95,10 @@ public class UserController {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 
-		String token = jwtService.create("user", loginuser, "user"); // 토큰 발급 유저 정보 들어있음
+		TokenSet tokenSet = jwtService.createTokenSet(loginuser); // 토큰 발급 유저 정보 들어있
+
 		HttpHeaders responseHeaders = new HttpHeaders();
+		String token = tokenSet.getAccessToken();
 		responseHeaders.set("Authorization", token);
 
 		return new ResponseEntity<String>(token, HttpStatus.OK);
@@ -118,7 +121,10 @@ public class UserController {
 				return new ResponseEntity<>(HttpStatus.BAD_REQUEST); // 400 에러 }
 			}
 		}
-		String token = jwtService.create("user", user, "user"); // 토큰 발급 유저 정보 들어있음
+
+		TokenSet tokenSet = jwtService.createTokenSet(user); // 토큰 발급 유저 정보 들어있음
+		String token = tokenSet.getAccessToken();
+
 		HttpHeaders responseHeaders = new HttpHeaders();
 		responseHeaders.set("Authorization", token);
 		return new ResponseEntity<String>(token, HttpStatus.OK); // 성공시 ,
