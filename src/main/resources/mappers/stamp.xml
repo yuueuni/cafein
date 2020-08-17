@@ -29,7 +29,7 @@
 		and s.uid = #{uid};
 	</select>
 	
-	<insert id="insert" useGeneratedKeys="true" keyProperty="sno">
+	<insert id="insert" useGeneratedKeys="true" keyProperty="sno" parameterType="StampDto">
 		insert into stamp (cafeno, uid)
 		values (#{cafeno}, #{uid})
 	</insert>
