@@ -50,6 +50,7 @@ public class LikeController {
 	public String insert(@RequestBody LikeDto like) {
 		System.out.println("insert like");
 		if(service.insert(like)>0) {
+			service.plusCount(like.getCafeno());
 			return "Success";
 		}
 		return "Failure";
@@ -63,6 +64,7 @@ public class LikeController {
 		like.setCafeno(cafeno);
 		like.setUid(uid);
 		if(service.delete(like)>0) {
+			service.minusCount(like.getCafeno());
 			return "Success";
 		}
 		return "Failure";

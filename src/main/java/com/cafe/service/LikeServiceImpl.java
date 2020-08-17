@@ -41,4 +41,14 @@ public class LikeServiceImpl implements LikeService {
 	public List<CafeDto> selectCafe(String uid) {
 		return dao.selectCafe(uid);
 	}
+
+	@Override
+	public void plusCount(int cafeno) {
+		dao.plusCount(cafeno);
+	}
+
+	@Override
+	public void minusCount(int cafeno) {
+		dao.minusCount(cafeno);
+	}
 }
