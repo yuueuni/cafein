@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cafe.dto.CafeDto;
 import com.cafe.dto.StampDto;
+import com.cafe.service.CafeService;
 import com.cafe.service.StampService;
 
 import io.swagger.annotations.ApiOperation;
@@ -27,6 +28,9 @@ import io.swagger.annotations.Authorization;
 public class StampController {
 	@Autowired
 	private StampService service;
+	
+	@Autowired
+	private CafeService caService;
 	
 	@ApiOperation(value = "발도장 수")
 	@GetMapping("/{cafeno}")
@@ -49,6 +53,9 @@ public class StampController {
 	public String insert(@RequestBody StampDto stamp) {
 		System.out.println("insert stamp");
 		if(service.insert(stamp)>0) {
+			CafeDto cafe=caService.select(stamp.getCafeno());
+			cafe.setStamp_count(cafe.getStamp_count()+1);
+			service.update(cafe);
 			return "Success";
 		}
 		return "Failure";
@@ -62,6 +69,9 @@ public class StampController {
 		stamp.setCafeno(cafeno);
 		stamp.setUid(uid);
 		if(service.delete(stamp)>0) {
+			CafeDto cafe=caService.select(stamp.getCafeno());
+			cafe.setStamp_count(cafe.getStamp_count()-1);
+			service.update(cafe);
 			return "Success";
 		}
 		return "Failure";

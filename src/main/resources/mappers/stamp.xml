@@ -28,6 +28,12 @@
 		values (#{cafeno}, #{uid})
 	</insert>
 	
+	<update id="update">
+		update cafe
+		set stamp_count = #{stamp_count}
+		where cafeno = #{cafeno}
+	</update>
+	
 	<delete id="delete">
 		delete from stamp
 		where cafeno = #{cafeno} and uid = #{uid}

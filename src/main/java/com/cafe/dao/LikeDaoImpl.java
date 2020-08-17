@@ -44,7 +44,7 @@ public class LikeDaoImpl implements LikeDao{
 
 	@Override
 	public void update(CafeDto cafe) {
-		session.selectList("like.update", cafe);
+		session.update("like.update", cafe);
 		
 	}
 
