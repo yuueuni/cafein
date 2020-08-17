@@ -71,6 +71,12 @@ public class StampController {
 		if(service.delete(stamp)>0) {
 			CafeDto cafe=caService.select(stamp.getCafeno());
 			cafe.setStamp_count(cafe.getStamp_count()-1);
+			Integer max = service.getMaxStamp(cafeno);
+			if (max == null) {
+				cafe.setRecent_stamp(0);
+			} else {
+				cafe.setRecent_stamp(max);
+			}
 			service.update(cafe);
 			return "Success";
 		}

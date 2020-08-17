@@ -48,6 +48,11 @@ public class StampDaoImpl implements StampDao{
 		
 	}
 
+	@Override
+	public Integer getMaxStamp(int cafeno) {
+		return session.selectOne("stamp.getMaxStamp",cafeno);
+	}
+
 
 
 }
