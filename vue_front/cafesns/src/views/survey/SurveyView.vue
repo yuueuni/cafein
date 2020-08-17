@@ -9,16 +9,18 @@
     overlay-opacity="0"
     >
     <v-row justify="space-around">
-      <v-icon v-if="question<2" @click="question++, answer[question]= 1;">YES</v-icon>
-      <v-icon v-else @click.native="answer[question]= 1, surveySubmit(answer);">YES</v-icon>
-        <h2 v-for="(item,i) in items" :key="i" :src="item.question">
-          {{ item[question] }} 
-        </h2>
+      <v-icon v-if="questionNo===0" @click="questionNo++">YES1</v-icon>
+      <v-icon v-if="questionNo!==0 && questionNo!==2" @click="questionNo++, answer[questionNo-1]= 1;">YES2</v-icon>
+      <v-icon v-if="questionNo>=2" @click="toSurveySubmit(questionNo,1)">YES3</v-icon>
+        <!-- <h2 v-for="(item,i) in items" :key="i" > -->  
+        <h2>{{ items[questionNo].title }}</h2> 
+        <!-- </h2> -->
       <h1 v-html="item"></h1>
+      <v-icon v-if="questionNo===0" @click="questionNo++">NO1</v-icon>
+      <v-icon v-if="questionNo!==0 && questionNo!==2" @click="questionNo++, answer[questionNo-1]= 0;">NO2</v-icon>
+      <v-icon v-if="questionNo>=2" @click="toSurveySubmit(questionNo,0)">NO3</v-icon>
       <h2>{{ answer }}</h2>
-      <v-icon v-if="question<2" @click="question++; answer[question]= 0;">NO</v-icon>
-      <v-icon v-else @click.native="answer[question]= 0, surveySubmit(answer);">NO</v-icon>
-      <v-btn v-if="question!==3" absoute right rounded text dark color="red" @click="$router.push(`/`)">skip</v-btn>
+      <v-btn v-if="questionNo!==3" absoute right rounded text dark color="red" @click="$router.push(`/`)">skip</v-btn>
     </v-row>
     </v-dialog>
   </div>
@@ -40,21 +42,24 @@ export default {
   data() {
     return {
       dialog: true,
-      question:0,
+      questionNo:0,
       answer: {
         1: null,
         2: null,
+        3: null,
+        4: null,
+        5: null,
       },
       items: [
         { 
-          0:
+          title:
             "환영합니다. <br> cafe人 서비스는 <br> 성향테스트 결과에 따른 <br> 맞춤형 카페를 추천해드립니다. <br> 설문을 진행하시겠습니까?"
         },
         {
-          1: '맛 vs 위치'
+          title: '맛 vs 위치'
         },
         {
-          2: '음료 vs 디저트'
+          title: '음료 vs 디저트'
         },
       ],
       // survey : new Survey.Model(surveyJSON),
@@ -105,19 +110,18 @@ export default {
     ])
   },
 
-
   methods: {
     ...mapActions(['surveySubmit']),
+    toSurveySubmit(questionNo,ans) {
+      this.answer[questionNo]= ans
+      this.surveySubmit(this.answer)
+    },
     sendDataToServer(survey) {
   //send Ajax request to your web server.
     alert("The results are:" + JSON.stringify(survey.data))
     },
   },
   
-  created() {
-    this.surveyState = []
-  },
-
 }
 </script>
 

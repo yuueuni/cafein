@@ -47,6 +47,9 @@ export default new Vuex.Store({
     userSearchList: {},
 
     surveyState: {},
+
+    likeRecommendList: {},
+    stampRecommendList: {},
     
   },
   
@@ -126,6 +129,12 @@ export default new Vuex.Store({
     },
     SET_USERSEARCHLIST(state, userList) {
       state.userSearchList = userList
+    },
+    SET_LIKERECOMMENDLIST(state, likeRecommendList) {
+      state.likeRecommendList = likeRecommendList
+    },
+    SET_STAMPRECOMMENDLIST(state, stampRecommendList) {
+      state.stampRecommendList = stampRecommendList
     },
   },
 
@@ -552,11 +561,36 @@ export default new Vuex.Store({
         })
     },
 
-    surveySubmit({ state }, result ) {
-      axios.post(SERVER.URL + SERVER.ROUTES.geolocation, result)
+    surveySubmit({ state, getters }, result ) {
       state.surveyState = result
+      if (!getters.isLoggedIn) {
+        axios.post(SERVER.URL + SERVER.ROUTES.surveyResult, result)
+         .then(res => state.surveyState=res)
+      }
+      else (
+        axios.post(SERVER.URL + SERVER.ROUTES.surveyResult, result, getters.config)
+        .then(res => state.surveyState=res)
+      )
       router.push(`/survey/result`)
     },
+
+    //recommend
+    fetchLikeRecommendList({ state, getters }) {
+      const userid = state.userData.id
+      axios.get(SERVER.URL + SERVER.ROUTES.recommend + `like/${userid}`, getters.config)
+      .then(res => state.likeRecommendList = res.data)
+        .catch(err => console.error(err.response.data))
+    },
+
+    fetchStampRecommendList({ state, getters }) {
+      const userid = state.userData.id
+      axios.get(SERVER.URL + SERVER.ROUTES.recommend + `stamp/${userid}`, getters.config)
+      .then(res => {
+        console.log(res)
+        state.stampRecommendList = res.data
+      })
+      .catch(err => console.error(err.response.data))
+    }
   },
 
   modules: {
