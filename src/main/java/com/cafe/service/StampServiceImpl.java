@@ -41,4 +41,9 @@ public class StampServiceImpl implements StampService {
 	public List<CafeDto> selectCafe(String uid) {
 		return dao.selectCafe(uid);
 	}
+	@Override
+	public void update(CafeDto cafe) {
+		dao.update(cafe);
+		
+	}
 }
