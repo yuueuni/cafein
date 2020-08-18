@@ -30,9 +30,9 @@ public class RecommendController {
 	@Autowired
 	private CafeService caService;
 
-	@ApiOperation(value = "좋아요 기반 추천 리스트(많은 순)")
+	@ApiOperation(value = "좋아요 기반 추천 리스트(많은 순)-로그인")
 	@GetMapping("/like/count/{uid}")
-	public List<CafeDto> recommendByLikeCount(@PathVariable String uid) {
+	public List<CafeDto> recommendByLikeCountLogin(@PathVariable String uid) {
 		List<Integer> myCafeList = service.selectCafeLiked(uid);// 내가 좋아요 누른 카페들
 		List<String> userList = new ArrayList<>();// 내가 좋아요 누른 카페들을 좋아요 누른 유저들
 		List<Integer> othersCafeList = new ArrayList<>();// 다른 유저들이 좋아요 누른 카페들
@@ -70,6 +70,22 @@ public class RecommendController {
 		}
 	}
 
+	@ApiOperation(value = "좋아요 기반 추천 리스트(많은 순)-비로그인")
+	@GetMapping("/like/count")
+	public List<CafeDto> recommendByLikeCount(@PathVariable String uid) {
+		List<CafeDto> list = caService.selectAll();
+
+		Collections.sort(list, new Comparator<CafeDto>() {
+
+			@Override
+			public int compare(CafeDto o1, CafeDto o2) {
+				return -Integer.compare(o1.getLike_count(), o2.getLike_count());
+			}
+		});
+
+			return list.subList(0, 10);
+	}
+	
 	@ApiOperation(value = "스탬프 기반 추천 리스트(많은 순)")
 	@GetMapping("/stamp/count/{uid}")
 	public List<CafeDto> recommendByStampCount(@PathVariable String uid) {
