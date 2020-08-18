@@ -27,14 +27,14 @@
             :key="c"
           >
             <v-btn v-if="item.name==priority" text @click="priority=choice.value; onNext(i);">{{ choice.text }}</v-btn>
-            <v-btn v-else text @click="target=choice.value; onNext(i);">{{ choice.text }}</v-btn>
-             
-            <!-- <v-img
-          :src="'https://i3a203.p.ssafy.io:5000/api/cafe/get/image/'+cafe.cafeno"
-          height="170px"
-          width="170px"
-          @click="onSelectCafe(cafe.cafeno)"
-        > -->
+            <v-btn text @click="target=choice.value; onNext(i);">{{ choice.text }}</v-btn>
+            <v-img
+              v-if="item.name == question3"
+              :src= choice.text
+              height="170px"
+              width="170px"
+              @click="target=choice.value; onNext(i);"
+            ></v-img>
           </div>
           <h1>{{ target }} {{ answer }}</h1>
         </v-stepper-content>
@@ -129,23 +129,23 @@ export default {
             "choices":[
               {
                 "value": 1,
-                "text": "@/assets/cafeIn_logo.png"
+                "text": "@/assets/movies/para.jpg"
               },
               {
                 "value": 2,
-                "text":"꽃과 손편지"
+                "text": "@/assets/movies/classic.jpg"
               },
               {
                 "value": 3,
-                "text":"축하 케이크"
+                "text": "@/assets/movies/charlie.jpg"
               },
               {
                 "value": 4,
-                "text":"직접만든 향수"
+                "text": "@/assets/movies/avengers.jpg"
               },
               {
                 "value": 5,
-                "text":"카카오페이 송금"
+                "text": "@/assets/movies/random.jpg"
               },
             ]
           },
