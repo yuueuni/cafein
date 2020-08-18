@@ -32,7 +32,6 @@ public class JwtServiceImpl implements JwtService {
 	private static final String RT_SECRET_KEY = "CREATEDBYJIHO_AT";
 	private static final String DATA_KEY = "user";
 
-	private static final String SALT =  "CafeSnsSecret";
 	private static final int oneMinute = 60000;	// 토큰 만료기간 1분(milli 단위)
 
 	@Override
@@ -40,7 +39,7 @@ public class JwtServiceImpl implements JwtService {
 		long curTime = System.currentTimeMillis();
 
 		Date accessExDate = new Date(System.currentTimeMillis() + oneMinute*30); // 토큰 만료시간 30분
-		Date refreshExDate = new Date(System.currentTimeMillis() + oneMinute*60*24*7); // 토큰 만료시간 일주일	
+		Date refreshExDate = new Date(System.currentTimeMillis() + oneMinute*60*24*14); // 토큰 만료시간 2주	
 		TokenSet tokenSet = TokenSet.create().refreshToken(Jwts.builder()
 				.setIssuer("cafein")
 				.setExpiration(refreshExDate)
@@ -88,14 +87,14 @@ public class JwtServiceImpl implements JwtService {
 			throw new JWTException("decodeing failed");
 		}
 		
-		//curTime이 refreshToken의 만료일 7일 이내면, refreshTokenSet 진행. 
-		if(Long.parseLong(String.valueOf(claims.getBody().get("exp"))) * 1000 - curTime <= (1000*60*60*24*7)) {
+		//curTime이 refreshToken의 만료일 14일 이내면, refreshTokenSet 진행. 
+		if(Long.parseLong(String.valueOf(claims.getBody().get("exp"))) * 1000 - curTime <= (oneMinute*60*24*14)) {
 			return refreshTokenSet(refreshToken);
 		}
 		return TokenSet.create()
 				  .accessToken(Jwts.builder()
 									 .setHeaderParam("typ", "JWT")
-									 .setExpiration(new Date(curTime + (1000*60*30)))
+									 .setExpiration(new Date(curTime + (oneMinute*30)))
 									 .setIssuedAt(new Date(curTime))
 									 .claim(DATA_KEY, getUser(refreshToken, RT_SECRET_KEY))
 									 .signWith(SignatureAlgorithm.HS256, this.generateKey(AT_SECRET_KEY))
@@ -143,49 +142,4 @@ public class JwtServiceImpl implements JwtService {
 		}
 		return true;
 	}
-
-	// @Override
-	// public int getUserId() {
-	// 	return (int)this.getUser("member").get("memberId");
-	// }
-
-	// 	@SuppressWarnings("unchecked")
-// 	@Override
-// 	public Map<String, Object> get(String key) {
-// 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
-// 		String jwt = request.getHeader("Authorization");
-// 		Jws<Claims> claims = null;
-// 		try {
-// 			claims = Jwts.parser()
-// 						 .setSigningKey(SALT.getBytes("UTF-8"))
-// 						 .parseClaimsJws(jwt);
-// 			Map<String, Object> value = (LinkedHashMap<String, Object>)claims.getBody().get(key);
-// 			return value;
-// 		} catch (Exception e) {
-// 				e.printStackTrace();
-// 				return null;
-// 			/*개발환경
-// 			Map<String,Object> testMap = new HashMap<>();
-// 			testMap.put("memberId", 2);
-// 			return testMap;*/
-// 		}
-// //		@SuppressWarnings("unchecked")
-// //		Map<String, Object> value = (LinkedHashMap<String, Object>)claims.getBody().get(key);
-// //		return value;
-// 	}
-
-
-	// @Override
-	// public boolean isUsable(String jwt) {
-	// 	try{
-	// 		Jws<Claims> claims = Jwts.parser()
-	// 				  .setSigningKey(this.generateKey())
-	// 				  .parseClaimsJws(jwt);
-	// 		return true;
-			
-	// 	}catch (Exception e) {
-	// 		e.printStackTrace();
-	// 	}
-	// 	return false;
-	// }
 }

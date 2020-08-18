@@ -50,29 +50,22 @@ public class PostController {
 	
 	@PostMapping("/upload")
 	public String upload(@RequestParam MultipartFile image) {
-		System.out.println("upload file");
-		System.out.println(image); 
-
 		String url = fuService.restore(image);
-		System.out.println("URL :" + url);
 		return url;
 	}
 	
 	@ApiOperation(value="post 이미지 가져오기 ")
-	@GetMapping(value="/get/image/{pno}/{time}",
-			produces = MediaType.IMAGE_JPEG_VALUE)
+	@GetMapping(value="/get/image/{pno}/{time}", produces = MediaType.IMAGE_JPEG_VALUE)
 	public @ResponseBody byte[] getImage(@PathVariable Integer pno, @PathVariable Date time) {
 		String imgPath = "/home/data/images/";
 		PostDto post = service.select(pno);
 		String target = imgPath+post.getImage();
-		System.out.println("post image : " + target);
 		FileInputStream in;
+
 		try {
 			in = new FileInputStream(target);
 			return IOUtils.toByteArray(in);
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			System.out.println("i cant find file");
 			e1.printStackTrace();
 			return null;
 		}
@@ -84,19 +77,17 @@ public class PostController {
 //	@ApiImplicitParams({ @ApiImplicitParam(name = "Authorization", value = "jwt_token", required = true, dataType = "String", paramType = "header") })
 	@ApiOperation(value = "게시글 조회")
 	public PostDto select(@PathVariable Integer pno) {
-		System.out.println("select post");
-
 		PostDto post = service.select(pno);
 		CafeDto cafe = caService.select(post.getCafeno());
+
 		post.setCafename(cafe.getName());
-		System.out.println(post);
+
 		return post;
 	}
 
 	@ApiOperation(value = "게시글 전체 리스트")
 	@GetMapping("/list/{page}")
 	public List<PostDto> selectAll(@PathVariable Integer page) {
-		System.out.println(page);
 		List<PostDto> postList = service.selectAll(page);
 		return postList;
 	}
@@ -104,15 +95,12 @@ public class PostController {
 	@ApiOperation(value = "유저가 작성한 게시글 수")
 	@GetMapping("/count/{uid}")
 	public int count(@PathVariable String uid) {
-		System.out.println("count post");
 		return service.countByUser(uid);
 	}
 
 	@ApiOperation(value = "유저에 따른 게시글 리스트")
 	@GetMapping("/list/user/{page}/{uid}")
 	public List<PostDto> selectAllByUser(@PathVariable Integer page, @PathVariable String uid) {
-		System.out.println("list by userid");
-		System.out.println(page);
 		List<PostDto> posts = service.selectAllByUser(page, uid);
 		
 		for(PostDto p : posts) {
@@ -125,8 +113,6 @@ public class PostController {
 	@ApiOperation(value = "카페에 따른 게시글 리스트")
 	@GetMapping("/list/cafe/{page}/{cafeno}")
 	public List<PostDto> selectAllByCafe(@PathVariable Integer page, @PathVariable int cafeno) {
-		System.out.println("list by cafeno");
-		System.out.println(page);
 		List<PostDto> posts = service.selectAllByCafe(page, cafeno);
 		for(PostDto p : posts) {
 			CafeDto cafe = caService.select(p.getCafeno());
