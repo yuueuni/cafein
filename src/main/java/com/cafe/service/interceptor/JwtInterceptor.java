@@ -16,7 +16,7 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 @Component
 public class JwtInterceptor extends HandlerInterceptorAdapter {
-	private static final String HEADER_ACCESS = "ACCES_TOKEN";
+	private static final String HEADER_ACCESS = "ACCESS_TOKEN";
 	private static final String HEADER_REFRESH = "REFRESH_TOKEN";
 
 	@Autowired
