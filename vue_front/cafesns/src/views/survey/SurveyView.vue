@@ -9,8 +9,8 @@
       overlay-opacity="0"
       class="py-4"
     >
-    <v-stepper v-model="survey" class="text-center">
-      <v-stepper-items>
+    <v-stepper v-model="survey" color="#2c001e" class="text-center">
+      <v-stepper-items color="#2c001e">
         <v-stepper-content
           v-for="(item, i) in surveyJSON.elements"
           :key="i"
@@ -26,8 +26,9 @@
             v-for="(choice, c) in item.choices"
             :key="c"
           >
-            <v-btn v-if="item.name==priority" @click="priority=choice.value, survey += 1" width="70%">{{ choice.text }}</v-btn>
-            <v-btn v-else @click="target=choice.value, onNext(i)" width="70%">{{ choice.text }}</v-btn>
+            <v-btn v-if="item.name==priority" text @click="priority=choice.value; onNext(i);">{{ choice.text }}</v-btn>
+            <v-btn v-else text @click="target=choice.value; onNext(i);">{{ choice.text }}</v-btn>
+             
             <!-- <v-img
           :src="'https://i3a203.p.ssafy.io:5000/api/cafe/get/image/'+cafe.cafeno"
           height="170px"
@@ -35,7 +36,7 @@
           @click="onSelectCafe(cafe.cafeno)"
         > -->
           </div>
-          
+          <h1>{{ target }} {{ answer }}</h1>
         </v-stepper-content>
         <div class="text-right">
           <v-btn v-if="survey == 0" class="ma-2" rounded text dark color="red" @click="$router.push(`/`)">skip</v-btn>
@@ -55,8 +56,6 @@
 <script>
 import { mapState, mapActions } from 'vuex'
 
-// Survey.StylesManager.applyTheme("bootstrap");
-
 export default {
   name: 'LoginView',
   data() {
@@ -70,11 +69,11 @@ export default {
         "elements":[
           {
             "name":"question",
-            "title":"환영합니다. <br> cafe人 서비스는 <br> 성향테스트 결과에 따른 <br> 맞춤형 카페를 추천해드립니다. <br> 설문을 진행하시겠습니까?",
+            "title":"환영합니다! <br> cafe人 서비스는 <br> 당신의 성향테스트 결과에 따른 <br> 맞춤형 카페를 추천해드립니다. <br> 설문을 해보시는건 어떤가요?",
           },
           {
             "name":"question1",
-            "title":" 당신은 숲 속 길을 걷던 중 집을 발견했다. <br> 이 집에서 가장 눈에 띄는 것은?",
+            "title":"Q1. 당신은 숲 속 길을 걷던 중 집을 발견했다. <br> 이 집에서 가장 눈에 띄는 것은?",
             "choices":[
               {
                 "value": 1,
@@ -100,7 +99,7 @@ export default {
           },
           {
             "name":"question2",
-            "title":"선물을 고를 때 당신의 취향은?",
+            "title":"Q2. 선물을 고를 때 당신의 취향은?",
             "choices":[
               {
                 "value": 1,
@@ -126,7 +125,7 @@ export default {
           },
           {
             "name":"question3",
-            "title":"당신의 영화 취향은?",
+            "title":"Q3. 당신의 영화 취향은?",
             "choices":[
               {
                 "value": 1,
@@ -152,7 +151,7 @@ export default {
           },
           {
             "name":"question4",
-            "title":"회사 첫 출근을 위해 출근룩을 준비하는 당신은?",
+            "title":"Q4. 회사 첫 출근을 위해 출근룩을 준비하는 당신은?",
             "choices":[
               {
                 "value": 1,
@@ -178,7 +177,7 @@ export default {
           },
           {
             "name":"question5",
-            "title":"밖에 나갔다 집에 들어와 바로 하는 행동은?",
+            "title":"Q5. 집에 들어오자마자 바로 하는 행동은?",
             "choices":[
               {
                 "value": 1,
@@ -204,7 +203,7 @@ export default {
           },
           {
             "name":"priority",
-            "title":"우선순위",
+            "title":"Q6. 다음 중 1초만에 선택하세요.",
             "choices": [
               {
                 "value": 1,
@@ -245,12 +244,7 @@ export default {
       this.answer[questionNo]= ans
       this.surveySubmit(this.answer)
     },
-    sendDataToServer(survey) {
-      //send Ajax request to your web server.
-      alert("The results are:" + JSON.stringify(survey.data))
-    },
     onNext(i) {
-
       function getIndex(array, priority) {
         return new Promise((resolve) => {
           const maxNum = Math.max(...array)
@@ -293,9 +287,8 @@ export default {
 }
 </script>
 
-
 <style scoped>
 .background_color {
-  color: white;
+  color: blue;
 }
 </style>
