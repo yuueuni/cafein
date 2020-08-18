@@ -7,13 +7,14 @@
     >
       <v-toolbar-title><router-link to="/" class="link-text"><img src="@/assets/cafeIn_logo.png" alt="" width="120" my-1 ></router-link></v-toolbar-title>
       <v-spacer></v-spacer>
-      <router-link v-if="!isLoggedIn" to="/accounts/login" class="link-text"><v-btn text>Login</v-btn></router-link>
-      <router-link v-if="!isLoggedIn" to="/accounts/signup" class="link-text"><v-btn text>Signup</v-btn></router-link>
-      <router-link v-if="isLoggedIn" :to="`/accounts/${currentUser}`" class="link-text"><v-btn text>Mypage</v-btn></router-link>
+      <router-link v-if="!isLoggedIn" to="/accounts/login" class="link-text"><span class="material-icons mx-3">login</span></router-link>
+      <router-link v-if="!isLoggedIn" to="/accounts/signup" class="link-text"><span class="material-icons mx-3">group_add</span></router-link>
+      <router-link v-if="isLoggedIn" :to="`/accounts/${currentUser}`" class="link-text"><span class="material-icons mx-3">assignment_ind</span></router-link>
       <!-- <router-link to="/post/create" class="link-text"><v-btn text>New Post</v-btn></router-link> -->
-      <router-link to="/search" class="link-text"><v-btn text>search</v-btn></router-link>
-      <router-link v-if="isLoggedIn" to="#" @click.native="logout" class="link-text"><v-btn text>Logout</v-btn></router-link>
-      <router-link to="/survey" class="link-text"><v-btn text>survey</v-btn></router-link>
+      <router-link to="/search" class="link-text"><span class="material-icons mx-3">search</span></router-link>
+      <router-link to="/survey" class="link-text"><span class="material-icons mx-3">fact_check</span></router-link>
+      <router-link v-if="isLoggedIn" to="#" @click.native="logout" class="link-text"><span class="material-icons mx-3">logout</span></router-link>
+      
     </v-app-bar>
 </template>
 

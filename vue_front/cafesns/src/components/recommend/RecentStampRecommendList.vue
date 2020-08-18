@@ -4,11 +4,11 @@
     active-class="secondary"
     show-arrows
   >
-    <div v-if="!stampRecommendList.length" class="mx-auto">
+    <div v-if="!recentStampRecommendList.length" class="mx-auto">
       현재 방문한 카페가 없습니다.
     </div>
     <v-slide-item
-      v-for="cafe in stampRecommendList"
+      v-for="cafe in recentStampRecommendList"
       :key="cafe.id"
       v-slot:default="{ toggle }"
     >
@@ -24,8 +24,8 @@
         >
           <v-row align="end" class="lightbox white--text fill-height">
             <v-col style="background:#00000080">
-              <div v-if="cafe.name.length<10" class="subheading">{{ cafe.name }}</div>
-              <div v-else class="subheading">{{ cafe.name.substring(0, 10) + "..." }}</div>
+              <div v-if="cafe.name.length<10" class="subheading text-center">{{ cafe.name }}</div>
+              <div v-else class="subheading text-center">{{ cafe.name.substring(0, 10) + "..." }}</div>
             </v-col>
           </v-row>
         </v-img>
@@ -38,7 +38,7 @@
 import { mapState, mapActions } from 'vuex'
 
 export default {
-  name: 'StampRecommendList',
+  name: 'RecentStampRecommendList',
   data() {
     return {
       randomImg : "https://cdn.vuetifyjs.com/images/cards/cooking.png"
@@ -46,19 +46,19 @@ export default {
   },
   computed: {
     ...mapState([
-      'stampRecommendList'
+      'recentStampRecommendList'
     ])
   },
   methods: {
     ...mapActions([
-      'fetchStampRecommendList',
+      'fetchRecentStampRecommendList',
     ]),
     onSelectCafe(target) {
       this.$router.push(`/cafe/detail/${target}`)
     },
   },
   created() {
-    this.fetchStampRecommendList()
+    this.fetchRecentStampRecommendList()
   }
 }
 </script>

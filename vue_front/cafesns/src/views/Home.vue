@@ -1,43 +1,89 @@
 <template>
   <div class="home text-center">
     <!-- cafe -->
-    <v-hover v-slot:default="{ hover }">
-      <v-card outlined class="card-list">
-          <h1>Cafes</h1>
-          <CafeList/>
-        <v-expand-transition>
-          <div
-            v-if="!hover"
-            class="d-flex white v-card--reveal display-3"
-            style="height: 100%;"
-          >
-            <span style="font-family:'BBTreeGR';">Recommend Cafes</span>
-          </div>
-        </v-expand-transition>
-      </v-card>
-    </v-hover>
+    <v-card outlined class="card-list">
+      <h1>Cafes</h1>
+      <CafeList/>
+        <div
+          class="d-flex display-3"
+          style="height: 100%;"
+        >
+      </div>
+    </v-card>
     
     <!-- post -->
-    <v-hover v-slot:default="{ hover }">
+    <!-- <v-hover v-slot:default="{ hover }"> -->
       <v-card outlined class="card-list">
           <h1>Posts</h1>
           <PostList/>
-        <v-expand-transition>
+        <!-- <v-expand-transition> -->
           <div
-            v-if="!hover"
-            class="d-flex white v-card--reveal display-3"
+            class="d-flex display-3"
             style="height: 100%;"
           >
-            <span style="font-family:'BBTreeGR';">Popular posts</span>
           </div>
-        </v-expand-transition>
+        <!-- </v-expand-transition> -->
       </v-card>
-    </v-hover>
+    <!-- </v-hover> -->
 
-    <!-- geo -->
+    <!-- surveyResultRecommend -->
+    <v-card outlined class="card-list">
+      <h1>'유형이름'에게 추천하는 카페</h1>
+      <SurveyRecommendList/>
+        <div
+          class="d-flex display-3"
+          style="height: 100%;"
+        >
+      </div>
+    </v-card>
+
+    <!-- likeRecommend -->
+    <v-card outlined class="card-list">
+      <h1><i class="fas fa-heart fa-1x" style="color: #ef9a9a"></i> 많은 카페 </h1>
+      <MostLikeRecommendList/>
+        <div
+          class="d-flex display-3"
+          style="height: 100%;"
+        >
+        </div>
+    </v-card>
+
+    <v-card outlined class="card-list">
+      <h1>최근 <i class="fas fa-heart fa-1x" style="color: #ef9a9a"></i> 카페</h1>
+      <RecentLikeRecommendList/>
+        <div
+          class="d-flex display-3"
+          style="height: 100%;"
+        >
+        </div>
+    </v-card>
+
+    <!-- stampRecommend -->
+    <v-card outlined class="card-list">
+      <h1>최다 <i class="fas fa-shoe-prints fa-rotate-270 fa-1x" style="color: #90caf9"></i> 카페</h1>
+      <MostStampRecommendList/>
+        <div
+          class="d-flex display-3"
+          style="height: 100%;"
+        >
+        </div>
+    </v-card>
+
+    <v-card outlined class="card-list">
+      <h1>요즘 <i class="fas fa-shoe-prints fa-rotate-270 fa-1x" style="color: #90caf9"></i> 카페</h1>
+      <RecentStampRecommendList/>
+        <div
+          class="d-flex display-3"
+          style="height: 100%;"
+        >
+        </div>
+    </v-card>
+
+
+        <!-- geo -->
     <v-hover v-slot:default="{ hover }">
       <v-card outlined class="card-list">
-          <h1>근처 카페</h1>
+          <h1>내 주위 근처 카페</h1>
           <GeoList/>
         <v-expand-transition>
           <div
@@ -50,40 +96,6 @@
         </v-expand-transition>
       </v-card>
     </v-hover>
-
-    <!-- likeRecommend -->
-    <v-hover v-slot:default="{ hover }">
-      <v-card outlined class="card-list">
-          <h1>좋아요 카페 추천</h1>
-          <LikeRecommendList/>
-        <v-expand-transition>
-          <div
-            v-if="!hover"
-            class="d-flex white v-card--reveal display-3"
-            style="height: 100%;"
-          >
-            <span style="font-family:'BBTreeGR';">LikeRecommendList</span>
-          </div>
-        </v-expand-transition>
-      </v-card>
-    </v-hover>
-
-    <!-- stampRecommend -->
-    <v-hover v-slot:default="{ hover }">
-      <v-card outlined class="card-list">
-          <h1>방문 카페 추천</h1>
-          <StampRecommendList/>
-        <v-expand-transition>
-          <div
-            v-if="!hover"
-            class="d-flex white v-card--reveal display-3"
-            style="height: 100%;"
-          >
-            <span style="font-family:'BBTreeGR';">StampRecommendList</span>
-          </div>
-        </v-expand-transition>
-      </v-card>
-    </v-hover>
   </div>
 </template>
 
@@ -92,8 +104,12 @@
 import CafeList from '@/components/CafeList.vue'
 import PostList from '@/components/PostList.vue'
 import GeoList from '@/components/GeoList.vue'
-import LikeRecommendList from '@/components/recommend/LikeRecommendList.vue'
-import StampRecommendList from '@/components/recommend/StampRecommendList.vue'
+
+import SurveyRecommendList from '@/components/recommend/SurveyRecommendList.vue'
+import MostLikeRecommendList from '@/components/recommend/MostLikeRecommendList.vue'
+import RecentLikeRecommendList from '@/components/recommend/RecentLikeRecommendList.vue'
+import MostStampRecommendList from '@/components/recommend/MostStampRecommendList.vue'
+import RecentStampRecommendList from '@/components/recommend/RecentStampRecommendList.vue'
 
 export default {
   name: 'Home',
@@ -101,8 +117,11 @@ export default {
     CafeList,
     PostList,
     GeoList,
-    LikeRecommendList,
-    StampRecommendList,
+    SurveyRecommendList,
+    MostLikeRecommendList,
+    RecentLikeRecommendList,
+    MostStampRecommendList,
+    RecentStampRecommendList,
   },
 }
 </script>

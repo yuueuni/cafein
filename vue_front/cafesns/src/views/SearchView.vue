@@ -2,7 +2,7 @@
   <v-flex>
     <v-text-field
       v-model="keyword"
-      label="Search Cafe, User .."
+      label="찾으시는 카페가 있으신가요?"
       solo
       clearable
       @keypress.enter="searchCafeUser(keyword)"

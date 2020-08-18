@@ -4,8 +4,11 @@
     active-class="secondary"
     show-arrows
   >
+    <div v-if="!recentLikeRecommendList.length" class="mx-auto">
+      현재 추천할 카페가 없습니다.
+    </div>
     <v-slide-item
-      v-for="cafe in cafeList"
+      v-for="cafe in recentLikeRecommendList"
       :key="cafe.id"
       v-slot:default="{ toggle }"
     >
@@ -14,10 +17,9 @@
         @click="toggle"
       >
         <v-img
-          height="200px"
-          width="200px"
-          class="grey lighten-2"
           :src="'https://i3a203.p.ssafy.io:5000/api/cafe/get/image/'+cafe.cafeno"
+          height="170px"
+          width="170px"
           @click="onSelectCafe(cafe.cafeno)"
         >
           <v-row align="end" class="lightbox white--text fill-height">
@@ -36,22 +38,27 @@
 import { mapState, mapActions } from 'vuex'
 
 export default {
-  name: 'CafeList',
+  name: 'RecentLikeRecommendList',
+  data() {
+    return {
+      randomImg : "https://cdn.vuetifyjs.com/images/cards/cooking.png",
+    }
+  },
   computed: {
     ...mapState([
-      'cafeList'
+      'recentLikeRecommendList',
     ])
   },
   methods: {
     ...mapActions([
-      'fetchCafeList',
+      'fetchRecentLikeRecommendList',
     ]),
     onSelectCafe(target) {
       this.$router.push(`/cafe/detail/${target}`)
     },
   },
   created() {
-    this.fetchCafeList(1)
+    this.fetchRecentLikeRecommendList()
   }
 }
 </script>
