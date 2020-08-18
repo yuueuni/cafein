@@ -66,8 +66,7 @@ export default {
   },
   created() {
     this.fetchCommentList(this.postId)
-  }
-
+  },
 }
 </script>
 
