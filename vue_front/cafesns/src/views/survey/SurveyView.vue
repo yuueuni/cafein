@@ -12,21 +12,22 @@
     <v-stepper v-model="survey">
       <v-stepper-items>
         <v-stepper-content
-          v-for="(item, i) in items"
+          v-for="(item, i) in surveyJSON.elements"
           :key="i"
           :step="i"
         >
-          <p v-html="item"></p>
+          <p v-html="item.title"></p>
           <div v-if="i == 0">
             <v-btn @click="survey = 1">next</v-btn>
           </div>
           <!-- answer -->
-          <div v-else>
-            <v-btn @click="target=1, onNext(i)" width="100%">1</v-btn>
-            <v-btn @click="target=2, onNext(i)" width="100%">2</v-btn>
-            <v-btn @click="target=3, onNext(i)" width="100%">3</v-btn>
-            <v-btn @click="target=4, onNext(i)" width="100%">4</v-btn>
-            <v-btn @click="target=5, onNext(i)" width="100%">5</v-btn>
+          <div
+            v-else
+            v-for="(choice, c) in item.choices"
+            :key="c"
+          >
+            <v-btn v-if="item.name==priority" @click="priority=choice.value, survey += 1" width="100%">{{ choice.text }}</v-btn>
+            <v-btn v-else @click="target=choice.value, onNext(i)" width="100%">{{ choice.text }}</v-btn>
           </div>
           
         </v-stepper-content>
@@ -57,53 +58,90 @@ export default {
       dialog: true,
       survey: 0,
       target: null,
-      answer: {
-        1: null,
-        2: null,
-        3: null,
-        4: null,
-        5: null,
-      },
-      items: [
-          "환영합니다. <br> cafe人 서비스는 <br> 성향테스트 결과에 따른 <br> 맞춤형 카페를 추천해드립니다. <br> 설문을 진행하시겠습니까?",
-          '맛 vs 위치',
-          '음료 vs 디저트',
-      ],
-      // survey : new Survey.Model(surveyJSON),
-      // $("#surveyContainer").Survey({
-      //   model: survey,
-      //   onComplete: sendDataToServer
-      // }),
+      answer: [0, 0, 0, 0, 0],
+      priority: "priority",
       surveyJSON : {
         "elements":[
           {
-            "type":"radiogroup",
+            "name":"question",
+            "title":"환영합니다. <br> cafe人 서비스는 <br> 성향테스트 결과에 따른 <br> 맞춤형 카페를 추천해드립니다. <br> 설문을 진행하시겠습니까?",
+          },
+          {
+            "name":"priority",
+            "title":"우선순위",
+            "choices": [
+              {
+                "value": 1,
+                "text":"맛"
+              },
+              {
+                "value": 2,
+                "text":"분위기"
+              },
+              {
+                "value": 3,
+                "text":"분위기"
+              },
+              {
+                "value": 4,
+                "text":"분위기"
+              },
+              {
+                "value": 5,
+                "text":"분위기"
+              },
+            ]
+          },
+          {
             "name":"question1",
             "title":"맛 vs 분위기",
             "choices":[
               {
-                "value":"item1",
+                "value": 1,
                 "text":"맛"
               },
               {
-                "value":"item2",
+                "value": 2,
                 "text":"분위기"
-              }
+              },
+              {
+                "value": 3,
+                "text":"분위기"
+              },
+              {
+                "value": 4,
+                "text":"분위기"
+              },
+              {
+                "value": 5,
+                "text":"분위기"
+              },
             ]
           },
           {
-            "type":"radiogroup",
             "name":"question2",
             "title":"커피  vs 디저트",
             "choices":[
               {
-                "value":"item1",
+                "value": 1,
                 "text":"커피"
               },
               {
-                "value":"item2",
+                "value": 2,
                 "text":"디저트"
-              }
+              },
+              {
+                "value": 3,
+                "text":"분위기"
+              },
+              {
+                "value": 4,
+                "text":"분위기"
+              },
+              {
+                "value": 5,
+                "text":"분위기"
+              },
             ]
           }
         ]
@@ -124,19 +162,50 @@ export default {
       this.surveySubmit(this.answer)
     },
     sendDataToServer(survey) {
-  //send Ajax request to your web server.
-    alert("The results are:" + JSON.stringify(survey.data))
+      //send Ajax request to your web server.
+      alert("The results are:" + JSON.stringify(survey.data))
     },
     onNext(i) {
-      this.answer[i] = this.target
-      if (i === this.items.length-1) {
-        this.surveySubmit(this.answer)
+
+      function getIndex(array, priority) {
+        return new Promise((resolve) => {
+          const maxNum = Math.max(...array)
+          let maxValue = null
+          for (let n = 0; n <= array.length; n ++ ) {
+            if (array[n] === maxNum) {
+              if (!maxValue) {
+                maxValue = n + 1
+              } else {
+                if (n === priority) {
+                  maxValue = n + 1
+                  resolve(maxValue)
+                } else {
+                  maxValue = n + 1
+                }
+              }
+            }
+          }
+          resolve(maxValue)
+        })
+      }
+
+      async function findValue (array, priority) {
+        const getValue = await getIndex(array, priority)
+        return getValue
+      }
+      
+      this.answer[this.target-1] += 1
+      if (i === this.surveyJSON.elements.length-1) {
+        findValue(this.answer, this.priority)
+          .then((res) => {
+            this.surveySubmit(res)
+          })
       } else {
         this.survey = i + 1
       }
     },
+    
   },
-  
 }
 </script>
 
