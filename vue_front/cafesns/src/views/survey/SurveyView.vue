@@ -79,11 +79,11 @@ export default {
             "choices":[
               {
                 "value": 1,
-                "text":"동네 사람들이 모여 바베큐 파티를 하고 있는 모습"
+                "text":"편안한 소파와 푹신한 침대"
               },
               {
                 "value": 2,
-                "text":"편안한 소파와 푹신한 침대"
+                "text":"동네 사람들이 모여 바베큐 파티를 하고 있는 모습"
               },
               {
                 "value": 3,
@@ -105,11 +105,11 @@ export default {
             "choices":[
               {
                 "value": 1,
-                "text":"핵인싸템"
+                "text":"꽃과 손편지"
               },
               {
                 "value": 2,
-                "text":"꽃과 손편지"
+                "text":"핵인싸템"
               },
               {
                 "value": 3,
@@ -157,11 +157,11 @@ export default {
             "choices":[
               {
                 "value": 1,
-                "text":"SNS를 켜서 #출근룩 검색 후 고대로 사러간다."
+                "text":"집에 있던 정장룩을 꺼내 정성스럽게 다려놓는다."
               },
               {
                 "value": 2,
-                "text":"집에 있던 정장룩을 꺼내 정성스럽게 다려놓는다."
+                "text":"SNS를 켜서 #출근룩 검색 후 고대로 사러간다."
               },
               {
                 "value": 3,
@@ -183,11 +183,11 @@ export default {
             "choices":[
               {
                 "value": 1,
-                "text":"저녁 1깡을 실천한다."
+                "text":"씻고 옷을 갈아입는다."
               },
               {
                 "value": 2,
-                "text":"씻고 옷을 갈아입는다."
+                "text":"저녁 1깡을 실천한다."
               },
               {
                 "value": 3,
@@ -209,11 +209,11 @@ export default {
             "choices": [
               {
                 "value": 1,
-                "text":"핵인싸"
+                "text":"커피"
               },
               {
                 "value": 2,
-                "text":"커피"
+                "text":"핵인싸"
               },
               {
                 "value": 3,
@@ -250,22 +250,12 @@ export default {
       function getIndex(array, priority) {
         return new Promise((resolve) => {
           const maxNum = Math.max(...array)
-          let maxValue = null
-          for (let n = 0; n <= array.length; n ++ ) {
-            if (array[n] === maxNum) {
-              if (!maxValue) {
-                maxValue = n + 1
-              } else {
-                if (n === priority) {
-                  maxValue = n + 1
-                  resolve(maxValue)
-                } else {
-                  maxValue = n + 1
-                }
-              }
-            }
+          if (array[priority-1] === maxNum) {
+            resolve(priority)
+          } else {
+            const maxValue = array.indexOf(maxNum) + 1
+            resolve(maxValue)
           }
-          resolve(maxValue)
         })
       }
 
@@ -274,13 +264,13 @@ export default {
         return getValue
       }
       
-      this.answer[this.target-1] += 1
       if (i === this.surveyJSON.elements.length-1) {
         findValue(this.answer, this.priority)
           .then((res) => {
             this.surveySubmit(res)
           })
       } else {
+        this.answer[this.target-1] += 1
         this.survey = i + 1
       }
     },

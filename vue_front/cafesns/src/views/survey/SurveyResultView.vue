@@ -8,12 +8,12 @@
       max-width="700"
     >
       <v-card>
-        <v-card-title v-if="this.surveyState === 1" class="headline"><img src="@/assets/result/hot.jpg" alt="" width="500"></v-card-title>
+        <v-card-title v-if="this.surveyState === 1" class="headline"><img src="@/assets/result/coffee.jpg" alt="" width="500"></v-card-title>
         <v-card-text v-if="this.surveyState === 1">
           Let Google help apps determine location. This means sending anonymous location data to Google, even when no apps are running.
         </v-card-text>
 
-        <v-card-title v-if="this.surveyState === 2" class="headline"><img src="@/assets/result/coffee.jpg" alt="" width="500"></v-card-title>
+        <v-card-title v-if="this.surveyState === 2" class="headline"><img src="@/assets/result/hot.jpg" alt="" width="500"></v-card-title>
         <v-card-text v-if="this.surveyState === 2">
           Let Google help apps determine location. This means sending anonymous location data to Google, even when no apps are running.
         </v-card-text>
