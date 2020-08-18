@@ -30,9 +30,9 @@ public class RecommendController {
 	@Autowired
 	private CafeService caService;
 
-	@ApiOperation(value = "좋아요 기반 추천 리스트(많은 순)-로그인")
+	@ApiOperation(value = "좋아요 기반 추천 리스트(많은 순)")
 	@GetMapping("/like/count/{uid}")
-	public List<CafeDto> recommendByLikeCountLogin(@PathVariable String uid) {
+	public List<CafeDto> recommendByLikeCount(@PathVariable String uid) {
 		List<Integer> myCafeList = service.selectCafeLiked(uid);// 내가 좋아요 누른 카페들
 		List<String> userList = new ArrayList<>();// 내가 좋아요 누른 카페들을 좋아요 누른 유저들
 		List<Integer> othersCafeList = new ArrayList<>();// 다른 유저들이 좋아요 누른 카페들
@@ -76,7 +76,7 @@ public class RecommendController {
 		return caService.selectAllByLikeCount();
 	}
 	
-	@ApiOperation(value = "스탬프 기반 추천 리스트(많은 순)-로그인")
+	@ApiOperation(value = "스탬프 기반 추천 리스트(많은 순)")
 	@GetMapping("/stamp/count/{uid}")
 	public List<CafeDto> recommendByStampCount(@PathVariable String uid) {
 		List<Integer> myCafeList = service.selectCafeStamped(uid);// 내가 좋아요 누른 카페들
@@ -161,6 +161,12 @@ public class RecommendController {
 		}
 	}
 
+	@ApiOperation(value = "좋아요 기반 추천 리스트(최근 순)-비로그인")
+	@GetMapping("/like/recent")
+	public List<CafeDto> recommendByLikeRecent() {
+		return caService.selectAllByLikeRecent();
+	}
+	
 	@ApiOperation(value = "스탬프 기반 추천 리스트(최근 순)")
 	@GetMapping("/stamp/recent/{uid}")
 	public List<CafeDto> recommendByStampRecent(@PathVariable String uid) {
@@ -200,4 +206,9 @@ public class RecommendController {
 		}
 	}
 
+	@ApiOperation(value = "스탬프 기반 추천 리스트(최근 순)-비로그인")
+	@GetMapping("/stamp/recent")
+	public List<CafeDto> recommendByStampRecent() {
+		return caService.selectAllByStampRecent();
+	}
 }

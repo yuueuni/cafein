@@ -42,6 +42,16 @@ public class CafeServiceImpl implements CafeService {
 	}
 	
 	@Override
+	public List<CafeDto> selectAllByLikeRecent() {
+		return dao.selectAllByLikeRecent();
+	}
+	
+	@Override
+	public List<CafeDto> selectAllByStampRecent() {
+		return dao.selectAllByStampRecent();
+	}
+	
+	@Override
 	public List<CafeDto> selectAllAll(GeoDto geo){
 		return dao.selectAllAll(geo);
 	}

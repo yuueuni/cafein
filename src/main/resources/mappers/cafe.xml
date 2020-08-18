@@ -30,6 +30,19 @@
 		limit 10
 	</select>
 	
+	<select id="selectAllByLikeRecent" resultType="CafeDto">
+		select *
+		from cafe
+		order by recent_like desc
+		limit 10
+	</select>
+	
+	<select id="selectAllByStampRecent" resultType="CafeDto">
+		select *
+		from cafe
+		order by recent_stamp desc
+		limit 10
+	</select>
 
 	<!-- distance 가 거리임 지금은 3km 로 되어있음 -->
 	<select id="selectAllAll" resultType="CafeDto">

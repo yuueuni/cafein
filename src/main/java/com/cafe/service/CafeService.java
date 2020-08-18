@@ -17,6 +17,10 @@ public interface CafeService {
 
 	public List<CafeDto> selectAllByStampCount();
 
+	public List<CafeDto> selectAllByLikeRecent();
+
+	public List<CafeDto> selectAllByStampRecent();
+	
 	public List<CafeDto> selectAllAll(GeoDto geo); // this is used for finding geo
 
 	public int insert(CafeDto cafe);
