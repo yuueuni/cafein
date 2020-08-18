@@ -82,8 +82,8 @@ public class CafeController {
 		return cafeList;
 	}
 	
-	@ApiOperation(value = "카페 전체 리스트")//infinite scroll
-	@GetMapping("/list/all")
+	//@ApiOperation(value = "카페 전체 리스트")//infinite scroll
+	//@GetMapping("/list/all")
 	public List<CafeDto> selectAll() {
 		List<CafeDto> cafeList = service.selectAll();
 		return cafeList;

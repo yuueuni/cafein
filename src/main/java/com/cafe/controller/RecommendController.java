@@ -73,17 +73,7 @@ public class RecommendController {
 	@ApiOperation(value = "좋아요 기반 추천 리스트(많은 순)-비로그인")
 	@GetMapping("/like/count")
 	public List<CafeDto> recommendByLikeCount() {
-		List<CafeDto> list = caService.selectAll();
-
-		Collections.sort(list, new Comparator<CafeDto>() {
-
-			@Override
-			public int compare(CafeDto o1, CafeDto o2) {
-				return -Integer.compare(o1.getLike_count(), o2.getLike_count());
-			}
-		});
-
-			return list.subList(0, 10);
+		return caService.selectAll();
 	}
 	
 	@ApiOperation(value = "스탬프 기반 추천 리스트(많은 순)")
