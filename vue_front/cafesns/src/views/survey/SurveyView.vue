@@ -21,20 +21,22 @@
             <v-btn text @click="survey = 1">next</v-btn>
           </div>
           <!-- answer -->
+          <!-- question1 && question2 && question4 && question5 -->
           <div
             v-else
             v-for="(choice, c) in item.choices"
             :key="c"
           >
-            <v-btn v-if="item.name==priority" text @click="priority=choice.value; onNext(i);">{{ choice.text }}</v-btn>
-            <v-btn text @click="target=choice.value; onNext(i);">{{ choice.text }}</v-btn>
-            <v-img
-              v-if="item.name == question3"
-              :src= choice.text
+            <v-btn v-if="item.name == priority" text @click="priority=choice.value; onNext(i);">{{ choice.text }}</v-btn>
+            <v-btn v-else-if="item.name !== 'question3' " text @click="target=choice.value; onNext(i);">{{ choice.text }}</v-btn>
+            <div v-if="item.name === 'question3'">
+              <v-img
+              :src="choice.text"
               height="170px"
               width="170px"
               @click="target=choice.value; onNext(i);"
             ></v-img>
+            </div>
           </div>
           <h1>{{ target }} {{ answer }}</h1>
         </v-stepper-content>
@@ -129,23 +131,23 @@ export default {
             "choices":[
               {
                 "value": 1,
-                "text": "@/assets/movies/para.jpg"
+                "text": require("@/assets/movies/para.jpg")
               },
               {
                 "value": 2,
-                "text": "@/assets/movies/classic.jpg"
+                "text": require("@/assets/movies/classic.jpg")
               },
               {
                 "value": 3,
-                "text": "@/assets/movies/charlie.jpg"
+                "text": require("@/assets/movies/charlie.jpg")
               },
               {
                 "value": 4,
-                "text": "@/assets/movies/avengers.jpg"
+                "text": require("@/assets/movies/avengers.jpg")
               },
               {
                 "value": 5,
-                "text": "@/assets/movies/random.jpg"
+                "text": require("@/assets/movies/now.jpg")
               },
             ]
           },
