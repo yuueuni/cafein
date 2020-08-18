@@ -144,10 +144,6 @@ public class JwtServiceImpl implements JwtService {
 		return true;
 	}
 
-	@Override
-	public String getKey(){
-		return AT_SECRET_KEY;
-	}
 	// @Override
 	// public int getUserId() {
 	// 	return (int)this.getUser("member").get("memberId");

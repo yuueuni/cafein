@@ -104,9 +104,9 @@ public class UserController {
 
 		TokenSet tokenSet = jwtService.createTokenSet(loginuser); // 토큰 발급 유저 정보 들어있
 
-		HttpHeaders responseHeaders = new HttpHeaders();
-		responseHeaders.set("access-token", tokenSet.getAccessToken());
-		responseHeaders.set("refresh-token", tokenSet.getRefreshToken());
+		// HttpHeaders responseHeaders = new HttpHeaders();
+		// responseHeaders.set("access-token", tokenSet.getAccessToken());
+		// responseHeaders.set("refresh-token", tokenSet.getRefreshToken());
 
 		// user의 refresh_token을 DB에 저장
 		loginuser.setRefreshToken(tokenSet.getRefreshToken());	
@@ -116,15 +116,14 @@ public class UserController {
 
 		//return new ResponseEntity<TokenSet>(tokenSet, HttpStatus.OK);
 		return ResponseEntity.ok().body(new ResponseMessage(null, tokenSet, true));
-
 	}
 
 	@PostMapping("/refreshAccessToken")
 	@ApiOperation(value = "refresh Token 확인", response = Integer.class)
 	public ResponseEntity refreshAccessToken(@RequestBody String token){
 		TokenSet tokenSet = jwtService.refreshAccessToken(token);
-		return tokenSet != null ? new ResponseEntity<String>(tokenSet.getAccessToken(), HttpStatus.OK)
-						: new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		return tokenSet != null ? ResponseEntity.ok().body(new ResponseMessage(null, tokenSet, true))
+				: new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 	}
 
 	// 회원가입
@@ -136,7 +135,8 @@ public class UserController {
 		UserDto haveUser = userservice.select(user.getId());
 		if (haveUser != null) {
 			System.out.println("아이디 중복");
-			return new ResponseEntity<String>("EXISTING_ID", HttpStatus.BAD_REQUEST);
+			return ResponseEntity.badRequest().body(new ResponseMessage("EXISTING_ID"));
+			//return new ResponseEntity<String>("EXISTING_ID", HttpStatus.BAD_REQUEST);
 		} else {
 			int result = userservice.join(user);
 			if (result == -1) { // 등록 안되면 System.out.println("중복 아이디");
@@ -146,11 +146,12 @@ public class UserController {
 		}
 
 		TokenSet tokenSet = jwtService.createTokenSet(user); // 토큰 발급 유저 정보 들어있음
-		String token = tokenSet.getAccessToken();
 
-		HttpHeaders responseHeaders = new HttpHeaders();
-		responseHeaders.set("Authorization", token);
-		return new ResponseEntity<String>(token, HttpStatus.OK); // 성공시 ,
+		user.setRefreshToken(tokenSet.getRefreshToken());	
+		int res = userservice.updateRefreshToken(user);
+		
+		if(res == -1) return new ResponseEntity<>(HttpStatus.BAD_REQUEST); // 400 에러
+		return ResponseEntity.ok().body(new ResponseMessage(null, tokenSet, true));
 	}
 
 	// 회원탈퇴

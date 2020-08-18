@@ -11,5 +11,4 @@ public interface JwtService {
 	UserDto getUser(String jwt, String secretKey);
 	//int getUserId();
 	boolean isValidToken(String jwt, String secretKey);
-	String getKey();
 }

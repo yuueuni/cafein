@@ -1,53 +1,58 @@
 package com.cafe.service.interceptor;
 
-import java.util.Enumeration;
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import org.springframework.web.servlet.HandlerInterceptor;
-
-import com.cafe.service.error.UnauthorizedException;
+import com.cafe.annotation.LoginRequired;
+import com.cafe.dto.TokenSet;
+import com.cafe.service.error.AuthenticationException;
 import com.cafe.service.jwt.JwtService;
 import com.cafe.service.jwt.JwtServiceImpl;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.web.method.HandlerMethod;
+import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+
 @Component
-public class JwtInterceptor implements HandlerInterceptor {
-	private static final String HEADER_AUTH = "Authorization";
-	
+public class JwtInterceptor extends HandlerInterceptorAdapter {
+	private static final String HEADER_ACCESS = "ACCES_TOKEN";
+	private static final String HEADER_REFRESH = "REFRESH_TOKEN";
+
 	@Autowired
 	private JwtService jwtService;
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		jwtService = new JwtServiceImpl();
-		System.out.println("interceptor");
-		final String token = request.getHeader(HEADER_AUTH);
-		System.out.println("요청방식 : "+  request.getMethod());
-		System.out.println("요청url :" + request.getRequestURI());
+		if (handler instanceof HandlerMethod){
+			HandlerMethod hm = (HandlerMethod) handler;
+			
+			jwtService = new JwtServiceImpl();
+			String accessToken = request.getHeader(HEADER_ACCESS);
+			final String refreshToken = request.getHeader(HEADER_REFRESH);
+	
+			// refreshToken이 없는 경우 새로 발급
+			if(refreshToken != null){
+				TokenSet tokenSet = jwtService.refreshAccessToken(refreshToken);
+				accessToken = tokenSet.getAccessToken();
+				response.addHeader(HEADER_ACCESS, accessToken);
+				response.addHeader(HEADER_REFRESH, refreshToken);
+			}
+
+			if (hm.hasMethodAnnotation(LoginRequired.class) && (accessToken == null || !jwtService.isValidToken(accessToken, JwtServiceImpl.AT_SECRET_KEY))){
+				throw new AuthenticationException("로그인되어있지 않습니다");
+			}
+		}
 		
-		System.out.println("token is   " + token);
-//		Enumeration headerNames = request.getHeaderNames();
-
-//		while(headerNames.hasMoreElements()) { 
-//			   String name = (String)headerNames.nextElement();
-//			   String value = request.getHeader(name);
-//			   System.out.println(name +"   "+ value);
-//			}
-//		return false;
-
-		if (request.getMethod().equals("OPTIONS")) {
-			return true;
-		}
-		 if(token != null && jwtService.isValidToken(token, jwtService.getKey())){
-			 return true; 
-		 }else{ 
-			 throw new UnauthorizedException(); 
-		}
-		 
+		// if (request.getMethod().equals("OPTIONS")) {
+		// 	return true;
+		// }
+		// if (token != null && jwtService.isValidToken(token, jwtService.getKey())) {
+		// 	return true;
+		// } else {
+		// 	throw new UnauthorizedException();
+		// }
+		return super.preHandle(request, response, handler);
 	}
 }
