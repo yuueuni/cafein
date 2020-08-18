@@ -32,17 +32,22 @@ public class JwtInterceptor extends HandlerInterceptorAdapter {
 			String accessToken = request.getHeader(HEADER_ACCESS);
 			final String refreshToken = request.getHeader(HEADER_REFRESH);
 	
-			// refreshToken이 없는 경우 새로 발급
+			// refreshToken이 있는 경우
+			// accessToken이 만료되어서 새로 재발급 해주어야 함
 			if(refreshToken != null){
 				TokenSet tokenSet = jwtService.refreshAccessToken(refreshToken);
-				accessToken = tokenSet.getAccessToken();
-				response.addHeader(HEADER_ACCESS, accessToken);
+				accessToken = tokenSet.getAccessToken();	// 재발급된 accessToken
+				response.addHeader(HEADER_ACCESS, accessToken);	// 응답 header로 새로 보내주기
 				response.addHeader(HEADER_REFRESH, refreshToken);
+				System.out.println("access token 재발급");
 			}
 
 			if (hm.hasMethodAnnotation(LoginRequired.class) && (accessToken == null || !jwtService.isValidToken(accessToken, JwtServiceImpl.AT_SECRET_KEY))){
 				throw new AuthenticationException("로그인되어있지 않습니다");
 			}
+			
+			// refreshToken의 만료 기간이 7일 이내라면 이것도 재발급 해주어야 함
+
 		}
 		
 		// if (request.getMethod().equals("OPTIONS")) {
