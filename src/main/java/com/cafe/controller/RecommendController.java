@@ -72,7 +72,7 @@ public class RecommendController {
 
 	@ApiOperation(value = "좋아요 기반 추천 리스트(많은 순)-비로그인")
 	@GetMapping("/like/count")
-	public List<CafeDto> recommendByLikeCount(@PathVariable String uid) {
+	public List<CafeDto> recommendByLikeCount() {
 		List<CafeDto> list = caService.selectAll();
 
 		Collections.sort(list, new Comparator<CafeDto>() {
