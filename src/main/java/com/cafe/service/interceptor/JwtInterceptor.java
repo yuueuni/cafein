@@ -26,7 +26,6 @@ public class JwtInterceptor extends HandlerInterceptorAdapter {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		
-		System.out.println("preHandle func");
 		if (handler instanceof HandlerMethod){
 			HandlerMethod hm = (HandlerMethod) handler;
 			
@@ -34,8 +33,9 @@ public class JwtInterceptor extends HandlerInterceptorAdapter {
 			String accessToken = request.getHeader(HEADER_ACCESS);
 			final String refreshToken = request.getHeader(HEADER_REFRESH);
 			
-			System.out.println(accessToken);
-			System.out.println(refreshToken);
+			System.out.println("in preHandle");
+			System.out.println("accessToken: " + accessToken);
+			System.out.println("refresh: " + refreshToken);
 
 			// refreshToken이 있는 경우
 			// accessToken이 만료되어서 새로 재발급 해주어야 함
@@ -47,8 +47,11 @@ public class JwtInterceptor extends HandlerInterceptorAdapter {
 				System.out.println("access token 재발급");
 			}
 
-			if (hm.hasMethodAnnotation(LoginRequired.class) && (accessToken == null || !jwtService.isValidToken(accessToken, JwtServiceImpl.AT_SECRET_KEY))){
-				throw new AuthenticationException("로그인되어있지 않습니다");
+			if (hm.hasMethodAnnotation(LoginRequired.class)){
+				System.out.println("login 필요");
+				if(accessToken == null || !jwtService.isValidToken(accessToken, JwtServiceImpl.AT_SECRET_KEY))){
+					throw new AuthenticationException("로그인되어있지 않습니다");
+				}
 			}
 		}
 		

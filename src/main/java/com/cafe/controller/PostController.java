@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.cafe.annotation.LoginRequired;
 import com.cafe.dto.CafeDto;
 import com.cafe.dto.PostDto;
 import com.cafe.service.CafeService;
@@ -124,6 +125,7 @@ public class PostController {
 	@CrossOrigin
 	@ApiOperation(value = "게시글 작성", authorizations = { @Authorization(value = "jwt_token") })
 	@PostMapping
+	@LoginRequired
 	public int insert(@RequestBody PostDto post) {
 		System.out.println("게시글 작성");
 	
@@ -138,6 +140,7 @@ public class PostController {
 
 	@ApiOperation(value = "게시글 수정", authorizations = { @Authorization(value = "jwt_token") })
 	@PutMapping
+	@LoginRequired
 	public String update(@RequestBody PostDto post) {
 		System.out.println("update");
 		System.out.println(post);
@@ -150,6 +153,7 @@ public class PostController {
 
 	@ApiOperation(value = "게시글 삭제", authorizations = { @Authorization(value = "jwt_token") })
 	@DeleteMapping("/delete/{pno}")
+	@LoginRequired
 	public String delete(@PathVariable Integer pno) {
 		System.out.println("delete");
 		int cnt = service.delete(pno);
