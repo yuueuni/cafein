@@ -5,7 +5,7 @@
       dark
       hide-on-scroll
     >
-      <v-toolbar-title><router-link to="/" class="link-text"><img src="@/assets/cafeIn_logo.png" alt="" width="120" my-1 ></router-link></v-toolbar-title>
+      <v-toolbar-title><router-link to="/" class="link-text"><img src="@/assets/cafeIn_logo.png" alt="logoImage" width="120" my-1 ></router-link></v-toolbar-title>
       <v-spacer></v-spacer>
       <router-link v-if="!isLoggedIn" to="/accounts/login" class="link-text"><span class="material-icons mx-3">login</span></router-link>
       <router-link v-if="!isLoggedIn" to="/accounts/signup" class="link-text"><span class="material-icons mx-3">group_add</span></router-link>
