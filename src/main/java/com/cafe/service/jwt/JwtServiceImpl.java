@@ -48,7 +48,6 @@ public class JwtServiceImpl implements JwtService {
 				.setHeaderParam("regDate", curTime)
 				.claim(DATA_KEY, user)
 				.signWith(SignatureAlgorithm.HS256, this.generateKey(RT_SECRET_KEY))
-				//.setSubject(subject)
 				.compact());
 
 		return tokenSet.accessToken(Jwts.builder()
@@ -59,7 +58,6 @@ public class JwtServiceImpl implements JwtService {
 				.setHeaderParam("regDate", curTime)
 				.claim(DATA_KEY, user)
 				.signWith(SignatureAlgorithm.HS256, this.generateKey(AT_SECRET_KEY))
-				//.setSubject(subject)
 				.compact());
 	}
 

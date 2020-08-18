@@ -1,19 +1,11 @@
 package com.cafe.controller;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.apache.tomcat.util.bcel.classfile.Constant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -34,7 +26,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.cafe.dao.UserDao;
-import com.cafe.dto.CafeDto;
 import com.cafe.dto.LoginUserDto;
 import com.cafe.dto.TokenSet;
 import com.cafe.dto.UserDto;
@@ -51,7 +42,6 @@ import io.swagger.annotations.ApiOperation;
 @RestController
 @RequestMapping("/api/user")
 public class UserController {
-
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 	private static final String OK = "SUCCESS";
 	private static final String FAIL = "FAIL";
@@ -92,11 +82,9 @@ public class UserController {
 			if (haveUser == null) {// 없는 아이디
 				System.out.println("없는 아이디");
 				return ResponseEntity.badRequest().body(new ResponseMessage("NO_ID"));
-				//return new ResponseEntity<String>("NO_ID", HttpStatus.BAD_REQUEST);
 			} else if (haveUser.getPassword() != pw) {// 틀린 비밀번호
 				System.out.println("틀린 비밀번호");
 				return ResponseEntity.badRequest().body(new ResponseMessage("WRONG_PW"));
-				//return new ResponseEntity<String>("WRONG_PW", HttpStatus.BAD_REQUEST);
 			}
 
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -104,17 +92,11 @@ public class UserController {
 
 		TokenSet tokenSet = jwtService.createTokenSet(loginuser); // 토큰 발급 유저 정보 들어있
 
-		// HttpHeaders responseHeaders = new HttpHeaders();
-		// responseHeaders.set("access-token", tokenSet.getAccessToken());
-		// responseHeaders.set("refresh-token", tokenSet.getRefreshToken());
-
 		// user의 refresh_token을 DB에 저장
 		loginuser.setRefreshToken(tokenSet.getRefreshToken());	
 		int res = userservice.updateRefreshToken(loginuser);
 		
 		if(res == -1) return new ResponseEntity<>(HttpStatus.BAD_REQUEST); // 400 에러
-
-		//return new ResponseEntity<TokenSet>(tokenSet, HttpStatus.OK);
 		return ResponseEntity.ok().body(new ResponseMessage(null, tokenSet, true));
 	}
 
@@ -136,7 +118,6 @@ public class UserController {
 		if (haveUser != null) {
 			System.out.println("아이디 중복");
 			return ResponseEntity.badRequest().body(new ResponseMessage("EXISTING_ID"));
-			//return new ResponseEntity<String>("EXISTING_ID", HttpStatus.BAD_REQUEST);
 		} else {
 			int result = userservice.join(user);
 			if (result == -1) { // 등록 안되면 System.out.println("중복 아이디");
