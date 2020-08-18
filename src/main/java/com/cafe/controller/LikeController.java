@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cafe.annotation.LoginRequired;
 import com.cafe.dto.CafeDto;
 import com.cafe.dto.LikeDto;
 import com.cafe.service.CafeService;
@@ -39,6 +40,7 @@ public class LikeController {
 
 	@ApiOperation(value = "이전에 좋아요 눌렀는지 체크(눌렀으면 1,안눌렀으면 0)", authorizations = { @Authorization(value = "jwt_token") })
 	@GetMapping("/check/{cafeno}/{uid}")
+	@LoginRequired
 	public int select(@PathVariable Integer cafeno, @PathVariable String uid) {
 		LikeDto like = new LikeDto();
 		like.setCafeno(cafeno);
@@ -49,6 +51,7 @@ public class LikeController {
 
 	@ApiOperation(value = "좋아요 추가", authorizations = { @Authorization(value = "jwt_token") })
 	@PostMapping
+	@LoginRequired
 	public String insert(@RequestBody LikeDto like) {
 		System.out.println("insert like");
 		if (service.insert(like) > 0) {
@@ -63,6 +66,7 @@ public class LikeController {
 
 	@ApiOperation(value = "좋아요 삭제", authorizations = { @Authorization(value = "jwt_token") })
 	@DeleteMapping("/delete/{cafeno}/{uid}")
+	@LoginRequired
 	public String delete(@PathVariable Integer cafeno, @PathVariable String uid) {
 		System.out.println("delete like");
 		LikeDto like = new LikeDto();

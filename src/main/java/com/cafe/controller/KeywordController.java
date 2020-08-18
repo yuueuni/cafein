@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cafe.annotation.LoginRequired;
 import com.cafe.dto.CafeDto;
 import com.cafe.dto.KeywordDto;
 import com.cafe.service.KeywordService;
@@ -43,6 +44,7 @@ public class KeywordController {
 	
 	@ApiOperation(value = "키워드 추가", authorizations = { @Authorization(value="jwt_token") })
 	@PostMapping
+	@LoginRequired
 	public String insert(@RequestBody KeywordDto keyword) {
 		System.out.println("insert keyword");
 		int cnt = service.insert(keyword);
@@ -55,6 +57,7 @@ public class KeywordController {
 	
 	@ApiOperation(value = "키워드 수정", authorizations = { @Authorization(value="jwt_token") })
 	@PutMapping
+	@LoginRequired
 	public String update(@RequestBody KeywordDto keyword) {
 		System.out.println("update keyword");
 		System.out.println(keyword);
@@ -67,6 +70,7 @@ public class KeywordController {
 	
 	@ApiOperation(value = "키워드 삭제", authorizations = { @Authorization(value="jwt_token") })
 	@DeleteMapping("/delete/{idx}")
+	@LoginRequired
 	public String delete(@PathVariable Integer idx) {
 		System.out.println("delete keyword");
 		int cnt = service.delete(idx);

@@ -16,7 +16,7 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 @Component
 public class JwtInterceptor extends HandlerInterceptorAdapter {
-	private static final String HEADER_ACCESS = "ACCES_TOKEN";
+	private static final String HEADER_ACCESS = "ACCESS_TOKEN";
 	private static final String HEADER_REFRESH = "REFRESH_TOKEN";
 
 	@Autowired
@@ -32,10 +32,6 @@ public class JwtInterceptor extends HandlerInterceptorAdapter {
 			jwtService = new JwtServiceImpl();
 			String accessToken = request.getHeader(HEADER_ACCESS);
 			final String refreshToken = request.getHeader(HEADER_REFRESH);
-			
-			System.out.println("in preHandle");
-			System.out.println("accessToken: " + accessToken);
-			System.out.println("refresh: " + refreshToken);
 
 			// refreshToken이 있는 경우
 			// accessToken이 만료되어서 새로 재발급 해주어야 함
@@ -44,11 +40,11 @@ public class JwtInterceptor extends HandlerInterceptorAdapter {
 				accessToken = tokenSet.getAccessToken();	// 재발급된 accessToken
 				response.addHeader(HEADER_ACCESS, accessToken);	// 응답 header로 새로 보내주기
 				response.addHeader(HEADER_REFRESH, refreshToken);
-				System.out.println("access token 재발급");
+				//System.out.println("access token 재발급");
 			}
 
 			if (hm.hasMethodAnnotation(LoginRequired.class)){
-				System.out.println("login 필요");
+				//System.out.println("login 필요");
 				if(accessToken == null || !jwtService.isValidToken(accessToken, JwtServiceImpl.AT_SECRET_KEY)){
 					throw new AuthenticationException("로그인되어있지 않습니다");
 				}

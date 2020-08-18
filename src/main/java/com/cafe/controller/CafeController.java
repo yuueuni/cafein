@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cafe.annotation.LoginRequired;
 import com.cafe.dto.CafeDto;
 import com.cafe.dto.GeoDto;
 import com.cafe.service.CafeService;
@@ -95,6 +96,7 @@ public class CafeController {
 
 	@ApiOperation(value = "카페 추가", authorizations = { @Authorization(value = "jwt_token") })
 	@PostMapping
+	@LoginRequired
 	public String insert(@RequestBody CafeDto cafe) {
 		int cnt = service.insert(cafe);
 		System.out.println(cafe);
@@ -106,6 +108,7 @@ public class CafeController {
 
 	@ApiOperation(value = "카페 수정", authorizations = { @Authorization(value = "jwt_token") })
 	@PutMapping
+	@LoginRequired
 	public String update(@RequestBody CafeDto cafe) {
 		System.out.println("update");
 		System.out.println(cafe);
@@ -118,6 +121,7 @@ public class CafeController {
 
 	@ApiOperation(value = "카페 삭제", authorizations = { @Authorization(value = "jwt_token") })
 	@DeleteMapping("/delete/{cafeno}")
+	@LoginRequired
 	public String delete(@PathVariable Integer cafeno) {
 		System.out.println("delete");
 		int cnt = service.delete(cafeno);
