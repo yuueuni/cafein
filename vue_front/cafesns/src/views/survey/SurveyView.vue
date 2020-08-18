@@ -21,20 +21,22 @@
             <v-btn text @click="survey = 1">next</v-btn>
           </div>
           <!-- answer -->
+          <!-- question1 && question2 && question4 && question5 -->
           <div
             v-else
             v-for="(choice, c) in item.choices"
             :key="c"
           >
-            <v-btn v-if="item.name==priority" text @click="priority=choice.value; onNext(i);">{{ choice.text }}</v-btn>
-            <v-btn v-else text @click="target=choice.value; onNext(i);">{{ choice.text }}</v-btn>
-             
-            <!-- <v-img
-          :src="'https://i3a203.p.ssafy.io:5000/api/cafe/get/image/'+cafe.cafeno"
-          height="170px"
-          width="170px"
-          @click="onSelectCafe(cafe.cafeno)"
-        > -->
+            <v-btn v-if="item.name == priority" text @click="priority=choice.value; onNext(i);">{{ choice.text }}</v-btn>
+            <v-btn v-else-if="item.name !== 'question3' " text @click="target=choice.value; onNext(i);">{{ choice.text }}</v-btn>
+            <div v-if="item.name === 'question3'">
+              <v-img
+              :src="choice.text"
+              height="170px"
+              width="170px"
+              @click="target=choice.value; onNext(i);"
+            ></v-img>
+            </div>
           </div>
           <h1>{{ target }} {{ answer }}</h1>
         </v-stepper-content>
@@ -129,23 +131,23 @@ export default {
             "choices":[
               {
                 "value": 1,
-                "text":"꽃과 손편지"
+                "text": require("@/assets/movies/para.jpg")
               },
               {
                 "value": 2,
-                "text": "@/assets/cafeIn_logo.png"
+                "text": require("@/assets/movies/classic.jpg")
               },
               {
                 "value": 3,
-                "text":"축하 케이크"
+                "text": require("@/assets/movies/charlie.jpg")
               },
               {
                 "value": 4,
-                "text":"직접만든 향수"
+                "text": require("@/assets/movies/avengers.jpg")
               },
               {
                 "value": 5,
-                "text":"카카오페이 송금"
+                "text": require("@/assets/movies/now.jpg")
               },
             ]
           },
