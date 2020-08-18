@@ -16,12 +16,20 @@
 		by cafeno asc
 	</select>
 
-	<select id="selectAll" resultType="CafeDto">
+	<select id="selectAllByLikeCount" resultType="CafeDto">
 		select *
 		from cafe
 		order by like_count desc
 		limit 10
 	</select>
+	
+	<select id="selectAllByStampCount" resultType="CafeDto">
+		select *
+		from cafe
+		order by stamp_count desc
+		limit 10
+	</select>
+	
 
 	<!-- distance 가 거리임 지금은 3km 로 되어있음 -->
 	<select id="selectAllAll" resultType="CafeDto">

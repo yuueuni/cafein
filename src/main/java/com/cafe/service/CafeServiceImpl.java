@@ -32,8 +32,13 @@ public class CafeServiceImpl implements CafeService {
 	}
 	
 	@Override
-	public List<CafeDto> selectAll() {
-		return dao.selectAll();
+	public List<CafeDto> selectAllByLikeCount() {
+		return dao.selectAllByLikeCount();
+	}
+	
+	@Override
+	public List<CafeDto> selectAllByStampCount() {
+		return dao.selectAllByStampCount();
 	}
 	
 	@Override
