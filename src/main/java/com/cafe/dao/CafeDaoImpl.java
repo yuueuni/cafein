@@ -45,6 +45,16 @@ public class CafeDaoImpl implements CafeDao {
 	}
 	
 	@Override
+	public List<CafeDto> selectAllByLikeRecent(){
+		return session.selectList("cafe.selectAllByLikeRecent");
+	}
+	
+	@Override
+	public List<CafeDto> selectAllByStampRecent(){
+		return session.selectList("cafe.selectAllByStampRecent");
+	}
+	
+	@Override
 	public List<CafeDto> selectAllAll(GeoDto geo){
 		return session.selectList("cafe.selectAllAll",geo);
 	}

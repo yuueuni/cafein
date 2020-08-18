@@ -83,15 +83,24 @@ public class CafeController {
 		return cafeList;
 	}
 	
-	//@ApiOperation(value = "카페 전체 리스트")//infinite scroll
-	//@GetMapping("/list/all")
-	public List<CafeDto> selectAllByLikeCount() {
+	
+	public List<CafeDto> selectAllByLikeCount() {//좋아요 많은순 카페리스트 가져오기
 		List<CafeDto> cafeList = service.selectAllByLikeCount();
 		return cafeList;
 	}
 	
-	public List<CafeDto> selectAllByStampCount() {
+	public List<CafeDto> selectAllByStampCount() {//스탬프 많은순 카페리스트 가져오기
 		List<CafeDto> cafeList = service.selectAllByStampCount();
+		return cafeList;
+	}
+	
+	public List<CafeDto> selectAllByLikeRecent() {//좋아요 많은순 카페리스트 가져오기
+		List<CafeDto> cafeList = service.selectAllByLikeRecent();
+		return cafeList;
+	}
+	
+	public List<CafeDto> selectAllByStampRecent() {//스탬프 많은순 카페리스트 가져오기
+		List<CafeDto> cafeList = service.selectAllByStampRecent();
 		return cafeList;
 	}
 	
