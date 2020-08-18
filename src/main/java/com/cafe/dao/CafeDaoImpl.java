@@ -29,11 +29,16 @@ public class CafeDaoImpl implements CafeDao {
 	}
 	
 	@Override
-	public List<CafeDto> selectAll(int page) {
+	public List<CafeDto> selectAllByPage(int page) {//infinite scroll
 		int n = 20; //한번에 보여줄 데이터 갯수
 		RowBounds bound = new RowBounds((page - 1) * n, n);
 		return session.selectList("cafe.selectAll", null, bound);
 	}
+	@Override
+	public List<CafeDto> selectAll(){
+		return session.selectList("cafe.selectAll");
+	}
+	
 	@Override
 	public List<CafeDto> selectAllAll(GeoDto geo){
 		return session.selectList("cafe.selectAllAll",geo);

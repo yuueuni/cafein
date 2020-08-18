@@ -27,8 +27,13 @@ public class CafeServiceImpl implements CafeService {
 	}
 
 	@Override
-	public List<CafeDto> selectAll(int page) {
-		return dao.selectAll(page);
+	public List<CafeDto> selectAllByPage(int page) {
+		return dao.selectAllByPage(page);
+	}
+	
+	@Override
+	public List<CafeDto> selectAll() {
+		return dao.selectAll();
 	}
 	
 	@Override
