@@ -595,7 +595,6 @@ export default new Vuex.Store({
       //   }
       commit('SET_SURVEY', result)
       router.push('/survey/result')
-
     },
 
     //recommend

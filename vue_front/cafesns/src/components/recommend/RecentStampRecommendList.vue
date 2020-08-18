@@ -5,7 +5,7 @@
     show-arrows
   >
     <div v-if="!recentStampRecommendList.length" class="mx-auto">
-      현재 방문한 카페가 없습니다.
+      현재 추천할 카페가 없습니다.
     </div>
     <v-slide-item
       v-for="cafe in recentStampRecommendList"
