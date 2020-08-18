@@ -75,11 +75,18 @@ public class CafeController {
 	}
 
 	
-	@ApiOperation(value = "카페 전체 리스트")
+	@ApiOperation(value = "카페 전체 리스트")//infinite scroll
 	@GetMapping("/list/{page}")
-	public List<CafeDto> selectAll(@PathVariable Integer page) {
+	public List<CafeDto> selectAllByPage(@PathVariable Integer page) {
 		System.out.println(page);
-		List<CafeDto> cafeList = service.selectAll(page);
+		List<CafeDto> cafeList = service.selectAllByPage(page);
+		return cafeList;
+	}
+	
+	@ApiOperation(value = "카페 전체 리스트")//infinite scroll
+	@GetMapping("/list/all")
+	public List<CafeDto> selectAll() {
+		List<CafeDto> cafeList = service.selectAll();
 		return cafeList;
 	}
 	
