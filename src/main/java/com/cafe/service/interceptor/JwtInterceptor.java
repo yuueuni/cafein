@@ -49,7 +49,7 @@ public class JwtInterceptor extends HandlerInterceptorAdapter {
 
 			if (hm.hasMethodAnnotation(LoginRequired.class)){
 				System.out.println("login 필요");
-				if(accessToken == null || !jwtService.isValidToken(accessToken, JwtServiceImpl.AT_SECRET_KEY))){
+				if(accessToken == null || !jwtService.isValidToken(accessToken, JwtServiceImpl.AT_SECRET_KEY)){
 					throw new AuthenticationException("로그인되어있지 않습니다");
 				}
 			}
