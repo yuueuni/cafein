@@ -1,7 +1,7 @@
 <template>
   <v-simple-table>
     <thead>
-      <tr>
+      <tr v-if="userSearchList.length">
         <th>E-mail</th>
       </tr>
     </thead>

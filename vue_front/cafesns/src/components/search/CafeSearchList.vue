@@ -1,7 +1,7 @@
 <template>
   <v-simple-table>
     <thead>
-      <tr>
+      <tr v-if="cafeSearchList.length">
         <th>Cafe Name</th>
         <th>Location</th>
       </tr>

@@ -22,7 +22,7 @@
         </div>
       </div>
       <div>
-          <i class="fas fa-shoe-prints fa-rotate-270 fa-3x" style="color: #90caf9"></i>
+        <i class="fas fa-shoe-prints fa-rotate-270 fa-3x" style="color: #90caf9"></i>
           <div class="home text-center">
             <StampList/>
           </div>

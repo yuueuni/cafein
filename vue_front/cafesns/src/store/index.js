@@ -49,8 +49,11 @@ export default new Vuex.Store({
 
     surveyState: {},
 
-    likeRecommendList: {},
-    stampRecommendList: {},
+    surveyRecommendList: {},
+    mostLikeRecommendList: {},
+    recentLikeRecommendList: {},
+    mostStampRecommendList: {},
+    recentStampRecommendList: {},
     
   },
   
@@ -134,11 +137,20 @@ export default new Vuex.Store({
     SET_USERSEARCHLIST(state, userList) {
       state.userSearchList = userList
     },
-    SET_LIKERECOMMENDLIST(state, likeRecommendList) {
-      state.likeRecommendList = likeRecommendList
+    SET_SURVEYRECOMMENDLIST(state, surveyRecommendList) {
+      state.surveyRecommendList = surveyRecommendList
     },
-    SET_STAMPRECOMMENDLIST(state, stampRecommendList) {
-      state.stampRecommendList = stampRecommendList
+    SET_MOSTLIKERECOMMENDLIST(state, mostLikeRecommendList) {
+      state.mostLikeRecommendList = mostLikeRecommendList
+    },
+    SET_RECENTLIKERECOMMENDLIST(state, recentLikeRecommendList) {
+      state.recentLikeRecommendList = recentLikeRecommendList
+    },
+    SET_MOSTSTAMPRECOMMENDLIST(state, mostStampRecommendList) {
+      state.mostStampRecommendList = mostStampRecommendList
+    },
+    SET_RECENTSTAMPRECOMMENDLIST(state, recentStampRecommendList) {
+      state.recentStampRecommendList = recentStampRecommendList
     },
     SET_SURVEY(state, survey) {
       state.surveyState = survey
@@ -587,21 +599,41 @@ export default new Vuex.Store({
     },
 
     //recommend
-    fetchLikeRecommendList({ state, getters }) {
+    fetchSurveyRecommendList({ state, getters, commit }) {
       const userid = state.userData.id
-      axios.get(SERVER.URL + SERVER.ROUTES.recommend + `like/${userid}`, getters.config)
-      .then(res => state.likeRecommendList = res.data)
+      axios.get(SERVER.URL + SERVER.ROUTES.recommend + `stamp/recent/${userid}`, getters.config)
+        .then(res => commit('SET_SURVEYRECOMMENDLIST', res.data))
         .catch(err => console.error(err.response.data))
     },
 
-    fetchStampRecommendList({ state, getters }) {
+    fetchMostLikeRecommendList({ state, getters, commit }) {
       const userid = state.userData.id
-      axios.get(SERVER.URL + SERVER.ROUTES.recommend + `stamp/${userid}`, getters.config)
-      .then(res => {
-        state.stampRecommendList = res.data
-      })
-      .catch(err => console.error(err.response.data))
-    }
+      axios.get(SERVER.URL + SERVER.ROUTES.recommend + `like/count/${userid}`, getters.config)
+        .then(res => commit('SET_MOSTLIKERECOMMENDLIST', res.data))
+        .catch(err => console.error(err.response.data))
+    },
+
+    fetchRecentLikeRecommendList({ state, getters, commit }) {
+      const userid = state.userData.id
+      axios.get(SERVER.URL + SERVER.ROUTES.recommend + `like/recent/${userid}`, getters.config)
+        .then(res => commit('SET_RECENTLIKERECOMMENDLIST', res.data))
+        .catch(err => console.error(err.response.data))
+    },
+
+    fetchMostStampRecommendList({ state, getters, commit }) {
+      const userid = state.userData.id
+      axios.get(SERVER.URL + SERVER.ROUTES.recommend + `stamp/count/${userid}`, getters.config)
+        .then(res => commit('SET_MOSTSTAMPRECOMMENDLIST', res.data))
+        .catch(err => console.error(err.response.data))
+    },
+
+    fetchRecentStampRecommendList({ state, getters, commit }) {
+      const userid = state.userData.id
+      axios.get(SERVER.URL + SERVER.ROUTES.recommend + `stamp/recent/${userid}`, getters.config)
+        .then(res => commit('SET_RECENTSTAMPRECOMMENDLIST', res.data))
+        .catch(err => console.error(err.response.data))
+    },
+
   },
 
   modules: {

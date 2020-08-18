@@ -10,7 +10,7 @@
     <v-card ref="form" color="#2c001e" dark class="pb-3">
       <v-list-item color="#2c001e" dark>
         <v-list-item-content>
-          <v-list-ites-title class="headline">이제 더 이상의 <br> 카페 고민은 No!</v-list-ites-title>
+          <v-list-ites-title class="headline">이제부터 카페 고민은 <br> 저희가 할께요!</v-list-ites-title>
         </v-list-item-content>
         <v-list-item-avatar>
           <v-btn icon dark @click="$router.go(-1)">
