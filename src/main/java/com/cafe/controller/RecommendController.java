@@ -73,10 +73,10 @@ public class RecommendController {
 	@ApiOperation(value = "좋아요 기반 추천 리스트(많은 순)-비로그인")
 	@GetMapping("/like/count")
 	public List<CafeDto> recommendByLikeCount() {
-		return caService.selectAll();
+		return caService.selectAllByLikeCount();
 	}
 	
-	@ApiOperation(value = "스탬프 기반 추천 리스트(많은 순)")
+	@ApiOperation(value = "스탬프 기반 추천 리스트(많은 순)-로그인")
 	@GetMapping("/stamp/count/{uid}")
 	public List<CafeDto> recommendByStampCount(@PathVariable String uid) {
 		List<Integer> myCafeList = service.selectCafeStamped(uid);// 내가 좋아요 누른 카페들
@@ -113,6 +113,12 @@ public class RecommendController {
 		} else {
 			return recommendList;
 		}
+	}
+	
+	@ApiOperation(value = "스탬프 기반 추천 리스트(많은 순)-비로그인")
+	@GetMapping("/stamp/count")
+	public List<CafeDto> recommendByStampCount() {
+		return caService.selectAllByStampCount();
 	}
 	
 	@ApiOperation(value = "좋아요 기반 추천 리스트(최근 순)")

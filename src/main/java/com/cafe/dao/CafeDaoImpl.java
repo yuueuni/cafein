@@ -35,8 +35,13 @@ public class CafeDaoImpl implements CafeDao {
 		return session.selectList("cafe.selectAllByPage", null, bound);
 	}
 	@Override
-	public List<CafeDto> selectAll(){
-		return session.selectList("cafe.selectAll");
+	public List<CafeDto> selectAllByLikeCount(){
+		return session.selectList("cafe.selectAllByLikeCount");
+	}
+	
+	@Override
+	public List<CafeDto> selectAllByStampCount(){
+		return session.selectList("cafe.selectAllByStampCount");
 	}
 	
 	@Override

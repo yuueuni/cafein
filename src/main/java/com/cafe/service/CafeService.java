@@ -13,7 +13,9 @@ public interface CafeService {
 
 	public List<CafeDto> selectAllByPage(int page);// infinite scroll
 
-	public List<CafeDto> selectAll();
+	public List<CafeDto> selectAllByLikeCount();
+
+	public List<CafeDto> selectAllByStampCount();
 
 	public List<CafeDto> selectAllAll(GeoDto geo); // this is used for finding geo
 
