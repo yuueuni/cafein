@@ -150,7 +150,7 @@ export default new Vuex.Store({
     authData({ state, commit }, info) {
       axios.post(SERVER.URL + info.location, info.data)
         .then(res => {
-          commit('SET_TOKEN', res.data)
+          commit('SET_TOKEN', res.data.data.accessToken)
           state.currentUser = info.data.id
           router.go(-1)
         })
@@ -269,7 +269,6 @@ export default new Vuex.Store({
           axios.post(SERVER.URL + SERVER.ROUTES.uploadImage, postData.formData)
             .then((res) => {
               const msg = res.data
-              console.log(msg)
               if (msg === 'NOT_IMAGE_FILE') {
                 alert('이미지 파일(jpg, jpeg, png)만 업로드 가능합니다.')
               } else if (postData.selectedPost) {
@@ -290,7 +289,7 @@ export default new Vuex.Store({
     },
     
     // comment
-    createComment({ state, getters,dispatch }, commentData) {
+    createComment({ state, getters, dispatch }, commentData) {
       commentData.uid = state.currentUser
       axios.post(SERVER.URL + SERVER.ROUTES.createComment, commentData, getters.config)
         .then(() => {
@@ -300,8 +299,10 @@ export default new Vuex.Store({
         .catch(err => console.log(err))
     },
     fetchCommentList({ commit }, postno) {
-      axios.get(SERVER.URL + SERVER.ROUTES.commentList+postno)
-        .then(res => commit('SET_COMMENTLIST', res.data))
+      axios.get(SERVER.URL + SERVER.ROUTES.commentList + postno)
+        .then(res => {
+          commit('SET_COMMENTLIST', res.data)
+        })
         .catch(err => console.error(err))
     },
     deleteComment({ state, getters, dispatch }, commentId) {
@@ -322,7 +323,6 @@ export default new Vuex.Store({
 
     aboutLike({ state, getters }, cafeno) {
       return new Promise((resolve, reject) => {
-        console.log('aboutlikecheck1', state.likeState)
         if (!getters.isLoggedIn) {
           return null
         } else {
@@ -352,14 +352,12 @@ export default new Vuex.Store({
               }
               axios.post(SERVER.URL + SERVER.ROUTES.like, likeData, getters.config)
                 .then(() => {
-                  console.log("like")
                   dispatch('fetchLikeList')
                 })
                 .catch(err => console.log(err))
             } else {
               axios.delete(SERVER.URL + SERVER.ROUTES.like + `/delete/${cafeno}/${userid}`, getters.config)
                 .then(() => {
-                  console.log("unlike")
                   dispatch('fetchLikeList')
                 })
                 .catch(err => console.log(err))
@@ -412,14 +410,12 @@ export default new Vuex.Store({
               }
               axios.post(SERVER.URL + SERVER.ROUTES.stamp, stampData, getters.config)
                 .then(() => {
-                  console.log("stamp")
                   dispatch('fetchStampList')
                 })
                 .catch(err => console.log(err))
             } else {
               axios.delete(SERVER.URL + SERVER.ROUTES.stamp + `/delete/${cafeno}/${userid}`, getters.config)
                 .then(() => {
-                  console.log("unstamp")
                   dispatch('fetchStampList')
                 })
                 .catch(err => console.log(err))
@@ -572,18 +568,22 @@ export default new Vuex.Store({
       }
     },
 
-    surveySubmit({ state, commit, getters }, result ) {
-      if (!getters.isLoggedIn) {
-        axios.post(SERVER.URL + SERVER.ROUTES.surveyResult, result)
-         .then(res => {
-           commit('SET_SURVEY', res.data)
-          })
-      } else {
-        axios.post(SERVER.URL + SERVER.ROUTES.surveyResult, result, getters.config)
-        .then(res => {
-          commit('SET_SURVEY', result)
-        })
-      }
+    surveySubmit({ commit }, result ) {
+    // surveySubmit({ commit, getters }, result ) {
+      // if (!getters.isLoggedIn) {
+      //   axios.post(SERVER.URL + SERVER.ROUTES.surveyResult, result)
+      //    .then(res => {
+      //      commit('SET_SURVEY', res.data)
+      //     })
+      //   } else {
+      //     axios.post(SERVER.URL + SERVER.ROUTES.surveyResult, result, getters.config)
+      //     .then(res => {
+      //       commit('SET_SURVEY', res.data)
+      //     })
+      //   }
+      commit('SET_SURVEY', result)
+      router.push('/survey/result')
+
     },
 
     //recommend
@@ -598,7 +598,6 @@ export default new Vuex.Store({
       const userid = state.userData.id
       axios.get(SERVER.URL + SERVER.ROUTES.recommend + `stamp/${userid}`, getters.config)
       .then(res => {
-        console.log(res)
         state.stampRecommendList = res.data
       })
       .catch(err => console.error(err.response.data))
