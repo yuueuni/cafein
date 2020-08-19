@@ -40,6 +40,7 @@ public class JwtInterceptor extends HandlerInterceptorAdapter {
 				accessToken = tokenSet.getAccessToken();	// 재발급된 accessToken
 				response.addHeader(HEADER_ACCESS, accessToken);	// 응답 header로 새로 보내주기
 				response.addHeader(HEADER_REFRESH, refreshToken);
+				System.out.println(accessToken);
 				System.out.println("access token 재발급");
 			}
 
