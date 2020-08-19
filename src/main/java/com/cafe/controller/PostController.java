@@ -9,6 +9,7 @@ import org.apache.commons.io.IOUtils;
 import org.apache.ibatis.annotations.Options;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.cafe.annotation.LoginRequired;
 import com.cafe.dto.CafeDto;
 import com.cafe.dto.PostDto;
+import com.cafe.response.ResponseMessage;
 import com.cafe.service.CafeService;
 import com.cafe.service.FileUploadService;
 import com.cafe.service.PostService;
@@ -126,16 +128,18 @@ public class PostController {
 	@ApiOperation(value = "게시글 작성", authorizations = { @Authorization(value = "jwt_token") })
 	@PostMapping
 	@LoginRequired
-	public int insert(@RequestBody PostDto post) {
+	public ResponseEntity<ResponseMessage> insert(@RequestBody PostDto post) {
 		System.out.println("게시글 작성");
 	
 		int cnt = service.insert(post);
 		System.out.println(post);
 		System.out.println("+++++++++++++++++++++++ "+cnt);
 		if (cnt > 0) {
-			return post.getPno();
+			//return post.getPno();
+			return ResponseEntity.ok().body(new ResponseMessage(post.getPno()));
 		}
-		return -1;
+		//return -1;
+		return ResponseEntity.badRequest().body(new ResponseMessage(false));
 	}
 
 	@ApiOperation(value = "게시글 수정", authorizations = { @Authorization(value = "jwt_token") })
