@@ -4,6 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.annotation.Bean;
+
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
@@ -18,7 +19,6 @@ public class CafesnsApplication extends SpringBootServletInitializer{
 		SpringApplication.run(CafesnsApplication.class, args);
 	}
 
-	
 	@Bean
     public ServletWebServerFactory serveltContainer(){
         TomcatServletWebServerFactory tomcat = new TomcatServletWebServerFactory();

@@ -18,7 +18,7 @@ import com.cafe.service.jwt.JwtServiceImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-@WebFilter(urlPatterns = {})
+@WebFilter(urlPatterns = {"*"})
 public class AllowFilterChecker implements Filter{
     private static final String HEADER_ACCESS = "ACCESS_TOKEN";
 	private static final String HEADER_REFRESH = "REFRESH_TOKEN";
