@@ -32,13 +32,13 @@ public class RecommendController {
 	private CafeService caService;
 
 	@ApiOperation(value = "서베이 결과 추천 카페 3개 보여주기")
-	@GetMapping("/survey/result/{type}")
+	@GetMapping("/survey/{type}")
 	public List<CafeDto> recommendByType(@PathVariable String type) {
 		return service.recommendByType(type);
 	}
 	
 	@ApiOperation(value = "서베이 타입별 추천 카페 리스트 보여주기")
-	@GetMapping("/survey/{type}")
+	@GetMapping("/survey/list/{type}/{page}")
 	public List<CafeDto> recommendAllByType(@PathVariable String type,@PathVariable Integer page) {
 		return service.recommendAllByType(type,page);
 	}
