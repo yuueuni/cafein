@@ -36,14 +36,12 @@ public class JwtInterceptor extends HandlerInterceptorAdapter {
 			// refreshToken이 있는 경우
 			// accessToken이 만료되어서 새로 재발급 해주어야 함
 			if(refreshToken != null){
-				System.out.println("requestURL" + request.getRequestURL());
-				System.out.println("refreshToken" + refreshToken);
 				TokenSet tokenSet = jwtService.refreshAccessToken(refreshToken);
 				accessToken = tokenSet.getAccessToken();	// 재발급된 accessToken
 				//response.addHeader(HEADER_ACCESS, accessToken);	// 응답 header로 새로 보내주기
 				//response.addHeader(HEADER_REFRESH, refreshToken);
-				response.setHeader(HEADER_ACCESS, accessToken);
-				response.setHeader(HEADER_REFRESH, refreshToken);
+				//response.setHeader(HEADER_ACCESS, accessToken);
+				//response.setHeader(HEADER_REFRESH, refreshToken);
 				System.out.println(accessToken);
 				System.out.println("access token 재발급");
 			}
