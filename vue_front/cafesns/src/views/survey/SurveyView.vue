@@ -4,7 +4,7 @@
       v-model="dialog"
       transition="dialog-bottom-transition"
       persistent
-      width="600px"
+      width="700px"
       overlay-color="#2c001e"
       overlay-opacity="0"
       class="py-4"
@@ -16,7 +16,7 @@
           :key="i"
           :step="i"
         >
-          <p v-html="item.title"></p>
+          <h3 v-html="item.title"></h3><br>
           <div v-if="i == 0">
             <v-btn text @click="survey = 1">next</v-btn>
           </div>
@@ -26,16 +26,26 @@
             v-else
             v-for="(choice, c) in item.choices"
             :key="c"
+            class="d-inline-block"
           >
-            <v-btn v-if="item.name == priority" text @click="priority=choice.value; onNext(i);">{{ choice.text }}</v-btn>
-            <v-btn v-else-if="item.name !== 'question3' " text @click="target=choice.value; onNext(i);">{{ choice.text }}</v-btn>
-            <div v-if="item.name === 'question3'">
+            <div v-if="item.name === 'question3'" class="ma-2">
               <v-img
-              :src="choice.text"
-              height="170px"
-              width="170px"
-              @click="target=choice.value; onNext(i);"
-            ></v-img>
+                outlined
+                :src="choice.text"
+                width="170px"
+                @click="target=choice.value; onNext(i);"
+              ></v-img>
+            </div>
+            <div v-else-if="item.name === priority" class="ma-2">
+              <v-img
+                outlined
+                :src="choice.text"
+                width="170px"
+                @click="priority=choice.value; onNext(i);"
+              ></v-img>
+            </div>
+            <div v-else>
+              <v-btn text @click="target=choice.value; onNext(i);">{{ choice.text }}</v-btn>
             </div>
           </div>
           <h1>{{ target }} {{ answer }}</h1>
@@ -131,11 +141,11 @@ export default {
             "choices":[
               {
                 "value": 1,
-                "text": require("@/assets/movies/para.jpg")
+                "text": require("@/assets/movies/classic.jpg")
               },
               {
                 "value": 2,
-                "text": require("@/assets/movies/classic.jpg")
+                "text": require("@/assets/movies/para.jpg")
               },
               {
                 "value": 3,
@@ -209,23 +219,23 @@ export default {
             "choices": [
               {
                 "value": 1,
-                "text":"커피"
+                "text": require("@/assets/priority/hot.jpg")
               },
               {
                 "value": 2,
-                "text":"핵인싸"
+                "text":require("@/assets/priority/coffee.jpg")
               },
               {
                 "value": 3,
-                "text":"디저트"
+                "text":require("@/assets/priority/dessert.jpg")
               },
               {
                 "value": 4,
-                "text":"테마"
+                "text":require("@/assets/priority/theme.jpg")
               },
               {
                 "value": 5,
-                "text":"귀차니즘"
+                "text":require("@/assets/priority/random.jpg")
               },
             ]
           },

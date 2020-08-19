@@ -597,6 +597,12 @@ export default new Vuex.Store({
       commit('SET_SURVEY', result.toString())
       console.log(state.surveyState, typeof(state.surveyState))
       router.push('/survey/result')
+      // } else {
+      // axios.post(SERVER.URL + SERVER.ROUTES.surveyResult, result, getters.config)
+      //   .then(res => {
+      //     commit('SET_SURVEY', res.data)
+      //   })
+      // }
     },
 
     //recommend
