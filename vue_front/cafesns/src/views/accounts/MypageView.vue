@@ -1,14 +1,14 @@
 <template>
     <div>
         <v-row>
-          <v-row justify=left align=center class="ma-2">
+          <div class="d-flex justify-end align-center ma-2">
             <h1 class="px-3">{{ userData.id.split('@')[0] }}</h1>
             <v-btn v-if="profileUserId !== currentUser" @click="followUser(profileUserId)" small>
               <span v-if="!followState">Follow</span>
               <span v-else>Following</span>
             </v-btn>
-          </v-row>
-          <v-row align=center justify=center class="ma-2">
+          </div>
+          <v-row align="center" justify="end" class="ma-2">
             <FollowingList/>
             <FollowerList/>
             <UserPostList/>

@@ -59,7 +59,7 @@
 import { mapState, mapActions } from 'vuex'
 
 export default {
-  name: 'LoginView',
+  name: 'SurveyView',
   data() {
     return {
       dialog: true,
