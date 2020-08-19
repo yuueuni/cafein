@@ -18,7 +18,7 @@ import com.cafe.service.jwt.JwtServiceImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-@WebFilter(urlPatterns = {})
+@WebFilter(urlPatterns = {"*"})
 public class AllowFilterChecker implements Filter{
     private static final String HEADER_ACCESS = "ACCESS_TOKEN";
 	private static final String HEADER_REFRESH = "REFRESH_TOKEN";
@@ -47,9 +47,10 @@ public class AllowFilterChecker implements Filter{
             accessToken = tokenSet.getAccessToken();
             res.addHeader(HEADER_ACCESS, accessToken);
             res.addHeader(HEADER_REFRESH, refreshToken);
-            chain.doFilter(request, response);
+            res.addHeader("Access-Control-Allow-Origin", "*");
             System.out.println("in filter");
         }
+        chain.doFilter(request, response);
     }
 
 	@Override
