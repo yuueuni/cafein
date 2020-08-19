@@ -47,9 +47,9 @@ public class AllowFilterChecker implements Filter{
             accessToken = tokenSet.getAccessToken();
             res.addHeader(HEADER_ACCESS, accessToken);
             res.addHeader(HEADER_REFRESH, refreshToken);
-            chain.doFilter(request, response);
             System.out.println("in filter");
         }
+        chain.doFilter(request, response);
     }
 
 	@Override
