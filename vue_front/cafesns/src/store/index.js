@@ -64,7 +64,7 @@ export default new Vuex.Store({
     },
     config: state => ({
       headers: {
-        Authorization: `${state.authToken}`
+        ACCESS_TOKEN: `${state.authToken}`
       }
     }),
   },
@@ -580,20 +580,22 @@ export default new Vuex.Store({
       }
     },
 
-    surveySubmit({ commit }, result ) {
+    surveySubmit({ state, commit }, result ) {
     // surveySubmit({ commit, getters }, result ) {
+      // 결과 넘겨줄 때 문자열(string)으로 보내기
       // if (!getters.isLoggedIn) {
-      //   axios.post(SERVER.URL + SERVER.ROUTES.surveyResult, result)
+      //   axios.post(SERVER.URL + SERVER.ROUTES.surveyResult, result.toString())
       //    .then(res => {
       //      commit('SET_SURVEY', res.data)
       //     })
       //   } else {
-      //     axios.post(SERVER.URL + SERVER.ROUTES.surveyResult, result, getters.config)
+      //     axios.post(SERVER.URL + SERVER.ROUTES.surveyResult, result.toString(), getters.config)
       //     .then(res => {
       //       commit('SET_SURVEY', res.data)
       //     })
       //   }
-      commit('SET_SURVEY', result)
+      commit('SET_SURVEY', result.toString())
+      console.log(state.surveyState, typeof(state.surveyState))
       router.push('/survey/result')
     },
 
