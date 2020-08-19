@@ -23,7 +23,7 @@ public class HttpResponseAdvice implements ResponseBodyAdvice<Object>{
 	                              Class<? extends HttpMessageConverter<?>> selectedConverterType,
 	                              ServerHttpRequest request, ServerHttpResponse response) {
         System.out.println("beforeBodyWrite");
-		response.getHeaders().add("advice", "advice");
+        response.getHeaders().add("Server", "advice");
 		return body;
 	}
 }
