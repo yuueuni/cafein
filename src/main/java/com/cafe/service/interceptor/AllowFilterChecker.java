@@ -45,9 +45,10 @@ public class AllowFilterChecker implements Filter{
 
             TokenSet tokenSet = jwtService.refreshAccessToken(refreshToken);
             accessToken = tokenSet.getAccessToken();
-            res.addHeader(HEADER_ACCESS, accessToken);
-            res.addHeader(HEADER_REFRESH, refreshToken);
-            System.out.println("in filter");
+            res.setContentType("application/json");
+            res.setHeader(HEADER_ACCESS, accessToken);
+            res.setHeader(HEADER_REFRESH, refreshToken);
+            System.out.println(req.getRequestURL() + "in filter");
         }
         chain.doFilter(request, res);
     }
