@@ -75,7 +75,7 @@ public class RecommendController {
 	public List<CafeDto> recommendByLikeCount() {
 		return caService.selectAllByLikeCount();
 	}
-	
+
 	@ApiOperation(value = "스탬프 기반 추천 리스트(많은 순)")
 	@GetMapping("/stamp/count/{uid}")
 	public List<CafeDto> recommendByStampCount(@PathVariable String uid) {
@@ -114,13 +114,13 @@ public class RecommendController {
 			return recommendList;
 		}
 	}
-	
+
 	@ApiOperation(value = "스탬프 기반 추천 리스트(많은 순)-비로그인")
 	@GetMapping("/stamp/count")
 	public List<CafeDto> recommendByStampCount() {
 		return caService.selectAllByStampCount();
 	}
-	
+
 	@ApiOperation(value = "좋아요 기반 추천 리스트(최근 순)")
 	@GetMapping("/like/recent/{uid}")
 	public List<CafeDto> recommendByLikeRecent(@PathVariable String uid) {
@@ -166,7 +166,7 @@ public class RecommendController {
 	public List<CafeDto> recommendByLikeRecent() {
 		return caService.selectAllByLikeRecent();
 	}
-	
+
 	@ApiOperation(value = "스탬프 기반 추천 리스트(최근 순)")
 	@GetMapping("/stamp/recent/{uid}")
 	public List<CafeDto> recommendByStampRecent(@PathVariable String uid) {
@@ -210,5 +210,22 @@ public class RecommendController {
 	@GetMapping("/stamp/recent")
 	public List<CafeDto> recommendByStampRecent() {
 		return caService.selectAllByStampRecent();
+	}
+
+	@ApiOperation(value = "스탬프 기반 추천 리스트(많은 것중에 최근 순)")
+	@GetMapping("/stamp/count/recent")
+	public List<CafeDto> recommendByStampCountRecent() {
+		List<CafeDto> list = caService.selectAllByStampCount();
+
+		Collections.sort(list, new Comparator<CafeDto>() {
+
+			@Override
+			public int compare(CafeDto o1, CafeDto o2) {
+				return -Integer.compare(o1.getRecent_stamp(), o2.getRecent_stamp());
+			}
+		});
+
+		return list;
+
 	}
 }
