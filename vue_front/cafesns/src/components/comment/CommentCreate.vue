@@ -1,25 +1,22 @@
 <template>
-  <v-layout>
-    <v-flex>
-      <v-container>
-        <v-text-field
-          v-if="isLoggedIn"
-          label="Content" 
-          v-model="commentData.contents"
-          id="content"
-          clearable
-          @keypress.enter="checkBeforeCreateComment(commentData)"
-        >
-        <template v-slot:append-outer>
-          <v-btn
-            color="secondary"
-            @click="checkBeforeCreateComment(commentData)"
-          >등록</v-btn>
-        </template>
-        </v-text-field>
-        <v-text-field v-else label="Content" @click="toLoginPage()"></v-text-field>
-      </v-container>
-    </v-flex>
+  <v-layout class="px-2">
+    <v-text-field
+      v-if="isLoggedIn"
+      label="Content" 
+      v-model="commentData.contents"
+      id="content"
+      clearable
+      @keypress.enter="checkBeforeCreateComment(commentData)"
+    >
+    <template v-slot:append-outer>
+      <v-btn
+        small
+        color="secondary"
+        @click="checkBeforeCreateComment(commentData)"
+      >등록</v-btn>
+    </template>
+    </v-text-field>
+    <v-text-field v-else label="Content" @click="toLoginPage()"></v-text-field>
   </v-layout>
 </template>
 

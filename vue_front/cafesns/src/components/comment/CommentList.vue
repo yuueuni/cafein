@@ -1,26 +1,33 @@
 <template>
   <div>
-    <span>작성자 | 댓글 내용 | 작성시간</span>
+    <h4 v-if="!commentList.length" class="text-center">등록된 댓글이 없습니다.</h4>
     <v-dialog v-model="dialog" persistent max-width="290">
-      <template v-slot:activator="{ on, attrs }">
+      <template v-slot:activator="{ on }">
         <div
           v-for="comment in commentList"
           :key="comment.key"
+          class="px-2"
         >
-          <p>
-            <v-btn @click="onUserPage(comment.uid)" text>{{ comment.uid }}</v-btn> | {{ comment.contents }} | {{ comment.date }}
-            <v-btn
-              v-if="comment.uid === currentUser"
-              color="primary"
-              dark
-              v-bind="attrs"
-              v-on="on"
-              small
-              @click="selectComment = comment.cno"
-            >
-              삭제
-            </v-btn>
-          </p>
+          <div class="d-flex justify-space-between px-2">
+            <div>
+              <span class="userPage pl-1" style="font-size:small" @click="onUserPage(comment.uid)">{{ comment.uid }}</span>
+              <h2>{{ comment.contents }}</h2>
+            </div>
+            <div class="d-flex align-center">
+              <v-btn
+                v-if="comment.uid === currentUser"
+                color="error"
+                dark
+                v-on="on"
+                text
+                small
+                @click="selectComment = comment.cno"
+              >
+                삭제
+              </v-btn>
+              <span style="color:grey">{{ comment.date }}</span>
+            </div>
+          </div>
         </div>
       </template>
       <v-card>
@@ -70,6 +77,9 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+.userPage {
+  cursor: pointer;
+}
 
 </style>
