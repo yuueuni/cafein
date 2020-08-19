@@ -16,10 +16,8 @@
             >
             </v-img>
           </v-list-item-avatar>
-
           <v-list-item-content>
             <v-list-item-title>{{ post.contents }}</v-list-item-title>
-            
             <v-list-item-subtitle>{{ post.uid }}</v-list-item-subtitle>
           </v-list-item-content>
           <v-list-item-action>{{ post.date }}</v-list-item-action>

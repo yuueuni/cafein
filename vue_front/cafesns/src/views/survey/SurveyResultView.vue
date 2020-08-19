@@ -54,7 +54,7 @@
 import { mapState } from 'vuex'
 
 export default {
-  name: 'LoginView',
+  name: 'SurveyResultView',
   data () {
       return {
         dialog: false,
