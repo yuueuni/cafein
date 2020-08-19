@@ -3,11 +3,8 @@ package com.cafe.config;
 import com.cafe.interceptor.JwtInterceptor;
 import com.cafe.service.PostService;
 
-import org.springframework.aop.framework.ProxyFactoryBean;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -49,20 +46,8 @@ public class WebConfig implements WebMvcConfigurer{
 // 
 //    }
 	
-	 @Override
-   public void addCorsMappings(CorsRegistry registry) {
-       registry.addMapping("/**").allowedOrigins("*").allowedMethods("*").allowCredentials(false);
-   }
-
-   	@Autowired
-	private PostService postService;
-	   
-    @Bean
-    @Primary
-    public ProxyFactoryBean testProxyFactoryBean() {
-        ProxyFactoryBean testProxyFactoryBean = new ProxyFactoryBean();
-        testProxyFactoryBean.setTarget(postService);
-        testProxyFactoryBean.setInterceptorNames("AuthenticationAdvice");
-        return testProxyFactoryBean;
-    }
+	@Override
+	public void addCorsMappings(CorsRegistry registry) {
+		registry.addMapping("/**").allowedOrigins("*").allowedMethods("*").allowCredentials(false);
+	}
 }
