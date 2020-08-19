@@ -581,20 +581,15 @@ export default new Vuex.Store({
     },
 
     surveySubmit({ commit }, result ) {
-    // surveySubmit({ commit, getters }, result ) {
-      // if (!getters.isLoggedIn) {
-      //   axios.post(SERVER.URL + SERVER.ROUTES.surveyResult, result)
-      //    .then(res => {
-      //      commit('SET_SURVEY', res.data)
-      //     })
-      //   } else {
-      //     axios.post(SERVER.URL + SERVER.ROUTES.surveyResult, result, getters.config)
-      //     .then(res => {
-      //       commit('SET_SURVEY', res.data)
-      //     })
-      //   }
+      // axios.post(SERVER.URL + SERVER.ROUTES.surveyResult, result)
       commit('SET_SURVEY', result)
       router.push('/survey/result')
+      // } else {
+      // axios.post(SERVER.URL + SERVER.ROUTES.surveyResult, result, getters.config)
+      //   .then(res => {
+      //     commit('SET_SURVEY', res.data)
+      //   })
+      // }
     },
 
     //recommend
