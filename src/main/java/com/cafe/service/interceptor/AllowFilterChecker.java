@@ -47,10 +47,9 @@ public class AllowFilterChecker implements Filter{
             accessToken = tokenSet.getAccessToken();
             res.addHeader(HEADER_ACCESS, accessToken);
             res.addHeader(HEADER_REFRESH, refreshToken);
-            res.addHeader("Access-Control-Allow-Origin", "*");
             System.out.println("in filter");
         }
-        chain.doFilter(request, response);
+        chain.doFilter(request, res);
     }
 
 	@Override
