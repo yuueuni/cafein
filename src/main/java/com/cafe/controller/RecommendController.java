@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cafe.dto.CafeDto;
+import com.cafe.dto.UserDto;
 import com.cafe.service.CafeService;
 import com.cafe.service.RecommendService;
 
@@ -30,6 +31,32 @@ public class RecommendController {
 	@Autowired
 	private CafeService caService;
 
+	@ApiOperation(value = "서베이 결과 추천 카페 3개 보여주기")
+	@GetMapping("/survey/result/{type}")
+	public List<CafeDto> recommendByType(@PathVariable String type) {
+		return service.recommendByType(type);
+	}
+	
+	@ApiOperation(value = "서베이 타입별 추천 카페 리스트 보여주기")
+	@GetMapping("/survey/{type}")
+	public List<CafeDto> recommendAllByType(@PathVariable String type,@PathVariable Integer page) {
+		return service.recommendAllByType(type,page);
+	}
+	
+	@ApiOperation(value = "로그인 유저의 서베이 결과 저장")
+	@PutMapping("/survey/{type}/{uid}")
+	public String setUserType(@PathVariable String type, @PathVariable String uid) {
+		System.out.println("set user survey type");
+		UserDto user=new UserDto();
+		user.setId(uid);
+		user.setSurvey(type);
+		int cnt = service.setUserType(user);
+		if (cnt > 0) {
+			return "Success";
+		}
+		return "Failure";
+	}
+	
 	@ApiOperation(value = "좋아요 기반 추천 리스트(많은 순)")
 	@GetMapping("/like/count/{uid}")
 	public List<CafeDto> recommendByLikeCount(@PathVariable String uid) {
