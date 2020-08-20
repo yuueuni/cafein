@@ -14,7 +14,6 @@
 - 카페인처럼 한 번 빠지면 헤어나오지 못하는 중독성이 강한 서비스
 <br>
 
----
 
 ## 주요 기능
 ### 카페 정보 제공
@@ -56,7 +55,7 @@ mybatis
 konlpy, selenium, openpyxl, networkx, hanspell
 
 <br>
----
+
 
 <br>
 
@@ -95,7 +94,7 @@ ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/cafesns-sp
 
 </div>
 </details>
-   
+<br>
    
 2. Shell Script 작성
 <details>
@@ -113,6 +112,8 @@ docker build -t cafesns-springboot . && docker run --name spring -d -v /home/ubu
 
 </div>
 </details>
+<br>
+<br>
 
 ## Mysql Server 설치
 Mysql은 설정할게 많아서 docker-compose를 이용해서 작성해보았다
@@ -141,7 +142,7 @@ services: # 이 항목 밑에 실행하려는 컨테이너 들을 정의
 ```
 </div>
 </details>
-   
+<br>
    
 2. 실행
 docker로 서버를 올리고 외부에서 접속할 수 있도록 계정을 만들고 권한을 설정한다.
@@ -214,7 +215,6 @@ docker build -t ${image_name} . && docker run -d -it -p 80:80 -v /home/ubuntu/da
 <details>
 
 <br>
----
 <br>
 
 # <span style="color:orange; font-size:17pt; font-weight:bold"> Cafe人 서비스 </span>
@@ -231,7 +231,7 @@ docker build -t ${image_name} . && docker run -d -it -p 80:80 -v /home/ubuntu/da
 <br>
 
 카페 검색 결과
-----------
+---
 ![cafe search image](./img/search_cafe_info.png)
 <br>
 
@@ -240,7 +240,7 @@ Cafe 을 이용하는 다른 사용자를 검색할 수 있다.
 <br>
 
 유저 검색 결과
-----------
+---
 ![user search image](./img/search_user_info.png)
 <br>
 
@@ -259,7 +259,7 @@ Cafe 을 이용하는 다른 사용자를 검색할 수 있다.
 <br>
 
 포스트 보기
-----------
+---
 ![Poser Page image](./img/post_page.png)
 <br>
 
@@ -277,12 +277,12 @@ Cafe 을 이용하는 다른 사용자를 검색할 수 있다.
 <br>
 
 설문 시작
-----------
+---
 ![Survey main image](./img/survey_main.png)
 <br>
 
 설문 결과
-----------
+---
 ![Survey result image](./img/survey_result.png)
 <br>
 
@@ -303,7 +303,7 @@ Cafe 을 이용하는 다른 사용자를 검색할 수 있다.
 <br>
 
 근처 카페 추천
-----------
+---
 ![recommend based location image](./img/recommend_loc.png)
 <br>
 
@@ -313,7 +313,7 @@ Cafe 을 이용하는 다른 사용자를 검색할 수 있다.
 <br>
 
 좋아요한 카페
-----------
+---
 ![like cafe image](./img/like_cafe.png)
 <br>
 
@@ -322,7 +322,7 @@ Cafe 을 이용하는 다른 사용자를 검색할 수 있다.
 <br>
 
 다녀간 카페
-----------
+---
 ![stamp cafe image](./img/stamp_cafe.png)
 <br>
 
@@ -333,12 +333,12 @@ Cafe 을 이용하는 다른 사용자를 검색할 수 있다.
 <br>
 
 팔로잉
-----------
+---
 ![following image](./img/following.png)
 <br>
 
 팔로워
-----------
+---
 ![follower image](./img/follower.png)>
 <br>
 
