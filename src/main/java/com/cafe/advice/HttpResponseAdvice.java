@@ -26,11 +26,7 @@ public class HttpResponseAdvice implements ResponseBodyAdvice<Object>{
 	                              Class<? extends HttpMessageConverter<?>> selectedConverterType,
 	                              ServerHttpRequest request, ServerHttpResponse response) {
         System.out.println("beforeBodyWrite");
-		//response.getHeaders().add("Server", "advice");
-		//map.put("service", "test");
-		//response.getHeaders().setAll(map);
-		Map<String, String> map = (HashMap) body;
-		map.put("service", "test");
+		response.getHeaders().add("Server", "advice");
 		return body;
 	}
 }
