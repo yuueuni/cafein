@@ -5,6 +5,15 @@
     >
       <v-card-title>
         <h1>{{ selectedCafe.name }}</h1>
+        <v-spacer></v-spacer>
+        <router-link to="/post/create" class="text-decoration-none">
+          <v-btn
+            color="deep-purple lighten-2"
+            dark
+          >
+            new post
+          </v-btn>
+        </router-link>
       </v-card-title>
       <v-row>
         <v-col
@@ -19,8 +28,8 @@
           >
           </v-img>
           <v-row align="end"> 
-            <v-card-title v-if="cafeKeywords">cafe keywords</v-card-title>
-            <v-col class="text-end">
+
+            <v-col class="text-start ml-3">
               <!-- like -->
               <v-tooltip top>
                 <template v-slot:activator="{on}">
@@ -47,15 +56,6 @@
                </v-tooltip>
             </v-col>
           </v-row>
-          <v-chip 
-            v-for="keyword in cafeKeywords"
-            :key="keyword.keyno"
-            class="keyword ma-2"
-          >{{ keyword.keyword }}
-          </v-chip>
-          <v-chip v-if="!cafeKeywords.length">
-            coffee
-          </v-chip>
         </v-col>
 
         <v-col
@@ -68,50 +68,48 @@
           
 
             <v-card-title class="pt-0">cafe info</v-card-title>
-            <v-card-text>
+            <v-card-text class="pb-0">
               <p>tel) {{ selectedCafe.tel }}</p>
               <p>address) {{ selectedCafe.address }}</p>
             </v-card-text>
-
-
-        <v-card-title>cafe menu</v-card-title>
-        <v-card-text v-if="!cafeMenu.length">메뉴 준비 중 입니다.</v-card-text>
-        <v-card-text>
-          <v-row>
-            <v-col
-              cols="12"
-              sm="6"
-               class="py-0"
-              v-for="menu in cafeMenu"
-              :key="menu.id"
-            >
-              <v-row>
-                <v-col cols="9" class="py-0">
-                  <p class="text-justify mb-1">{{ menu.item }}</p>
-                </v-col>
-                <v-col cols="3" class="py-0">
-                  <p>{{ menu.price }}</p>
-                </v-col>
-              </v-row>
-            </v-col>
-          </v-row>
-        </v-card-text>
+            
+            <v-card-title v-if="cafeKeywords">cafe keywords</v-card-title>
+              <v-chip 
+                v-for="keyword in cafeKeywords"
+                :key="keyword.keyno"
+                class="keyword ma-2"
+              >{{ keyword.keyword }}
+              </v-chip>
+              <v-chip v-if="!cafeKeywords.length">
+                coffee
+              </v-chip>
 
         </v-col>
       </v-row>
 
-
-      <v-card-actions>
-        <v-spacer></v-spacer>
-        <router-link to="/post/create" class="text-decoration-none">
-          <v-btn
-            color="deep-purple lighten-2"
-            text
+      <v-card-title class="pt-0">cafe menu</v-card-title>
+      <v-card-text v-if="!cafeMenu.length">메뉴 준비 중 입니다.</v-card-text>
+      <v-card-text>
+        <v-row>
+          <v-col
+            cols="12"
+            sm="6"
+              class="py-0"
+            v-for="menu in cafeMenu"
+            :key="menu.id"
           >
-            new post
-          </v-btn>
-        </router-link>
-      </v-card-actions>
+            <v-row>
+              <v-col cols="9" class="py-0">
+                <p class="text-justify mb-1">{{ menu.item }}</p>
+              </v-col>
+              <v-col cols="3" class="py-0">
+                <p>{{ menu.price }}</p>
+              </v-col>
+            </v-row>
+          </v-col>
+        </v-row>
+      </v-card-text>
+
     </v-card>
     <PostList/>
   </div>

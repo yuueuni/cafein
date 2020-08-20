@@ -11,7 +11,7 @@
           <div class="d-flex justify-space-between px-2">
             <div>
               <span class="userPage pl-1" style="font-size:small" @click="onUserPage(comment.uid)">{{ comment.uid }}</span>
-              <h3>{{ comment.contents }}</h3>
+              <h4>{{ comment.contents }}</h4>
             </div>
             <div class="d-flex align-center">
               <v-btn
@@ -74,6 +74,10 @@ export default {
   created() {
     this.fetchCommentList(this.postId)
   },
+  mounted() {
+    this.fetchCommentList(this.postId)
+    
+  }
 }
 </script>
 

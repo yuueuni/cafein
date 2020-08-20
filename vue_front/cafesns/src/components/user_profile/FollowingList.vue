@@ -23,7 +23,7 @@
           <v-radio-group v-model="dialogm1" column>
             <v-row v-for="user in followingList" :key="user.id">
               <v-list rounded>
-                <v-list-item-group color="primary">
+                <v-list-item-group>
                   <v-list-item
                     @click="onMypage(user)"
                   >
