@@ -8,13 +8,13 @@
               <span v-else style="color: white">Following</span>
             </v-btn>
           </div>
-          <v-row align="center" justify="end" class="ma-2">
+          <v-row align="center" justify="end" class="mr-1">
             <FollowingList/>
             <FollowerList/>
             <UserPostList/>
           </v-row>
         </v-row>
-      <v-divider class="mb-3"></v-divider>
+      <v-divider class="my-3"></v-divider>
       <div>
         <i class="fas fa-heart fa-3x" style="color: #D9A9A9"></i>
         <div class="home text-center">
@@ -93,6 +93,10 @@ export default {
   },
 
   created() {
+    this.showUserProfile()
+    this.aboutFollow(this.$route.params.user_id)
+  },
+  mounted() {
     this.showUserProfile()
     this.aboutFollow(this.$route.params.user_id)
   },

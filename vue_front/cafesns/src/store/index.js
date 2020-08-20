@@ -44,6 +44,7 @@ export default new Vuex.Store({
     cafeKeywords: {},
     cafeMenu: {},
 
+    searchWord: null,
     cafeSearchList: {},
     userSearchList: {},
     keywordSearchList: {},
@@ -132,6 +133,9 @@ export default new Vuex.Store({
     },
     SET_IMAGEURL(state, imageURL) {
       state.uploadImageURL = imageURL
+    },
+    SET_SEARCHWORD(state, word) {
+      state.searchWord = word
     },
     SET_CAFESEARCHLIST(state, cafeList) {
       state.cafeSearchList = cafeList
@@ -558,7 +562,9 @@ export default new Vuex.Store({
         commit('SET_CAFESEARCHLIST', {})
         commit('SET_USERSEARCHLIST', {})
         commit('SET_KEYWORDSEARCHLIST', {})
+        commit('SET_SEARCHWORD', null)
       } else {
+        commit('SET_SEARCHWORD', word)
         axios.get(SERVER.URL + SERVER.ROUTES.cafeSearch + word)
           .then((res) => {
             commit('SET_CAFESEARCHLIST', res.data)

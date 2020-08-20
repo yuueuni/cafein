@@ -23,7 +23,7 @@
           <v-text-field 
             label="Username"
             v-model="loginData.id"
-            hint="* 이메일 형식으로 입력해주세요."
+            :rules="[rules.emailMatch]"
             persistent-hint
             id="username"
             autofocus
@@ -62,6 +62,17 @@ export default {
         loginData: {
           id:null,
           pw:null,
+        },
+        rules: {
+          emailMatch:  v => {
+            const pattern = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})/
+            if (pattern.test(v)) {
+              this.emailValid = true
+            } else {
+              this.emailValid = false
+              return '* 이메일 형식으로 입력해주세요.'
+            }
+          },
         },
       }
     },

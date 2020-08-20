@@ -74,6 +74,10 @@ export default {
   created() {
     this.fetchCommentList(this.postId)
   },
+  mounted() {
+    this.fetchCommentList(this.postId)
+    
+  }
 }
 </script>
 
