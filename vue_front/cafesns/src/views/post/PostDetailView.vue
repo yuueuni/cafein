@@ -18,14 +18,14 @@
               sm="6"
             >
 
-              <v-card-text class="text-center">
-                <v-card-title>
-                  <v-btn @click="onCafeDetail(selectedPost.cafeno)" class="ma-0 pa-0" text><h2>{{ selectedPost.cafename }}</h2></v-btn>
+              <v-card-text class="text-center pt-0 px-0">
+                <v-card-title class="pa-0">
+                  <v-btn @click="onMypage(selectedPost.uid)" class="ma-0 pa-0" text><h2>{{ selectedPost.uid }}</h2></v-btn>
                   <v-spacer></v-spacer>
-                  <v-btn @click="onMypage(selectedPost.uid)" class="ma-0 pa-0" text small>{{ selectedPost.uid }}</v-btn>
+                  <v-btn @click="onCafeDetail(selectedPost.cafeno)" class="ma-0 pa-0" text small>{{ selectedPost.cafename }}</v-btn>
                 </v-card-title>
                 
-                <v-divider class="mb-3"></v-divider>
+                <v-divider class="my-2"></v-divider>
 
                 <p class="my-3 text-start">{{ selectedPost.contents }}</p>
                 <v-row class="d-flex align-center justify-center">
@@ -74,9 +74,44 @@
 
 
           <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn v-if="selectedPost.uid === currentUser" @click="onUpdatePost(selectedPost.pno)" text color="primary">수정</v-btn>
-            <v-btn v-if="selectedPost.uid === currentUser" @click="deletePost(selectedPost.pno)" text color="secondary">삭제</v-btn>
+            <v-bottom-navigation
+              v-if="selectedPost.uid === currentUser"
+              style="background:transparent; box-shadow:none !important;"
+              class="d-flex justify-end"
+            >
+              <v-btn
+                color="deep-purple lighten-2"
+                text
+                @click="onUpdatePost(selectedPost.pno)"
+              >
+              <span>Edit</span>
+              <span class="material-icons mx-3">edit</span>
+              </v-btn>
+
+              <v-dialog v-model="dialog" persistent max-width="320">
+                <template v-slot:activator="{ on }">
+                  <v-btn
+                    v-on="on"
+                    color="deep-purple lighten-2"
+                    text
+                    @click="dialog = true"
+                  >
+                  <span>Delete</span>
+                  <span class="material-icons mx-3">delete</span>
+                  </v-btn>
+                </template>
+                  <v-card>
+                    <v-card-title>
+                      포스트를 삭제하시겠습니까?
+                    </v-card-title>
+                    <v-card-actions>
+                      <v-btn color="green darken-1" text @click="deletePost(selectedPost.pno), dialog = false">삭제</v-btn>
+                      <v-spacer></v-spacer>
+                      <v-btn color="grey darken-1" text @click="dialog = false">취소</v-btn>
+                    </v-card-actions>
+                  </v-card>
+              </v-dialog>
+            </v-bottom-navigation>
           </v-card-actions>
         </v-card>
       </v-col>
@@ -100,6 +135,7 @@ export default {
     return {
       postId: this.$route.params.post_id,
       postImage: null,
+      dialog: false,
     }
   },
   computed: {
@@ -133,6 +169,9 @@ export default {
   created() {
     this.postDetail(this.postId)
     this.postImage = "https://i3a203.p.ssafy.io:5000/api/post/get/image/"+this.postId+'/'+ new Date()
+  },
+  mounted() {
+    this.postDetail(this.postId)
   }
 }
 </script>
