@@ -1,12 +1,12 @@
 package com.cafe.advice;
 
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-
-import com.fasterxml.jackson.databind.util.JSONPObject;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.core.MethodParameter;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
@@ -29,12 +29,12 @@ public class HttpResponseAdvice implements ResponseBodyAdvice<Object>{
 	                              ServerHttpRequest request, ServerHttpResponse response) {
         System.out.println("beforeBodyWrite");
 		//response.getHeaders().add("Server", "advice");
-		try{
-			response.getBody().write("Server".getBytes(StandardCharsets.UTF_8));
-		}
-		catch(IOException e){
-			e.printStackTrace();
-		}
+		Map<String, String> map = new HashMap<>();
+		map.put("service", "test");
+
+
+		response.getHeaders().putAll(new ResponseEntity<>(map, HttpStatus.ACCEPTED).getHeaders());
+		
 		return body;
 	}
 }
