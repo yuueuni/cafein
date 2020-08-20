@@ -1,5 +1,10 @@
 package com.cafe.advice;
 
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+
+import com.fasterxml.jackson.databind.util.JSONPObject;
+
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -23,7 +28,13 @@ public class HttpResponseAdvice implements ResponseBodyAdvice<Object>{
 	                              Class<? extends HttpMessageConverter<?>> selectedConverterType,
 	                              ServerHttpRequest request, ServerHttpResponse response) {
         System.out.println("beforeBodyWrite");
-        response.getHeaders().add("Server", "advice");
+		//response.getHeaders().add("Server", "advice");
+		try{
+			response.getBody().write("Server".getBytes(StandardCharsets.UTF_8));
+		}
+		catch(IOException e){
+			e.printStackTrace();
+		}
 		return body;
 	}
 }
