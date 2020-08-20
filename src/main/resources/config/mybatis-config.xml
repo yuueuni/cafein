@@ -14,6 +14,8 @@
 		<mapper resource="mappers/stamp.xml" />
 		<mapper resource="mappers/follow.xml" />
 		<mapper resource="mappers/menu.xml" />
+		<mapper resource="mappers/keyword.xml" />
+		<mapper resource="mappers/recommend.xml" />
 		
 	</mappers>
 </configuration>

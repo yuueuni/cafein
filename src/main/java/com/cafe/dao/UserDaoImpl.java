@@ -15,43 +15,46 @@ import com.mysql.cj.Session;
 public class UserDaoImpl implements UserDao {
 
 	@Autowired
-	SqlSession ssesion;
+	SqlSession session;
 	
 	@Override
 	public List<String> search(String keyword) {
-		return ssesion.selectList("user.search", keyword);
+		return session.selectList("user.search", keyword);
 	}
 	
 	@Override
 	public int insert(UserDto user) {
-		return ssesion.insert("user.insert", user);
+		return session.insert("user.insert", user);
 	}
 
 	@Override
 	public int delete(String id) {
-		return ssesion.delete("user.delete", id);
+		return session.delete("user.delete", id);
 	}
 
 	@Override
 	public int update(UserDto user) {
-		return ssesion.update("user.update", user);
+		return session.update("user.update", user);
 	}
 
 	@Override
 	public UserDto select(String id) {
-		return ssesion.selectOne("user.select", id);
+		return session.selectOne("user.select", id);
 	}
 
 	@Override
 	public List<UserDto> selectAll() {
-		return ssesion.selectList("user.selectAll");
+		return session.selectList("user.selectAll");
 	}
 
 	@Override
 	public UserDto findpassword(UserDto user) {
-		return ssesion.selectOne("user.findpassword", user);
+		return session.selectOne("user.findpassword", user);
 	}
 
 	
-
+	@Override
+	public int updateRefreshToken(UserDto user){
+		return session.update("user.update_refreshToken", user);
+	}
 }

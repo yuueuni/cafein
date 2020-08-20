@@ -1,4 +1,7 @@
-package com.cafe.service.interceptor;
+package com.cafe.config;
+
+import com.cafe.interceptor.JwtInterceptor;
+import com.cafe.service.PostService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -43,10 +46,8 @@ public class WebConfig implements WebMvcConfigurer{
 // 
 //    }
 	
-	 @Override
-   public void addCorsMappings(CorsRegistry registry) {
-       registry.addMapping("/**").allowedOrigins("*").allowedMethods("*").allowCredentials(false);
-   }
-	 
-
+	@Override
+	public void addCorsMappings(CorsRegistry registry) {
+		registry.addMapping("/**").allowedOrigins("*").allowedMethods("*").allowCredentials(false);
+	}
 }

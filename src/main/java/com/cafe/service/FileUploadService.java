@@ -1,7 +1,9 @@
 package com.cafe.service;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.Calendar;
 
 import org.springframework.stereotype.Service;
@@ -22,10 +24,20 @@ public class FileUploadService {
 	
 	public String restore(MultipartFile multipartFile) {
 		
+//		if(checkImageType((File)multipartFile)==false) {
+//			return "NOT_IMAGE_FILE";
+//		}
+		String originFilename = multipartFile.getOriginalFilename();
+		System.out.println("file name: " + originFilename);
+		
+		if ( !(originFilename.toLowerCase().endsWith(".png") || originFilename.toLowerCase().endsWith(".jpg")
+			    || originFilename.toLowerCase().endsWith(".jpeg"))) {
+			return "NOT_IMAGE_FILE";
+		}
 		String saveFileName = null;
 		
 		try {
-			String originFilename = multipartFile.getOriginalFilename();
+			
 			System.out.println("file name: " + originFilename);
 			
 			String extName = originFilename.substring(originFilename.lastIndexOf("."), originFilename.length());
@@ -33,6 +45,7 @@ public class FileUploadService {
 			System.out.println("extension name: " + extName);
 			
 			Long size = multipartFile.getSize();
+			
 			System.out.println("size: " + size);
 			
 			saveFileName = genSaveFileName(extName);
@@ -49,37 +62,41 @@ public class FileUploadService {
 		}
 		
 		return saveFileName;
+		
 	}
-	public String restore(MultipartFile multipartFile, int pno) {
-		
-		String saveFileName = null;
-		
-		try {
-			String originFilename = multipartFile.getOriginalFilename();
-			System.out.println("file name: " + originFilename);
-			
-			String extName = originFilename.substring(originFilename.lastIndexOf("."), originFilename.length());
-			extName=extName.toLowerCase();
-			System.out.println("extension name: " + extName);
-			
-			Long size = multipartFile.getSize();
-			System.out.println("size: " + size);
-			
-			saveFileName = pno+"";
-			System.out.println("save name: " + saveFileName);
-			
-			System.out.println("RESULT: " + writeFile(multipartFile, saveFileName));
-		} 
-		catch(IOException e) 
-		{
-			throw new RuntimeException(e);
-		}
-		finally {
-			System.out.println("FIL");
-		}
-		
-		return saveFileName;
-	}
+//	public String restore(MultipartFile multipartFile, int pno) {
+//		
+//		if(checkImageType((File)multipartFile)==false) {
+//			return "NOT_IMAGE_FILE";
+//		}
+//		String saveFileName = null;
+//		
+//		try {
+//			String originFilename = multipartFile.getOriginalFilename();
+//			System.out.println("file name: " + originFilename);
+//			
+//			String extName = originFilename.substring(originFilename.lastIndexOf("."), originFilename.length());
+//			extName=extName.toLowerCase();
+//			System.out.println("extension name: " + extName);
+//			
+//			Long size = multipartFile.getSize();
+//			System.out.println("size: " + size);
+//			
+//			saveFileName = pno+"";
+//			System.out.println("save name: " + saveFileName);
+//			
+//			System.out.println("RESULT: " + writeFile(multipartFile, saveFileName));
+//		} 
+//		catch(IOException e) 
+//		{
+//			throw new RuntimeException(e);
+//		}
+//		finally {
+//			System.out.println("FIL");
+//		}
+//		
+//		return saveFileName;
+//	}
 	
 	private String genSaveFileName(String extName) {
 		
@@ -109,4 +126,12 @@ public class FileUploadService {
 		
 		return result;
 	}
+	
+	/*
+	 * //이미지 파일 판단하는 메서드 private boolean checkImageType(File file) { try { String
+	 * contentType = Files.probeContentType(file.toPath());
+	 * 
+	 * return contentType.startsWith("image"); }catch(IOException e) {
+	 * e.printStackTrace(); } return false; }
+	 */
 }

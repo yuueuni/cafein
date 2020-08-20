@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cafe.annotation.LoginRequired;
 import com.cafe.dto.MenuDto;
 import com.cafe.dto.PostDto;
 import com.cafe.service.MenuService;
@@ -36,6 +37,7 @@ public class MenuController {
 	
 	@ApiOperation(value = "메뉴 추가", authorizations = { @Authorization(value="jwt_token") })
 	@PostMapping
+	@LoginRequired
 	public String insert(@RequestBody MenuDto menu) {
 		System.out.println("insert");
 		int cnt = service.insert(menu);
@@ -48,6 +50,7 @@ public class MenuController {
 	
 	@ApiOperation(value = "메뉴 수정", authorizations = { @Authorization(value="jwt_token") })
 	@PutMapping
+	@LoginRequired
 	public String update(@RequestBody MenuDto menu) {
 		System.out.println("update");
 		System.out.println(menu);
@@ -60,6 +63,7 @@ public class MenuController {
 	
 	@ApiOperation(value = "메뉴 삭제", authorizations = { @Authorization(value="jwt_token") })
 	@DeleteMapping("/delete/{mno}")
+	@LoginRequired
 	public String delete(@PathVariable Integer mno) {
 		System.out.println("delete");
 		int cnt = service.delete(mno);

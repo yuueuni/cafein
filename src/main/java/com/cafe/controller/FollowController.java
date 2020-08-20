@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cafe.annotation.LoginRequired;
 import com.cafe.dto.FollowDto;
 import com.cafe.dto.LikeDto;
 import com.cafe.service.FollowService;
@@ -30,6 +31,7 @@ public class FollowController {
 	
 	@ApiOperation(value = "이전에 팔로우 눌렀는지 체크(눌렀으면 1,안눌렀으면 0)", authorizations = { @Authorization(value="jwt_token") })
 	@GetMapping("/check/{uid}/{followingid}")
+	@LoginRequired
 	public int check(@PathVariable String uid, @PathVariable String followingid) {
 		FollowDto follow = new FollowDto();
 		follow.setUid(uid);
@@ -77,6 +79,7 @@ public class FollowController {
 	
 	@ApiOperation(value = "팔로우 추가", authorizations = { @Authorization(value="jwt_token") })
 	@PostMapping
+	@LoginRequired
 	public String insert(@RequestBody FollowDto follow) {
 		System.out.println("insert follow");
 		if(service.insert(follow)>0) {
@@ -87,6 +90,7 @@ public class FollowController {
 	
 	@ApiOperation(value = "팔로우 삭제", authorizations = { @Authorization(value="jwt_token") })
 	@DeleteMapping("/delete/{uid}/{followingid}")
+	@LoginRequired
 	public String delete(@PathVariable String uid, @PathVariable String followingid) {
 		System.out.println("delete follow");
 		FollowDto follow = new FollowDto();

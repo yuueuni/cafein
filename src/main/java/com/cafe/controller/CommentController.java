@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cafe.annotation.LoginRequired;
 import com.cafe.dto.CommentDto;
 import com.cafe.service.CommentService;
 
@@ -44,6 +45,7 @@ public class CommentController {
 	
 	@ApiOperation(value = "댓글 작성", authorizations = { @Authorization(value="jwt_token") })
 	@PostMapping
+	@LoginRequired
 	public int insert(@RequestBody CommentDto comment) {
 		System.out.println("---insert comment---");
 		System.out.println(comment);
@@ -56,6 +58,7 @@ public class CommentController {
 	
 	@ApiOperation(value = "댓글 수정", authorizations = { @Authorization(value="jwt_token") })
 	@PutMapping
+	@LoginRequired
 	public String update(@RequestBody CommentDto comment) {
 		System.out.println("---update comment---");
 		System.out.println(comment);
@@ -68,6 +71,7 @@ public class CommentController {
 	
 	@ApiOperation(value = "댓글 삭제", authorizations = { @Authorization(value="jwt_token") })
 	@DeleteMapping("/delete/{cno}")
+	@LoginRequired
 	public String delete(@PathVariable Integer cno) {
 		System.out.println("---delete comment---");
 		System.out.println(cno);

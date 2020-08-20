@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.LinkedList;
 import java.util.List;
 import org.apache.commons.io.IOUtils;
 
@@ -20,7 +21,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cafe.annotation.LoginRequired;
 import com.cafe.dto.CafeDto;
+import com.cafe.dto.GeoDto;
 import com.cafe.service.CafeService;
 
 import io.swagger.annotations.ApiOperation;
@@ -72,16 +75,49 @@ public class CafeController {
 	}
 
 	
-	@ApiOperation(value = "카페 전체 리스트")
+	@ApiOperation(value = "카페 전체 리스트")//infinite scroll
 	@GetMapping("/list/{page}")
-	public List<CafeDto> selectAll(@PathVariable Integer page) {
+	public List<CafeDto> selectAllByPage(@PathVariable Integer page) {
 		System.out.println(page);
-		List<CafeDto> cafeList = service.selectAll(page);
+		List<CafeDto> cafeList = service.selectAllByPage(page);
+		return cafeList;
+	}
+	
+	
+	public List<CafeDto> selectAllByLikeCount() {//좋아요 많은순 카페리스트 가져오기
+		List<CafeDto> cafeList = service.selectAllByLikeCount();
+		return cafeList;
+	}
+	
+	public List<CafeDto> selectAllByStampCount() {//스탬프 많은순 카페리스트 가져오기
+		List<CafeDto> cafeList = service.selectAllByStampCount();
+		return cafeList;
+	}
+	
+	public List<CafeDto> selectAllByLikeRecent() {//좋아요 많은순 카페리스트 가져오기
+		List<CafeDto> cafeList = service.selectAllByLikeRecent();
+		return cafeList;
+	}
+	
+	public List<CafeDto> selectAllByStampRecent() {//스탬프 많은순 카페리스트 가져오기
+		List<CafeDto> cafeList = service.selectAllByStampRecent();
+		return cafeList;
+	}
+	
+	@ApiOperation(value = "현위치 가장 가까운 카페 찾기")
+	@PostMapping("/geolocation/")
+	public List<CafeDto> getClosedCafe(@RequestBody GeoDto geo) {
+		System.out.println("geolocation api entered");
+		System.out.println(geo.getLat() +","+ geo.getLng());
+		
+		List<CafeDto> cafeList = service.selectAllAll(geo); // mybatis 에서 다처리함.
+
 		return cafeList;
 	}
 
 	@ApiOperation(value = "카페 추가", authorizations = { @Authorization(value = "jwt_token") })
 	@PostMapping
+	@LoginRequired
 	public String insert(@RequestBody CafeDto cafe) {
 		int cnt = service.insert(cafe);
 		System.out.println(cafe);
@@ -93,6 +129,7 @@ public class CafeController {
 
 	@ApiOperation(value = "카페 수정", authorizations = { @Authorization(value = "jwt_token") })
 	@PutMapping
+	@LoginRequired
 	public String update(@RequestBody CafeDto cafe) {
 		System.out.println("update");
 		System.out.println(cafe);
@@ -105,6 +142,7 @@ public class CafeController {
 
 	@ApiOperation(value = "카페 삭제", authorizations = { @Authorization(value = "jwt_token") })
 	@DeleteMapping("/delete/{cafeno}")
+	@LoginRequired
 	public String delete(@PathVariable Integer cafeno) {
 		System.out.println("delete");
 		int cnt = service.delete(cafeno);
@@ -113,5 +151,7 @@ public class CafeController {
 		}
 		return "Failure";
 	}
+	
+	
 
 }

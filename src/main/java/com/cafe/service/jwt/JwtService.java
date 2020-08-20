@@ -1,10 +1,14 @@
 package com.cafe.service.jwt;
 
-import java.util.Map;
+import com.cafe.dto.TokenSet;
+import com.cafe.dto.UserDto;
 
 public interface JwtService {
-	<T> String create(String key, T data, String subject);
-	Map<String,Object> get(String key);
-	int getUserId();
-	boolean isUsable(String jwt);
+	TokenSet createTokenSet(UserDto user);
+	TokenSet refreshAccessToken(String refreshToken);
+	TokenSet refreshTokenSet(String refreshToken);
+	//Map<String,Object> get(String key);
+	UserDto getUser(String jwt, String secretKey);
+	//int getUserId();
+	boolean isValidToken(String jwt, String secretKey);
 }

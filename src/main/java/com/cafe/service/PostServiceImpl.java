@@ -20,6 +20,12 @@ public class PostServiceImpl implements PostService {
 	public PostDto select(int pno) {
 		return dao.select(pno);
 	}
+	
+	@Override
+	public List<PostDto> selectAll(int page) {
+		return dao.selectAll(page);
+	}
+	
 	@Override
 	public int countByUser(String uid) {
 		return dao.countByUser(uid);
@@ -49,6 +55,7 @@ public class PostServiceImpl implements PostService {
 	public int delete(int pno) {
 		return dao.delete(pno);
 	}
+	
 
 	
 

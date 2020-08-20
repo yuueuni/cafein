@@ -10,6 +10,12 @@
 
 	</insert>
 
+	<update id="update_refreshToken">
+		update user set
+		refresh_token=#{refreshToken}
+		where id=#{id}
+	</update>
+
 	<!--유저 검색-->
 	<select id="search" resultType="string">
 	select id from user
