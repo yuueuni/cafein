@@ -1,40 +1,4 @@
 <template>
-  <!-- <v-carousel>
-  <div class="cafeList container my-2">
-  <h1 class="pb-2">CafeList</h1>
-  <div class="d-flex flex-row cafeList">
-    <router-link :to="`/cafe/detail/${cafe.cafeno}`" 
-      v-for="cafe in cafeList"
-      :key="cafe.id" 
-      class="card col-6 col-md-2 px-1 border-0 text-decoration-none"
-    >
-      <v-img 
-        height="200px"
-        width="200px"
-        class="grey lighten-2 rounded"
-        :src="'https://i3a203.p.ssafy.io:5000/api/cafe/get/image/'+cafe.cafeno" 
-        alt="cafe image"
-      >
-      <v-row align="end" class="lightbox white--text fill-height">
-        <v-col style="background:#00000080">
-          <div v-if="cafe.name.length<10" class="subheading text-center">{{ cafe.name }}</div>
-          <div v-else class="subheading text-center">{{ cafe.name.substring(0, 10) + "..." }}</div>
-        </v-col>
-      </v-row>
-      </v-img>
-    </router-link>
-  </div>
-  </v-carousel> -->
-  
-
-  
-    <!-- <v-carousel-item
-      v-for="(item,i) in items"
-      :key="i"
-      :src="item.src"
-    ></v-carousel-item>
-   -->
-
   <v-slide-group
     show-arrows-on-hover
   >
