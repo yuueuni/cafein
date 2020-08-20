@@ -28,7 +28,7 @@ Vue.use(VueRouter)
 
   const routes = [
   {
-    path: '/',
+    path: '/home',
     name: 'Home',
     component: Home
   },
@@ -84,7 +84,7 @@ Vue.use(VueRouter)
     component: NotFound,
   },
   {
-    path: '/survey',
+    path: '/',
     name: 'Survey',
     component: SurveyView,
   },

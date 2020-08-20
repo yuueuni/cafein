@@ -1,6 +1,6 @@
 <template>
-  <v-carousel>
-  <!-- <div class="cafeList container my-2"> -->
+  <!-- <v-carousel>
+  <div class="cafeList container my-2">
   <h1 class="pb-2">CafeList</h1>
   <div class="d-flex flex-row cafeList">
     <router-link :to="`/cafe/detail/${cafe.cafeno}`" 
@@ -24,7 +24,7 @@
       </v-img>
     </router-link>
   </div>
-  </v-carousel>
+  </v-carousel> -->
   
 
   
@@ -35,10 +35,8 @@
     ></v-carousel-item>
    -->
 
-  <!-- <v-slide-group
-    class="pa-4"
-    active-class="secondary"
-    show-arrows
+  <v-slide-group
+    show-arrows-on-hover
   >
     <v-slide-item
       v-for="cafe in cafeList"
@@ -46,12 +44,12 @@
       v-slot:default="{ toggle }"
     >
       <v-card
-        class="ma-4"
+        class="ma-1"
         @click="toggle"
       >
         <v-img
-          height="200px"
-          width="200px"
+          height="170px"
+          width="170px"
           class="grey lighten-2"
           :src="'https://i3a203.p.ssafy.io:5000/api/cafe/get/image/'+cafe.cafeno"
           @click="onSelectCafe(cafe.cafeno)"
@@ -65,7 +63,8 @@
         </v-img>
       </v-card>
     </v-slide-item>
-  </v-slide-group> -->
+  </v-slide-group>
+  
 </template>
 
 
@@ -74,24 +73,6 @@ import { mapState, mapActions } from 'vuex'
 
 export default {
   name: 'CafeList',
-  data () {
-      return {
-        items: [
-          {
-            src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',
-          },
-          {
-            src: 'https://cdn.vuetifyjs.com/images/carousel/sky.jpg',
-          },
-          {
-            src: 'https://cdn.vuetifyjs.com/images/carousel/bird.jpg',
-          },
-          {
-            src: 'https://cdn.vuetifyjs.com/images/carousel/planet.jpg',
-          },
-        ],
-      }
-    },
   computed: {
     ...mapState([
       'cafeList'

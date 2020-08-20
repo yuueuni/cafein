@@ -1,11 +1,12 @@
 <template>
   <v-slide-group
-    class="pa-4"
-    active-class="secondary"
-    show-arrows
+    show-arrows-on-hover
   >
     <div v-if="!surveyRecommendList.length" class="mx-auto">
-      현재 추천할 카페가 없습니다.
+      <h2>아직 카페 성향 테스트 진행을 안했다면, 지금 바로 하러가기 !</h2>
+      <router-link to="/" class="link-text">
+        <v-btn><span class="white--text">Survey</span></v-btn>
+      </router-link>
     </div>
     <v-slide-item
       v-for="cafe in surveyRecommendList"
@@ -13,7 +14,7 @@
       v-slot:default="{ toggle }"
     >
       <v-card
-        class="ma-4"
+        class="ma-1"
         @click="toggle"
       >
         <v-img

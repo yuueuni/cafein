@@ -1,12 +1,15 @@
 <template>
 <v-bottom-navigation>
   <v-app-bar
-      fixed
-      color="#BCAAA4"
-      dark
-      hide-on-scroll
+    fixed
+    style="background-image: linear-gradient(45deg, #a6c0fe, #f68084);"
+    hide-on-scroll
     >
-    <v-toolbar-title><router-link to="/" class="link-text"><img src="@/assets/cafeIn_logo.png" alt="logoImage" width="120" my-1 ></router-link></v-toolbar-title>
+      <v-toolbar-title class="align-center">
+        <router-link to="/home" class="link-text">
+          <v-img src="@/assets/cafeIn_logo.png" alt="logoImage" width="100px"></v-img>
+        </router-link>
+      </v-toolbar-title>
       <v-spacer></v-spacer>
       <router-link v-if="!isLoggedIn" to="/accounts/login" class="link-text">
         <v-btn><span class="white--text">Login</span><span class="material-icons mx-3 white--text">login</span></v-btn>
@@ -21,7 +24,7 @@
       <router-link to="/search" class="link-text">
         <v-btn><span class="white--text">Search</span><span class="material-icons mx-3 white--text">search</span></v-btn>
       </router-link>
-      <router-link to="/survey" class="link-text">
+      <router-link to="/" class="link-text">
         <v-btn><span class="white--text">Survey</span><span class="material-icons mx-3 white--text">fact_check</span></v-btn>
       </router-link>
       <router-link v-if="isLoggedIn" to="#" @click.native="logout" class="link-text">

@@ -3,13 +3,13 @@
     <v-text-field
       v-model="keyword"
       label="찾으시는 카페가 있으신가요?"
-      solo
       clearable
       @keypress.enter="searchCafeUser(keyword)"
     ></v-text-field>
     <v-tabs>
       <v-tab>Cafe</v-tab>
       <v-tab>User</v-tab>
+      <v-tab>Keyword</v-tab>
       <v-spacer></v-spacer>
       <v-tab>카페 전체보기</v-tab>
       <v-tab-item>
@@ -17,6 +17,9 @@
       </v-tab-item>
       <v-tab-item>
         <UserSearchList/>
+      </v-tab-item>
+      <v-tab-item>
+        <KeywordSearchList/>
       </v-tab-item>
       <v-tab-item>
         <CafeAllList/>
@@ -30,6 +33,7 @@ import { mapActions } from 'vuex'
 import CafeAllList from '@/components/search/CafeAllList.vue'
 import CafeSearchList from '@/components/search/CafeSearchList.vue'
 import UserSearchList from '@/components/search/UserSearchList.vue'
+import KeywordSearchList from '@/components/search/KeywordSearchList.vue'
 
 export default {
   name: 'CafeListView',
@@ -42,6 +46,7 @@ export default {
     CafeAllList,
     CafeSearchList,
     UserSearchList,
+    KeywordSearchList,
   },
   methods: {
     ...mapActions([

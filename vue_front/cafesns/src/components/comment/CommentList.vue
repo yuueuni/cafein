@@ -11,7 +11,7 @@
           <div class="d-flex justify-space-between px-2">
             <div>
               <span class="userPage pl-1" style="font-size:small" @click="onUserPage(comment.uid)">{{ comment.uid }}</span>
-              <h2>{{ comment.contents }}</h2>
+              <h3>{{ comment.contents }}</h3>
             </div>
             <div class="d-flex align-center">
               <v-btn

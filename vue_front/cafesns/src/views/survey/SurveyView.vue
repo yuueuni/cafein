@@ -1,61 +1,76 @@
 <template>
-  <div id="surveyContainer">
-    <v-dialog
-      v-model="dialog"
-      transition="dialog-bottom-transition"
-      persistent
-      width="700px"
-      overlay-color="#2c001e"
-      overlay-opacity="0"
-      class="py-4"
-    >
-    <v-stepper v-model="survey" color="#2c001e" class="text-center">
-      <v-stepper-items color="#2c001e">
-        <v-stepper-content
-          v-for="(item, i) in surveyJSON.elements"
-          :key="i"
-          :step="i"
-        >
-          <h3 v-html="item.title"></h3><br>
-          <div v-if="i == 0">
-            <v-btn text @click="survey = 1">next</v-btn>
-          </div>
-          <!-- answer -->
-          <!-- question1 && question2 && question4 && question5 -->
-          <div
-            v-else
-            v-for="(choice, c) in item.choices"
-            :key="c"
-            class="d-inline-block"
-          >
-            <div v-if="item.name === 'question3'" class="ma-2">
-              <v-img
-                outlined
-                :src="choice.text"
-                width="170px"
-                @click="target=choice.value; onNext(i);"
-              ></v-img>
-            </div>
-            <div v-else-if="item.name === priority" class="ma-2">
-              <v-img
-                outlined
-                :src="choice.text"
-                width="170px"
-                @click="priority=choice.value; onNext(i);"
-              ></v-img>
-            </div>
-            <div v-else>
-              <v-btn text @click="target=choice.value; onNext(i);">{{ choice.text }}</v-btn>
-            </div>
-          </div>
-          <h1>{{ target }} {{ answer }}</h1>
-        </v-stepper-content>
-        <div class="text-right">
-          <v-btn v-if="survey == 0" class="ma-2" rounded text dark color="red" @click="$router.push(`/`)">skip</v-btn>
-        </div>
-      </v-stepper-items>
-    </v-stepper>
-    </v-dialog>
+  <div>
+    <v-overlay style="background-image:linear-gradient(45deg, #a6c0fe, #f68084);" opacity="0">
+      <v-dialog
+        v-model="dialog"
+        transition="dialog-bottom-transition"
+        overlay-opacity="0"
+        persistent
+        width="700px"
+        class="py-4"
+      >
+      <v-stepper v-model="survey" class="text-center" style="background:transparent">
+        <v-stepper-items style="color:white;">
+          <v-row>
+            <v-stepper-content
+              
+              v-for="(item, i) in surveyJSON.elements"
+              :key="i"
+              :step="i"
+            >
+              <v-col
+                cols="12"
+              >
+                <h2 v-html="item.title" style="line-height:2;"></h2>
+              </v-col>
+              <v-col
+                cols="12"
+                v-if="i == 0"
+              >
+                <v-btn text dark @click="survey = 1" large>next</v-btn>
+              </v-col>
+              <!-- answer -->
+              <!-- question1 && question2 && question4 && question5 -->
+              <v-col
+                cols="6"
+                sm="4"
+                v-else-if="item.name === 'question3' || item.name === 'priority' "
+                v-for="(choice, c) in item.choices"
+                :key="c"
+                class="d-inline-block survey"
+              >
+                <v-img
+                  outlined
+                  :src="choice.text"
+                  width="150px"
+                  height="230px"
+                  contain
+                  @click="target=choice.value; onNext(i);"
+                ></v-img>
+
+              </v-col>
+
+              <v-col
+                cols="12"
+                v-else
+                v-for="(choice, c) in item.choices"
+                :key="c"
+              >
+                <v-btn text dark @click="target=choice.value; onNext(i);">{{ choice.text }}</v-btn>
+              </v-col>
+
+            </v-stepper-content>
+
+          </v-row>
+        </v-stepper-items>
+      </v-stepper>
+
+      <div style="position:fixed; bottom:0; right:0">
+        <v-btn v-if="survey == 0" class="ma-2" rounded text dark @click="$router.push(`/home`)">skip</v-btn>
+      </div>
+
+      </v-dialog>
+    </v-overlay>
   </div>
 </template>
   
@@ -81,7 +96,7 @@ export default {
         "elements":[
           {
             "name":"question",
-            "title":"환영합니다! <br> cafe人 서비스는 <br> 당신의 성향테스트 결과에 따른 <br> 맞춤형 카페를 추천해드립니다. <br> 설문을 해보시는건 어떤가요?",
+            "title":"환영합니다! <br> cafe人은 성향테스트를 통해서<br>맞춤형 카페를 추천해드립니다. <br> 성향 테스트를 진행하시겠습니까?",
           },
           {
             "name":"question1",
@@ -277,7 +292,7 @@ export default {
       if (i === this.surveyJSON.elements.length-1) {
         findValue(this.answer, this.priority)
           .then((res) => {
-            this.surveySubmit(res)
+            this.surveySubmit(res.toString())
           })
       } else {
         this.answer[this.target-1] += 1
@@ -290,7 +305,13 @@ export default {
 </script>
 
 <style scoped>
-.background_color {
-  color: blue;
+#surveyContainer ::before {
+  background-image: linear-gradient(45deg, #a6c0fe, #f68084);
 }
+
+.survey :hover {
+  cursor: pointer;
+}
+
+
 </style>

@@ -1,8 +1,6 @@
 <template>
   <v-slide-group
-    class="pa-4"
-    active-class="secondary"
-    show-arrows
+    show-arrows-on-hover
   >
     <div v-if="!mostLikeRecommendList.length" class="mx-auto">
       현재 추천할 카페가 없습니다.
@@ -13,7 +11,7 @@
       v-slot:default="{ toggle }"
     >
       <v-card
-        class="ma-4"
+        class="ma-1"
         @click="toggle"
       >
         <v-img

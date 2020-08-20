@@ -1,101 +1,40 @@
 <template>
-  <div class="home text-center">
-    <!-- cafe -->
-    <v-card outlined class="card-list">
-      <h1>Cafes</h1>
-      <CafeList/>
-        <div
-          class="d-flex display-3"
-          style="height: 100%;"
-        >
-      </div>
-    </v-card>
+  <div>
+
+    <div v-if="surveyState">
+      <!-- surveyResultRecommend -->
+      <h1>'{{ target }}'에게 추천하는 카페</h1>
+      <SurveyRecommendList/>
+    </div>
     
     <!-- post -->
-    <!-- <v-hover v-slot:default="{ hover }"> -->
-      <v-card outlined class="card-list">
-          <h1>Posts</h1>
-          <PostList/>
-        <!-- <v-expand-transition> -->
-          <div
-            class="d-flex display-3"
-            style="height: 100%;"
-          >
-          </div>
-        <!-- </v-expand-transition> -->
-      </v-card>
-    <!-- </v-hover> -->
+    <h1>Posts</h1>
+    <PostList/>
 
-    <!-- surveyResultRecommend -->
-    <v-card outlined class="card-list">
-      <h1>'유형이름'에게 추천하는 카페</h1>
-      <SurveyRecommendList/>
-        <div
-          class="d-flex display-3"
-          style="height: 100%;"
-        >
-      </div>
-    </v-card>
+    <!-- cafe -->
+    <h1>Cafes</h1>
+    <CafeList/>
+
 
     <!-- likeRecommend -->
-    <v-card outlined class="card-list">
       <h1><i class="fas fa-heart fa-1x" style="color: #ef9a9a"></i> 많은 카페 </h1>
       <MostLikeRecommendList/>
-        <div
-          class="d-flex display-3"
-          style="height: 100%;"
-        >
-        </div>
-    </v-card>
 
-    <v-card outlined class="card-list">
       <h1>최근 <i class="fas fa-heart fa-1x" style="color: #ef9a9a"></i> 카페</h1>
       <RecentLikeRecommendList/>
-        <div
-          class="d-flex display-3"
-          style="height: 100%;"
-        >
-        </div>
-    </v-card>
 
     <!-- stampRecommend -->
-    <v-card outlined class="card-list">
       <h1>최다 <i class="fas fa-shoe-prints fa-rotate-270 fa-1x" style="color: #90caf9"></i> 카페</h1>
       <MostStampRecommendList/>
-        <div
-          class="d-flex display-3"
-          style="height: 100%;"
-        >
-        </div>
-    </v-card>
 
-    <v-card outlined class="card-list">
       <h1>요즘 <i class="fas fa-shoe-prints fa-rotate-270 fa-1x" style="color: #90caf9"></i> 카페</h1>
       <RecentStampRecommendList/>
-        <div
-          class="d-flex display-3"
-          style="height: 100%;"
-        >
-        </div>
-    </v-card>
+
+    <!-- geo -->
+      <h1>내 주위 근처 카페</h1>
+      <GeoList/>
 
 
-        <!-- geo -->
-    <v-hover v-slot:default="{ hover }">
-      <v-card outlined class="card-list">
-          <h1>내 주위 근처 카페</h1>
-          <GeoList/>
-        <v-expand-transition>
-          <div
-            v-if="!hover"
-            class="d-flex white v-card--reveal display-3"
-            style="height: 100%;"
-          >
-            <span style="font-family:'BBTreeGR';">Around Cafes</span>
-          </div>
-        </v-expand-transition>
-      </v-card>
-    </v-hover>
   </div>
 </template>
 
@@ -111,6 +50,8 @@ import RecentLikeRecommendList from '@/components/recommend/RecentLikeRecommendL
 import MostStampRecommendList from '@/components/recommend/MostStampRecommendList.vue'
 import RecentStampRecommendList from '@/components/recommend/RecentStampRecommendList.vue'
 
+import { mapState } from 'vuex'
+
 export default {
   name: 'Home',
   components: {
@@ -123,6 +64,26 @@ export default {
     MostStampRecommendList,
     RecentStampRecommendList,
   },
+  data() {
+    return {
+      groups: {
+        '1': '커피 매니아',
+        '2': '핵인싸 감성러',
+        '3': '디저트 덕후',
+        '4': '유니크 집착러',
+        '5': '프로 귀차니즘',
+      },
+      target: null,
+    }
+  },
+  computed: {
+    ...mapState([
+      'surveyState'
+    ])
+  },
+  created() {
+    this.target = this.groups[this.surveyState]
+  }
 }
 </script>
 
