@@ -185,8 +185,8 @@ CMD ["nginx", "-g", "daemon off;"]
 
 </div>
 </details>
-   
-   
+<br>
+<br>
 
 2. 자동 빌드를 위한 Shell Script 작성
 <details>
@@ -212,7 +212,7 @@ docker build -t ${image_name} . && docker run -d -it -p 80:80 -v /home/ubuntu/da
 ```
 
 </div>
-<details>
+</details>
 
 <br>
 <br>
