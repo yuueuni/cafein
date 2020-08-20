@@ -9,9 +9,9 @@
 </div>
 
 # 프로젝트 소개
-- ==사용자의 성향== 에 맞는 다양한 카페들을 추천 해주는 서비스 Cafe 人
-- ==맞춤형 카페== 를 선정해 카페와 사람을 잇다
-- 카페인처럼 한 번 빠지면 헤어나오지 못하는 ==중독성==이 강한 서비스
+- 사용자의 성향 에 맞는 다양한 카페들을 추천 해주는 서비스 Cafe 人
+- 맞춤형 카페 를 선정해 카페와 사람을 잇다
+- 카페인처럼 한 번 빠지면 헤어나오지 못하는 중독성이 강한 서비스
 
 ---
 
@@ -28,7 +28,8 @@
 - 최다 및 최신 좋아요, 발도장 카페 추천
 
 ---
-
+   
+   
 # 사용 언어 및 기술 스택
 ## 사용언어 & 프레임 워크 & API
 ### FrontEnd
@@ -41,7 +42,7 @@ vuecookies, infinitscroll
 
 ### BackEnd
 ![Java Badge](https://img.shields.io/badge/-Java-orange?style=flat-square&logo=Java)
-![Spring Badge](https://img.shields.io/badge/-SpringBoot3.0.6-brightgreen?style=flat-square&logo=Spring)]
+![Spring Badge](https://img.shields.io/badge/-SpringBoot3.0.6-brightgreen?style=flat-square&logo=Spring)
 ![Docker Badge](https://img.shields.io/badge/-Docker-blue?style=flat-square&logo=Docker)
 ![Jenkins Badge](https://img.shields.io/badge/-Jenkins-red?style=flat-square&logo=Jenkins)
 ![Mysql Badge](https://img.shields.io/badge/-Mysql-informational?style=flat-square&logo=Mysql)
@@ -52,8 +53,6 @@ mybatis
 ![Python Badge](https://img.shields.io/badge/-Python-9cf?style=flat-square&logo=Python)
 konlpy, selenium, openpyxl, networkx, hanspell
 
-## API 및 라이브러리
-
 ---
 
 # Install
@@ -61,8 +60,9 @@ konlpy, selenium, openpyxl, networkx, hanspell
 Jenkins를 이용하여 push 할때 마다 자동으로 빌드
 Jenkins, BackEnd Spring 서버 모두 Docker로 작성
 
-<detail>
-<summary>1. Dockerfile 작성</summary>
+1. Dockerfile 작성
+<details>
+<summary>Dockerfile</summary>
 <div markdown="1">
 
 ```Docker
@@ -88,10 +88,12 @@ ADD ${JAR_FILE} cafesns-springboot.jar
 ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/cafesns-springboot.jar"]
 ```
 
-</detail>
+</div>
+</details>
 
-<detail>
-<summary>2. SHELL SCRIPT 작성 및 실행</summary>
+2. Shell Script 작성
+<details>
+<summary>Shell Script</summary>
 <div markdown="1">
 
 ```Bash
@@ -102,12 +104,17 @@ docker rm spring
 docker rmi cafesns-springboot
 docker build -t cafesns-springboot . && docker run --name spring -d -v /home/ubuntu/data/thumb_img:/home/data/thumb_img -v /var/www/i3a203.p.ssafy.io:/var/www/i3a203.p.ssafy.io -v /home/ubuntu/data/images:/home/data/images -v /home/ubuntu/env:/home/env -p 5000:8080 cafesns-springboot
 ```
-</detail>
+
+</div>
+</details>
 
 ## Mysql Server 설치
 Mysql은 설정할게 많아서 docker-compose를 이용해서 작성해보았다
-<detail>
-<summary>1. Docker-compose 작성</summary성
+1. Docker-compose 작성
+
+<details>
+<summary>Docker-compose</summary>
+<div markdown="1">
 
 ```Docker
 # docker-compose.yml
@@ -128,7 +135,8 @@ services: # 이 항목 밑에 실행하려는 컨테이너 들을 정의
         - /home/ubuntu/docker/data:/var/lib/mysql # -v 옵션
 ```
 
-</detail>
+</div>
+</details>
 
 2. 실행
 docker로 서버를 올리고 외부에서 접속할 수 있도록 계정을 만들고 권한을 설정한다.
@@ -147,8 +155,9 @@ Vue도 Docker를 이용하여 생성한다
 
 1. Dockerfile 작성
 
-<detail>
+<details>
 <summary>Dockerfile</summary>
+<div markdown="1">
 
 ```Docker
 # build stage
@@ -169,9 +178,15 @@ EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
 ```
 
-</detail>
+</div>
+</details>
 
 3. 자동 빌드를 위한 Shell Script 작성
+
+<details>
+<summary>Shell Script</summary>
+<div markdown="1">
+
 ```Bash
 #!/bin/bash
 app_name='vuejs-app'
@@ -189,6 +204,9 @@ fi
 git clone -b frontend --single-branch https://lab.ssafy.com/s03-webmobile2-sub2/${repository_name}.git && cd ${repository_name}/vue_front/cafesns
 docker build -t ${image_name} . && docker run -d -it -p 80:80 -v /home/ubuntu/data/thumb_img:/home/data/thumb_img -v /home/ubuntu/docker/nginx/conf:/etc/nginx/conf.d --name ${app_name} ${image_name}
 ```
+
+</div>
+<details>
 
 # Cafe人 서비스
 1. 
