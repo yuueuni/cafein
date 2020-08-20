@@ -11,21 +11,24 @@
           Following {{ followingList.length }}
         </v-btn>
       </template>
-      <v-card>
-        <v-card-title>Following</v-card-title>
+      <v-card class="d-inline-block">
+        <v-row class="d-inline-block px-2">
+          <v-card-title>Following</v-card-title>
+        </v-row>
         <v-divider></v-divider>
         <v-card-text style="height: 300px;">
+          <div v-if="!followingList.length" class="text-center">
+            <span>현재 팔로잉하는 유저가 없습니다.</span>
+          </div>
           <v-radio-group v-model="dialogm1" column>
             <v-row v-for="user in followingList" :key="user.id">
               <v-list rounded>
                 <v-list-item-group color="primary">
                   <v-list-item
-                    v-for="(item, i) in items"
-                    :key="i"
                     @click="onMypage(user)"
                   >
                   <v-list-item-icon>
-                    <v-icon v-text="item.icon"></v-icon>
+                    <v-icon v-text="'mdi-account'"></v-icon>
                   </v-list-item-icon>
                   <v-list-item-content>
                     <v-list-item-title >{{ user }}</v-list-item-title>
@@ -51,9 +54,6 @@ export default {
       dialogm1: '',
       dialog: false,
       currentUserId : this.$route.params.user_id,
-      items: [
-        { text: 'user', icon: 'mdi-account' }
-      ],
     }
   },
 

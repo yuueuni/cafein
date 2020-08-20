@@ -9,35 +9,43 @@ import MypageView from '@/views/accounts/MypageView.vue'
 
 // post
 import PostCreateView from '@/views/post/PostCreateView.vue'
+import PostUpdateView from '@/views/post/PostUpdateView.vue'
 import PostDetailView from '@/views/post/PostDetailView.vue'
 
 // cafe
-import CafeListView from '@/views/cafe/CafeListView.vue'
 import CafeDetailView from '@/views/cafe/CafeDetailView.vue'
+
+import SearchView from '@/views/SearchView.vue'
+import NotFound from '@/components/404.vue'
+
+//survey
+import SurveyView from '@/views/survey/SurveyView.vue'
+import SurveyResultView from '@/views/survey/SurveyResultView.vue'
 
 Vue.use(VueRouter)
 
   const routes = [
   {
-    path: '/',
+    path: '/home',
     name: 'Home',
     component: Home
   },
   {
     path: '/accounts/signup',
     name: 'Signup',
-    component: SignupView
+    component: SignupView,
+    meta: {
+      title: 'Signup'
+    },
   },
   {
     path: '/accounts/login',
     name: 'Login',
-    component: LoginView
+    component: LoginView,
+    meta: {
+      title: 'Login'
+    },
   },
-  // {
-  //   path: '/accounts/logout',
-  //   name: 'Logout',
-  //   component: LogoutView
-  // },
   {
     path: '/accounts/:user_id',
     name: 'Mypage',
@@ -49,21 +57,39 @@ Vue.use(VueRouter)
     component: PostCreateView
   },
   {
-    // path: '/post/detail',
+    path: '/post/update/:post_id',
+    name: 'PostUpdate',
+    component: PostUpdateView
+  },
+  {
     path: '/post/detail/:post_id',
     name: 'PostDetail',
     component: PostDetailView,
   },
   {
-    path: '/cafe/all',
-    name: 'CafeList',
-    component: CafeListView,
-  },
-  {
     path: '/cafe/detail/:cafe_id',
-    // path: '/cafe/:id'
     name: 'CafeDetail',
     component: CafeDetailView,
+  },
+  {
+    path: '/search',
+    name: 'Search',
+    component: SearchView,
+  },
+  {
+    path: '*',
+    name: '404Page',
+    component: NotFound,
+  },
+  {
+    path: '/',
+    name: 'Survey',
+    component: SurveyView,
+  },
+  {
+    path: '/survey/result',
+    name: 'SurveyResult',
+    component: SurveyResultView,
   },
 ]
 
@@ -74,15 +100,14 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  const publicPages = ['Home', 'Signup', 'Login', 'PostDetail', 'CafeList', 'CafeDetail', ]  //login 안해도 됨
+  const publicPages = ['Home', 'Signup', 'Login', 'PostDetail', 'CafeList', 'CafeDetail', 'Survey' ]  //login 안해도 됨
   const privatePages = ['Login', 'Signup', ]  //login 되어 있으면 안됨
 
   const authRequired = !publicPages.includes(to.name)
   const unauthRequired = privatePages.includes(to.name)  //로그인 안한 상태가 필요함
   
   const isLoggedIn = !!Vue.$cookies.isKey('auth-token')
-
-  document.title = to.meta.title
+  
 
   if (unauthRequired && isLoggedIn) {
     next('/')
