@@ -1,5 +1,5 @@
 [![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https://lab.ssafy.com/s03-webmobile2-sub2/s03p12a203/tree/master)](https://hits.seeyoufarm.com)
-[![SamSung Badge](https://img.shields.io/github/languages/count/wlgh325/S03P12A203)]
+[![SamSung Badge](https://img.shields.io/badge/-Samsung-blue?style=flat-square&logo=Samsung)]
 
 <div align=center>
 
@@ -218,8 +218,8 @@ docker build -t ${image_name} . && docker run -d -it -p 80:80 -v /home/ubuntu/da
 <br>
 
 # <span style="color:orange; font-size:17pt; font-weight:bold"> Cafe人 서비스 </span>
-## 검색
-1. 카페 정보 검색
+## <span style="color:blue; font-size:17pt; font-weight:bold"> 검색 </span>
+- 카페 정보 검색
 서울의 약 27000개의 카페들 정보를 검색할 수 있다
 - 카페 이름
 - 카페 썸네일
@@ -235,7 +235,7 @@ docker build -t ${image_name} . && docker run -d -it -p 80:80 -v /home/ubuntu/da
 ![cafe search image](./img/search_cafe_info.png)
 <br>
 
-2. 유저 검색
+- 유저 검색
 Cafe 을 이용하는 다른 사용자를 검색할 수 있다.
 <br>
 
@@ -244,7 +244,7 @@ Cafe 을 이용하는 다른 사용자를 검색할 수 있다.
 ![user search image](./img/search_user_info.png)
 <br>
 
-3. 키워드 검색
+- 키워드 검색
 키워드를 통해 카페를 검색할 수 있다.  
 디저트가 맛있는 카페를 알고 싶다면 '디저트'라는 키워드를 검색해라
 <br>
@@ -253,9 +253,10 @@ Cafe 을 이용하는 다른 사용자를 검색할 수 있다.
 ![keyword search image](./img/search_keyword.png)
 <br>
 
-## 등록
-1. 포스트(리뷰) 등록
+## <span style="color:blue; font-size:17pt; font-weight:bold"> 등록 </span>
+- 포스트(리뷰) 등록 
 카페에 대한 리뷰를 **사진**, **별점** 과 함께 남길 수 있다.
+포스트 수정도 가능하다
 <br>
 
 포스트 보기
@@ -263,7 +264,7 @@ Cafe 을 이용하는 다른 사용자를 검색할 수 있다.
 ![Poser Page image](./img/post_page.png)
 <br>
 
-2. 댓글 등록
+- 댓글 등록
 각 포스트에 대해서 댓글을 달 수 있다. 이를 통해 유저들 끼리 정보를 공유할 수 있다.  
 또한 자신이 단 댓글은 삭제 가능하며 작성 날짜를 확인할 수 있다.
 <br>
@@ -271,8 +272,8 @@ Cafe 을 이용하는 다른 사용자를 검색할 수 있다.
 ![Comment image](./img/comment.png)
 <br>
 
-## 추천
-1. 설문을 통한 추천
+## <span style="color:blue; font-size:17pt; font-weight:bold"> 추천 </span>
+- 설문을 통한 추천
 재밌는 설문을 통해서 5가지 유형으로 나누어 추천을 해준다
 <br>
 
@@ -286,29 +287,25 @@ Cafe 을 이용하는 다른 사용자를 검색할 수 있다.
 ![Survey result image](./img/survey_result.png)
 <br>
 
-2. 좋아요(Like)가 많은 카페 추천
+- 좋아요(Like)가 많은 카페 추천
 카페의 좋아요 수가 많은 카페들을 추천해준다.
-<br>
 
-3. 사람들이 제일 많이 다녀간 카페 추천
+- 사람들이 제일 많이 다녀간 카페 추천
 사람들이 다녀갔다고 발도장을 찍은 카페들을 추천해준다.
-<br>
 
-4. 요즘 핫한 카페
+- 요즘 핫한 카페
 사람들이 최근에 가장 많이 다녀간 카페를 보여준다.
-<br>
 
-5. 근처 카페
+- 근처 카페
 위치 기반으로 현재 위치 주변의 카페들을 추천해준다.
-<br>
 
 근처 카페 추천
 ---
 ![recommend based location image](./img/recommend_loc.png)
 <br>
 
-## 내 정보
-1. 좋아요한 카페
+## <span style="color:blue; font-size:17pt; font-weight:bold"> 내 정보 </span>
+- 좋아요한 카페
 자신이 좋아요를 누른 카페들 목록을 볼 수 있다.
 <br>
 
@@ -317,7 +314,7 @@ Cafe 을 이용하는 다른 사용자를 검색할 수 있다.
 ![like cafe image](./img/like_cafe.png)
 <br>
 
-2. 다녀간 카페
+- 다녀간 카페
 자신이 다녀갔다고 발도장을 남긴 카페들을 볼 수 있다
 <br>
 
@@ -326,7 +323,7 @@ Cafe 을 이용하는 다른 사용자를 검색할 수 있다.
 ![stamp cafe image](./img/stamp_cafe.png)
 <br>
 
-3. 팔로잉
+- 팔로잉
 다른 유저를 팔로잉하여 다른 사람의 게시글들과 다녀간 카페 정보들을 확인할 수 있다.  
 또한 자신을 팔로우하는 유저들도 확인할 수 있다.
 
@@ -342,7 +339,7 @@ Cafe 을 이용하는 다른 사용자를 검색할 수 있다.
 ![follower image](./img/follower.png)>
 <br>
 
-# <span style="color:orange; font-size:17pt; font-weight:bold"> 앞으로 개선/추가 해야할 점</span>
+<span style="color:orange; font-size:17pt; font-weight:bold"> 앞으로 개선/추가 해야할 점</span>
 1. 최근 핫한 카페 추천 로직을 좀 더 구체화 할 필요가 있다.
 한 동안 사용한 유저가 없다면 최근이 예전이 될 수가 있다.  
 <br>
@@ -361,7 +358,8 @@ Cafe 을 이용하는 다른 사용자를 검색할 수 있다.
 <br>
 
 5. 알림
-내 게시물에 누가 댓글을 달았다거나 하면 알려주는 기능이 있으면 좋겠다.
+내 게시물에 누가 댓글을 달았다거나 하면 알려주는 기능이 있으면 좋겠다.  
+이를 카카오톡 친구를 이용하여 할수도 있을것 같다.
 <br>
 
 6. 새로고침
@@ -370,4 +368,8 @@ Cafe 을 이용하는 다른 사용자를 검색할 수 있다.
 
 7. 더 많은 stopword
 좀 더 질이 좋은 키워드를 뽑아내기 위해서 stopword도 많이 설정되어야 한다.
+<br>
+
+8. 소셜 로그인
+소셜 로그인 기능도 있다면 편리할 것 같기도 하다.
 <br>
