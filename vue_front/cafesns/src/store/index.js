@@ -46,8 +46,10 @@ export default new Vuex.Store({
 
     cafeSearchList: {},
     userSearchList: {},
+    keywordSearchList: {},
 
-    surveyState: {},
+    surveyState: null,
+    surveyList: {},
 
     surveyRecommendList: {},
     mostLikeRecommendList: {},
@@ -137,6 +139,9 @@ export default new Vuex.Store({
     SET_USERSEARCHLIST(state, userList) {
       state.userSearchList = userList
     },
+    SET_KEYWORDSEARCHLIST(state, cafeList) {
+      state.keywordSearchList = cafeList
+    },
     SET_SURVEYRECOMMENDLIST(state, surveyRecommendList) {
       state.surveyRecommendList = surveyRecommendList
     },
@@ -154,6 +159,9 @@ export default new Vuex.Store({
     },
     SET_SURVEY(state, survey) {
       state.surveyState = survey
+    },
+    SET_SURVEYLIST(state, cafeList) {
+      state.surveyList = cafeList
     }
   },
 
@@ -188,7 +196,10 @@ export default new Vuex.Store({
       dispatch('authData', info)
     },
 
-    login({ dispatch }, loginData) {
+    login({ state, dispatch }, loginData) {
+      if (state.surveyState) {
+        dispatch('fetchUserSurvey', loginData.id)
+      }
       const info = {
         location: SERVER.ROUTES.login,
         data: loginData
@@ -198,9 +209,10 @@ export default new Vuex.Store({
 
     logout({ state, commit }) {
       commit('SET_TOKEN', null)
+      commit('SET_SURVEY', null)
       state.currentUser = null
       cookies.remove('auth-token')
-      router.push('/')
+      router.push('/home')
     },
 
     // user
@@ -545,6 +557,7 @@ export default new Vuex.Store({
       if (!word) {
         commit('SET_CAFESEARCHLIST', {})
         commit('SET_USERSEARCHLIST', {})
+        commit('SET_KEYWORDSEARCHLIST', {})
       } else {
         axios.get(SERVER.URL + SERVER.ROUTES.cafeSearch + word)
           .then((res) => {
@@ -555,6 +568,12 @@ export default new Vuex.Store({
         axios.get(SERVER.URL + SERVER.ROUTES.userSearch + word)
           .then((res) => {
             commit('SET_USERSEARCHLIST', res.data)
+          })
+          .catch(err => console.error(err))
+
+        axios.get(SERVER.URL + SERVER.ROUTES.keywordSearch + word)
+          .then((res) => {
+            commit('SET_KEYWORDSEARCHLIST', res.data)
           })
           .catch(err => console.error(err))
       }
@@ -569,7 +588,6 @@ export default new Vuex.Store({
           lat: location.coords.latitude, //위도
           lng: location.coords.longitude, //경도
         }
-    
         axios.post(SERVER.URL + SERVER.ROUTES.geolocation, userLoc)
           .then(res => {
             commit('SET_GEOCAFELIST', res.data)
@@ -580,65 +598,84 @@ export default new Vuex.Store({
       }
     },
 
-    surveySubmit({ state, commit }, result ) {
-    // surveySubmit({ commit, getters }, result ) {
-      // 결과 넘겨줄 때 문자열(string)으로 보내기
-      // if (!getters.isLoggedIn) {
-      //   axios.post(SERVER.URL + SERVER.ROUTES.surveyResult, result.toString())
-      //    .then(res => {
-      //      commit('SET_SURVEY', res.data)
-      //     })
-      //   } else {
-      //     axios.post(SERVER.URL + SERVER.ROUTES.surveyResult, result.toString(), getters.config)
-      //     .then(res => {
-      //       commit('SET_SURVEY', res.data)
-      //     })
-      //   }
-      commit('SET_SURVEY', result.toString())
-      console.log(state.surveyState, typeof(state.surveyState))
-      router.push('/survey/result')
-      // } else {
-      // axios.post(SERVER.URL + SERVER.ROUTES.surveyResult, result, getters.config)
-      //   .then(res => {
-      //     commit('SET_SURVEY', res.data)
-      //   })
-      // }
+    surveySubmit({ state, commit, dispatch, getters }, result ) {
+      if (getters.isLoggedIn) {
+        dispatch('fetchUserSurvey', state.currentUser)
+      }
+      axios.get(SERVER.URL + SERVER.ROUTES.surveyResult + result)
+        .then(res => {
+          commit('SET_SURVEY', result)
+          commit('SET_SURVEYLIST', res.data)
+          router.push('/survey/result')
+        })
+        .catch(err => console.error(err))
+    },
+
+    fetchUserSurvey({ state }, userid) {
+      const survey = state.surveyState
+      axios.put(SERVER.URL + SERVER.ROUTES.surveyResult + survey + '/' + userid)
+        .then(res => console.log(res))
+        .catch(err => console.error(err))
     },
 
     //recommend
-    fetchSurveyRecommendList({ state, getters, commit }) {
-      const userid = state.userData.id
-      axios.get(SERVER.URL + SERVER.ROUTES.recommend + `stamp/recent/${userid}`, getters.config)
+    fetchSurveyRecommendList({ state, commit }) {
+      const type = state.surveyState
+      axios.get(SERVER.URL + SERVER.ROUTES.surveyResult + `list/${type}/1`)
         .then(res => commit('SET_SURVEYRECOMMENDLIST', res.data))
-        .catch(err => console.error(err.response.data))
+        .catch(err => console.error(err))
     },
 
     fetchMostLikeRecommendList({ state, getters, commit }) {
-      const userid = state.userData.id
-      axios.get(SERVER.URL + SERVER.ROUTES.recommend + `like/count/${userid}`, getters.config)
-        .then(res => commit('SET_MOSTLIKERECOMMENDLIST', res.data))
-        .catch(err => console.error(err.response.data))
+      if (!getters.isLoggedIn) {
+        axios.get(SERVER.URL + SERVER.ROUTES.recommend + "like/count/")
+          .then(res => commit('SET_MOSTLIKERECOMMENDLIST', res.data))
+          .catch(err => console.error(err))
+      } else {
+        const userid = state.userData.id
+        axios.get(SERVER.URL + SERVER.ROUTES.recommend + `like/count/${userid}`, getters.config)
+          .then(res => commit('SET_MOSTLIKERECOMMENDLIST', res.data))
+          .catch(err => console.error(err))
+      }
     },
 
     fetchRecentLikeRecommendList({ state, getters, commit }) {
-      const userid = state.userData.id
-      axios.get(SERVER.URL + SERVER.ROUTES.recommend + `like/recent/${userid}`, getters.config)
-        .then(res => commit('SET_RECENTLIKERECOMMENDLIST', res.data))
-        .catch(err => console.error(err.response.data))
+      if (!getters.isLoggedIn) {
+        axios.get(SERVER.URL + SERVER.ROUTES.recommend + "like/recent/")
+          .then(res => commit('SET_RECENTLIKERECOMMENDLIST', res.data))
+          .catch(err => console.error(err))
+      } else {
+        const userid = state.userData.id
+        axios.get(SERVER.URL + SERVER.ROUTES.recommend + `like/recent/${userid}`, getters.config)
+          .then(res => commit('SET_RECENTLIKERECOMMENDLIST', res.data))
+          .catch(err => console.error(err))
+      }
     },
 
     fetchMostStampRecommendList({ state, getters, commit }) {
-      const userid = state.userData.id
-      axios.get(SERVER.URL + SERVER.ROUTES.recommend + `stamp/count/${userid}`, getters.config)
-        .then(res => commit('SET_MOSTSTAMPRECOMMENDLIST', res.data))
-        .catch(err => console.error(err.response.data))
+      if (!getters.isLoggedIn) {
+        axios.get(SERVER.URL + SERVER.ROUTES.recommend + "stamp/count")
+          .then(res => commit('SET_MOSTSTAMPRECOMMENDLIST', res.data))
+          .catch(err => console.error(err))
+      } else {
+        const userid = state.userData.id
+        axios.get(SERVER.URL + SERVER.ROUTES.recommend + `stamp/count/${userid}`, getters.config)
+          .then(res => commit('SET_MOSTSTAMPRECOMMENDLIST', res.data))
+          .catch(err => console.error(err))
+      }
     },
 
     fetchRecentStampRecommendList({ state, getters, commit }) {
-      const userid = state.userData.id
-      axios.get(SERVER.URL + SERVER.ROUTES.recommend + `stamp/recent/${userid}`, getters.config)
-        .then(res => commit('SET_RECENTSTAMPRECOMMENDLIST', res.data))
-        .catch(err => console.error(err.response.data))
+      if (!getters.isLoggedIn) {
+        axios.get(SERVER.URL + SERVER.ROUTES.recommend + "stamp/recent/")
+          .then(res => commit('SET_RECENTSTAMPRECOMMENDLIST', res.data))
+          .catch(err => console.error(err))
+      } else {
+        const userid = state.userData.id
+        axios.get(SERVER.URL + SERVER.ROUTES.recommend + `stamp/recent/${userid}`, getters.config)
+          .then(res => commit('SET_RECENTSTAMPRECOMMENDLIST', res.data))
+          .catch(err => console.error(err))
+      }
     },
 
   },

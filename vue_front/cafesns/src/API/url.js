@@ -41,7 +41,7 @@ export default{
         geolocation: '/cafe/geolocation/',
 
         //survey
-        surveyResult: '/',
+        surveyResult: '/recommend/survey/',
 
         //recommend
         recommend: '/recommend/',

@@ -1,8 +1,8 @@
 <template>
   <v-app>
-    <AppBar class="d-block"/>
+    <AppBar/>
     <v-main>
-      <v-container class="mt-16">
+      <v-container>
         <router-view/>
          <!-- :key="$route.fullPath" -->
       </v-container>
@@ -10,6 +10,7 @@
 
     <v-footer
       class="font-weight-medium mt-10 white"
+      style="background-image: linear-gradient(45deg, #a6c0fe, #f68084);"
     >
       <v-col
         class="text-center"
@@ -33,5 +34,8 @@ export default {
 </script>
 
 <style>
+.v-dialog {
+  box-shadow: none !important;
+}
 
 </style>

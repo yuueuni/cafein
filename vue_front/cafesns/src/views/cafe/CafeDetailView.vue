@@ -1,8 +1,11 @@
 <template>
   <div>
     <v-card
-      class="mx-auto my-12 px-3"
+      class="mx-auto my-12 pa-3"
     >
+      <v-card-title>
+        <h1>{{ selectedCafe.name }}</h1>
+      </v-card-title>
       <v-row>
         <v-col
           cols="12"
@@ -59,42 +62,44 @@
           cols="12"
           sm="6"
         >
-          <v-card-title>
-            <h1>{{ selectedCafe.name }}</h1>
-          </v-card-title>
+
+            <v-card-title class="pt-0">cafe open - close</v-card-title>
+            <v-card-text>{{ selectedCafe.business_hours }}</v-card-text>
+          
+
+            <v-card-title class="pt-0">cafe info</v-card-title>
+            <v-card-text>
+              <p>tel) {{ selectedCafe.tel }}</p>
+              <p>address) {{ selectedCafe.address }}</p>
+            </v-card-text>
+
+
+        <v-card-title>cafe menu</v-card-title>
+        <v-card-text v-if="!cafeMenu.length">메뉴 준비 중 입니다.</v-card-text>
+        <v-card-text>
           <v-row>
             <v-col
               cols="12"
-              sm="7"
+              sm="6"
+               class="py-0"
+              v-for="menu in cafeMenu"
+              :key="menu.id"
             >
-              <v-card-title>cafe open - close</v-card-title>
-              <v-card-text>{{ selectedCafe.business_hours }}</v-card-text>
-              <v-card-title>cafe info</v-card-title>
-              <v-card-text>
-                <p class="mb-0">tel) {{ selectedCafe.tel }}</p>
-                address) {{ selectedCafe.address }}
-              </v-card-text>
-            </v-col>
-            <v-col
-              cols="12"
-              sm="5"
-            >
-              <v-card-title>cafe menu</v-card-title>
-              <v-card-text v-if="!cafeMenu.length">메뉴 준비 중 입니다.</v-card-text>
-              <v-card-text>
-                <p
-                  v-for="menu in cafeMenu"
-                  :key="menu.id"
-                  class="text-justify mb-1"
-                >
-                  {{ menu.item }} {{ menu.price }}
-                </p>
-              </v-card-text>
+              <v-row>
+                <v-col cols="9" class="py-0">
+                  <p class="text-justify mb-1">{{ menu.item }}</p>
+                </v-col>
+                <v-col cols="3" class="py-0">
+                  <p>{{ menu.price }}</p>
+                </v-col>
+              </v-row>
             </v-col>
           </v-row>
+        </v-card-text>
 
         </v-col>
       </v-row>
+
 
       <v-card-actions>
         <v-spacer></v-spacer>
@@ -150,14 +155,12 @@ export default {
       this.likeCafe(data)
         .then(res => {
           this.liked = !res
-          console.log(res, this.liked) 
         })
     },
     thisViewStampCafe(data) {
       this.stampCafe(data)
         .then(res => {
           this.stamped = !res
-          console.log(res, this.stamped) 
         })
     },
   },

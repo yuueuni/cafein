@@ -1,63 +1,67 @@
 <template>
-  <v-dialog
-    v-model="dialog"
-    transition="dialog-bottom-transition"
-    persistent
-    max-width="600px"
-    overlay-color="#2c001e"
-    overlay-opacity="1"
-  >
-    <v-card ref="form" color="#2c001e" dark class="pb-3">
-      <v-list-item color="#2c001e" dark>
-        <v-list-item-content>
-          <v-list-item-title class="headline">이제부터 카페 고민은 <br> 저희가 할께요!</v-list-item-title>
-        </v-list-item-content>
-        <v-list-item-avatar>
-          <v-btn icon dark @click="$router.go(-1)">
-            <v-icon>mdi-close</v-icon>
-          </v-btn>
-        </v-list-item-avatar>
-      </v-list-item>
-      <v-card-text class="pa-3">
-        <v-text-field 
-          label="E-mail"
-          v-model="signupData.id"
-          :rules="[rules.emailMatch]"
-          id="Username"
-          autofocus
-          filled
-          required
-        >
-        </v-text-field>
-        <v-text-field 
-          label="Password" 
-          type="password" 
-          v-model="signupData.password"
-          :rules="[rules.passwordMatch]"
-          hint="* 최소 8자리(영문,숫자,특수문자 모두 포함)"
-          persistent-hint
-          id="password"
-          required 
-        >
-        </v-text-field>
-        <v-text-field 
-          label="Password Confirm"
-          type="password" 
-          v-model="signupData.password2" 
-          :rules="[rules.passwordConfirm]"
-          id="password2"
-          required
-          @keypress.enter="signup(signupData)"
-        >
-        </v-text-field>
-      </v-card-text>
-      <v-card-actions>
-        <v-spacer></v-spacer>
-        <v-btn :disabled="!checkValidForm()" color="#BCAAA4" @click="signup(signupData)">Sumbit</v-btn>
-        <v-spacer></v-spacer>
-      </v-card-actions>
-    </v-card>
-  </v-dialog>
+  <v-overlay style="background-image:linear-gradient(45deg, #a6c0fe, #f68084);" opacity="0">
+    <v-dialog
+      v-model="dialog"
+      transition="dialog-bottom-transition"
+      overlay-opacity="0"
+      persistent
+      width="700px"
+      class="py-4"
+    >
+      <v-card ref="form" color="#2c001e" dark class="pb-3" style="background:transparent">
+        <v-list-item color="#2c001e" dark>
+          <v-list-item-content>
+            <v-list-item-title class="headline">이제부터 카페 고민은 <br> 저희가 할께요!</v-list-item-title>
+          </v-list-item-content>
+          <v-list-item-avatar>
+            <v-btn icon dark @click="$router.go(-1)">
+              <v-icon>mdi-close</v-icon>
+            </v-btn>
+          </v-list-item-avatar>
+        </v-list-item>
+        <v-card-text class="pa-3">
+          <v-text-field 
+            label="E-mail"
+            v-model="signupData.id"
+            :rules="[rules.emailMatch]"
+            id="Username"
+            autofocus
+            required
+            solo
+          >
+          </v-text-field>
+          <v-text-field 
+            solo
+            label="Password" 
+            type="password" 
+            v-model="signupData.password"
+            :rules="[rules.passwordMatch]"
+            hint="* 최소 8자리(영문,숫자,특수문자 모두 포함)"
+            persistent-hint
+            id="password"
+            required 
+          >
+          </v-text-field>
+          <v-text-field 
+            solo
+            label="Password Confirm"
+            type="password" 
+            v-model="signupData.password2" 
+            :rules="[rules.passwordConfirm]"
+            id="password2"
+            required
+            @keypress.enter="signup(signupData)"
+          >
+          </v-text-field>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn :disabled="!checkValidForm()" color="#BCAAA4" @click="signup(signupData)">Sumbit</v-btn>
+          <v-spacer></v-spacer>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+  </v-overlay>
 </template>
 
 <script>

@@ -1,5 +1,5 @@
 <template>
-  <v-layout class="px-2">
+  <v-layout>
     <v-text-field
       v-if="isLoggedIn"
       label="Content" 
@@ -11,6 +11,7 @@
     <template v-slot:append-outer>
       <v-btn
         small
+        dark
         color="secondary"
         @click="checkBeforeCreateComment(commentData)"
       >등록</v-btn>
@@ -54,7 +55,6 @@ export default {
       }
     },
     toLoginPage() {
-      console.log('noaccess')
       this.$router.replace({ name: 'Login'})
     },
   },

@@ -1,6 +1,6 @@
 <template>
   <div v-cloak>
-    
+
     <div v-if="errorStr">
       Sorry, but the following error
       occurred: {{errorStr}}
@@ -14,10 +14,7 @@
       <h2>검색된 카페가 없습니다.</h2>
     </div>
     <v-slide-group
-      v-else
-      class="pa-4"
-      active-class="secondary"
-      show-arrows
+      show-arrows-on-hover
     >
       <v-slide-item
         v-for="cafe in geoCafeList"
@@ -25,13 +22,12 @@
         v-slot:default="{ toggle }"
       >
         <v-card
-          class="ma-4"
+          class="ma-1"
           @click="toggle"
         >
           <v-img
-            height="200px"
-            width="200px"
-            class="grey lighten-2"
+            height="170px"
+            width="170px"
             :src="'https://i3a203.p.ssafy.io:5000/api/cafe/get/image/'+cafe.cafeno"
             @click="onSelectCafe(cafe.cafeno)"
           >
