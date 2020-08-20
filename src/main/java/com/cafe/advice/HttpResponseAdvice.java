@@ -27,10 +27,10 @@ public class HttpResponseAdvice implements ResponseBodyAdvice<Object>{
 	                              ServerHttpRequest request, ServerHttpResponse response) {
         System.out.println("beforeBodyWrite");
 		//response.getHeaders().add("Server", "advice");
-		Map<String, String> map = new HashMap<>();
+		//map.put("service", "test");
+		//response.getHeaders().setAll(map);
+		Map<String, String> map = (HashMap) body;
 		map.put("service", "test");
-		//response.getBody().write(new ResponseEntity<>(map, HttpStatus.ACCEPTED).getBody().);
-		response.getHeaders().setAll(map);
 		return body;
 	}
 }
