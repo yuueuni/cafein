@@ -27,6 +27,9 @@
       <router-link v-if="isLoggedIn" to="#" @click.native="logout" class="link-text">
         <v-btn><span class="white--text">Logout</span><span class="material-icons mx-3 white--text">logout</span></v-btn>
       </router-link>
+      <router-link to="/bgc" class="link-text">
+        <v-btn><span class="white--text">bgc</span></v-btn>
+      </router-link>
     </v-app-bar>
   </v-bottom-navigation>
 </template>
