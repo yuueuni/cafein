@@ -22,8 +22,6 @@ import NotFound from '@/components/404.vue'
 import SurveyView from '@/views/survey/SurveyView.vue'
 import SurveyResultView from '@/views/survey/SurveyResultView.vue'
 
-import design from '@/views/design.vue'
-
 Vue.use(VueRouter)
 
   const routes = [
@@ -93,13 +91,6 @@ Vue.use(VueRouter)
     name: 'SurveyResult',
     component: SurveyResultView,
   },
-  {
-    path: '/bgc',
-    name: 'bgc',
-    component: design,
-  },
-
-
 ]
 
 const router = new VueRouter({

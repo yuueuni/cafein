@@ -29,12 +29,11 @@
               >
                 <v-btn text dark @click="survey = 1" large>next</v-btn>
               </v-col>
-              <!-- answer -->
-              <!-- question1 && question2 && question4 && question5 -->
+
               <v-col
                 cols="6"
                 sm="4"
-                v-else-if="item.name === 'question3' || item.name === 'priority' "
+                v-else-if="item.name === 'question3'"
                 v-for="(choice, c) in item.choices"
                 :key="c"
                 class="d-inline-block survey"
@@ -51,6 +50,24 @@
               </v-col>
 
               <v-col
+                cols="6"
+                sm="4"
+                v-else-if="item.name === 'priority' "
+                v-for="(choice, c) in item.choices"
+                :key="c"
+                class="d-inline-block survey"
+              >
+                <v-img
+                  outlined
+                  :src="choice.text"
+                  width="300px"
+                  height="200px"
+                  @click="target=choice.value; onNext(i);"
+                ></v-img>
+
+              </v-col>
+
+              <v-col
                 cols="12"
                 v-else
                 v-for="(choice, c) in item.choices"
@@ -59,26 +76,18 @@
                 <v-btn text dark @click="target=choice.value; onNext(i);">{{ choice.text }}</v-btn>
               </v-col>
 
+            <div class="text-right" v-if="survey == 0">
+              <v-btn rounded text dark color="#ffffff85" @click="$router.push(`/home`)">skip</v-btn>
+            </div>
             </v-stepper-content>
-
           </v-row>
         </v-stepper-items>
       </v-stepper>
-
-      <div style="position:fixed; bottom:0; right:0">
-        <v-btn v-if="survey == 0" class="ma-2" rounded text dark @click="$router.push(`/home`)">skip</v-btn>
-      </div>
-
       </v-dialog>
     </v-overlay>
   </div>
 </template>
-  
-  <!-- <input
-      background-color="white"
-      color="black"
-      label="username"
-  > -->
+
 
 <script>
 import { mapState, mapActions } from 'vuex'

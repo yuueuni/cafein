@@ -2,12 +2,6 @@
   <v-slide-group
     show-arrows-on-hover
   >
-    <div v-if="!surveyRecommendList.length" class="mx-auto">
-      <h2>아직 카페 성향 테스트 진행을 안했다면, 지금 바로 하러가기 !</h2>
-      <router-link to="/" class="link-text">
-        <v-btn><span class="white--text">Survey</span></v-btn>
-      </router-link>
-    </div>
     <v-slide-item
       v-for="cafe in surveyRecommendList"
       :key="cafe.id"
