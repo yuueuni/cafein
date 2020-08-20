@@ -20,16 +20,16 @@
 
               <v-card-text class="text-center">
                 <v-card-title>
-                  <v-btn @click="onCafeDetail(selectedPost.cafeno)" class="ma-0 pa-0" text><h2>{{ selectedPost.cafename }}</h2></v-btn>
+                  <v-btn @click="onCafeDetail(selectedPost.cafeno)" class="ma-0 pa-0" text><h2 style="color: #1A1F73">{{ selectedPost.cafename }}</h2></v-btn>
                   <v-spacer></v-spacer>
-                  <v-btn @click="onMypage(selectedPost.uid)" class="ma-0 pa-0" text small>{{ selectedPost.uid }}</v-btn>
+                  <v-btn @click="onMypage(selectedPost.uid)" class="ma-0 pa-0" text small style="color: #D9A9A9">{{ selectedPost.uid }}</v-btn>
                 </v-card-title>
                 
                 <v-divider class="mb-3"></v-divider>
 
-                <p class="my-3 text-start">{{ selectedPost.contents }}</p>
+                <p class="my-3 text-start" style="color: #49538C">{{ selectedPost.contents }}</p>
                 <v-row class="d-flex align-center justify-center">
-                  <span>맛</span>
+                  <span style="color: #49538C">맛</span>
                   <v-rating
                     v-model="selectedPost.taste"
                     color="yellow darken-3"
@@ -37,11 +37,11 @@
                     empty-icon="$ratingFull"
                     readonly
                   ></v-rating>
-                  <span>({{ selectedPost.taste }})</span>
+                  <span style="color: #49538C">({{ selectedPost.taste }})</span>
                 </v-row>
 
                 <v-row class="d-flex align-center justify-center">
-                  <span>분위기</span>
+                  <span style="color: #49538C">분위기</span>
                   <v-rating
                     v-model="selectedPost.mood"
                     color="yellow darken-3"
@@ -49,11 +49,11 @@
                     empty-icon="$ratingFull"
                     readonly
                   ></v-rating>
-                  <span>({{ selectedPost.mood }})</span>
+                  <span style="color: #49538C">({{ selectedPost.mood }})</span>
                 </v-row>
 
                 <v-row class="d-flex align-center justify-center">
-                  <span>위생</span>
+                  <span style="color: #49538C">위생</span>
                   <v-rating
                     v-model="selectedPost.clean"
                     color="yellow darken-3"
@@ -61,7 +61,7 @@
                     empty-icon="$ratingFull"
                     readonly
                   ></v-rating>
-                  <span>({{ selectedPost.clean }})</span>
+                  <span style="color: #49538C">({{ selectedPost.clean }})</span>
                 </v-row>
 
               </v-card-text>
