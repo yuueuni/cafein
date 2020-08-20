@@ -241,7 +241,7 @@ Cafe 을 이용하는 다른 사용자를 검색할 수 있다.
 
 유저 검색 결과
 ---
-![user search image](./img/search_user_info.png)
+![user search image](./img/search_user.png)
 <br>
 
 - 키워드 검색
@@ -339,7 +339,7 @@ Cafe 을 이용하는 다른 사용자를 검색할 수 있다.
 ![follower image](./img/follower.png)>
 <br>
 
-<span style="color:orange; font-size:17pt; font-weight:bold"> 앞으로 개선/추가 해야할 점</span>
+# <span style="color:orange; font-size:17pt; font-weight:bold"> 앞으로 개선/추가 해야할 점</span>
 1. 최근 핫한 카페 추천 로직을 좀 더 구체화 할 필요가 있다.
 한 동안 사용한 유저가 없다면 최근이 예전이 될 수가 있다.  
 <br>
