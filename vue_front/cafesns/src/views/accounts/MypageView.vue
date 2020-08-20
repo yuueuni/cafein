@@ -1,11 +1,11 @@
 <template>
     <div>
         <v-row>
-          <div class="d-flex justify-end align-center">
-            <h1 class="px-3">{{ userData.id.split('@')[0] }}</h1>
-            <v-btn v-if="profileUserId !== currentUser" @click="followUser(profileUserId)" small>
-              <span v-if="!followState">Follow</span>
-              <span v-else>Following</span>
+          <div class="d-flex justify-end align-center ma-2">
+            <h1 class="px-3" style="color: #1A1F73">{{ userData.id.split('@')[0] }}</h1>
+            <v-btn v-if="profileUserId !== currentUser" color="#D9A9A9" @click="followUser(profileUserId)" small>
+              <span v-if="!followState" style="color: white">Follow</span>
+              <span v-else style="color: white">Following</span>
             </v-btn>
           </div>
           <v-row align="center" justify="end" class="mr-1">
@@ -16,14 +16,14 @@
         </v-row>
       <v-divider class="my-3"></v-divider>
       <div>
-        <i class="fas fa-heart fa-3x ma-3" style="color: #ef9a9a"></i>
-        <div class="text-center">
+        <i class="fas fa-heart fa-3x" style="color: #D9A9A9"></i>
+        <div class="home text-center">
           <LikeList/>
         </div>
       </div>
       <div>
-        <i class="fas fa-shoe-prints fa-rotate-270 fa-3x ma-3" style="color: #90caf9"></i>
-          <div class="text-center">
+        <i class="fas fa-shoe-prints fa-rotate-270 fa-3x" style="color: #49538C"></i>
+          <div class="home text-center">
             <StampList/>
           </div>
       </div>

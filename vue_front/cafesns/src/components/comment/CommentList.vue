@@ -10,8 +10,8 @@
         >
           <div class="d-flex justify-space-between px-2">
             <div>
-              <span class="userPage pl-1" style="font-size:small" @click="onUserPage(comment.uid)">{{ comment.uid }}</span>
-              <h4>{{ comment.contents }}</h4>
+              <span class="userPage pl-1" style="font-size:small; color: #D9A9A9" @click="onUserPage(comment.uid)">{{ comment.uid }}</span>
+              <p style="color: #49538C">{{ comment.contents }}</p>
             </div>
             <div class="d-flex align-center">
               <v-btn
@@ -25,7 +25,7 @@
               >
                 삭제
               </v-btn>
-              <span style="color:grey">{{ comment.date }}</span>
+              <span style="color: #1A1F73">{{ comment.date }}</span>
             </div>
           </div>
         </div>

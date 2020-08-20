@@ -40,11 +40,11 @@
           >
           </v-text-field>
         <div class="text-center">
-          <v-btn color="#BCAAA4" @click="login(loginData)">Login</v-btn>
+          <v-btn style="background:transparent" @click="login(loginData)">Login</v-btn>
         </div>
         </v-card-text>
         <v-card-actions>
-          <span style="font-size:small;">아직 회원이 아니신가요? <v-btn class="my-0" color="secondary" @click="onSingup" text small>회원가입</v-btn></span>
+          <v-btn class="my-0" @click="onSingup" text small><span style="font-size:small;">회원가입은 어떠세요?</span></v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
