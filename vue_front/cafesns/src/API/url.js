@@ -1,5 +1,5 @@
 export default{
-    URL: 'http://i3a203.p.ssafy.io:5000/api',
+    URL: 'https://i3a203.p.ssafy.io:5000/api',
     ROUTES: {
         //accounts 
         signup: '/user/signup',
@@ -7,10 +7,12 @@ export default{
         mypage: '/user',
 
         //post
-        postList: '/post/list/cafe/1/',
+        postList: '/post/list/',
+        userPostList: '/post/list/user/1/',
+        cafePostList: '/post/list/cafe/1/',
         postDetail: '/post',
         postDelete: '/post/delete/',
-        UploadImage: '/post/upload',
+        uploadImage: '/post/upload',
 
         //comment
         createComment: '/comment',
@@ -24,10 +26,24 @@ export default{
         //follow
         follow: '/follow',
         
-        // cafe
-        cafeDetail: '/cafe/', // + :id
-        cafeList: '/cafe/list/'
+        //cafe
+        cafeDetail: '/cafe/',
+        cafeList: '/cafe/list/',
+        cafeKeyword: '/keyword/keywords/',
+        cafeMenu: '/menu/list/',
 
+        //search
+        cafeSearch: '/cafe/search/',
+        keywordSearch: '/keyword/cafelist/',
+        userSearch: '/user/search/',
 
+        //geo
+        geolocation: '/cafe/geolocation/',
+
+        //survey
+        surveyResult: '/recommend/survey/',
+
+        //recommend
+        recommend: '/recommend/',
     }
 }

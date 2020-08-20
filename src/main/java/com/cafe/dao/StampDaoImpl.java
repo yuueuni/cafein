@@ -41,5 +41,18 @@ public class StampDaoImpl implements StampDao{
 	public List<CafeDto> selectCafe(String uid) {
 		return session.selectList("stamp.selectCafe", uid);
 	}
+	
+	@Override
+	public void update(CafeDto cafe) {
+		session.update("stamp.update", cafe);
+		
+	}
+
+	@Override
+	public Integer getMaxStamp(int cafeno) {
+		return session.selectOne("stamp.getMaxStamp",cafeno);
+	}
+
+
 
 }

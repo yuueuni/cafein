@@ -1,27 +1,29 @@
 <template>
   <v-slide-group
-    class="pa-4"
-    active-class="secondary"
-    show-arrows
+    show-arrows-on-hover
   >
+    <div v-if="!mostLikeRecommendList.length" class="mx-auto">
+      현재 추천할 카페가 없습니다.
+    </div>
     <v-slide-item
-      v-for="cafe in likeList"
+      v-for="cafe in mostLikeRecommendList"
       :key="cafe.id"
       v-slot:default="{ toggle }"
     >
       <v-card
-        class="ma-4"
+        class="ma-1"
         @click="toggle"
       >
         <v-img
-          :src= randomImg
-          height="200px"
-          width="200px"
+          :src="'https://i3a203.p.ssafy.io:5000/api/cafe/get/image/'+cafe.cafeno"
+          height="170px"
+          width="170px"
           @click="onSelectCafe(cafe.cafeno)"
         >
           <v-row align="end" class="lightbox white--text fill-height">
             <v-col style="background:#00000080">
-              <div class="subheading">{{ cafe.name }}</div>
+              <div v-if="cafe.name.length<10" class="subheading text-center">{{ cafe.name }}</div>
+              <div v-else class="subheading text-center">{{ cafe.name.substring(0, 10) + "..." }}</div>
             </v-col>
           </v-row>
         </v-img>
@@ -34,7 +36,7 @@
 import { mapState, mapActions } from 'vuex'
 
 export default {
-  name: 'LikeList',
+  name: 'MostLikeRecommendList',
   data() {
     return {
       randomImg : "https://cdn.vuetifyjs.com/images/cards/cooking.png",
@@ -42,19 +44,19 @@ export default {
   },
   computed: {
     ...mapState([
-      'likeList'
+      'mostLikeRecommendList',
     ])
   },
   methods: {
     ...mapActions([
-      'fetchLikeList',
+      'fetchMostLikeRecommendList',
     ]),
     onSelectCafe(target) {
       this.$router.push(`/cafe/detail/${target}`)
     },
   },
   created() {
-    this.fetchLikeList()
+    this.fetchMostLikeRecommendList()
   }
 }
 </script>

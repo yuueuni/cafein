@@ -9,11 +9,10 @@ public class PostDto {
 	private String cafename;
 	private String contents;
 	private String image;
-	private String taste;
-	private String mood;
-	private String clean;
+	private float taste;
+	private float mood;
+	private float clean;
 	private Date date;
-	
 	public int getPno() {
 		return pno;
 	}
@@ -50,22 +49,22 @@ public class PostDto {
 	public void setImage(String image) {
 		this.image = image;
 	}
-	public String getTaste() {
+	public float getTaste() {
 		return taste;
 	}
-	public void setTaste(String taste) {
+	public void setTaste(float taste) {
 		this.taste = taste;
 	}
-	public String getMood() {
+	public float getMood() {
 		return mood;
 	}
-	public void setMood(String mood) {
+	public void setMood(float mood) {
 		this.mood = mood;
 	}
-	public String getClean() {
+	public float getClean() {
 		return clean;
 	}
-	public void setClean(String clean) {
+	public void setClean(float clean) {
 		this.clean = clean;
 	}
 	public Date getDate() {
@@ -83,6 +82,7 @@ public class PostDto {
 				.append(clean).append(", date=").append(date).append("]");
 		return builder.toString();
 	}
+	
 	
 	
 }

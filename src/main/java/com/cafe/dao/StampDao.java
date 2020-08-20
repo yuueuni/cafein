@@ -11,4 +11,6 @@ public interface StampDao {
 	public int delete(StampDto stamp);
 	int selectByUser(StampDto user);
 	public List<CafeDto> selectCafe(String uid);
+	public void update(CafeDto cafe);//카페의 카운트수 변경
+	public Integer getMaxStamp(int cafeno);
 }

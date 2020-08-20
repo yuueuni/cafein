@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.cafe.dto.CafeDto;
+import com.cafe.dto.GeoDto;
 
 
 
@@ -28,12 +29,35 @@ public class CafeDaoImpl implements CafeDao {
 	}
 	
 	@Override
-	public List<CafeDto> selectAll(int page) {
-		int n = 10; //한번에 보여줄 데이터 갯수
+	public List<CafeDto> selectAllByPage(int page) {//infinite scroll
+		int n = 20; //한번에 보여줄 데이터 갯수
 		RowBounds bound = new RowBounds((page - 1) * n, n);
-		return session.selectList("cafe.selectAll", null, bound);
+		return session.selectList("cafe.selectAllByPage", null, bound);
 	}
-
+	@Override
+	public List<CafeDto> selectAllByLikeCount(){
+		return session.selectList("cafe.selectAllByLikeCount");
+	}
+	
+	@Override
+	public List<CafeDto> selectAllByStampCount(){
+		return session.selectList("cafe.selectAllByStampCount");
+	}
+	
+	@Override
+	public List<CafeDto> selectAllByLikeRecent(){
+		return session.selectList("cafe.selectAllByLikeRecent");
+	}
+	
+	@Override
+	public List<CafeDto> selectAllByStampRecent(){
+		return session.selectList("cafe.selectAllByStampRecent");
+	}
+	
+	@Override
+	public List<CafeDto> selectAllAll(GeoDto geo){
+		return session.selectList("cafe.selectAllAll",geo);
+	}
 	@Override
 	public int insert(CafeDto cafe) {
 		return session.insert("cafe.insert", cafe);

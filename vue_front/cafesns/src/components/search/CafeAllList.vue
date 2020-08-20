@@ -1,21 +1,24 @@
 <template>
-  <v-layout>
-    <v-flex>
-      <v-row>
-        <v-card
-          class="ma-4"
-          v-for="cafe in cafeList"
-          :key="cafe.id"
-          @click="onSelectCafe(cafe.cafeno)"
-        >
-          <v-card-text class="subheading">
-            {{ cafe.name }}
-          </v-card-text>
-        </v-card>
-      </v-row>
-    <infinite-loading @infinite="infiniteHandler" spinner="waveDots"></infinite-loading>
-    </v-flex>
-  </v-layout>
+  <v-simple-table>
+    <thead>
+      <tr>
+        <th>Cafe Name</th>
+        <th>Location</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        v-for="cafe in cafeList"
+        :key="cafe.id"
+        class="hover-table"
+        @click="onSelectCafe(cafe.cafeno)"
+      >
+        <td>{{ cafe.name }}</td>
+        <td>{{ cafe.address }}</td>
+      </tr>
+    </tbody>
+  <infinite-loading @infinite="infiniteHandler" spinner="waveDots"></infinite-loading>
+  </v-simple-table>
 </template>
 
 <script>
@@ -23,7 +26,7 @@ import { mapState, mapActions } from 'vuex'
 import InfiniteLoading from 'vue-infinite-loading'
 
 export default {
-  name: 'CafeListView',
+  name: 'CafeAllList',
   data() {
     return {
       page: 1,
@@ -33,10 +36,14 @@ export default {
     InfiniteLoading,
   },
   computed: {
-    ...mapState(['cafeList'])
+    ...mapState([
+      'cafeList',
+    ])
   },
   methods: {
-    ...mapActions(['fetchCafeList']),
+    ...mapActions([
+      'fetchCafeList',
+    ]),
     onSelectCafe(target) {
       this.$router.push(`/cafe/detail/${target}`)
     },
@@ -56,7 +63,7 @@ export default {
           }, 1000)
         })
         .catch(err => console.log(err))
-    }
+    },
   },
   created() {
     this.fetchCafeList(this.page)
@@ -65,6 +72,8 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+.hover-table :hover {
+  cursor: pointer;
+}
 </style>
