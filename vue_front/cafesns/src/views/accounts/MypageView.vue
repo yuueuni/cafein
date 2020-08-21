@@ -21,7 +21,7 @@
           <LikeList/>
         </div>
       </div>
-      <div>
+      <div class="mt-4">
         <i class="fas fa-shoe-prints fa-rotate-270 fa-3x ma-3" style="color: #49538C"></i>
           <div class="home text-center">
             <StampList/>

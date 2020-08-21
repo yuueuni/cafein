@@ -85,7 +85,7 @@
           </v-col>
 
       </v-row>
-        <v-card-title class="pt-0" style="color: #1A1F73">cafe menu</v-card-title>
+        <v-card-title class="pt-4" style="color: #1A1F73">cafe menu</v-card-title>
         <v-card-text v-if="!cafeMenu.length">메뉴 준비 중 입니다.</v-card-text>
         <v-card-text>
           <v-row>
