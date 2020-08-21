@@ -15,7 +15,7 @@
 		from cafe
 		where
 		type = #{type}
-		order by rand() limit 3
+		order by rand() limit 2
 	</select>
 
 	<select id="recommendAllByType" resultType="CafeDto">
