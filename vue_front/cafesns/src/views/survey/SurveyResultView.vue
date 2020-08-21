@@ -85,7 +85,7 @@
           </v-btn>
         </div>
         <h2 class="text-center" style="color:white;">당신만을 기다리고 있는<br> 카페들이에요</h2><br>
-        <div class="d-inline-flex justify-space-between">
+        <div class="d-flex justify-space-around">
           <v-card
             v-for="cafe in surveyList"
             :key="cafe.cno"
@@ -93,15 +93,15 @@
             @click="onSelectCafe(cafe.cafeno)"
           >
             <v-img
-              height="200px"
-              width="200px"
+              height="160px"
+              width="160px"
               class="grey lighten-2"
               :src="'https://i3a203.p.ssafy.io:5000/api/cafe/get/image/'+cafe.cafeno"
             >
               <v-row align="end" class="lightbox white--text fill-height">
                 <v-col style="background:#00000080">
                   <div v-if="cafe.name.length<10" class="subheading text-center">{{ cafe.name }}</div>
-                  <div v-else class="subheading text-center">{{ cafe.name.substring(0, 10) + "..." }}</div>
+                  <div v-else class="subheading text-center">{{ cafe.name.substring(0, 8) + "..." }}</div>
                 </v-col>
               </v-row>
             </v-img>

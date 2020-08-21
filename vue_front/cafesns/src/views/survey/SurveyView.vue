@@ -139,16 +139,16 @@ export default {
             "title":"Q2. 당신의 선물 취향은?",
             "choices":[
               {
-                "value": 1,
-                "text":"꽃과 손편지"
-              },
-              {
                 "value": 2,
                 "text":"핵인싸템"
               },
               {
                 "value": 3,
                 "text":"축하 케이크"
+              },
+              {
+                "value": 1,
+                "text":"꽃과 손편지"
               },
               {
                 "value": 4,
@@ -165,20 +165,20 @@ export default {
             "title":"Q3. 당신의 영화 취향은?",
             "choices":[
               {
-                "value": 1,
-                "text": require("@/assets/movies/classic.jpg")
-              },
-              {
                 "value": 2,
                 "text": require("@/assets/movies/para.jpg")
+              },
+              {
+                "value": 4,
+                "text": require("@/assets/movies/avengers.jpg")
               },
               {
                 "value": 3,
                 "text": require("@/assets/movies/charlie.jpg")
               },
               {
-                "value": 4,
-                "text": require("@/assets/movies/avengers.jpg")
+                "value": 1,
+                "text": require("@/assets/movies/classic.jpg")
               },
               {
                 "value": 5,
@@ -199,12 +199,12 @@ export default {
                 "text":"SNS #출근룩 검색 후 고대로 사러간다"
               },
               {
-                "value": 3,
-                "text":"출근룩보단 텀블러, 슬리퍼, 쿠션 챙기기"
-              },
-              {
                 "value": 4,
                 "text":"미생을 보며 최애 캐릭터룩을 따라입는다"
+              },
+              {
+                "value": 3,
+                "text":"출근룩보단 텀블러, 슬리퍼, 쿠션 챙기기"
               },
               {
                 "value": 5,
@@ -217,20 +217,20 @@ export default {
             "title":"Q5. 평소 집에 들어오자마자<br>바로 하는 행동은?",
             "choices":[
               {
-                "value": 1,
-                "text":"씻고 옷을 갈아입는다."
-              },
-              {
                 "value": 2,
                 "text":"저녁 1깡을 실천한다."
               },
               {
-                "value": 3,
-                "text":"출출한데 뭐 먹지? 냉장고부터 연다."
-              },
-              {
                 "value": 4,
                 "text":"강아지랑 논다."
+              },
+              {
+                "value": 1,
+                "text":"씻고 옷을 갈아입는다."
+              },
+              {
+                "value": 3,
+                "text":"출출한데 뭐 먹지? 냉장고부터 연다."
               },
               {
                 "value": 5,
