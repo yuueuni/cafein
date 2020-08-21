@@ -18,11 +18,11 @@
               sm="6"
             >
 
-              <v-card-text class="text-center">
-                <v-card-title class="pb-0">
-                  <v-btn @click="onCafeDetail(selectedPost.cafeno)" class="ma-0 pa-0" text><h2 style="color: #1A1F73">{{ selectedPost.cafename }}</h2></v-btn>
+              <v-card-text class="text-center pt-0 px-0">
+                <v-card-title class="pa-0">
+                  <v-btn @click="onMypage(selectedPost.uid)" class="ma-0 pa-0" text style="color: #D9A9A9"><h2 style="color: #1A1F73">{{ selectedPost.uid.split('@')[0] }}</h2></v-btn>
                   <v-spacer></v-spacer>
-                  <v-btn @click="onMypage(selectedPost.uid)" class="ma-0 pa-0" text small style="color: #D9A9A9">{{ selectedPost.uid }}</v-btn>
+                  <v-btn @click="onCafeDetail(selectedPost.cafeno)" class="ma-0 pa-0" text small>{{ selectedPost.cafename }}</v-btn>
                 </v-card-title>
                 
                 <v-divider class="my-2"></v-divider>
