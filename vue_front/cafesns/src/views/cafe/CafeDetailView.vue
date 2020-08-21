@@ -23,7 +23,7 @@
               <!-- like -->
               <v-tooltip top>
                 <template v-slot:activator="{on}">
-                  <v-btn v-if="liked" v-on="on" icon style="color: #D9A9A9" @mouseover="likeExplanation()" @click="thisViewLikeCafe(selectedCafe.cafeno)" class="mr-2">
+                  <v-btn v-if="liked" v-on="on" icon style="color: #8C4F5A" @mouseover="likeExplanation()" @click="thisViewLikeCafe(selectedCafe.cafeno)" class="mr-2">
                     <i class="fas fa-heart fa-2x"></i>
                   </v-btn>
                   <v-btn v-else v-on="on" icon color="grey lighten-1" @click="thisViewLikeCafe(selectedCafe.cafeno)" class="mr-2">
