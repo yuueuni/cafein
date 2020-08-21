@@ -3,7 +3,7 @@
     <v-card
       class="mx-auto my-12 pa-3"
     >
-      <v-card-title>
+      <v-card-title class="pb-0">
         <h1 style="color: #1A1F73">{{ selectedCafe.name }}</h1>
       </v-card-title>
       <v-row>
@@ -19,8 +19,7 @@
           >
           </v-img>
           <v-row align="end"> 
-            <v-card-title v-if="cafeKeywords" style="color: #49538C">cafe keywords</v-card-title>
-            <v-col class="text-end">
+            <v-col class="text-start ml-3 pb-0">
               <!-- like -->
               <v-tooltip top>
                 <template v-slot:activator="{on}">
@@ -47,17 +46,6 @@
                </v-tooltip>
             </v-col>
           </v-row>
-          <v-chip 
-            v-for="keyword in cafeKeywords"
-            :key="keyword.keyno"
-            class="keyword ma-2"
-            color="#D9A9A9"
-            style="color: white"
-          >{{ keyword.keyword }}
-          </v-chip>
-          <v-chip v-if="!cafeKeywords.length">
-            coffee
-          </v-chip>
         </v-col>
 
         <v-col
@@ -65,22 +53,39 @@
           sm="6"
         >
 
-            <v-card-title class="pt-0" style="color: #49538C">cafe open - close</v-card-title>
+            <v-card-title class="pb-0" style="color: #49538C">cafe open - close</v-card-title>
             <v-card-text style="color: #D9A9A9">{{ selectedCafe.business_hours }}</v-card-text>
 
-            <v-card-title class="pt-0" style="color: #3F438C">cafe info</v-card-title>
-            <v-card-text>
+            <v-card-title class="py-0" style="color: #3F438C">cafe info</v-card-title>
+            <v-card-text class="pb-0">
               <div class="d-flex">
-                <p style="color: #D9A9A9">tel)</p>
-                <p class="px-3" style="color: #49538C">{{ selectedCafe.tel }}</p>
+                <p class="mb-0" style="color: #D9A9A9">tel)</p>
+                <p class="mb-0 px-3" style="color: #49538C">{{ selectedCafe.tel }}</p>
               </div>
               <div class="d-flex">
-                <p style="color: #D9A9A9">address)</p>
+                <p class="mb-0" style="color: #D9A9A9">address)</p>
                 <p class="px-3" style="color: #49538C">{{ selectedCafe.address }}</p>
               </div>
             </v-card-text>
 
-        <v-card-title style="color: #1A1F73">cafe menu</v-card-title>
+            <v-card-title v-if="cafeKeywords" class="py-0" style="color: #49538C">cafe keywords</v-card-title>
+              <div class="ml-3 mt-2">
+                <v-chip 
+                  v-for="keyword in cafeKeywords"
+                  :key="keyword.keyno"
+                  class="mx-1"
+                  color="#D9A9A9"
+                  style="color: white"
+                >{{ keyword.keyword }}
+                </v-chip>
+                <v-chip v-if="!cafeKeywords.length">
+                  coffee
+                </v-chip>
+              </div>
+          </v-col>
+
+      </v-row>
+        <v-card-title class="pt-0" style="color: #1A1F73">cafe menu</v-card-title>
         <v-card-text v-if="!cafeMenu.length">메뉴 준비 중 입니다.</v-card-text>
         <v-card-text>
           <v-row>
@@ -103,10 +108,7 @@
           </v-row>
         </v-card-text>
 
-        </v-col>
-      </v-row>
-
-      <v-card-actions>
+      <v-card-actions class="pt-0">
         <v-spacer></v-spacer>
         <router-link to="/post/create" class="text-decoration-none">
           <v-bottom-navigation style="background:transparent; box-shadow:none !important;">
@@ -184,8 +186,6 @@ export default {
 }
 </script>
 
-<style scoped>
-.keyword :hover {
-  cursor: pointer;
-}
+<style>
+
 </style>
