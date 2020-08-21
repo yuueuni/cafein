@@ -9,13 +9,13 @@
       <h1>아직 유형 추천 카페가 없어요. 설문을 진행하시겠어요?</h1>
     </div> -->
     
-    <h1><br><i class="fas fa-heart fa-1x" style="color: #D9A9A9"></i> 많은 카페</h1>
+    <h1><br><i class="fas fa-heart fa-1x" style="color: #8C4F5A"></i> 많은 카페</h1>
     <MostLikeRecommendList/>
 
     <h1><br>최다 <i class="fas fa-shoe-prints fa-rotate-270 fa-1x" style="color: #49538C"></i> 카페</h1>
     <MostStampRecommendList/>
     
-    <h1><br>최근 <i class="fas fa-heart fa-1x" style="color: #D9A9A9"></i> 카페</h1>
+    <h1><br>최근 <i class="fas fa-heart fa-1x" style="color: #8C4F5A"></i> 카페</h1>
     <RecentLikeRecommendList/>
     
     <h1><br>실시간 <i class="fas fa-shoe-prints fa-rotate-270 fa-1x" style="color: #49538C"></i> 카페</h1>

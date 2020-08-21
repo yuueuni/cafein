@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h4 v-if="!commentList.length" class="text-center">등록된 댓글이 없습니다.</h4>
+    <h4 v-if="!commentList.length" class="text-center" style="color: #49538C">등록된 댓글이 없습니다.</h4>
     <v-dialog v-model="dialog" persistent max-width="290">
       <template v-slot:activator="{ on }">
         <div
@@ -23,7 +23,7 @@
                 small
                 @click="selectComment = comment.cno"
               >
-                삭제
+              <span class="material-icons mx-3" style="color: #D9A9A9">delete</span>  
               </v-btn>
               <span style="color: #1A1F73">{{ comment.date }}</span>
             </div>
@@ -31,13 +31,13 @@
         </div>
       </template>
       <v-card>
-        <v-card-title>
+        <v-card-title style="color: #49538C">
           댓글을 삭제하시겠습니까?
         </v-card-title>
         <v-card-actions>
-          <v-btn color="green darken-1" text @click="deleteComment(selectComment), dialog = false">삭제</v-btn>
+          <v-btn color="#8C4F5A" text @click="deleteComment(selectComment), dialog = false">삭제</v-btn>
           <v-spacer></v-spacer>
-          <v-btn color="grey darken-1" text @click="dialog = false">취소</v-btn>
+          <v-btn color="#1A1F73" text @click="dialog = false">취소</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>

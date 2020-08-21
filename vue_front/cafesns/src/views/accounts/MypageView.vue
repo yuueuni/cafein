@@ -16,7 +16,7 @@
         </v-row>
       <v-divider class="my-3"></v-divider>
       <div>
-        <i class="fas fa-heart fa-3x" style="color: #D9A9A9"></i>
+        <i class="fas fa-heart fa-3x" style="color: #8C4F5A"></i>
         <div class="home text-center">
           <LikeList/>
         </div>

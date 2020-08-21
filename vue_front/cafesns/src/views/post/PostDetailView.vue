@@ -19,7 +19,7 @@
             >
 
               <v-card-text class="text-center">
-                <v-card-title>
+                <v-card-title class="pb-0">
                   <v-btn @click="onCafeDetail(selectedPost.cafeno)" class="ma-0 pa-0" text><h2 style="color: #1A1F73">{{ selectedPost.cafename }}</h2></v-btn>
                   <v-spacer></v-spacer>
                   <v-btn @click="onMypage(selectedPost.uid)" class="ma-0 pa-0" text small style="color: #D9A9A9">{{ selectedPost.uid }}</v-btn>
@@ -27,12 +27,11 @@
                 
                 <v-divider class="my-2"></v-divider>
 
-                <p class="my-3 text-start" style="color: #49538C">{{ selectedPost.contents }}</p>
-                <v-row class="d-flex align-center justify-center">
+                <v-row class="d-flex align-center justify-center mt-5 pt-2">
                   <span style="color: #49538C">맛</span>
                   <v-rating
                     v-model="selectedPost.taste"
-                    color="yellow darken-3"
+                    color="#8C4F5A"
                     background-color="grey darken-1"
                     empty-icon="$ratingFull"
                     readonly
@@ -44,7 +43,7 @@
                   <span style="color: #49538C">분위기</span>
                   <v-rating
                     v-model="selectedPost.mood"
-                    color="yellow darken-3"
+                    color="#8C4F5A"
                     background-color="grey darken-1"
                     empty-icon="$ratingFull"
                     readonly
@@ -56,14 +55,16 @@
                   <span style="color: #49538C">위생</span>
                   <v-rating
                     v-model="selectedPost.clean"
-                    color="yellow darken-3"
+                    color="#8C4F5A"
                     background-color="grey darken-1"
                     empty-icon="$ratingFull"
                     readonly
                   ></v-rating>
                   <span style="color: #49538C">({{ selectedPost.clean }})</span>
                 </v-row>
+              
 
+              <p class="my-5 py-4 text-center" style="color: #49538C">{{ selectedPost.contents }}</p>
               </v-card-text>
 
               <CommentCreate/>
@@ -84,8 +85,8 @@
                 text
                 @click="onUpdatePost(selectedPost.pno)"
               >
-              <span>Edit</span>
-              <span class="material-icons mx-3">edit</span>
+              <span style="color: #49538C">Edit</span>
+              <span class="material-icons mx-3" style="color: #1A1F73">edit</span>
               </v-btn>
 
               <v-dialog v-model="dialog" persistent max-width="320">
@@ -96,8 +97,8 @@
                     text
                     @click="dialog = true"
                   >
-                  <span>Delete</span>
-                  <span class="material-icons mx-3">delete</span>
+                  <span style="color: #49538C">Delete</span>
+                  <span class="material-icons mx-3" style="color: #D9A9A9">delete</span>
                   </v-btn>
                 </template>
                   <v-card>

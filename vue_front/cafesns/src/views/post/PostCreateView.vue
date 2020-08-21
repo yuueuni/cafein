@@ -18,7 +18,7 @@
               <span style="color: #49538C">맛</span>
               <v-rating
                 v-model="postList.taste"
-                color="yellow darken-3"
+                color="#8C4F5A"
                 background-color="grey darken-1"
                 empty-icon="$ratingFull"
                 hover
@@ -30,7 +30,7 @@
               <span style="color: #49538C">분위기</span>
               <v-rating
                 v-model="postList.mood"
-                color="yellow darken-3"
+                color="#8C4F5A"
                 background-color="grey darken-1"
                 empty-icon="$ratingFull"
                 hover
@@ -42,7 +42,7 @@
               <span style="color: #49538C">위생</span>
               <v-rating
                 v-model="postList.clean"
-                color="yellow darken-3"
+                color="#8C4F5A"
                 background-color="grey darken-1"
                 empty-icon="$ratingFull"
                 hover
@@ -63,7 +63,7 @@
             <v-img v-if="url" :src="url" contain max-width="100%" max-height="300px"></v-img>
           </v-card-text>
           <div class="text-center mb-3 pb-3">
-            <v-btn color="secondary" :disabled="disabled" @click="uploadImage({postList, formData})">Save</v-btn>
+            <v-btn color="#D9A9A9" class="white--text" :disabled="disabled" @click="uploadImage({postList, formData})">Save</v-btn>
           </div>
         </v-card>  
       </v-col>
