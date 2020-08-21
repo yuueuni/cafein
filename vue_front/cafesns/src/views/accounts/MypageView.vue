@@ -1,7 +1,7 @@
 <template>
     <div>
         <v-row>
-          <div class="d-flex justify-end align-center ma-2">
+          <div class="d-flex justify-end align-center mx-2">
             <h1 class="px-3" style="color: #1A1F73">{{ userData.id.split('@')[0] }}</h1>
             <v-btn v-if="profileUserId !== currentUser" color="#D9A9A9" @click="followUser(profileUserId)" small>
               <span v-if="!followState" style="color: white">Follow</span>
@@ -14,15 +14,15 @@
             <UserPostList/>
           </v-row>
         </v-row>
-      <v-divider class="my-3"></v-divider>
+      <v-divider class="my-2"></v-divider>
       <div>
-        <i class="fas fa-heart fa-3x" style="color: #D9A9A9"></i>
+        <i class="fas fa-heart fa-3x ma-3" style="color: #D9A9A9"></i>
         <div class="home text-center">
           <LikeList/>
         </div>
       </div>
       <div>
-        <i class="fas fa-shoe-prints fa-rotate-270 fa-3x" style="color: #49538C"></i>
+        <i class="fas fa-shoe-prints fa-rotate-270 fa-3x ma-3" style="color: #49538C"></i>
           <div class="home text-center">
             <StampList/>
           </div>
