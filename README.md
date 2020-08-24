@@ -40,6 +40,17 @@
 
 ## 사용언어 & 프레임 워크 & API
 
+### 카페 추천
+- 설문 진행 후, 결과 유형별 맞춤형 카페 추천
+- 좋아요(LIKE), 발도장(STAMP) 카페 기반 협업 필터링 추천
+- 최다 및 최신 좋아요, 발도장 카페 추천
+
+---
+   
+<br><br>
+
+# <span style="color:orange; font-size:17pt; font-weight:bold"> 사용 언어 및 기술 스택 </span>
+## 사용언어 & 프레임 워크 & API
 ### FrontEnd
 
 ![JavaScript Badge](https://img.shields.io/badge/-JavaScript-yellow?style=flat-square&logo=JavaScript)
