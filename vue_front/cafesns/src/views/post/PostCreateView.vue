@@ -1,6 +1,5 @@
 <template>
   <div>
-    <router-link to="/post/detail"><v-btn text>go post</v-btn></router-link>
     <v-row justify="center">
       <v-col
         cols="12"
@@ -11,54 +10,60 @@
         <v-card ref="form" class="px-3">
           <v-card-text class="text-center">
             <v-card-title>
-              <h1>New Post</h1>
-              <v-spacer></v-spacer>
-              <span class="text-subtitle-2">cafe name</span>
+              <h1 style="color: #1A1F73">{{ selectedCafe.name }}</h1>
             </v-card-title>
             <v-divider class="mb-3"></v-divider>
 
-            <span>맛 {{ postList.taste }}</span>
-            <v-rating
-              v-model="postList.taste"
-              color="yellow darken-3"
-              background-color="grey darken-1"
-              empty-icon="$ratingFull"
-              half-increments
-              hover
-            ></v-rating>
+            <v-row class="d-flex align-center justify-center" >
+              <span style="color: #49538C">맛</span>
+              <v-rating
+                v-model="postList.taste"
+                color="#8C4F5A"
+                background-color="grey darken-1"
+                empty-icon="$ratingFull"
+                hover
+              ></v-rating>
+              <span style="color: #49538C">({{ postList.taste }})</span>
+            </v-row>
 
-            <span>분위기 {{ postList.mood }}</span>
-            <v-rating
-              v-model="postList.mood"
-              color="yellow darken-3"
-              background-color="grey darken-1"
-              empty-icon="$ratingFull"
-              half-increments
-              hover
-            ></v-rating>
+            <v-row class="d-flex align-center justify-center">
+              <span style="color: #49538C">분위기</span>
+              <v-rating
+                v-model="postList.mood"
+                color="#8C4F5A"
+                background-color="grey darken-1"
+                empty-icon="$ratingFull"
+                hover
+              ></v-rating>
+              <span style="color: #49538C">({{ postList.mood }})</span>
+            </v-row>
 
-            <span>위생 {{ postList.clean }}</span>
-            <v-rating
-              v-model="postList.clean"
-              color="yellow darken-3"
-              background-color="grey darken-1"
-              empty-icon="$ratingFull"
-              half-increments
-              hover
-            ></v-rating>
-
+            <v-row class="d-flex align-center justify-center">
+              <span style="color: #49538C">위생</span>
+              <v-rating
+                v-model="postList.clean"
+                color="#8C4F5A"
+                background-color="grey darken-1"
+                empty-icon="$ratingFull"
+                hover
+              ></v-rating>
+              <span style="color: #49538C">({{ postList.clean }})</span>
+            </v-row>
+            
             <v-textarea 
               label="Content" 
               v-model="postList.contents"
               id="content"
+              autofocus
+              :rules="[ checkContents ]"
             >
             </v-textarea>
 
-            <v-file-input accept="image/*" label="File input" @change="onFileChange"></v-file-input>
+            <v-file-input accept="image/*" label="File input" @change="onFileChange" :rules="[ checkImage ]"></v-file-input>
             <v-img v-if="url" :src="url" contain max-width="100%" max-height="300px"></v-img>
           </v-card-text>
           <div class="text-center mb-3 pb-3">
-            <v-btn color="secondary" @click="uploadImage({postList, formData})">Save</v-btn>
+            <v-btn color="#D9A9A9" class="white--text" :disabled="disabled" @click="uploadImage({postList, formData})">Save</v-btn>
           </div>
         </v-card>  
       </v-col>
@@ -67,39 +72,75 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'postCreateView',
+
   data() {
     return {
       postList: {
-        cafeno: 7,
+        cafeno: null,
+        cafename: null,
         contents: null,
-        taste: 3,
-        mood: 3,
-        clean: 3,
+        taste: 0,
+        mood: 0,
+        clean: 0,
         uid: null,
         image: null,
       },
       formData: new FormData(),
       url: null,
       selectedFile: null,
+      disabled: true,
     }
   },
+
   computed: {
-    ...mapState(['currentUser'])
+    ...mapState([
+        'currentUser',
+        'selectedCafe',
+      ]),
+    ...mapGetters(['isLoggedIn']),
   },
+
   methods: {
     ...mapActions(['uploadImage']),
     onFileChange(e) {
-      this.selectedFile = e
-
-      this.url = URL.createObjectURL(this.selectedFile)
-
-      this.formData.append("image", this.selectedFile, this.selectedFile.name)
+      if (!e) {
+        this.url = null
+      } else {
+        this.selectedFile = e
+        this.url = URL.createObjectURL(this.selectedFile)
+        if (this.formData.get("image")) {
+          this.formData.delete("image")
+          this.formData.set("image", this.selectedFile, this.selectedFile.name)
+        } else {
+          this.formData.append("image", this.selectedFile, this.selectedFile.name)
+        }
+      }
     },
-  }
+    checkContents(value) {
+      if (!value) {
+        return '내용을 입력해주세요.'
+      } else if (this.postList.contents && this.url) {
+        this.disabled = false
+      }
+    },
+    checkImage(value) {
+      if (!value) {
+        return '사진을 등록해주세요.'
+      } else if (this.url && this.postList.contents) {
+        this.disabled = false
+      }
+    },
+  },
+
+  created() {
+    if (!this.isLoggedIn) {
+      this.$router.replace({ name: 'Login'})
+    }
+  }, 
 }
 </script>
 
