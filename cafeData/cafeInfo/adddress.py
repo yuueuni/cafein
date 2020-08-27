@@ -29,7 +29,7 @@ try:
             address = row[3]
             url = 'https://dapi.kakao.com/v2/local/search/address.json?&query=' + address
             result = requests.get(urlparse(url).geturl(),
-                                  headers={'Authorization': 'KakaoAK c5ebfd0df35325313f5b4cf096579e26'}).json()
+                                  headers={'Authorization': 'KakaoAK REST_API_KEY'}).json()
 
             if len(result['documents']) != 0:
                 match_first = result['documents'][0]['address']
