@@ -15,7 +15,7 @@ import time
 
 
 # db connection
-conn = pymysql.connect(host='i3a203.p.ssafy.io', user='root', password='cafepeopleA203', db='cafeproject', charset='utf8')
+conn = pymysql.connect(host='i3a203.p.ssafy.io', user='root', password='password', db='dbName', charset='utf8')
 try:
     with conn.cursor() as curs:
         sql = "SELECT * FROM cafe ORDER BY cafeno"
