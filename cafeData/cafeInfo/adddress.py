@@ -3,16 +3,6 @@ from urllib.parse import urlparse
 import pymysql
 import time
 
-# address = '서울 종로구 평동 233 3106호'
-# url = 'https://dapi.kakao.com/v2/local/search/address.json?&query=' + address
-# result = requests.get(urlparse(url).geturl(),
-#                       headers={'Authorization': 'KakaoAK c5ebfd0df35325313f5b4cf096579e26'}).json()
-#
-# match_first = result['documents'][0]['address']
-# lat = float(match_first['y'])
-# lng = float(match_first['x'])
-# print(lat, lng)  # 위도(lat) 경도(long)
-
 
 # db connection
 conn = pymysql.connect(host='i3a203.p.ssafy.io', user='root', password='password', db='dbName', charset='utf8')
